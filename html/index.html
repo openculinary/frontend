@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="icon" href="data:;base64,=">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-table.min.css">
+    <link rel="stylesheet" href="css/bootstrap-tagsinput.css">
+    <link rel="stylesheet" href="css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="css/reciperadar.css">
+    <title>RecipeRadar</title>
+  </head>
+  <body>
+    <div class="container pt-3">
+      <div class="card-deck mb-3">
+        <div class="card mb-1 box-shadow">
+          <div class="card-header">
+	    <h5 class="my-0 font-weight-normal"><em>RecipeRadar</em></h4>
+          </div>
+          <div class="card-body">
+		  Show me recipes to prepare <select multiple data-role="tagsinput" id="course"><option value="lunch">lunch</option></select>
+	    <br />
+	    <br />
+	    <ul>
+	      <li>containing ... <select multiple data-role="tagsinput" id="include"></select></li>
+	      <li>avoiding ... <select multiple data-role="tagsinput" id="exclude"></select></li>
+            <br />
+            <br />
+            <button id="search" type="button" class="btn btn-primary">Find recipes!</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container pt-3">
+      <table id="recipes" data-show-header="false" data-toggle="table" class="d-none">
+        <thead>
+          <tr>
+            <th data-field="title" data-formatter="titleFormatter">Name</th>
+            <th data-field="image" data-formatter="imageFormatter">Image</th>
+	    <th data-field="time" data-formatter="metadataFormatter">Metadata</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+
+    <div class="modal fade" id="calendarize">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title"></h4>
+          </div>
+          <div class="modal-body">When are you planning to make this meal?</div>
+          <div class="input-group date" id="datetimepicker" data-target-input="nearest">
+            <input type="text" class="form-control datetimepicker-input" data-toggle="datetimepicker" data-target="#datetimepicker" />
+	    <div class="input-group-append" data-target="#datetimepicker" data-toggle="datetimepicker"></div>
+          </div>
+          <div class="modal-footer">
+            Email: <input value="jay@jp-hosting.net"></input>
+            <button type="button" class="btn btn-primary">Add to calendar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="page-footer container font-small blue pt-4">
+      <div class="container-fluid text-center text-md-left">
+
+        <div class="row">
+          <div class="col-md-6 mt-md-12 mt-5">
+            <p>Find recipes and plan your culinary calendar with RecipeRadar</p>
+          </div>
+          <hr class="clearfix w-100 d-md-none pb-3" />
+          <div class="col-md-3 mb-md-0 mb-3">
+            <h5 class="text-uppercase">Cuisine</h5>
+            <ul class="list-unstyled">
+              <li>
+                <a href="#!">Thai</a>
+              </li>
+              <li>
+                <a href="#!">Indian</a>
+              </li>
+              <li>
+                <a href="#!">Mediterranean</a>
+              </li>
+              <li>
+                <a href="#!">Japanese</a>
+              </li>
+              <li>
+                <a href="#!">French</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-md-3 mb-md-0 mb-3">
+            <h5 class="text-uppercase">Meals</h5>
+            <ul class="list-unstyled">
+              <li>
+                <a href="#!">Dinner</a>
+              </li>
+              <li>
+                <a href="#!">Breakfast</a>
+              </li>
+              <li>
+                <a href="#!">Dessert</a>
+              </li>
+              <li>
+                <a href="#!">Lunch</a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="footer-copyright text-center py-3">© 2019 Copyright:
+        <a href="https://www.reciperadar.com">reciperadar.com</a>
+      </div>
+
+    </footer>
+
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/bootstrap-table.min.js"></script>
+    <script src="js/bootstrap-tagsinput.min.js"></script>
+    <script src="js/bootstrap3-typeahead.min.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <script>
+function bindsuggestions(element, url) {
+  $(element).tagsinput({
+    allowDuplicates: false,
+    freeInput: false,
+    maxTags: 5,
+    typeahead: {
+      source: function(query, process) {
+        if (query.length < 3) return true;
+        return $.getJSON(url + '?pre=' + query);
+      },
+      afterSelect: function() {
+        this.$element[0].value = '';
+      },
+      sorter: function (item) { return item; }
+    }
+  });
+}
+
+bindsuggestions('#course', 'api/courses');
+bindsuggestions('#include', 'api/ingredients');
+bindsuggestions('#exclude', 'api/ingredients');
+
+function titleFormatter(value, row, index) {
+  return '<a href="' + row.url + '">' + row.title + '</a>';
+}
+
+function imageFormatter(value, row, index) {
+  var matchHtml = '';
+  row.matches.forEach(function(match) {
+    matchHtml += '<span class="tag badge badge-info">' + match + '</span> ';
+  });
+  $('#exclude').val().forEach(function(exclude) {
+    matchHtml += '<span class="tag badge badge-info" style="background-color: maroon; float: right;">no: ' + exclude + '</span> ';
+  });
+  return '<img style="max-width: 256px" src="' + value + '"><hr />' + matchHtml;
+}
+
+function metadataFormatter(value, row, index) {
+  var duration = moment.duration(value);
+  return `
+<table style="font-size: 12px">
+  <tr><th>time</th><td>` + duration.as('minutes') + ` mins</td></tr>
+  <tr><th>difficulty</th><td><span class="dot" style="background-color: #bfb"></span> easy</td></tr>
+  <tr><th>calories / pers</th><td><span class="dot" style="background-color: #ff8"></span> 750</td></tr>
+</table>
+<br />
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#calendarize">Add to calendar</button>
+`;
+}
+
+$('#search').on('click', function (e) {
+  var params = {
+    include: $('#include').val(),
+    exclude: $('#exclude').val()
+  };
+  $('#recipes').removeClass('d-none');
+  $('#recipes').bootstrapTable('refresh', {
+    url: '/api/recipes?' + $.param(params)
+  });
+});
+
+$('#recipes').on('DOMNodeInserted', function (e) {
+  $(e.target).find('img').on('error', function () {
+    $(e.target).css("display", "none");
+  });
+});
+
+$('#datetimepicker').datetimepicker({
+  minDate: moment().format('YYYY-MM-DD'),
+  defaultDate: moment().format('YYYY-MM-DD'),
+  format: 'YYYY-MM-DD'
+});
+    </script>
+  </body>
+</html>
