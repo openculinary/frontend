@@ -7,6 +7,7 @@ wget -qO - https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key-
 echo 'deb http://apt.kubernetes.io/ kubernetes-xenial main' | sudo tee /etc/apt/sources.list.d/kubernetes.list
 sudo apt install \
   cri-o-1.15 \
+  flannel \
   kubeadm
 ```
 
@@ -19,7 +20,12 @@ cgroup_manager = "cgroupfs"
 
 ## Initialize a kubernetes cluster
 ```
-sudo kubeadm init --apiserver-advertise-address=192.168.100.1
+sudo kubeadm init --apiserver-advertise-address=192.168.100.1 --pod-network-cidr=10.244.0.0/16
+```
+
+## Configure pod networking
+```
+KUBECONFIG=/etc/kubernetes/admin.conf sudo kubectl apply -f kube-flannel.yml
 ```
 
 ## Configure kubectl user access
