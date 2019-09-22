@@ -23,11 +23,6 @@ cgroup_manager = "cgroupfs"
 sudo kubeadm init --apiserver-advertise-address=192.168.100.1 --pod-network-cidr=10.244.0.0/16
 ```
 
-## Configure pod networking
-```
-KUBECONFIG=/etc/kubernetes/admin.conf sudo kubectl apply -f kube-flannel.yml
-```
-
 ## Configure kubectl user access
 ```
 mkdir -p ~/.kube/
@@ -35,9 +30,14 @@ sudo cp /etc/kubernetes/admin.conf ~/.kube/config
 sudo chown $(id -u):$(id -g) ~/.kube/config
 ```
 
+## Configure pod networking
+```
+kubectl apply -f kube-flannel.yml
+```
+
 # Allow scheduling of workloads on master
 ```
-KUBECONFIG=/etc/kubernetes/admin.conf sudo kubectl taint nodes point node-role.kubernetes.io/master:NoSchedule-
+kubectl taint nodes point node-role.kubernetes.io/master:NoSchedule-
 ```
 
 ## Create a frontend pod
