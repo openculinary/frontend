@@ -35,6 +35,11 @@ sudo cp /etc/kubernetes/admin.conf ~/.kube/config
 sudo chown $(id -u):$(id -g) ~/.kube/config
 ```
 
+# Allow scheduling of workloads on master
+```
+KUBECONFIG=/etc/kubernetes/admin.conf sudo kubectl taint nodes point node-role.kubernetes.io/master:NoSchedule-
+```
+
 ## Create a frontend pod
 ```
 kubectl create -f frontend.yml
