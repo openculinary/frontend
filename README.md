@@ -41,7 +41,8 @@ kubectl taint nodes point node-role.kubernetes.io/master:NoSchedule-
 kubectl label nodes point application=frontend
 ```
 
-## Create a frontend pod
+## Create a frontend pod and expose the application on localhost port 8080
 ```
 kubectl create -f frontend.yml
+kubectl port-forward pod/frontend 8080:80
 ```
