@@ -35,9 +35,10 @@ sudo chown $(id -u):$(id -g) ~/.kube/config
 kubectl apply -f kube-flannel.yml
 ```
 
-# Allow scheduling of workloads on master
+# Allow scheduling of application workloads on master
 ```
 kubectl taint nodes point node-role.kubernetes.io/master:NoSchedule-
+kubectl label nodes point application=frontend
 ```
 
 ## Create a frontend pod
