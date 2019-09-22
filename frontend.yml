@@ -7,5 +7,6 @@ spec:
     - command:
       image: localhost/frontend
       name: frontend
+      imagePullPolicy: Never
   nodeSelector:
     application: frontend
