@@ -9,4 +9,4 @@ spec:
       name: frontend
       imagePullPolicy: Never
   nodeSelector:
-    application: frontend
+    app: frontend

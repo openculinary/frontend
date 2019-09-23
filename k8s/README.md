@@ -38,7 +38,7 @@ kubectl apply -f calico.yaml
 # Allow scheduling of application workloads on master
 ```
 kubectl taint nodes point node-role.kubernetes.io/master:NoSchedule-
-kubectl label nodes point application=frontend
+kubectl label nodes point app=frontend
 ```
 
 ## Create a frontend pod and expose the application on localhost port 8080
