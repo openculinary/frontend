@@ -20,7 +20,7 @@ cgroup_manager = "cgroupfs"
 
 ## Initialize a kubernetes cluster
 ```
-sudo kubeadm init --apiserver-advertise-address=192.168.100.1 --pod-network-cidr=10.244.0.0/16
+sudo kubeadm init --apiserver-advertise-address=192.168.100.1 --pod-network-cidr=192.168.100.0/24
 ```
 
 ## Configure kubectl user access
@@ -32,7 +32,7 @@ sudo chown $(id -u):$(id -g) ~/.kube/config
 
 ## Configure pod networking
 ```
-kubectl apply -f kube-flannel.yml
+kubectl apply -f calico.yaml
 ```
 
 # Allow scheduling of application workloads on master
