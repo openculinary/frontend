@@ -1,0 +1,8 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: frontend-ingress
+spec:
+  backend:
+    serviceName: frontend-service
+    servicePort: 80
