@@ -30,9 +30,11 @@ sudo cp /etc/kubernetes/admin.conf ~/.kube/config
 sudo chown $(id -u):$(id -g) ~/.kube/config
 ```
 
-## Configure pod networking
+## Configure pod networking and ingress
 ```
-kubectl apply -f calico.yaml
+kubectl apply -f cni/calico.yaml
+kubectl apply -f ingress/nginx-ingress-controller.yaml
+kubectl apply -f ingress/nginx-ingress-service.yaml
 ```
 
 # Allow scheduling of application workloads on master
@@ -41,8 +43,9 @@ kubectl taint nodes point node-role.kubernetes.io/master:NoSchedule-
 kubectl label nodes point app=frontend
 ```
 
-## Create a frontend pod and expose the application on localhost port 8080
+## Deploy the application
 ```
-kubectl create -f frontend.yml
-kubectl port-forward pod/frontend 8080:80
+kubectl create -f frontend-deployment.yml
+kubectl create -f frontend-service.yml
+kubectl create -f frontend-ingress.yml
 ```
