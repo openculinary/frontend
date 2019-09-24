@@ -9,7 +9,7 @@ spec:
         app: frontend
     spec:
       containers:
-      - image: localhost/frontend
+      - image: registry.gitlab.com/openculinary/frontend
         imagePullPolicy: Never
         name: frontend
         ports:
