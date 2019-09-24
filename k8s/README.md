@@ -50,3 +50,9 @@ kubectl create -f frontend-service.yml
 kubectl create -f frontend-ingress.yml
 kubectl set image deployment/frontend-deployment frontend=localhost/frontend:$(git rev-parse --short HEAD)
 ```
+
+## Make a smoke test request to the application
+```
+PORT=$(kubectl -n ingress-nginx get svc --no-headers -o custom-columns=port:spec.ports[*].nodePort)
+curl -H 'Host: frontend' localhost:${PORT}
+```
