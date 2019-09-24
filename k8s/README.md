@@ -48,4 +48,5 @@ kubectl label nodes point app=frontend
 kubectl create -f frontend-deployment.yml
 kubectl create -f frontend-service.yml
 kubectl create -f frontend-ingress.yml
+kubectl set image deployment/frontend-deployment frontend=localhost/frontend:$(git rev-parse --short HEAD)
 ```
