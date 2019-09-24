@@ -3,8 +3,14 @@ kind: Service
 metadata:
   name: ingress-nginx
   namespace: ingress-nginx
+  labels:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
 spec:
   type: NodePort
   ports:
     - name: http
       port: 80
+  selector:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
