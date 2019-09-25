@@ -1,5 +1,5 @@
 IMAGE_NAME='registry.gitlab.com/openculinary/frontend'
-IMAGE_COMMIT=${CI_COMMIT_SHORT_SHA:=$(git rev-parse --short HEAD)}
+IMAGE_COMMIT=$(git rev-parse --short HEAD)
 
 if [ -n "${GITLAB_USER_ID}" ]; then
     # Override the default 'overlay' storage driver, which fails GitLab builds
