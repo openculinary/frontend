@@ -40,7 +40,6 @@
 }
 #meal-planner .recipe span[data-role="remove"] {
   visibility: hidden;
-  float: right;
   vertical-align: middle;
   font-weight: bold;
 }

@@ -65,12 +65,11 @@ function recipeElement(recipe) {
   remove.on('click', removeRecipeFromShoppingList);
   remove.on('click', removeRecipeFromMealPlan);
 
+  var link = $('<a />', {'class': 'remove fa fa-link', 'href': `#search&action=view&id=${recipe.id}`});
+
   var title = $('<span />', {
     'class': 'tag badge badge-info',
-    'html': $('<a />', {
-      'text': recipe.title,
-      'href': `#search&action=view&id=${recipe.id}`
-    })
+    'text': recipe.title
   });
   var cloneRemove = $('<span />', {
     'click': removeMealFromMealPlan,
@@ -82,6 +81,7 @@ function recipeElement(recipe) {
     'data-title': recipe.title
   });
 
+  link.appendTo(item);
   remove.appendTo(item);
   cloneRemove.appendTo(title);
   title.appendTo(item);

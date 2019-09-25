@@ -9,6 +9,7 @@ function loadMealPlan() {
 function filterMealPlan(mealPlan) {
   var startDate = defaultDate();
   $.each(mealPlan, function(date) {
+    if (date === 'undefined') delete mealPlan[date];
     if (moment(date).isBefore(startDate, 'day')) delete mealPlan[date];
   });
 }
@@ -67,6 +68,7 @@ function renderMealPlan(mealPlan) {
       group: {
         name: 'meal-planner'
       },
+      delay: 250,
       onEnd: endHandler
     });
   });
@@ -129,12 +131,13 @@ function endHandler(evt) {
   }
 
   var toRow = $(evt.to).parents('tr');
-  var date = toRow.data('date');
+  if (toRow.length) {
+    var date = toRow.data('date');
 
-  if (!(date in mealPlan)) mealPlan[date] = [];
-  mealPlan[date].push(recipe);
-
-  storeMealPlan(mealPlan);
+    if (!(date in mealPlan)) mealPlan[date] = [];
+    mealPlan[date].push(recipe);
+    storeMealPlan(mealPlan);
+  }
 }
 
 $(function() {
