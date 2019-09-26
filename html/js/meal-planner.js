@@ -148,6 +148,7 @@ $(function() {
         pull: 'clone',
         put: false
       },
+      delay: 250,
       sort: false,
       onClone: cloneHandler,
       onEnd: endHandler
