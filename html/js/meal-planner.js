@@ -68,7 +68,7 @@ function renderMealPlan(mealPlan) {
       group: {
         name: 'meal-planner'
       },
-      delay: 250,
+      delay: 100,
       onEnd: endHandler
     });
   });
@@ -148,7 +148,7 @@ $(function() {
         pull: 'clone',
         put: false
       },
-      delay: 250,
+      delay: 100,
       sort: false,
       onClone: cloneHandler,
       onEnd: endHandler
