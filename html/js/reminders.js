@@ -12,17 +12,14 @@ function sendReminder() {
   var url = '/api/shopping-list/reminder?' + $.param({
     'dt': dt,
     'tz': tz,
+    'collaboration-id': getCollaborationId(true),
     'email': [encodeURIComponent(email)]
   });
 
-  var shoppingList = JSON.stringify(loadShoppingList());
-  $.post({
-    url: url,
-    contentType: 'application/json',
-    data: shoppingList
-  })
+  $.post({url: url, contentType: 'application/json'})
     .done(function() {
       $('#reminder').modal('toggle');
+      joinCollaborationSession();
     })
     .fail(function(xhr, status, error) {
       var response = $.parseJSON(xhr.responseText);

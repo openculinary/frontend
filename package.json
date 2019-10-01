@@ -1,0 +1,15 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "frontend",
+  "dependencies": {
+    "peer-base": "git://github.com/jayaddison/peer-base#delta-crdts-with-rwlwwset-id"
+  },
+  "devDependencies": {
+    "browserify": "16.5.0",
+    "uglify-es": "3.3.9"
+  },
+  "scripts": {
+    "build": "npm install; mkdir -p html/vendors/npm; browserify --standalone peer-base node_modules/peer-base/src/index.js | uglifyjs > html/vendors/npm/peer-base.min.js"
+  }
+}

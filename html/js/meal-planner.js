@@ -1,7 +1,5 @@
 function loadMealPlan() {
-  var mealPlanJSON = window.localStorage.getItem('mealPlan');
-  var emptyMealPlanJSON = JSON.stringify({});
-  mealPlan = JSON.parse(mealPlanJSON || emptyMealPlanJSON);
+  var mealPlan = JSON.parse(window.localStorage.getItem('mealPlan')) || {};
   filterMealPlan(mealPlan);
   return mealPlan;
 }
@@ -17,22 +15,6 @@ function filterMealPlan(mealPlan) {
 function storeMealPlan(mealPlan) {
   var mealPlanJSON = JSON.stringify(mealPlan);
   window.localStorage.setItem('mealPlan', mealPlanJSON);
-
-  var recipeCounts = {};
-  $.each(mealPlan, function(date) {
-    mealPlan[date].forEach(function (recipe) {
-      if (!(recipe.id in recipeCounts)) recipeCounts[recipe.id] = 0;
-      recipeCounts[recipe.id]++;
-    });
-  });
-
-  // TODO: Can this code be moved into the shopping-list module?
-  var shoppingList = loadShoppingList();
-  $.each(shoppingList.recipes, function(recipeId) {
-    shoppingList.recipes[recipeId].multiple = recipeCounts[recipeId] || 1;
-  });
-  storeShoppingList(shoppingList);
-  renderShoppingList(shoppingList);
 }
 
 function renderMealPlan(mealPlan) {
@@ -84,6 +66,11 @@ function removeMealFromMealPlan() {
   if (index >= 0) mealPlan[date].splice(index, 1);
   if (!mealPlan[date].length) delete mealPlan[date];
 
+  if (mealPlanCollab) {
+    mealPlanCollab.remove({'hashCode': date});
+    if (date in mealPlan) mealPlanCollab.add({'hashCode': date, 'value': mealPlan[date]});
+  }
+
   storeMealPlan(mealPlan);
   renderMealPlan(mealPlan);
 }
@@ -95,6 +82,11 @@ function removeRecipeFromMealPlan() {
   $.each(mealPlan, function(date) {
     mealPlan[date] = mealPlan[date].filter(mealRecipe => mealRecipe.id != recipe.id);
     if (!mealPlan[date].length) delete mealPlan[date];
+
+    if (mealPlanCollab) {
+      mealPlanCollab.remove({'hashCode': date});
+      if (date in mealPlan) mealPlanCollab.add({'hashCode': date, 'value': mealPlan[date]});
+    }
   });
 
   storeMealPlan(mealPlan);
@@ -128,6 +120,11 @@ function endHandler(evt) {
 
     if (index >= 0) mealPlan[date].splice(index, 1);
     if (!mealPlan[date].length) delete mealPlan[date];
+
+    if (mealPlanCollab) {
+      mealPlanCollab.remove({'hashCode': date});
+      if (date in mealPlan) mealPlanCollab.add({'hashCode': date, 'value': mealPlan[date]});
+    }
   }
 
   var toRow = $(evt.to).parents('tr');
@@ -136,6 +133,12 @@ function endHandler(evt) {
 
     if (!(date in mealPlan)) mealPlan[date] = [];
     mealPlan[date].push(recipe);
+
+    if (mealPlanCollab) {
+      mealPlanCollab.remove({'hashCode': date});
+      mealPlanCollab.add({'hashCode': date, 'value': mealPlan[date]});
+    }
+
     storeMealPlan(mealPlan);
   }
 }
