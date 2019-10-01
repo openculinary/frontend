@@ -28,31 +28,25 @@ function bindShoppingListInput(element) {
 }
 bindShoppingListInput('#shopping-list-entry');
 
-function restoreShoppingList() {
-  var data = $.bbq.getState('shopping-list');
-  if (data) {
-    $.getJSON('api/shopping-list/json.schema', function(schema) {
-      var ajv = new Ajv({removeAdditional: true, useDefaults: true});
-      var validate = ajv.compile(schema.reminder);
-      data = base58.decode(data);
-      data = pako.inflate(data);
-      data = String.fromCharCode.apply(null, data);
-      var shoppingList = JSON.parse(data);
-
-      if (!validate(shoppingList)) return;
-      storeShoppingList(shoppingList);
-      renderShoppingList(shoppingList);
-    });
-  }
-}
-
 function loadShoppingList() {
-  var shoppingListJSON = window.localStorage.getItem('shoppingList');
-  var emptyShoppingListJSON = JSON.stringify({
+  var shoppingList = JSON.parse(window.localStorage.getItem('shoppingList')) || {
     products: {},
     recipes: {}
+  };
+
+  var mealPlan = loadMealPlan();
+  var recipeCounts = {};
+  $.each(mealPlan, function(date) {
+    mealPlan[date].forEach(function (recipe) {
+      if (!(recipe.id in recipeCounts)) recipeCounts[recipe.id] = 0;
+      recipeCounts[recipe.id]++;
+    });
   });
-  return JSON.parse(shoppingListJSON || emptyShoppingListJSON);
+  $.each(shoppingList.recipes, function(recipeId) {
+    shoppingList.recipes[recipeId].multiple = recipeCounts[recipeId] || 1;
+  });
+
+  return shoppingList;
 }
 
 function storeShoppingList(shoppingList) {
@@ -92,6 +86,7 @@ function aggregateUnitQuantities(product) {
   var shoppingList = loadShoppingList();
   var unitQuantities = {};
   $.each(product.recipes, function(recipeId) {
+    if (!(recipeId in shoppingList.recipes)) return;
     var multiple = shoppingList.recipes[recipeId].multiple || 1;
     product.recipes[recipeId].amounts.forEach(function (amount) {
       if (!amount.units) amount.units = '';
@@ -190,6 +185,7 @@ function getProductsByCategory(shoppingList) {
 function renderShoppingList(shoppingList) {
   var recipesHtml = $('#meal-planner .recipes').empty();
   $.each(shoppingList.recipes, function(recipeId) {
+    if (!(recipeId in shoppingList.recipes)) return;
     var recipe = shoppingList.recipes[recipeId];
     recipeElement(recipe).appendTo(recipesHtml);
   });
@@ -225,15 +221,23 @@ function addProductToShoppingList(shoppingList, product, recipeId) {
     }
   }
 
-  if (!recipeId) return;
-  var productRecipes = shoppingList.products[product.singular].recipes;
-  if (!(recipeId in productRecipes)) {
-    productRecipes[recipeId] = {amounts: []};
+  if (recipeId) {
+    var productRecipes = shoppingList.products[product.singular].recipes;
+    if (!(recipeId in productRecipes)) {
+      productRecipes[recipeId] = {amounts: []};
+    }
+    productRecipes[recipeId].amounts.push({
+      quantity: product.quantity,
+      units: product.units
+    });
   }
-  productRecipes[recipeId].amounts.push({
-    quantity: product.quantity,
-    units: product.units
-  });
+
+  if (shoppingListCollab) {
+    shoppingListCollab.add({
+      'hashCode': product.singular,
+      'value': shoppingList.products[product.singular]
+    });
+  }
 }
 
 function addRecipeToShoppingList() {
@@ -252,6 +256,10 @@ function addRecipeToShoppingList() {
   });
   updateRecipeState(recipe.id, shoppingList);
 
+  if (recipeCollab) {
+    recipeCollab.add({'hashCode': recipe.id, 'value': recipe});
+  }
+
   storeShoppingList(shoppingList);
   renderShoppingList(shoppingList);
 
@@ -262,6 +270,10 @@ function removeProductFromShoppingList(shoppingList, product, recipeId) {
   if (recipeId) delete product.recipes[recipeId];
   if (Object.keys(product.recipes).length) return;
   delete shoppingList.products[product.singular];
+
+  if (shoppingListCollab) {
+    shoppingListCollab.remove({'hashCode': product.singular});
+  }
 }
 
 function removeRecipeFromShoppingList() {
@@ -277,6 +289,10 @@ function removeRecipeFromShoppingList() {
     }
   });
   updateRecipeState(recipe.id, shoppingList);
+
+  if (recipeCollab) {
+    recipeCollab.remove({'hashCode': recipe.id});
+  }
 
   storeShoppingList(shoppingList);
   renderShoppingList(shoppingList);
@@ -301,6 +317,11 @@ function toggleProductState(productId) {
     'purchased': 'required'
   };
   product.state = transitions[product.state];
+
+  if (shoppingListCollab) {
+    shoppingListCollab.remove({'hashCode': product.singular});
+    shoppingListCollab.add({'hashCode': product.singular, 'value': product});
+  }
 
   storeShoppingList(shoppingList);
   renderShoppingList(shoppingList);
