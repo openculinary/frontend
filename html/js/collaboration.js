@@ -26,7 +26,7 @@ function handleRecipeChanges(state) {
   updateCollaborationState();
 }
 
-function handleMealPlanChanges(state) {
+function handleMealChanges(state) {
   updateCollaborationState();
 }
 
@@ -35,34 +35,33 @@ function handleShoppingListChanges(state) {
 }
 
 function updateCollaborationState() {
-  var mealPlan = loadMealPlan();
-
-  mealPlan = {}
+  var meals = {}
   mealPlanCollab.value().forEach(function(date) {
-    mealPlan[date.hashCode] = date.value;
+    meals[date.hashCode] = date.value;
   });
 
-  storeMealPlan(mealPlan);
-  renderMealPlan(mealPlan);
+  storeMeals(meals);
+  renderMeals(meals);
 
-  var shoppingList = loadShoppingList();
-
-  shoppingList.products = {};
-  shoppingListCollab.value().forEach(function(product) {
-    shoppingList.products[product.hashCode] = product.value;
+  var products = {};
+  productCollab.value().forEach(function(product) {
+    products[product.hashCode] = product.value;
   });
 
-  shoppingList.recipes = {};
+  storeProducts(products);
+  renderProducts(products);
+
+  var recipes = loadRecipes();
   recipeCollab.value().forEach(function(recipe) {
-    shoppingList.recipes[recipe.hashCode] = recipe.value;
+    recipes[recipe.hashCode] = recipe.value;
   });
 
-  storeShoppingList(shoppingList);
-  renderShoppingList(shoppingList);
+  storeRecipes(recipes);
+  renderRecipes(recipes);
 }
 
 function clearCollaborationState() {
-  if (shoppingListCollab) shoppingListCollab.stop(), shoppingListCollab = null;
+  if (productCollab) productCollab.stop(), productCollab = null;
   if (mealPlanCollab) mealPlanCollab.stop(), mealPlanCollab = null;
   if (recipeCollab) recipeCollab.stop(), recipeCollab = null;
   if (app) app = null;
@@ -73,7 +72,7 @@ function clearCollaborationState() {
   link.on('click', joinCollaborationSession);
 }
 
-var app, recipeCollab, mealPlanCollab, shoppingListCollab;
+var app, recipeCollab, mealPlanCollab, productCollab;
 async function joinCollaborationSession() {
   var link = $('#collaboration-link');
   link.removeClass();
@@ -87,8 +86,8 @@ async function joinCollaborationSession() {
     await app.start();
 
     recipeCollab = await createSet(app, `rs-collab-${collaborationId}`, handleRecipeChanges);
-    mealPlanCollab = await createSet(app, `mp-collab-${collaborationId}`, handleMealPlanChanges);
-    shoppingListCollab = await createSet(app, `sl-collab-${collaborationId}`, handleShoppingListChanges);
+    mealPlanCollab = await createSet(app, `mp-collab-${collaborationId}`, handleMealChanges);
+    productCollab = await createSet(app, `sl-collab-${collaborationId}`, handleShoppingListChanges);
 
     link.removeClass();
     link.addClass('nav-link fa fa-share-alt-square')

@@ -197,7 +197,7 @@ $('#search .results table').on('load-success.bs.table', function() {
   var paginationDetail = $('#search .results div.pagination-detail').empty();
   if ($.bbq.getState('action') === 'search') sortPrompt.appendTo(paginationDetail);
 
-  $(this).find('.metadata button.add-to-shopping-list').on('click', addRecipeToShoppingList);
+  $(this).find('.metadata button.add-to-shopping-list').on('click', addRecipe);
   $(this).find('.metadata button.toggle-directions').on('click', toggleDirections);
   $(this).find('.recipe a').on('click', recipeRedirect);
 });
@@ -206,8 +206,8 @@ $('#search .results table').on('post-body.bs.table', function(data) {
   var data = $(this).bootstrapTable('getData');
   if (!Array.isArray(data)) return;
 
-  var shoppingList = loadShoppingList();
+  var recipes = loadRecipes();
   data.forEach(function (row) {
-    updateRecipeState(row.id, shoppingList);
+    updateRecipeState(row.id, recipes);
   });
 });
