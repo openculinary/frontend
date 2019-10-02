@@ -7,6 +7,21 @@ function getRecipe(el) {
   }
 }
 
+function getProductId(el) {
+  var target = $(el).hasClass('product') ? $(el) : $(el).parents('.product');
+  return target.data('id');
+}
+
+function wrapMutators(rwlwwset) {
+  var fns = ['add', 'remove'];
+  fns.forEach(function(fn) {
+    var origFn = rwlwwset[fn];
+    rwlwwset[fn] = function(...args) {
+      origFn(Date.now(), ...args);
+    };
+  });
+}
+
 function float2rat(x) {
     var tolerance = 1.0E-2;
     var h1=1; var h2=0;

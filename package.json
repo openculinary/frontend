@@ -10,6 +10,6 @@
     "uglify-es": "3.3.9"
   },
   "scripts": {
-    "build": "npm install; mkdir -p html/vendors/npm; browserify --standalone peer-base node_modules/peer-base/src/index.js | uglifyjs > html/vendors/npm/peer-base.min.js"
+    "build": "npm install; mkdir -p html/vendors/npm; browserify --standalone peer-base node_modules/peer-base/src/index.js | uglifyjs > html/vendors/npm/peer-base.min.js; browserify --standalone delta-crdts node_modules/delta-crdts/src/index.js | uglifyjs > html/vendors/npm/delta-crdts.min.js"
   }
 }

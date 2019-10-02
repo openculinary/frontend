@@ -1,22 +1,14 @@
-function loadMeals() {
-  var meals = JSON.parse(window.localStorage.getItem('meals')) || {};
-  filterMeals(meals);
-  return meals;
-}
-
 function filterMeals(meals) {
   var startDate = defaultDate();
   $.each(meals, function(date) {
     if (date === 'undefined') delete meals[date];
     if (moment(date).isBefore(startDate, 'day')) delete meals[date];
   });
+  return meals;
 }
 
-function storeMeals(meals) {
-  window.localStorage.setItem('meals', JSON.stringify(meals));
-}
-
-function renderMeals(meals) {
+function renderMeals() {
+  var meals = filterMeals(storage.meals.load());
   var idxDate = defaultDate();
   var endDate = defaultDate().add(1, 'week');
 
@@ -56,7 +48,7 @@ function renderMeals(meals) {
 }
 
 function removeMeal() {
-  var meals = loadMeals();
+  var meals = storage.meals.load();
   var recipe = getRecipe(this);
 
   var date = $(this).parents('tr').data('date');
@@ -65,34 +57,21 @@ function removeMeal() {
   if (index >= 0) meals[date].splice(index, 1);
   if (!meals[date].length) delete meals[date];
 
-  if (mealPlanCollab) {
-    mealPlanCollab.remove({'hashCode': date});
-    if (date in meals) mealPlanCollab.add({'hashCode': date, 'value': meals[date]});
-  }
-
-  storeMeals(meals);
-  renderMeals(meals);
-
-  var products = loadProducts();
-  renderProducts(products);
+  storage.meals.remove({'hashCode': date});
+  if (date in meals) storage.meals.add({'hashCode': date, 'value': meals[date]});
 }
 
 function removeRecipeFromMeals() {
-  var meals = loadMeals();
+  var meals = storage.meals.load();
   var recipe = getRecipe(this);
 
   $.each(meals, function(date) {
     meals[date] = meals[date].filter(meal => meal.id != recipe.id);
     if (!meals[date].length) delete meals[date];
 
-    if (mealPlanCollab) {
-      mealPlanCollab.remove({'hashCode': date});
-      if (date in meals) mealPlanCollab.add({'hashCode': date, 'value': meals[date]});
-    }
+    storage.meals.remove({'hashCode': date});
+    if (date in meals) storage.meals.add({'hashCode': date, 'value': meals[date]});
   });
-
-  storeMeals(meals);
-  renderMeals(meals);
 }
 
 function cloneHandler(evt) {
@@ -112,7 +91,7 @@ function cloneHandler(evt) {
 }
 
 function endHandler(evt) {
-  var meals = loadMeals();
+  var meals = storage.meals.load();
   var recipe = getRecipe(evt.item);
 
   var fromRow = $(evt.from).parents('tr');
@@ -123,10 +102,8 @@ function endHandler(evt) {
     if (index >= 0) meals[date].splice(index, 1);
     if (!meals[date].length) delete meals[date];
 
-    if (mealPlanCollab) {
-      mealPlanCollab.remove({'hashCode': date});
-      if (date in meals) mealPlanCollab.add({'hashCode': date, 'value': meals[date]});
-    }
+    storage.meals.remove({'hashCode': date});
+    if (date in meals) storage.meals.add({'hashCode': date, 'value': meals[date]});
   }
 
   var toRow = $(evt.to).parents('tr');
@@ -136,15 +113,8 @@ function endHandler(evt) {
     if (!(date in meals)) meals[date] = [];
     meals[date].push(recipe);
 
-    if (mealPlanCollab) {
-      mealPlanCollab.remove({'hashCode': date});
-      mealPlanCollab.add({'hashCode': date, 'value': meals[date]});
-    }
-
-    storeMeals(meals);
-
-    var products = loadProducts();
-    renderProducts(products);
+    storage.meals.remove({'hashCode': date});
+    storage.meals.add({'hashCode': date, 'value': meals[date]});
   }
 }
 
@@ -162,8 +132,9 @@ $(function() {
       onEnd: endHandler
     });
   });
+});
 
-  var meals = loadMeals();
-  storeMeals(meals);
-  renderMeals(meals);
+$(function() {
+  storage.meals.on('state changed', renderMeals);
+  storage.meals.on('state changed', renderProducts);
 });

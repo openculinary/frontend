@@ -206,7 +206,7 @@ $('#search .results table').on('post-body.bs.table', function(data) {
   var data = $(this).bootstrapTable('getData');
   if (!Array.isArray(data)) return;
 
-  var recipes = loadRecipes();
+  var recipes = storage.recipes.load();
   data.forEach(function (row) {
     updateRecipeState(row.id, recipes);
   });
