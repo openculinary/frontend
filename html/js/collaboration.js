@@ -126,6 +126,7 @@ function leaveCollaboration() {
 }
 
 $(function () {
+  leaveCollaboration();
   var collaboration = getCollaboration().then(function(collaboration) {
     if (collaboration) joinCollaboration();
   });
