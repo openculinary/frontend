@@ -1,6 +1,10 @@
-async function createCollaborativeModel(app, model, collaborationId) {
+async function createCollaborativeModel(app, model, collaboration) {
+  var name = `${model}-${collaboration.id}`;
+  var type = 'rwlwwset';
+  var options = {keys: collaboration.keys ? window.peerBase.keys.uriDecode(collaboration.keys) : null};
+
   var localModel = storage[model];
-  var sharedModel = collaboration[model] = (await app.collaborate(`${model}-${collaborationId}`, 'rwlwwset')).shared;
+  var sharedModel = collaborations[model] = (await app.collaborate(name, type, options)).shared;
 
   // Wrap rwlwwset mutation functions; automatically supply the current timestamp
   wrapMutators(sharedModel);
@@ -26,33 +30,58 @@ async function createCollaborativeModel(app, model, collaborationId) {
   sharedModel.addListener(stateChange, sharedModel.receiveState);
 }
 
-function getCollaborationId(createSession) {
-  var fragment = $.bbq.getState('collaborationId');
-  if (fragment) {
-    window.localStorage.setItem('collaborationId', fragment);
-    return fragment;
+async function getCollaboration(create) {
+  var fragmentId = $.bbq.getState('collaborationId');
+  if (fragmentId) {
+    var fragmentKeys = $.bbq.getState('collaborationKeys');
+    return {
+      id: fragmentId,
+      keys: fragmentKeys
+    }
   }
 
-  var local = window.localStorage.getItem('collaborationId');
-  if (local) return local;
+  var localId = window.localStorage.getItem('collaborationId');
+  if (localId) {
+    var localKeys = window.localStorage.getItem('collaborationKeys');
+    return {
+      id: localId,
+      keys: localKeys
+    }
+  }
 
-  if (createSession) return peerBase.generateRandomName();
+  if (create) {
+    var randomId = peerBase.generateRandomName();
+    var randomKeys = window.peerBase.keys.uriEncode(await peerBase.keys.generate());
+    return {
+      id: randomId,
+      keys: randomKeys
+    }
+  }
 }
 
-var app, collaboration = {
+function generateKeys() {
+}
+
+var app, collaborations = {
   recipes: null,
   meals: null,
   products: null,
 };
-async function setupCollaboration(collaborationId) {
-  app = window.peerBase(`app-${collaborationId}`);
+async function setupCollaboration(collaboration) {
+  window.localStorage.setItem('collaborationId', collaboration.id);
+  window.localStorage.setItem('collaborationKeys', collaboration.keys);
+
+  app = window.peerBase(`app-${collaboration.id}`);
   await app.start();
-  $.each(collaboration, async function(model) {
-    createCollaborativeModel(app, model, collaborationId);
+
+  $.each(collaborations, async function(model) {
+    createCollaborativeModel(app, model, collaboration);
   });
 }
 
-function joinCollaborationSession() {
+function joinCollaboration() {
+  if (app) return;
+
   var toggle = $('#collaboration-toggle');
   toggle.removeClass();
   toggle.addClass('nav-link fa fa-spinner fa-spin')
@@ -60,15 +89,15 @@ function joinCollaborationSession() {
 
   $.ajaxSetup({'cache': true});
   $.getScript('vendors/npm/peer-base.min.js', async function() {
-    var collaborationId = getCollaborationId(true);
-    setupCollaboration(collaborationId);
+    var collaboration = await getCollaboration(true);
+    await setupCollaboration(collaboration);
 
     toggle.removeClass();
     toggle.addClass('nav-link fa fa-share-alt-square')
     toggle.css('color', 'lime');
-    toggle.on('click', leaveCollaborationSession);
+    toggle.on('click', leaveCollaboration);
 
-    var href = `#action=join&collaborationId=${collaborationId}`;
+    var href = `#action=join&collaborationId=${collaboration.id}&collaborationKeys=${collaboration.keys}`;
     var link = $('#collaboration-link');
     link.css('color', 'silver');
     link.attr('href', href);
@@ -76,11 +105,11 @@ function joinCollaborationSession() {
   });
 }
 
-function leaveCollaborationSession() {
-  $.each(collaboration, async function(model) {
-    if (!collaboration[model]) return;
-    collaboration[model].stop();
-    delete collaboration[model];
+function leaveCollaboration() {
+  $.each(collaborations, async function(model) {
+    if (!collaborations[model]) return;
+    collaborations[model].stop();
+    delete collaborations[model];
   });
 
   if (app) {;
@@ -90,14 +119,14 @@ function leaveCollaborationSession() {
 
   var toggle = $('#collaboration-toggle');
   toggle.css('color', 'dimgray');
-  toggle.on('click', joinCollaborationSession);
+  toggle.on('click', joinCollaboration);
 
   var link = $('#collaboration-link');
   link.hide();
 }
 
 $(function () {
-  leaveCollaborationSession();
-  var collaborationId = getCollaborationId();
-  if (collaborationId) joinCollaborationSession();
+  var collaboration = getCollaboration().then(function(collaboration) {
+    if (collaboration) joinCollaboration();
+  });
 });

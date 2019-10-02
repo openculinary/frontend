@@ -9,17 +9,19 @@ function sendReminder() {
   var tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
   var email = $('#email').val();
 
+  var collaboration = getCollaboration(true);
   var url = '/api/shopping-list/reminder?' + $.param({
     'dt': dt,
     'tz': tz,
-    'collaboration-id': getCollaborationId(true),
+    'collaboration-id': collaboration.id,
+    'collaboration-keys': collaboration.keys,
     'email': [encodeURIComponent(email)]
   });
 
   $.post({url: url, contentType: 'application/json'})
     .done(function() {
       $('#reminder').modal('toggle');
-      joinCollaborationSession();
+      joinCollaboration();
     })
     .fail(function(xhr, status, error) {
       var response = $.parseJSON(xhr.responseText);
