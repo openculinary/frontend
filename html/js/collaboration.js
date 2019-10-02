@@ -27,12 +27,16 @@ async function createCollaborativeModel(app, model, collaborationId) {
 }
 
 function getCollaborationId(createSession) {
-  var collaborationId;
-  if (!collaborationId) collaborationId = $.bbq.getState('collaborationId');
-  if (!collaborationId) collaborationId = window.localStorage.getItem('collaborationId');
-  if (!collaborationId) collaborationId = createSession ? peerBase.generateRandomName() : null;
-  if (createSession) window.localStorage.setItem('collaborationId', collaborationId);
-  return collaborationId;
+  var fragment = $.bbq.getState('collaborationId');
+  if (fragment) {
+    window.localStorage.setItem('collaborationId', fragment);
+    return fragment;
+  }
+
+  var local = window.localStorage.getItem('collaborationId');
+  if (local) return local;
+
+  if (createSession) return peerBase.generateRandomName();
 }
 
 var app, collaboration = {
@@ -49,22 +53,26 @@ async function setupCollaboration(collaborationId) {
 }
 
 function joinCollaborationSession() {
-  var link = $('#collaboration-link');
-  link.removeClass();
-  link.addClass('nav-link fa fa-spinner fa-spin')
-  link.off('click');
+  var toggle = $('#collaboration-toggle');
+  toggle.removeClass();
+  toggle.addClass('nav-link fa fa-spinner fa-spin')
+  toggle.off('click');
 
   $.ajaxSetup({'cache': true});
   $.getScript('vendors/npm/peer-base.min.js', async function() {
     var collaborationId = getCollaborationId(true);
     setupCollaboration(collaborationId);
 
-    link.removeClass();
-    link.addClass('nav-link fa fa-share-alt-square')
-    link.css('color', 'lime');
-    link.on('click', leaveCollaborationSession);
+    toggle.removeClass();
+    toggle.addClass('nav-link fa fa-share-alt-square')
+    toggle.css('color', 'lime');
+    toggle.on('click', leaveCollaborationSession);
 
-    window.location.href = `#action=join&collaborationId=${collaborationId}`;
+    var href = `#action=join&collaborationId=${collaborationId}`;
+    var link = $('#collaboration-link');
+    link.css('color', 'silver');
+    link.attr('href', href);
+    link.show();
   });
 }
 
@@ -80,10 +88,12 @@ function leaveCollaborationSession() {
     app = null;
   }
 
+  var toggle = $('#collaboration-toggle');
+  toggle.css('color', 'dimgray');
+  toggle.on('click', joinCollaborationSession);
+
   var link = $('#collaboration-link');
-  link.attr('href', null);
-  link.css('color', 'silver');
-  link.on('click', joinCollaborationSession);
+  link.hide();
 }
 
 $(function () {
