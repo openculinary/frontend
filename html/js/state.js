@@ -30,7 +30,7 @@ function loadState() {
 
   var action = $.bbq.getState('action');
   switch (action) {
-    case 'join': joinCollaborationSession(); break;
+    case 'join': joinCollaboration(); break;
     case 'search': executeSearch(); break;
     case 'verified': confirmVerified(); break;
     case 'view': executeView(); break;
