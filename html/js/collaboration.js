@@ -113,6 +113,9 @@ function leaveCollaboration() {
   });
 
   if (app) {;
+    window.localStorage.removeItem('collaborationId');
+    window.localStorage.removeItem('collaborationKeys');
+
     app.stop();
     app = null;
   }
