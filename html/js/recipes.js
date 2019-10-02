@@ -1,25 +1,3 @@
-function loadRecipes() {
-  var recipes = JSON.parse(window.localStorage.getItem('recipes')) || {};
-
-  var meals = loadMeals();
-  var recipeCounts = {};
-  $.each(meals, function(date) {
-    meals[date].forEach(function (recipe) {
-      if (!(recipe.id in recipeCounts)) recipeCounts[recipe.id] = 0;
-      recipeCounts[recipe.id]++;
-    });
-  });
-  $.each(recipes, function(recipeId) {
-    recipes[recipeId].multiple = recipeCounts[recipeId] || 1;
-  });
-
-  return recipes;
-}
-
-function storeRecipes(recipes) {
-  window.localStorage.setItem('recipes', JSON.stringify(recipes));
-}
-
 function recipeElement(recipe) {
   var remove = $('<a />', {'class': 'remove fa fa-trash-alt'});
   remove.on('click', removeRecipe);
@@ -50,7 +28,8 @@ function recipeElement(recipe) {
   return item;
 }
 
-function renderRecipes(recipes) {
+function renderRecipes() {
+  var recipes = storage.recipes.load();
   var recipesHtml = $('#meal-planner .recipes').empty();
   $.each(recipes, function(recipeId) {
     var recipe = recipes[recipeId];
@@ -59,61 +38,42 @@ function renderRecipes(recipes) {
 }
 
 function addRecipe() {
-  var recipes = loadRecipes();
+  var recipes = storage.recipes.load();
 
   var recipe = getRecipe(this);
   recipes[recipe.id] = {
     id: recipe.id,
-    title: recipe.title,
-    multiple: 1
+    title: recipe.title
   };
 
   updateRecipeState(recipe.id, recipes);
 
-  if (recipeCollab) {
-    recipeCollab.add({'hashCode': recipe.id, 'value': recipe});
-  }
+  storage.recipes.add({'hashCode': recipe.id, 'value': recipe});
 
-  storeRecipes(recipes);
-  renderRecipes(recipes);
-
-  var products = loadProducts();
-  $.each(recipe.products, function(productId) {
-    var product = recipe.products[productId];
-    addProduct(products, product, recipe.id);
+  recipe.products.forEach(function (product) {
+    addProduct(product, recipe.id);
   });
-
-  storeProducts(products);
-  renderProducts(products);
 
   gtag('event', 'add_to_cart');
 }
 
 function removeRecipe() {
-  var recipes = loadRecipes();
+  var recipes = storage.recipes.load();
 
   var recipe = getRecipe(this);
   delete recipes[recipe.id];
 
-  var products = loadProducts();
+  var products = storage.products.load();
   $.each(products, function(productId) {
     var product = products[productId];
     if (recipe.id in product.recipes) {
-      removeProduct(products, product, recipe.id);
+      removeProduct(product, recipe.id);
     }
   });
 
-  storeProducts(products);
-  renderProducts(products);
-
   updateRecipeState(recipe.id, recipes);
 
-  if (recipeCollab) {
-    recipeCollab.remove({'hashCode': recipe.id});
-  }
-
-  storeRecipes(recipes);
-  renderRecipes(recipes);
+  storage.recipes.remove({'hashCode': recipe.id});
 }
 
 function updateRecipeState(recipeId, recipes) {
@@ -124,7 +84,6 @@ function updateRecipeState(recipeId, recipes) {
   addButton.toggleClass('btn-outline-secondary', isInShoppingList);
 }
 
-$(function () {
-  var recipes = loadRecipes();
-  renderRecipes(recipes);
+$(function() {
+  storage.recipes.on('state changed', renderRecipes);
 });
