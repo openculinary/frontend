@@ -12,6 +12,7 @@ spec:
       - name: gitlab-registry
       containers:
       - image: registry.gitlab.com/openculinary/frontend
+        imagePullPolicy: IfNotPresent
         name: frontend
         ports:
         - containerPort: 80
