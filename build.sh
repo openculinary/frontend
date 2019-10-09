@@ -10,6 +10,9 @@ if [ -n "${GITLAB_USER_ID}" ]; then
 
     # Workaround from https://major.io for 'overlay.mountopt' option conflict
     sed -i '/^mountopt =.*/d' /etc/containers/storage.conf
+
+    # Authenticate for any privileged operations
+    REGISTRY_AUTH_FILE=${HOME}/auth.json echo "${CI_REGISTRY_PASSWORD}" | buildah login -u "${CI_REGISTRY_USER}" --password-stdin ${CI_REGISTRY}
 fi
 
 container=$(buildah from docker.io/library/nginx:alpine)
@@ -18,6 +21,5 @@ buildah config --port 80 --entrypoint '/usr/sbin/nginx -g "daemon off;"' ${conta
 buildah commit --squash --rm ${container} ${IMAGE_NAME}:${IMAGE_COMMIT}
 
 if [ -n "${GITLAB_USER_ID}" ]; then
-    REGISTRY_AUTH_FILE=${HOME}/auth.json echo "${CI_REGISTRY_PASSWORD}" | buildah login -u "${CI_REGISTRY_USER}" --password-stdin ${CI_REGISTRY}
     buildah push ${IMAGE_NAME}:${IMAGE_COMMIT}
 fi
