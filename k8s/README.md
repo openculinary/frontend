@@ -76,7 +76,6 @@ kubectl apply -f ingress/nginx-ingress-service.yaml
 # Allow scheduling of application workloads on master
 ```
 kubectl taint nodes `hostname` node-role.kubernetes.io/master:NoSchedule-
-kubectl label nodes `hostname` app=frontend
 ```
 
 ## Add read-only credentials to enable pulling new images
