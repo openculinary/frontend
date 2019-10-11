@@ -2,11 +2,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend-deployment
+  labels:
+    app: frontend
 spec:
+  selector:
+    matchLabels:
+      app: crawler
+      role: web
   template:
     metadata:
       labels:
-        app: frontend
+        app: crawler
+        role: web
     spec:
       imagePullSecrets:
       - name: gitlab-registry
@@ -17,6 +24,3 @@ spec:
         ports:
         - containerPort: 80
   replicas: 3
-  selector:
-    matchLabels:
-      app: frontend
