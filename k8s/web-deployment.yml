@@ -7,12 +7,12 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: crawler
+      app: frontend
       role: web
   template:
     metadata:
       labels:
-        app: crawler
+        app: frontend
         role: web
     spec:
       imagePullSecrets:
