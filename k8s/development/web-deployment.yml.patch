@@ -1,0 +1,13 @@
+spec:
+  template:
+    spec:
+      containers:
+      - name: frontend
+        volumeMounts:
+          - name: content
+            readOnly: true
+            mountPath: /usr/share/nginx/html
+      volumes:
+        - name: content
+          persistentVolumeClaim:
+            claimName: frontend-pvc
