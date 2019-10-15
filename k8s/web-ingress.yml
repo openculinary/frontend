@@ -4,7 +4,7 @@ metadata:
   name: frontend-ingress
 spec:
   rules:
-  - host: 'frontend'
+  - host: frontend
     http:
       paths:
       - backend:

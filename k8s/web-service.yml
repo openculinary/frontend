@@ -5,6 +5,7 @@ metadata:
 spec:
   selector:
     app: frontend
+    role: web
   ports:
     - protocol: TCP
       port: 80
