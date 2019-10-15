@@ -11,6 +11,7 @@
 #search .results button,
 #search .results td {
   font-size: 12px;
+  vertical-align: top;
 }
 
 #search .results span.pagination-info {
@@ -38,7 +39,7 @@
   background-color: inherit;
 }
 
-#search .results tr {
+#search .results tr.recipe {
   outline: thin solid rgba(0, 0, 0, 0.125);
 }
 
@@ -47,33 +48,60 @@
   border: none;
 }
 
-#search .results th:first-child,
-#search .results td:first-child {
+#search .results td.sidebar {
   width: 200px;
 }
 
-#search .results .metadata img {
+#search .results .title img {
+  width: 24px;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+#search .results .sidebar img {
   max-width: 192px;
 }
 
-#search .results .metadata span {
+#search .results .sidebar span {
   display: inline-block;
   margin-left: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 }
 
-#search .results .metadata button {
+#search .results .sidebar button {
   width: 192px;
   margin-bottom: 4px;
 }
 
-#search .results .content img {
-  width: 24px;
-  margin-right: 0.5rem;
-  margin-bottom: 0.5rem;
+#search .results .content span.tag.badge {
+  display: inline;
+  white-space: normal;
 }
 
-#search .results .content ul {
-  margin-top: 0.75rem;
+#search .results .content .tabs a {
+  background-color: #f0f0f0;
+  font-size: 0.75rem;
+}
+
+#search .results .content .tabs a.active {
+  background-color: #fafafa;
+  font-weight: bold;
+
+  border-top: solid 1px silver;
+  border-left: solid 1px silver;
+  border-right: solid 1px silver;
+
+  margin-bottom: -1px;
+}
+
+#search .results .content .tab {
+  background-color: #fafafa;
+  padding: 0.75rem;
+
+  border: solid 1px silver;
+}
+
+#search .results .content .tab button {
+  margin-top: 1rem;
 }
