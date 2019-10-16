@@ -222,6 +222,7 @@ function renderRefinement(refinement) {
 }
 
 $('#search .results table').on('load-success.bs.table', function(e, data) {
+  $(`span.positive + div.bootstrap-tagsinput span.tag.badge`).css('background-color', '');
   var refinements = $('#search .refinements');
   refinements.empty();
   data.refinements.forEach(function(refinement) {
