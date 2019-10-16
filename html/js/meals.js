@@ -1,8 +1,10 @@
 function filterMeals(meals) {
   var startDate = defaultDate();
+  var recipes = storage.recipes.load();
   $.each(meals, function(date) {
     if (date === 'undefined') delete meals[date];
     if (moment(date).isBefore(startDate, 'day')) delete meals[date];
+    if (meals[date]) meals[date] = meals[date].filter(meal => meal.id in recipes);
   });
   return meals;
 }
@@ -61,26 +63,12 @@ function removeMeal() {
   if (date in meals) storage.meals.add({'hashCode': date, 'value': meals[date]});
 }
 
-function removeRecipeFromMeals() {
-  var meals = storage.meals.load();
-  var recipe = getRecipe(this);
-
-  $.each(meals, function(date) {
-    meals[date] = meals[date].filter(meal => meal.id != recipe.id);
-    if (!meals[date].length) delete meals[date];
-
-    storage.meals.remove({'hashCode': date});
-    if (date in meals) storage.meals.add({'hashCode': date, 'value': meals[date]});
-  });
-}
-
 function cloneHandler(evt) {
   var elements = [evt.item, evt.clone];
   elements.forEach(function (element) {
     var recipeRemove = $(element).find('a.remove');
     recipeRemove.off('click');
     recipeRemove.on('click', removeRecipe);
-    recipeRemove.on('click', removeRecipeFromMeals);
 
     var mealRemove = $(element).find('span[data-role="remove"]');
     mealRemove.off('click');
