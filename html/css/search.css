@@ -5,6 +5,20 @@
 #search div.prompt span.positive { color: green; }
 #search div.prompt span.negative { color: maroon; }
 
+#search .refinements {
+  background-color: #ffffc0;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+#search .refinements div {
+  font-size: 13px;
+  color: dimgray;
+
+  margin: 0.5rem;
+  margin-left: 2rem;
+}
+
 #search .results a {
   font-size: 1rem;
 }

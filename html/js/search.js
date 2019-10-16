@@ -206,7 +206,29 @@ $('#search .results table').on('page-change.bs.table', function(e, number, size)
   });
 });
 
-$('#search .results table').on('load-success.bs.table', function() {
+function renderRefinement(refinement) {
+  if (refinement == 'match_any') {
+    return $('<div />', {
+        'text': `Couldn't find recipes containining every ingredient - partial matches are displayed.`
+    });
+  }
+  if (refinement.startsWith('removed:')) {
+    var product = refinement.split(':')[1];
+    $(`span.positive + div.bootstrap-tagsinput span.tag.badge:contains('${product}')`).css('background-color', 'silver');
+    return $('<div />', {
+        'text': `Ingredient '${product}' didn't match any recipes and has been removed from the search.  `
+    });
+  }
+}
+
+$('#search .results table').on('load-success.bs.table', function(e, data) {
+  var refinements = $('#search .refinements');
+  refinements.empty();
+  data.refinements.forEach(function(refinement) {
+    refinements.append(renderRefinement(refinement));
+  });
+  refinements.toggleClass('collapse', data.refinements.length == 0);
+
   var sortOptions = [
     {val: 'relevance', text: 'most relevant'},
     {val: 'ingredients', text: 'fewest extras required'},
