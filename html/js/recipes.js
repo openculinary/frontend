@@ -1,31 +1,39 @@
 function recipeElement(recipe) {
-  var remove = $('<a />', {'class': 'remove fa fa-trash-alt'});
-  remove.on('click', removeRecipe);
-
-  // TODO: Make this implicit; reload and filter meal plan after recipe removals
-  remove.on('click', removeRecipeFromMeals);
 
   var link = $('<a />', {'class': 'remove fa fa-link', 'href': `#search&action=view&id=${recipe.id}`});
+  var cloneRemove = $('<span />', {
+    'click': removeMeal,
+    'data-role': 'remove'
+  });
 
   var title = $('<span />', {
     'class': 'tag badge badge-info',
     'text': recipe.title
   });
-  var cloneRemove = $('<span />', {
-    'click': removeMeal,
-    'data-role': 'remove'
+  title.append(cloneRemove);
+
+  var remove = $('<a />', {
+    'class': 'remove fa fa-trash-alt',
+    'style': 'float: right; margin-left: 8px; margin-top: 3px;'
   });
+  remove.on('click', removeRecipe);
+
   var item = $('<div />', {
+    'style': 'float: left'
+  });
+  item.append(link);
+  item.append(title);
+
+  var container = $('<div />', {
     'class': 'recipe',
+    'style': 'clear: both',
     'data-id': recipe.id,
     'data-title': recipe.title
   });
+  container.append(item);
+  container.append(remove);
 
-  link.appendTo(item);
-  remove.appendTo(item);
-  cloneRemove.appendTo(title);
-  title.appendTo(item);
-  return item;
+  return container;
 }
 
 function renderRecipes() {
@@ -85,5 +93,6 @@ function updateRecipeState(recipeId, recipes) {
 }
 
 $(function() {
+  storage.recipes.on('state changed', renderMeals);
   storage.recipes.on('state changed', renderRecipes);
 });

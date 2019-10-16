@@ -5,12 +5,14 @@
 }
 
 #meal-planner .recipes {
+  display: inline-block;
   margin-bottom: 1rem;
   padding: 4px;
 }
 
 #meal-planner .recipe {
   font-size: 13px;
+  user-select: none;
 }
 
 #meal-planner a {
