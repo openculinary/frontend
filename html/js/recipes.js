@@ -1,5 +1,4 @@
 function recipeElement(recipe) {
-
   var link = $('<a />', {'class': 'remove fa fa-link', 'href': `#search&action=view&id=${recipe.id}`});
   var cloneRemove = $('<span />', {
     'click': removeMeal,
@@ -27,8 +26,7 @@ function recipeElement(recipe) {
   var container = $('<div />', {
     'class': 'recipe',
     'style': 'clear: both',
-    'data-id': recipe.id,
-    'data-title': recipe.title
+    'data-id': recipe.id
   });
   container.append(item);
   container.append(remove);
@@ -46,17 +44,10 @@ function renderRecipes() {
 }
 
 function addRecipe() {
-  var recipes = storage.recipes.load();
-
   var recipe = getRecipe(this);
-  recipes[recipe.id] = {
-    id: recipe.id,
-    title: recipe.title
-  };
-
-  updateRecipeState(recipe.id, recipes);
 
   storage.recipes.add({'hashCode': recipe.id, 'value': recipe});
+  updateRecipeState(recipe.id);
 
   recipe.products.forEach(function (product) {
     addProduct(product, recipe.id);
@@ -66,10 +57,7 @@ function addRecipe() {
 }
 
 function removeRecipe() {
-  var recipes = storage.recipes.load();
-
   var recipe = getRecipe(this);
-  delete recipes[recipe.id];
 
   var products = storage.products.load();
   $.each(products, function(productId) {
@@ -79,17 +67,8 @@ function removeRecipe() {
     }
   });
 
-  updateRecipeState(recipe.id, recipes);
-
   storage.recipes.remove({'hashCode': recipe.id});
-}
-
-function updateRecipeState(recipeId, recipes) {
-  var addButton = $(`#search .results .recipe[data-id="${recipeId}"] button.add-to-shopping-list`);
-  var isInShoppingList = recipeId in recipes;
-  addButton.prop('disabled', isInShoppingList);
-  addButton.toggleClass('btn-outline-primary', !isInShoppingList);
-  addButton.toggleClass('btn-outline-secondary', isInShoppingList);
+  updateRecipeState(recipe.id);
 }
 
 $(function() {

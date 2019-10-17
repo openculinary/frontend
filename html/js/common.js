@@ -1,10 +1,38 @@
-function getRecipe(el) {
-  var target = $(el).hasClass('recipe') ? $(el) : $(el).parents('.recipe');
-  return {
-    id: target.data('id'),
-    title: target.data('title'),
-    products: target.data('products')
+function getRecipeById(recipeId) {
+  var recipes = storage.recipes.load();
+  var starred = storage.starred.load();
+  var recipe = recipes[recipeId] || starred[recipeId];
+  if (!recipe || !recipe.ingredients) {
+    $.ajax({
+      async: false,
+      url: `api/recipes/${recipeId}/view`,
+      success: function(data) {
+        if (data.total === 1) recipe = data.results[0];
+      }
+    });
   }
+  return recipe;
+}
+
+function getRecipe(el) {
+  var recipe = null;
+
+  var target = $(el).hasClass('recipe') ? $(el) : $(el).parents('.recipe');
+  var recipeList = $(target).parents('div.recipe-list table');
+  if (recipeList.length) {
+    var index = target.data('index');
+    var data = $(recipeList).bootstrapTable('getData');
+    recipe = data[index];
+  } else {
+    var recipeId = target.data('id');
+    recipe = getRecipeById(recipeId);
+  }
+
+  if (!recipe.products) {
+    recipe.products = getRecipeProducts(recipe);
+  }
+
+  return recipe;
 }
 
 function getProductId(el) {

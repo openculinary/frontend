@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="vendors/tablesaw/tablesaw.stackonly.css">
     <link rel="stylesheet" href="vendors/tempusdominus/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="css/ui/recipe-list.css">
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/search.css">
     <link rel="stylesheet" href="css/meal-planner.css">
@@ -34,6 +35,9 @@
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link active" href="#search">Recipe Search</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#starred-recipes">Starred Recipes</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#meal-planner">Meal Planner</a>
@@ -76,7 +80,7 @@
         </div>
       </div>
       <div class="refinements collapse"></div>
-      <div class="results collapse">
+      <div class="recipe-list collapse">
         <table
           class="tablesaw tablesaw-stack"
           data-tablesaw-mode="stack"
@@ -88,6 +92,26 @@
           data-row-attributes="rowAttributes"
           data-smart=display="true"
           data-side-pagination="server"
+          data-toggle="table">
+          <thead hidden>
+            <tr>
+              <th class="align-top" data-formatter="recipeFormatter" />
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+
+    <div id="starred-recipes" class="container collapse">
+      <div class="recipe-list">
+        <table
+          class="tablesaw tablesaw-stack"
+          data-tablesaw-mode="stack"
+          data-pagination="true"
+          data-pagination-loop="false"
+          data-pagination-v-align="both"
+          data-row-attributes="rowAttributes"
+          data-smart=display="true"
           data-toggle="table">
           <thead hidden>
             <tr>
@@ -169,6 +193,7 @@
     <script src="vendors/tablesaw/tablesaw.stackonly.jquery.js"></script>
     <script src="vendors/tempusdominus/tempusdominus-bootstrap-4.min.js"></script>
 
+    <script src="js/ui/recipe-list.js"></script>
     <script src="js/common.js"></script>
     <script src="js/storage.js"></script>
     <script src="js/autosuggest.js"></script>
@@ -177,6 +202,7 @@
     <script src="js/feedback.js"></script>
     <script src="js/reminders.js"></script>
     <script src="js/search.js"></script>
+    <script src="js/starred.js"></script>
     <script src="js/meals.js"></script>
     <script src="js/products.js"></script>
     <script src="js/recipes.js"></script>
