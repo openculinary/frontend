@@ -82,6 +82,7 @@ function renderRefinement(refinement) {
 function refinementHandler(data) {
   var refinements = $('#search .refinements');
   refinements.empty();
+  data.refinements = data.refinements || [];
   data.refinements.forEach(function(refinement) {
     refinements.append(renderRefinement(refinement));
   });
