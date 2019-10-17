@@ -1,5 +1,6 @@
 var storage = {
   recipes: null,
+  starred: null,
   meals: null,
   products: null,
 };

@@ -1,0 +1,115 @@
+div.recipe-list button,
+div.recipe-list td {
+  font-size: 12px;
+  vertical-align: top;
+}
+
+div.recipe-list span.pagination-info {
+  display: none !important;
+}
+
+div.recipe-list span.page-list {
+  display: none !important;
+}
+
+div.recipe-list li.page-item a {
+  z-index: 0;
+}
+
+div.recipe-list .fixed-table-body {
+  padding: 1px;
+}
+
+div.recipe-list table {
+  border-collapse: separate;
+  border-spacing: 0 1em;
+}
+
+div.recipe-list tr:hover {
+  background-color: inherit;
+}
+
+div.recipe-list tr.recipe {
+  outline: thin solid rgba(0, 0, 0, 0.125);
+}
+
+div.recipe-list th,
+div.recipe-list td {
+  border: none;
+}
+
+div.recipe-list td.sidebar {
+  width: 200px;
+}
+
+div.recipe-list .title {
+  float: left;
+}
+
+div.recipe-list .title a {
+  font-size: 1rem;
+}
+
+div.recipe-list .title img {
+  width: 24px;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+div.recipe-list .star {
+  float: right;
+
+  font-size: 1rem;
+}
+
+div.recipe-list .recipe table {
+  clear: both;
+}
+
+div.recipe-list .sidebar img {
+  max-width: 192px;
+}
+
+div.recipe-list .sidebar span {
+  display: inline-block;
+  margin-left: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+div.recipe-list .sidebar button {
+  width: 192px;
+  margin-bottom: 4px;
+}
+
+div.recipe-list .content span.tag.badge {
+  display: inline;
+  white-space: normal;
+}
+
+div.recipe-list .content .tabs a {
+  background-color: #f0f0f0;
+  font-size: 0.75rem;
+}
+
+div.recipe-list .content .tabs a.active {
+  background-color: #fafafa;
+  font-weight: bold;
+
+  border-top: solid 1px silver;
+  border-left: solid 1px silver;
+  border-right: solid 1px silver;
+
+  margin-bottom: -1px;
+}
+
+div.recipe-list .content .tab {
+  background-color: #fafafa;
+  padding: 0.75rem;
+
+  border: solid 1px silver;
+}
+
+div.recipe-list .content .tab button {
+  margin-top: 1rem;
+}
