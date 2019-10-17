@@ -223,12 +223,14 @@ function renderRefinement(refinement) {
 
 $('#search .results table').on('load-success.bs.table', function(e, data) {
   $(`span.positive + div.bootstrap-tagsinput span.tag.badge`).css('background-color', '');
-  var refinements = $('#search .refinements');
-  refinements.empty();
-  data.refinements.forEach(function(refinement) {
-    refinements.append(renderRefinement(refinement));
-  });
-  refinements.toggleClass('collapse', data.refinements.length == 0);
+  if (data && data.refinements) {
+    var refinements = $('#search .refinements');
+    refinements.empty();
+    data.refinements.forEach(function(refinement) {
+      refinements.append(renderRefinement(refinement));
+    });
+    refinements.toggleClass('collapse', data.refinements.length == 0);
+  }
 
   var sortOptions = [
     {val: 'relevance', text: 'most relevant'},
