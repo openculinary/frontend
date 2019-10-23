@@ -79,6 +79,15 @@ function renderRefinement(refinement) {
   }
 }
 
+function emptyResultHandler(data) {
+  if (data.total !== 0) return;
+  var message = `Didn't find any recipes matching your search.  Send us a link via the feedback form if you know of any!`;
+  if (data.authority === 'local') {
+    message = `Couldn't reach the recipe search service.  This could be due to a connection problem on your device, or our service could be experiencing problems.`;
+  }
+  $('#search .recipe-list table').bootstrapTable('updateFormatText', 'NoMatches', message);
+}
+
 function refinementHandler(data) {
   var refinements = $('#search .refinements');
   refinements.empty();
@@ -131,6 +140,7 @@ function addSorting() {
 
 $(function() {
   initTable('#search');
+  bindLoadEvent('#search', emptyResultHandler);
   bindLoadEvent('#search', refinementHandler);
   bindLoadEvent('#search', addSorting);
 });

@@ -13,6 +13,7 @@
     <meta name="description" content="Find recipes and plan your weekly meals with RecipeRadar" />
     <meta name="theme-color" content="#07f" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="apple-touch-icon" href="images/icons/manifest-icon-192.png">
     <link rel="icon" href="data:;base64,=">
     <link rel="manifest" href="reciperadar.webmanifest">
     <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
@@ -207,6 +208,8 @@
     <script src="js/products.js"></script>
     <script src="js/recipes.js"></script>
     <script src="js/state.js"></script>
+    <script src="js/service-worker.js"></script>
     <script>$(populateStorage)</script>
+    <script>$(registerServiceWorker)</script>
   </body>
 </html>
