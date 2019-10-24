@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <link rel="preconnect" href="https://www.google-analytics.com">
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146803556-1"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -16,18 +17,20 @@
     <link rel="apple-touch-icon" href="images/icons/manifest-icon-192.png">
     <link rel="icon" href="data:;base64,=">
     <link rel="manifest" href="reciperadar.webmanifest">
-    <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="vendors/bootstrap-table/bootstrap-table.min.css">
-    <link rel="stylesheet" href="vendors/bootstrap-tagsinput/bootstrap-tagsinput.css">
-    <link rel="stylesheet" href="vendors/feedback/feedback.css">
-    <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="vendors/tablesaw/tablesaw.stackonly.css">
-    <link rel="stylesheet" href="vendors/tempusdominus/tempusdominus-bootstrap-4.min.css">
-    <link rel="stylesheet" href="css/ui/recipe-list.css">
-    <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/search.css">
-    <link rel="stylesheet" href="css/meal-planner.css">
-    <link rel="stylesheet" href="css/shopping-list.css">
+    <link rel="stylesheet" rel="preload" as="style" href="vendors/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" rel="preload" as="style" href="vendors/bootstrap-table/bootstrap-table.min.css">
+    <link rel="stylesheet" rel="preload" as="style" href="vendors/bootstrap-tagsinput/bootstrap-tagsinput.css">
+    <link rel="stylesheet" rel="preload" as="style" href="vendors/feedback/feedback.css">
+    <link rel="stylesheet" rel="preload" as="style" href="vendors/fontawesome/css/all.min.css">
+    <link rel="stylesheet" rel="preload" as="style" href="vendors/tablesaw/tablesaw.stackonly.css">
+    <link rel="stylesheet" rel="preload" as="style" href="vendors/tempusdominus/tempusdominus-bootstrap-4.min.css">
+    {{ $recipeList := resources.Get "css/ui/recipe-list.css" -}}
+    {{ $common := resources.Get "css/common.css" -}}
+    {{ $search := resources.Get "css/search.css" -}}
+    {{ $mealPlanner := resources.Get "css/meal-planner.css" -}}
+    {{ $shoppingList := resources.Get "css/shopping-list.css" -}}
+    {{ $style := slice $recipeList $common $search $mealPlanner $shoppingList | resources.Concat "css/reciperadar.css" | minify | fingerprint -}}
+    <link rel="stylesheet" href="{{ $style.RelPermalink -}}">
     <title>RecipeRadar</title>
   </head>
   <body>
@@ -91,7 +94,7 @@
           data-pagination-loop="false"
           data-pagination-v-align="both"
           data-row-attributes="rowAttributes"
-          data-smart=display="true"
+          data-smart-display="true"
           data-side-pagination="server"
           data-toggle="table">
           <thead hidden>
@@ -112,7 +115,7 @@
           data-pagination-loop="false"
           data-pagination-v-align="both"
           data-row-attributes="rowAttributes"
-          data-smart=display="true"
+          data-smart-display="true"
           data-toggle="table">
           <thead hidden>
             <tr>
@@ -144,7 +147,7 @@
             <div class="entry">
               <span class="prompt">&plus;
                 <label>add
-                  <input id="shopping-list-entry" data-role="tagsinput"></input>
+                  <input id="shopping-list-entry" data-role="tagsinput" />
                 </label>
               </span>
             </div>
@@ -169,10 +172,10 @@
           </div>
           <div class="modal-body">
             <p>When would you like a calendar reminder containing this shopping list?</p>
-            <div class="input-group date" id="datetimepicker" />
+            <div class="input-group date" id="datetimepicker"></div>
           </div>
           <div class="modal-footer">
-            Email: <input id="email" type="email" class="form-control" required placeholder="you@example.com"></input>
+            Email: <input id="email" type="email" class="form-control" required placeholder="you@example.com" />
             <button class="btn btn-primary">Add to calendar</button>
           </div>
         </div>
@@ -194,22 +197,27 @@
     <script src="vendors/tablesaw/tablesaw.stackonly.jquery.js"></script>
     <script src="vendors/tempusdominus/tempusdominus-bootstrap-4.min.js"></script>
 
-    <script src="js/ui/recipe-list.js"></script>
-    <script src="js/common.js"></script>
-    <script src="js/storage.js"></script>
-    <script src="js/autosuggest.js"></script>
-    <script src="js/calendar.js"></script>
-    <script src="js/collaboration.js"></script>
-    <script src="js/feedback.js"></script>
-    <script src="js/reminders.js"></script>
-    <script src="js/search.js"></script>
-    <script src="js/starred.js"></script>
-    <script src="js/meals.js"></script>
-    <script src="js/products.js"></script>
-    <script src="js/recipes.js"></script>
-    <script src="js/state.js"></script>
-    <script src="js/service-worker.js"></script>
+    {{ $recipeList := resources.Get "js/ui/recipe-list.js" -}}
+    {{ $common := resources.Get "js/common.js" -}}
+    {{ $storage := resources.Get "js/storage.js" -}}
+    {{ $autosuggest := resources.Get "js/autosuggest.js" -}}
+    {{ $calendar := resources.Get "js/calendar.js" -}}
+    {{ $collaboration := resources.Get "js/collaboration.js" -}}
+    {{ $feedback := resources.Get "js/feedback.js" -}}
+    {{ $reminders := resources.Get "js/reminders.js" -}}
+    {{ $search := resources.Get "js/search.js" -}}
+    {{ $starred := resources.Get "js/starred.js" -}}
+    {{ $meals := resources.Get "js/meals.js" -}}
+    {{ $products := resources.Get "js/products.js" -}}
+    {{ $recipes := resources.Get "js/recipes.js" -}}
+    {{ $state := resources.Get "js/state.js" -}}
+    {{ $script := slice $recipeList $common $storage $autosuggest $calendar $collaboration $feedback $reminders $search $starred $meals $products $recipes $state | resources.Concat "js/reciperadar.js" | minify | fingerprint -}}
+    <script src="{{ $script.RelPermalink -}}"></script>
     <script>$(populateStorage)</script>
+
+    {{ $serviceWorker := resources.Get "js/service-worker.js" -}}
+    {{ $script := slice $serviceWorker | resources.Concat "js/service-worker.js" | minify | fingerprint -}}
+    <script src="{{ $script.RelPermalink -}}"></script>
     <script>$(registerServiceWorker)</script>
   </body>
 </html>
