@@ -16,7 +16,8 @@ if [ -n "${GITLAB_USER_ID}" ]; then
 fi
 
 container=$(buildah from docker.io/library/nginx:alpine)
-buildah copy ${container} 'html' '/usr/share/nginx/html'
+buildah copy ${container} 'etc/nginx/conf.d' '/etc/nginx/conf.d'
+buildah copy ${container} 'public' '/usr/share/nginx/html'
 buildah config --port 80 --entrypoint '/usr/sbin/nginx -g "daemon off;"' ${container}
 buildah commit --squash --rm ${container} ${IMAGE_NAME}:${IMAGE_COMMIT}
 

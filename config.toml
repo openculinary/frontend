@@ -1,0 +1,2 @@
+disableKinds = ["taxonomy", "taxonomyTerm"]
+title = "RecipeRadar"
