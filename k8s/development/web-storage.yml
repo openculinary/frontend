@@ -19,7 +19,7 @@ spec:
   accessModes:
   - ReadOnlyMany
   local:
-    path: REPO_PATH/html
+    path: REPO_PATH/public
   nodeAffinity:
     required:
       nodeSelectorTerms:

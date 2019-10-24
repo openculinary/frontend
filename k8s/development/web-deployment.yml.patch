@@ -4,10 +4,10 @@ spec:
       containers:
       - name: frontend
         volumeMounts:
-          - name: content
+          - name: public
             readOnly: true
             mountPath: /usr/share/nginx/html
       volumes:
-        - name: content
+        - name: public
           persistentVolumeClaim:
             claimName: frontend-pvc
