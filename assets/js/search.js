@@ -27,7 +27,7 @@ function recipeRedirect() {
 
 function pushSearch() {
   var state = {'action': 'search'};
-  ['#include', '#exclude'].forEach(function (element) {
+  ['#include', '#exclude', '#equipment'].forEach(function (element) {
     var fragment = element.replace('#', '');
     var data = $(element).val();
     if (data.length > 0) {
@@ -44,7 +44,8 @@ $('#search button').click($.throttle(1000, true, pushSearch));
 function executeSearch() {
   var params = {
     include: $('#include').val(),
-    exclude: $('#exclude').val()
+    exclude: $('#exclude').val(),
+    equipment: $('#equipment').val(),
   };
   var sortChoice = $.bbq.getState('sort');
   if (sortChoice) params['sort'] = sortChoice;
@@ -143,4 +144,17 @@ $(function() {
   bindLoadEvent('#search', emptyResultHandler);
   bindLoadEvent('#search', refinementHandler);
   bindLoadEvent('#search', addSorting);
+
+  if ($.bbq.getState('exclude') || $.bbq.getState('equipment')) {
+    $('#advanced-search').show();
+  }
+  $('#advanced-toggle a').on('click', function() {
+    if ($('#advanced-search').is(':hidden')) {
+      $('#advanced-toggle .indicator').html('&#9650;');
+      $('#advanced-search').slideDown();
+    } else {
+      $('#advanced-toggle .indicator').html('&#9660;');
+      $('#advanced-search').slideUp();
+    }
+  });
 });

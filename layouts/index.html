@@ -31,7 +31,7 @@
     {{ $shoppingList := resources.Get "css/shopping-list.css" -}}
     {{ $style := slice $recipeList $common $search $mealPlanner $shoppingList | resources.Concat "css/reciperadar.css" | minify | fingerprint -}}
     <link rel="stylesheet" href="{{ $style.RelPermalink -}}">
-    <title>RecipeRadar</title>
+    <title>RecipeRadar - recipe search engine and meal planner</title>
   </head>
   <body>
 
@@ -47,7 +47,7 @@
           <a class="nav-link" href="#meal-planner">Meal Planner</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#shopping-list">Shopping List<span class="notification collapse" /></a>
+          <a class="nav-link" href="#shopping-list">Shopping List<span class="notification collapse"></span></a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
@@ -63,17 +63,27 @@
         <div class="card">
           <form onsubmit="return false">
             <div class="card-body">
-              <div>Show me recipes to prepare</div>
-              <div class="prompt">
-                <label>
-                  <span class="positive">&plus;</span> containing ...
+              <label class="prompt">Hello! - what ingredients would you like to search for?
+                <div class="include entry">
+                  <span class="fa fa-plus-circle"></span>
                   <select id="include" multiple data-role="tagsinput"></select>
-                </label>
+                </div>
+              </label>
+              <div id="advanced-toggle">
+                <a><span class="indicator">&#9660;</span> additional search options</a>
               </div>
-              <div class="prompt">
-                <label>
-                  <span class="negative">&minus;</span> avoiding ...
-                  <select id="exclude" multiple data-role="tagsinput"></select>
+              <div id="advanced-search" class="collapse">
+                <label class="prompt">Are there any ingredients you would <strong>not</strong> like to cook with?
+                  <div class="exclude entry">
+                    <span class="fa fa-minus-circle"></span>
+                    <select id="exclude" multiple data-role="tagsinput"></select>
+                  </div>
+                </label>
+                <label class="prompt">Is there any kitchen equipment you'd like to use?
+                  <div class="equipment entry">
+                    <span class="fa fa-cog"></span>
+                    <select id="equipment" multiple data-role="tagsinput"></select>
+                  </div>
                 </label>
               </div>
             </div>
@@ -99,7 +109,7 @@
           data-toggle="table">
           <thead hidden>
             <tr>
-              <th class="align-top" data-formatter="recipeFormatter" />
+              <th class="align-top" data-formatter="recipeFormatter"></th>
             </tr>
           </thead>
         </table>
@@ -119,7 +129,7 @@
           data-toggle="table">
           <thead hidden>
             <tr>
-              <th class="align-top" data-formatter="recipeFormatter" />
+              <th class="align-top" data-formatter="recipeFormatter"></th>
             </tr>
           </thead>
         </table>

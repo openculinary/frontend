@@ -1,9 +1,28 @@
-#search div.prompt {
+#search .entry {
   margin-top: 1rem;
   margin-left: 2rem;
 }
-#search div.prompt span.positive { color: green; }
-#search div.prompt span.negative { color: maroon; }
+
+#search .include .fa { color: #70f070; }
+#search .exclude .fa { color: #f07070; }
+#search .equipment .fa { color: #7070f0; }
+
+#advanced-toggle {
+  margin-top: 32px;
+  color: #707070;
+}
+
+#advanced-toggle a {
+  font-size: 12px;
+}
+
+#advanced-search {
+  margin-left: 1rem;
+}
+
+#advanced-search .prompt {
+  margin-top: 1rem;
+}
 
 #search .refinements {
   background-color: #ffffc0;
