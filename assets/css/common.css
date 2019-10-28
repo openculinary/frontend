@@ -53,6 +53,11 @@ span.tag.required {
   background:color: #f0f0f0;
 }
 
+/* disable pull-down-to-refresh in chrome */
+body {
+  overscroll-behavior: contain;
+}
+
 /* accessibility overrides: contrast workarounds for Bootstrap */
 body a {
   /* bootstrap: color: #007bff; */
