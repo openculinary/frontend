@@ -1,3 +1,3 @@
-public: assets layouts static
+prebuild:
 	hugo
 	touch public
