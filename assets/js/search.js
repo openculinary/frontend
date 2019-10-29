@@ -53,6 +53,7 @@ function executeSearch() {
     url: '/api/recipes/search?' + $.param(params),
     pageNumber: Number($.bbq.getState('page') || 1)
   });
+  loadPage('search');
   scrollToResults('#search');
   gtag('event', 'search');
 }
