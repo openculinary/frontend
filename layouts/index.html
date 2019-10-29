@@ -17,13 +17,15 @@
     <link rel="apple-touch-icon" href="images/icons/manifest-icon-192.png">
     <link rel="icon" href="data:;base64,=">
     <link rel="manifest" href="reciperadar.webmanifest">
-    <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="vendors/bootstrap-table/bootstrap-table.min.css">
-    <link rel="stylesheet" href="vendors/bootstrap-tagsinput/bootstrap-tagsinput.css">
-    <link rel="stylesheet" href="vendors/feedback/feedback.css">
-    <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="vendors/tablesaw/tablesaw.stackonly.css">
-    <link rel="stylesheet" href="vendors/tempusdominus/tempusdominus-bootstrap-4.min.css">
+    {{ $bootstrap := resources.Get "vendors/bootstrap/bootstrap.min.css" -}}
+    {{ $bootstrapTable := resources.Get "vendors/bootstrap-table/bootstrap-table.min.css" -}}
+    {{ $bootstrapTagsinput := resources.Get "vendors/bootstrap-tagsinput/bootstrap-tagsinput.css" -}}
+    {{ $feedback := resources.Get "vendors/feedback/feedback.css" -}}
+    {{ $fontawesome := resources.Get "vendors/fontawesome/css/all.min.css" -}}
+    {{ $tablesaw := resources.Get "vendors/tablesaw/tablesaw.stackonly.css" -}}
+    {{ $tempusdominus := resources.Get "vendors/tempusdominus/tempusdominus-bootstrap-4.min.css" -}}
+    {{ $vendors := slice $bootstrap $bootstrapTable $bootstrapTagsinput $feedback $fontawesome $tablesaw $tempusdominus | resources.Concat "css/reciperadar.css" | minify | fingerprint -}}
+    <link rel="stylesheet" href="{{ $vendors.RelPermalink -}}">
     {{ $recipeList := resources.Get "css/ui/recipe-list.css" -}}
     {{ $common := resources.Get "css/common.css" -}}
     {{ $search := resources.Get "css/search.css" -}}
@@ -192,20 +194,22 @@
       </div>
     </form>
 
-    <script src="vendors/sortable/sortable.min.js"></script>
-    <script src="vendors/jquery/jquery-3.4.1.min.js"></script>
-    <script src="vendors/jquery/jquery-1.8.3-browser-deprecated.js"></script>
-    <script src="vendors/jquery-bbq/jquery.ba-bbq.min.js"></script>
-    <script src="vendors/jquery-bbq/jquery-debounce-throttle.min.js"></script>
-    <script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>
-    <script src="vendors/bootstrap-table/bootstrap-table.min.js"></script>
-    <script src="vendors/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
-    <script src="vendors/bootstrap-typeahead/bootstrap3-typeahead.min.js"></script>
-    <script src="vendors/feedback/feedback.js"></script>
-    <script src="vendors/moment/moment.min.js"></script>
-    <script src="vendors/npm/delta-crdts.min.js"></script>
-    <script src="vendors/tablesaw/tablesaw.stackonly.jquery.js"></script>
-    <script src="vendors/tempusdominus/tempusdominus-bootstrap-4.min.js"></script>
+    {{ $sortable := resources.Get "vendors/sortable/sortable.min.js" -}}
+    {{ $jquery := resources.Get "vendors/jquery/jquery-3.4.1.min.js" -}}
+    {{ $jqueryBrowser := resources.Get "vendors/jquery/jquery-1.8.3-browser-deprecated.js" -}}
+    {{ $bbq := resources.Get "vendors/jquery-bbq/jquery.ba-bbq.min.js" -}}
+    {{ $debounce := resources.Get "vendors/jquery-bbq/jquery-debounce-throttle.min.js" -}}
+    {{ $bootstrap := resources.Get "vendors/bootstrap/bootstrap.bundle.min.js" -}}
+    {{ $bootstrapTable := resources.Get "vendors/bootstrap-table/bootstrap-table.min.js" -}}
+    {{ $bootstrapTagsinput := resources.Get "vendors/bootstrap-tagsinput/bootstrap-tagsinput.min.js" -}}
+    {{ $bootstrapTypeahead := resources.Get "vendors/bootstrap-typeahead/bootstrap3-typeahead.min.js" -}}
+    {{ $feedback := resources.Get "vendors/feedback/feedback.js" -}}
+    {{ $moment := resources.Get "vendors/moment/moment.min.js" -}}
+    {{ $deltaCRDTs := resources.Get "vendors/npm/delta-crdts.min.js" -}}
+    {{ $tablesaw := resources.Get "vendors/tablesaw/tablesaw.stackonly.jquery.js" -}}
+    {{ $tempusDominus := resources.Get "vendors/tempusdominus/tempusdominus-bootstrap-4.min.js" -}}
+    {{ $vendors := slice $sortable $jquery $jqueryBrowser $bbq $debounce $bootstrap $bootstrapTable $bootstrapTagsinput $bootstrapTypeahead $feedback $moment $deltaCRDTs $tablesaw $tempusDominus | resources.Concat "js/reciperadar.js" | minify | fingerprint -}}
+    <script src="{{ $vendors.RelPermalink -}}"></script>
 
     {{ $recipeList := resources.Get "js/ui/recipe-list.js" -}}
     {{ $common := resources.Get "js/common.js" -}}
