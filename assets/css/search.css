@@ -21,6 +21,7 @@
 }
 
 #advanced-search .prompt {
+  display: block;
   margin-top: 1rem;
 }
 
