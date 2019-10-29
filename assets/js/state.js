@@ -1,4 +1,4 @@
-function loadTags(element, data) {
+function loadTags(element, textKey, valueKey, data) {
   if (!data) return;
   var tags = $(element).val();
   var terms = data.split(',');
@@ -8,7 +8,10 @@ function loadTags(element, data) {
   });
   terms.forEach(function(term) {
     if (tags.indexOf(term) >= 0) return;
-    $(element).tagsinput('add', {product: term, singular: term});
+    var item = {};
+    item[textKey] = term;
+    item[valueKey] = term;
+    $(element).tagsinput('add', item);
   });
 }
 
@@ -21,8 +24,9 @@ function loadPage(pageId) {
 }
 
 function loadState() {
-  loadTags('#include', $.bbq.getState('include'));
-  loadTags('#exclude', $.bbq.getState('exclude'));
+  loadTags('#include', 'product', 'singular', $.bbq.getState('include'));
+  loadTags('#exclude', 'product', 'singular', $.bbq.getState('exclude'));
+  loadTags('#equipment', 'equipment', 'equipment', $.bbq.getState('equipment'));
 
   $('body > div.container[id]').each(function() {
     if (this.id in $.bbq.getState()) loadPage(this.id);
