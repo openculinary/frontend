@@ -24,7 +24,7 @@
     {{ $fontawesome := resources.Get "vendors/fontawesome/css/all.min.css" -}}
     {{ $tablesaw := resources.Get "vendors/tablesaw/tablesaw.stackonly.css" -}}
     {{ $tempusdominus := resources.Get "vendors/tempusdominus/tempusdominus-bootstrap-4.min.css" -}}
-    {{ $vendors := slice $bootstrap $bootstrapTable $bootstrapTagsinput $feedback $fontawesome $tablesaw $tempusdominus | resources.Concat "css/reciperadar.css" | minify | fingerprint -}}
+    {{ $vendors := slice $bootstrap $bootstrapTable $bootstrapTagsinput $feedback $fontawesome $tablesaw $tempusdominus | resources.Concat "css/vendors.css" | minify | fingerprint -}}
     <link rel="stylesheet" href="{{ $vendors.RelPermalink -}}">
     {{ $recipeList := resources.Get "css/ui/recipe-list.css" -}}
     {{ $common := resources.Get "css/common.css" -}}
@@ -225,7 +225,7 @@
     {{ $products := resources.Get "js/products.js" -}}
     {{ $recipes := resources.Get "js/recipes.js" -}}
     {{ $state := resources.Get "js/state.js" -}}
-    {{ $script := slice $recipeList $common $storage $autosuggest $calendar $collaboration $feedback $reminders $search $starred $meals $products $recipes $state | resources.Concat "js/reciperadar.js" | minify | fingerprint -}}
+    {{ $script := slice $recipeList $common $storage $autosuggest $calendar $collaboration $feedback $reminders $search $starred $meals $products $recipes $state | resources.Concat "js/vendors.js" | minify | fingerprint -}}
     <script src="{{ $script.RelPermalink -}}"></script>
     <script>$(populateStorage)</script>
 
