@@ -73,7 +73,7 @@ function renderRefinement(refinement) {
   }
   if (refinement.startsWith('removed:')) {
     var product = refinement.split(':')[1];
-    $(`span.positive + div.bootstrap-tagsinput span.tag.badge:contains('${product}')`).css('background-color', 'silver');
+    $(`#search .include span.tag.badge:contains('${product}')`).css('background-color', 'silver');
     return $('<div />', {
         'text': `Ingredient '${product}' didn't match any recipes and has been removed from the search.  `
     });
