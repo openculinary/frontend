@@ -1,2 +1,3 @@
+disableHugoGeneratorInject = true
 disableKinds = ["taxonomy", "taxonomyTerm"]
 title = "RecipeRadar"
