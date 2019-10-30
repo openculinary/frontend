@@ -230,10 +230,10 @@
     <script src="{{ $script.RelPermalink -}}"></script>
     <script>$(populateStorage)</script>
 
-    {{ $worker := resources.Get "js/sw/reciperadar.js" -}}
+    {{ $worker := resources.Get "sw.js" -}}
     {{ $worker := $worker | minify | fingerprint -}}
-    {{ $loader := resources.Get "js/sw/loader.js" -}}
-    {{ $loader := $loader | resources.ExecuteAsTemplate "loader.js" $worker | minify | fingerprint -}}
+    {{ $loader := resources.Get "js/sw-loader.js" -}}
+    {{ $loader := $loader | resources.ExecuteAsTemplate "sw-loader.js" $worker | minify | fingerprint -}}
     <script src="{{ $loader.RelPermalink -}}"></script>
     <script>$(registerServiceWorker)</script>
   </body>
