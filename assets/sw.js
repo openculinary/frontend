@@ -22,8 +22,4 @@ workbox.routing.registerRoute(
   searchHandler
 );
 
-var root = '/';
-workbox.precaching.precacheAndRoute([root]);
-workbox.routing.registerNavigationRoute(
-  workbox.precaching.getCacheKeyForURL(root)
-);
+workbox.precaching.precacheAndRoute(['/']);
