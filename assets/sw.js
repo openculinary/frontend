@@ -22,11 +22,6 @@ workbox.routing.registerRoute(
   searchHandler
 );
 
-workbox.routing.registerRoute(
-  new RegExp('\\.js$'),
-  new workbox.strategies.NetworkFirst()
-);
-
 var root = '/';
 workbox.precaching.precacheAndRoute([root]);
 workbox.routing.registerNavigationRoute(
