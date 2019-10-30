@@ -41,14 +41,6 @@ span.tag.badge-info {
   background-color: #b0ffb0;
 }
 
-div.exclude div.bootstrap-tagsinput span.tag.badge-info {
-  background-color: #ff5050;
-}
-
-div.equipment div.bootstrap-tagsinput span.tag.badge-info {
-  background-color: #b0b0ff;
-}
-
 span.tag.available {
   background-color: #b0ffb0;
 }

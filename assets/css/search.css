@@ -1,14 +1,16 @@
-#search .entry {
+#search .prompt span {
   margin-top: 1rem;
   margin-left: 2rem;
 }
 
 #search .include .fa { color: #70f070; }
 #search .exclude .fa { color: #f07070; }
+#search .exclude span.tag.badge-info { background-color: #ff5050; }
 #search .equipment .fa { color: #7070f0; }
+#search .equipment span.tag.badge-info { background-color: #b0b0ff; }
 
 #advanced-toggle {
-  margin-top: 32px;
+  margin-top: 1rem;
   color: #707070;
 }
 

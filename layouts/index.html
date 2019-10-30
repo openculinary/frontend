@@ -63,38 +63,33 @@
 
     <div id="search" class="container">
       <div class="card-deck mb-4 pt-3">
-        <div class="card">
-          <form onsubmit="return false">
-            <div class="card-body">
-              <label class="prompt">Hello! - what ingredients would you like to search for?
-                <div class="include entry">
-                  <span class="fa fa-plus-circle"></span>
-                  <select id="include" multiple data-role="tagsinput"></select>
-                </div>
+        <form class="card" onsubmit="return false">
+          <div class="card-body">
+            <label class="prompt include">Hello! - what ingredients would you like to search for?
+              <div></div>
+              <span class="fa fa-plus-circle"></span>
+              <select id="include" multiple data-role="tagsinput"></select>
+            </label>
+            <div id="advanced-toggle">
+              <a><span class="indicator">&#9660;</span> additional search options</a>
+            </div>
+            <div id="advanced-search" class="collapse">
+              <label class="prompt exclude">Are there any ingredients you would <strong>not</strong> like to cook with?
+                <div></div>
+                <span class="fa fa-minus-circle"></span>
+                <select id="exclude" multiple data-role="tagsinput"></select>
               </label>
-              <div id="advanced-toggle">
-                <a><span class="indicator">&#9660;</span> additional search options</a>
-              </div>
-              <div id="advanced-search" class="collapse">
-                <label class="prompt">Are there any ingredients you would <strong>not</strong> like to cook with?
-                  <div class="exclude entry">
-                    <span class="fa fa-minus-circle"></span>
-                    <select id="exclude" multiple data-role="tagsinput"></select>
-                  </div>
-                </label>
-                <label class="prompt">Is there any kitchen equipment you'd like to use?
-                  <div class="equipment entry">
-                    <span class="fa fa-cog"></span>
-                    <select id="equipment" multiple data-role="tagsinput"></select>
-                  </div>
-                </label>
-              </div>
+              <label class="prompt equipment">Is there any kitchen equipment you'd like to use?
+                <div></div>
+                <span class="fa fa-cog"></span>
+                <select id="equipment" multiple data-role="tagsinput"></select>
+              </label>
             </div>
-            <div class="card-footer">
-              <button class="btn btn-primary">Find recipes!</button>
-            </div>
-          </form>
-        </div>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-primary">Find recipes!</button>
+          </div>
+        </form>
       </div>
       <div class="refinements collapse"></div>
       <div class="recipe-list collapse">
