@@ -39,7 +39,7 @@ function renderMeals() {
   }
 
   $('#meal-planner td').each(function(index, element) {
-    new Sortable(element, {
+    Sortable.create(element, {
       group: {
         name: 'meal-planner'
       },
@@ -108,7 +108,7 @@ function endHandler(evt) {
 
 $(function() {
   $('#meal-planner .recipes').each(function(index, element) {
-    new Sortable(element, {
+    Sortable.create(element, {
       group: {
         name: 'meal-planner',
         pull: 'clone',
