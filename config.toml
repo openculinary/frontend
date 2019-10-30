@@ -1,5 +1,4 @@
 baseURL = "https://www.reciperadar.com"
-enableGitInfo = true
 enableRobotsTXT = true
 disableHugoGeneratorInject = true
 disableKinds = ["RSS", "taxonomy", "taxonomyTerm"]
