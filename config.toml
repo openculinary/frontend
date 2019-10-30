@@ -1,3 +1,4 @@
+enableRobotsTXT = true
 disableHugoGeneratorInject = true
-disableKinds = ["taxonomy", "taxonomyTerm"]
+disableKinds = ["RSS", "taxonomy", "taxonomyTerm"]
 title = "RecipeRadar"
