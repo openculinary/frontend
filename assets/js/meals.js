@@ -1,3 +1,15 @@
+function minDate() {
+  var thisHour = moment().startOf('hour');
+  return thisHour.add(1, 'hours');
+}
+
+function defaultDate() {
+  var today = moment().startOf('day');
+  var endOfDay = today.add(17, 'hours');
+  if (endOfDay < minDate()) endOfDay.add(1, 'day');
+  return endOfDay;
+}
+
 function filterMeals(meals) {
   var startDate = defaultDate();
   var recipes = storage.recipes.load();

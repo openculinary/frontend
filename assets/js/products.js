@@ -117,11 +117,6 @@ function populateNotifications(products) {
   $('header span.notification').text(found + '/' + total);
 }
 
-function updateReminderState(products) {
-  var empty = Object.keys(products).length == 0;
-  $('button[data-target="#reminder').prop('disabled', empty);
-}
-
 function getProductsByCategory(products) {
   var categoriesByProduct = {};
   $.each(products, function(productId) {
@@ -167,7 +162,6 @@ function renderProducts() {
   if (finalCategoryGroup) finalCategoryGroup.appendTo(productsHtml);
 
   populateNotifications(products);
-  updateReminderState(products);
 }
 
 function addProduct(product, recipeId) {

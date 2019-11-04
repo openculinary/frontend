@@ -24,8 +24,7 @@
     {{ $feedback := resources.Get "vendors/feedback/feedback.css" -}}
     {{ $fontawesome := resources.Get "vendors/fontawesome/css/all.min.css" -}}
     {{ $tablesaw := resources.Get "vendors/tablesaw/tablesaw.stackonly.css" -}}
-    {{ $tempusdominus := resources.Get "vendors/tempusdominus/tempusdominus-bootstrap-4.min.css" -}}
-    {{ $vendors := slice $bootstrap $bootstrapTable $bootstrapTagsinput $feedback $fontawesome $tablesaw $tempusdominus | resources.Concat "css/vendors.css" | minify | fingerprint -}}
+    {{ $vendors := slice $bootstrap $bootstrapTable $bootstrapTagsinput $feedback $fontawesome $tablesaw | resources.Concat "css/vendors.css" | minify | fingerprint -}}
     <link rel="stylesheet" href="{{ $vendors.RelPermalink -}}">
     {{ $recipeList := resources.Get "css/ui/recipe-list.css" -}}
     {{ $common := resources.Get "css/common.css" -}}
@@ -160,9 +159,6 @@
               </span>
             </div>
           </div>
-          <div class="card-footer">
-            <button class="btn btn-primary" data-toggle="modal" data-target="#reminder">Send to calendar</button>
-          </div>
         </div>
       </div>
     </div>
@@ -170,25 +166,6 @@
     <footer>
       <div class="text-center py-4">© 2019 Copyright: <a href="/">reciperadar.com</a></div>
     </footer>
-
-    <form id="reminder" class="modal fade">
-      <div class="modal-dialog form-group">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Create reminder</h4>
-            <button class="close" aria-label="Dismiss calendar planner" data-dismiss="modal">&times;</button>
-          </div>
-          <div class="modal-body">
-            <p>When would you like a calendar reminder containing this shopping list?</p>
-            <div class="input-group date" id="datetimepicker"></div>
-          </div>
-          <div class="modal-footer">
-            Email: <input id="email" type="email" class="form-control" required placeholder="you@example.com" />
-            <button class="btn btn-primary">Add to calendar</button>
-          </div>
-        </div>
-      </div>
-    </form>
 
     {{ $sortable := resources.Get "vendors/sortable/sortable.min.js" -}}
     {{ $jquery := resources.Get "vendors/jquery/jquery-3.4.1.min.js" -}}
@@ -203,25 +180,22 @@
     {{ $moment := resources.Get "vendors/moment/moment.min.js" -}}
     {{ $deltaCRDTs := resources.Get "vendors/npm/delta-crdts.min.js" -}}
     {{ $tablesaw := resources.Get "vendors/tablesaw/tablesaw.stackonly.jquery.js" -}}
-    {{ $tempusDominus := resources.Get "vendors/tempusdominus/tempusdominus-bootstrap-4.min.js" -}}
-    {{ $vendors := slice $sortable $jquery $jqueryBrowser $bbq $debounce $bootstrap $bootstrapTable $bootstrapTagsinput $bootstrapTypeahead $feedback $moment $deltaCRDTs $tablesaw $tempusDominus | resources.Concat "js/vendors.js" | minify | fingerprint -}}
+    {{ $vendors := slice $sortable $jquery $jqueryBrowser $bbq $debounce $bootstrap $bootstrapTable $bootstrapTagsinput $bootstrapTypeahead $feedback $moment $deltaCRDTs $tablesaw | resources.Concat "js/vendors.js" | minify | fingerprint -}}
     <script src="{{ $vendors.RelPermalink -}}"></script>
 
     {{ $recipeList := resources.Get "js/ui/recipe-list.js" -}}
     {{ $common := resources.Get "js/common.js" -}}
     {{ $storage := resources.Get "js/storage.js" -}}
     {{ $autosuggest := resources.Get "js/autosuggest.js" -}}
-    {{ $calendar := resources.Get "js/calendar.js" -}}
     {{ $collaboration := resources.Get "js/collaboration.js" -}}
     {{ $feedback := resources.Get "js/feedback.js" -}}
-    {{ $reminders := resources.Get "js/reminders.js" -}}
     {{ $search := resources.Get "js/search.js" -}}
     {{ $starred := resources.Get "js/starred.js" -}}
     {{ $meals := resources.Get "js/meals.js" -}}
     {{ $products := resources.Get "js/products.js" -}}
     {{ $recipes := resources.Get "js/recipes.js" -}}
     {{ $state := resources.Get "js/state.js" -}}
-    {{ $script := slice $recipeList $common $storage $autosuggest $calendar $collaboration $feedback $reminders $search $starred $meals $products $recipes $state | resources.Concat "js/reciperadar.js" | minify | fingerprint -}}
+    {{ $script := slice $recipeList $common $storage $autosuggest $collaboration $feedback $search $starred $meals $products $recipes $state | resources.Concat "js/reciperadar.js" | minify | fingerprint -}}
     <script src="{{ $script.RelPermalink -}}"></script>
     <script>$(populateStorage)</script>
 
