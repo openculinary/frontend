@@ -64,6 +64,7 @@ function generateKeys() {
 
 var app, collaborations = {
   recipes: null,
+  starred: null,
   meals: null,
   products: null,
 };
