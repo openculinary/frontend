@@ -1,0 +1,42 @@
+#search .prompt span.fa {
+  margin-top: 1rem;
+  margin-left: 2rem;
+}
+
+#search .include .fa { color: #70f070; }
+#search .exclude .fa { color: #f07070; }
+#search .exclude span.tag.badge-info { background-color: #ff5050; }
+#search .equipment .fa { color: #7070f0; }
+#search .equipment span.tag.badge-info { background-color: #b0b0ff; }
+
+#advanced-toggle {
+  margin-top: 1rem;
+  color: #707070;
+}
+
+#advanced-toggle a {
+  font-size: 12px;
+}
+
+#advanced-search {
+  margin-left: 1rem;
+}
+
+#advanced-search .prompt {
+  display: block;
+  margin-top: 1rem;
+}
+
+#search .refinements {
+  background-color: #ffffc0;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+#search .refinements div {
+  font-size: 13px;
+  color: dimgray;
+
+  margin: 0.5rem;
+  margin-left: 2rem;
+}

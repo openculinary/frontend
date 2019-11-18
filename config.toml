@@ -1,5 +1,0 @@
-baseURL = "https://www.reciperadar.com"
-enableRobotsTXT = true
-disableHugoGeneratorInject = true
-disableKinds = ["RSS", "taxonomy", "taxonomyTerm"]
-title = "RecipeRadar"

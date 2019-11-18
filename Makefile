@@ -1,3 +1,8 @@
-prebuild:
-	hugo
-	touch public
+prebuild: lint tests
+	yarnpkg run webpack -p --optimize-minimize
+
+lint:
+	yarnpkg run eslint src
+
+tests:
+	yarnpkg run mocha

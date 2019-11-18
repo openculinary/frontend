@@ -3,13 +3,31 @@
   "version": "1.0.0",
   "description": "frontend",
   "dependencies": {
-    "peer-base": "git://github.com/jayaddison/peer-base#delta-crdts-with-rwlwwset-id"
+    "bootstrap": "^4.3.1",
+    "bootstrap-3-typeahead": "^4.0.2",
+    "bootstrap-table": "^1.15.5",
+    "bootstrap-tagsinput": "^0.7.1",
+    "delta-crdts": "https://github.com/ipfs-shipyard/js-delta-crdts#639bce5c6d5afda423c0b6f4cef1c1901ca8c074",
+    "jquery": "^3.4.1",
+    "moment": "^2.24.0",
+    "peer-base": "https://github.com/jayaddison/peer-base#a1be5ecc166fb53118a0654d87327efac4bbf78a",
+    "sortablejs": "^1.10.1",
+    "tablesaw": "^3.1.2"
   },
   "devDependencies": {
     "browserify": "16.5.0",
-    "uglify-es": "3.3.9"
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^5.0.5",
+    "css-loader": "^3.2.0",
+    "eslint": "^6.6.0",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.8.0",
+    "serviceworker-webpack-plugin": "^1.0.1",
+    "uglify-es": "3.3.9",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
   },
   "scripts": {
-    "build": "npm install; mkdir -p html/vendors/npm; browserify --standalone peer-base node_modules/peer-base/src/index.js | uglifyjs > html/vendors/npm/peer-base.min.js; browserify --standalone delta-crdts node_modules/delta-crdts/src/index.js | uglifyjs > html/vendors/npm/delta-crdts.min.js"
+    "build": "yarnpkg install; mkdir -p static/vendors/npm; npx browserify --standalone peer-base node_modules/peer-base/src/index.js | npx uglifyjs > static/vendors/npm/peer-base.min.js"
   }
 }
