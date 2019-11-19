@@ -1,49 +1,54 @@
 import 'jquery';
-import 'bootstrap-3-typeahead';
-import 'bootstrap-tagsinput';
+import 'select2';
 
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-tagsinput/dist/bootstrap-tagsinput.css'
+import 'select2/dist/css/select2.css';
 
-function bindEquipmentInput(element) {
-  $(element).tagsinput({
-    allowDuplicates: false,
-    freeInput: false,
-    itemText: 'equipment',
-    itemValue: 'equipment',
-    maxTags: 20,
-    tagClass: 'badge badge-info',
-    typeahead: {
-      minLength: 3,
-      source: function(query) {
-        return $.getJSON('api/equipment', {pre: query});
-      },
-      afterSelect: function() {
-        this.$element[0].value = '';
-      }
-    }
+function bindEquipmentInput(element, placeholder) {
+  $(element).select2({
+    ajax: {
+      url: 'api/equipment',
+      data: params => ({pre: params.term}),
+      processResults: data => ({
+        results: data.map(item => ({
+          id: item.equipment,
+          text: item.equipment,
+          product: item
+        }))
+      })
+    },
+    minimumInputLength: 3,
+    placeholder: placeholder,
+    selectOnClose: true
   });
 }
-bindEquipmentInput('#equipment');
 
-function bindIngredientInput(element) {
-  $(element).tagsinput({
-    allowDuplicates: false,
-    freeInput: false,
-    itemText: 'product',
-    itemValue: 'singular',
-    maxTags: 20,
-    tagClass: 'badge badge-info',
-    typeahead: {
-      minLength: 3,
-      source: function(query) {
-        return $.getJSON('api/ingredients', {pre: query});
-      },
-      afterSelect: function() {
-        this.$element[0].value = '';
-      }
-    }
+function bindIngredientInput(element, placeholder) {
+  $(element).select2({
+    ajax: {
+      url: 'api/ingredients',
+      data: params => ({pre: params.term}),
+      processResults: data => ({
+        results: data.map(item => ({
+          id: item.singular,
+          text: item.product,
+          product: item
+        }))
+      })
+    },
+    minimumInputLength: 3,
+    placeholder: placeholder,
+    selectOnClose: true
   });
 }
-bindIngredientInput('#include');
-bindIngredientInput('#exclude');
+
+$(function() {
+  bindIngredientInput('#include', 'e.g. tomatoes');
+  bindIngredientInput('#exclude', 'e.g. mushrooms');
+  bindEquipmentInput('#equipment', 'e.g. slow cooker');
+
+  $(document).on('keyup', '.select2-search__field', function (event) {
+    if (event.keyCode == 13) {
+      $('#search form button').click();
+    }
+  });
+})

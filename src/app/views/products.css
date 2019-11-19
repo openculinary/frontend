@@ -51,6 +51,4 @@
   font-size: 12px;
 }
 
-#shopping-list .bootstrap-tagsinput input {
-  width: 200px;
-}
+#shopping-list select { width: 200px; }

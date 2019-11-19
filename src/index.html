@@ -51,25 +51,19 @@
       <div class="card-deck mb-4 pt-3">
         <form class="card" onsubmit="return false">
           <div class="card-body">
-            <label class="prompt include">Hello! - what ingredients would you like to search for?
-              <div></div>
-              <span class="fa fa-plus-circle"></span>
-              <select id="include" multiple data-role="tagsinput"></select>
-            </label>
+            <div class="prompt include">Hello! - what ingredients would you like to search for?</div>
+            <span class="fa fa-plus-circle"></span>
+            <select id="include" multiple></select>
             <div id="advanced-toggle">
               <a><span class="indicator">&#9660;</span> additional search options</a>
             </div>
             <div id="advanced-search" class="collapse">
-              <label class="prompt exclude">Are there any ingredients you would <strong>not</strong> like to cook with?
-                <div></div>
-                <span class="fa fa-minus-circle"></span>
-                <select id="exclude" multiple data-role="tagsinput"></select>
-              </label>
-              <label class="prompt equipment">Is there any kitchen equipment you'd like to use?
-                <div></div>
-                <span class="fa fa-cog"></span>
-                <select id="equipment" multiple data-role="tagsinput"></select>
-              </label>
+              <div class="prompt exclude">Are there any ingredients you would <strong>not</strong> like to cook with?</div>
+              <span class="fa fa-minus-circle"></span>
+              <select id="exclude" multiple></select>
+              <div class="prompt equipment">Is there any kitchen equipment you'd like to use?</div>
+              <span class="fa fa-cog"></span>
+              <select id="equipment" multiple></select>
             </div>
           </div>
           <div class="card-footer">
@@ -141,7 +135,7 @@
             <div class="entry">
               <span class="prompt">&plus;
                 <label>add
-                  <input id="shopping-list-entry" data-role="tagsinput" />
+                  <select id="shopping-list-entry" multiple></select>
                 </label>
               </span>
             </div>

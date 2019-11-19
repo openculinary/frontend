@@ -15,14 +15,16 @@ header span.notification {
   right: -0.2rem;
 }
 
-.bootstrap-tagsinput {
-  border: none;
-  border-bottom: 1px solid #ccc;
-  border-top: 1px solid #ccc;
+li.select2-results__message {
+  display: none;
 }
 
-.bootstrap-tagsinput input {
-  width: 64px;
+li.select2-results__option.loading-results {
+  display: none;
+}
+
+span.select2-dropdown {
+  z-index: 1;
 }
 
 span.tag.badge {
