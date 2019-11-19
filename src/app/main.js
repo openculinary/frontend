@@ -1,7 +1,7 @@
 import './pages/search'
 import './pages/starred'
 import './pages/meals'
-import './pages/products'
+import './views/products'
 import './main.css'
 
 import './collaboration'

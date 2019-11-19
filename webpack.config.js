@@ -7,8 +7,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = [
-  {
+module.exports = {
     mode: 'development',
     entry: {
       'app': path.resolve(__dirname, 'src/app/main.js'),
@@ -49,5 +48,4 @@ module.exports = [
         }
       ]
     }
-  }
-];
+};
