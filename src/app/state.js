@@ -1,8 +1,4 @@
 import 'jquery';
-import 'bootstrap-tagsinput';
-
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-tagsinput/dist/bootstrap-tagsinput.css'
 
 import { executeSearch, executeView } from './pages/search';
 
@@ -17,20 +13,17 @@ function getState() {
   return state;
 }
 
-function loadTags(element, textKey, valueKey, data) {
+function loadTags(element, data) {
   if (!data) return;
   var tags = $(element).val();
   var terms = data.split(',');
   tags.forEach(function(tag) {
     if (terms.indexOf(tag) >= 0) return;
-    $(element).tagsinput('remove', tag);
+    $(element).remove(`option[value='${tag}']`);
   });
   terms.forEach(function(term) {
     if (tags.indexOf(term) >= 0) return;
-    var item = {};
-    item[textKey] = term;
-    item[valueKey] = term;
-    $(element).tagsinput('add', item);
+    $(element).append(new Option(term, term, true, true));
   });
 }
 
@@ -45,9 +38,9 @@ function loadPage(pageId) {
 function loadState() {
   var state = getState();
 
-  loadTags('#include', 'product', 'singular', state.include);
-  loadTags('#exclude', 'product', 'singular', state.exclude);
-  loadTags('#equipment', 'equipment', 'equipment', state.equipment);
+  loadTags('#include', state.include);
+  loadTags('#exclude', state.exclude);
+  loadTags('#equipment', state.equipment);
 
   $('body > div.container[id]').each(function() {
     if (this.id in state) loadPage(this.id);

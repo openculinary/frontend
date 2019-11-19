@@ -1,37 +1,40 @@
 import 'jquery';
-import 'bootstrap-3-typeahead';
-import 'bootstrap-tagsinput';
+import 'select2';
 
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-tagsinput/dist/bootstrap-tagsinput.css'
+import 'select2/dist/css/select2.css';
 import './products.css'
 
 import { addProduct } from '../pages/products';
 import { storage } from '../storage';
 
-function bindShoppingListInput(element) {
-  $(element).tagsinput({
-    freeInput: false,
-    itemText: 'product',
-    itemValue: 'singular',
-    typeahead: {
-      minLength: 3,
-      source: function(query) {
-        return $.getJSON('api/ingredients', {pre: query});
-      },
-      afterSelect: function() {
-        this.$element[0].value = '';
-      }
-    }
+function bindShoppingListInput(element, placeholder) {
+  $(element).select2({
+    ajax: {
+      url: 'api/ingredients',
+      data: params => ({pre: params.term}),
+      processResults: data => ({
+        results: data.map(item => ({
+          id: item.singular,
+          text: item.product,
+          product: item
+        }))
+      })
+    },
+    minimumInputLength: 3,
+    placeholder: placeholder,
+    selectOnClose: true
   });
-  $(element).on('beforeItemAdd', function(event) {
-    event.cancel = true;
+  $(element).on('select2:select', function(event) {
+    $(this).val(null).trigger('change');
 
     var products = storage.products.load();
-    var product = event.item;
+    var product = event.params.data.product;
     if (product.singular in products) return;
 
     addProduct(product);
   });
 }
-bindShoppingListInput('#shopping-list-entry');
+
+$(function() {
+  bindShoppingListInput('#shopping-list-entry', 'e.g. rice');
+})
