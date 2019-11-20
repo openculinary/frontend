@@ -2,13 +2,14 @@ import 'jquery';
 import * as moment from 'moment';
 import 'tablesaw';
 
-import 'tablesaw/dist/stackonly/tablesaw.stackonly.css'
+import 'tablesaw/dist/stackonly/tablesaw.stackonly.css';
 import './recipe-list.css'
 
 import { float2rat, getRecipe } from '../common';
-import { addRecipe } from '../recipes';
 import { getState } from '../state';
 import { storage } from '../storage';
+import { addRecipe } from '../models/recipes';
+import { starRecipe, unstarRecipe } from '../models/starred';
 
 export {
     initTable,
@@ -17,6 +18,7 @@ export {
     rowAttributes,
     scrollToResults,
     updateRecipeState,
+    updateStarState,
 };
 
 function renderToken(token) {
@@ -175,22 +177,6 @@ function updateStarState(recipeId) {
   star.css('color', isStarred ? 'gold' : 'dimgray');
   star.off('click');
   star.on('click', isStarred ? unstarRecipe : starRecipe);
-}
-
-function starRecipe() {
-  var recipe = getRecipe(this);
-
-  storage.starred.add({'hashCode': recipe.id, 'value': recipe});
-  updateStarState(recipe.id);
-
-  gtag('event', 'select_content');
-}
-
-function unstarRecipe() {
-  var recipe = getRecipe(this);
-
-  storage.starred.remove({'hashCode': recipe.id});
-  updateStarState(recipe.id);
 }
 
 function selectTab() {

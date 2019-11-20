@@ -1,12 +1,10 @@
 import 'jquery';
 
-import { getRecipe } from './common';
-import { removeMeal, renderMeals } from './models/meals';
-import { addProduct, removeProduct } from './models/products';
-import { storage } from './storage';
-import { updateRecipeState } from './ui/recipe-list';
+import { storage } from '../storage';
+import { removeMeal } from '../models/meals';
+import { removeRecipe } from '../models/recipes';
 
-export { addRecipe, removeRecipe, recipeElement };
+export { recipeElement };
 
 function recipeElement(recipe) {
   var link = $('<a />', {'class': 'remove fa fa-link', 'href': `#search&action=view&id=${recipe.id}`});
@@ -53,35 +51,6 @@ function renderRecipes() {
   });
 }
 
-function addRecipe() {
-  var recipe = getRecipe(this);
-
-  storage.recipes.add({'hashCode': recipe.id, 'value': recipe});
-  updateRecipeState(recipe.id);
-
-  recipe.products.forEach(function (product) {
-    addProduct(product, recipe.id);
-  });
-
-  gtag('event', 'add_to_cart');
-}
-
-function removeRecipe() {
-  var recipe = getRecipe(this);
-
-  var products = storage.products.load();
-  $.each(products, function(productId) {
-    var product = products[productId];
-    if (recipe.id in product.recipes) {
-      removeProduct(product, recipe.id);
-    }
-  });
-
-  storage.recipes.remove({'hashCode': recipe.id});
-  updateRecipeState(recipe.id);
-}
-
 $(function() {
   storage.recipes.on('state changed', renderRecipes);
-  storage.recipes.on('state changed', renderMeals);
 });

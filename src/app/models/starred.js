@@ -1,32 +1,23 @@
 import 'jquery';
-import * as moment from 'moment';
 
-import { getRecipeById } from '../common';
+import { getRecipe } from '../common';
 import { storage } from '../storage';
-import { initTable } from '../ui/recipe-list';
+import { updateStarState } from '../ui/recipe-list';
 
-function renderStarred() {
-  var data = [];
-  var starred = storage.starred.load();
-  $.each(starred, function (recipeId) {
-    var recipe = getRecipeById(recipeId);
-    if (recipe) data.push(recipe);
-  });
+export { starRecipe, unstarRecipe };
 
-  var recipeList = $('#starred-recipes div.recipe-list table');
-  recipeList.bootstrapTable('load', data);
-  recipeList.bootstrapTable('refreshOptions', {
-    formatNoMatches: function() {
-      return `
-        <p>You don't have any starred recipes at the moment.</p>
-        <p>Recipes you star in <a href='#search'>search</a> results will appear here.</p>
-      `;
-    }
-  });
+function starRecipe() {
+  var recipe = getRecipe(this);
+
+  storage.starred.add({'hashCode': recipe.id, 'value': recipe});
+  updateStarState(recipe.id);
+
+  gtag('event', 'select_content');
 }
 
-$(function() {
-  storage.starred.on('state changed', renderStarred);
+function unstarRecipe() {
+  var recipe = getRecipe(this);
 
-  initTable('#starred-recipes');
-});
+  storage.starred.remove({'hashCode': recipe.id});
+  updateStarState(recipe.id);
+}

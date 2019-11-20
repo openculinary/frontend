@@ -2,14 +2,14 @@ import 'jquery';
 import 'bootstrap-table';
 
 import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-table/dist/bootstrap-table.css'
-import './search.css'
+import 'bootstrap-table/dist/bootstrap-table.css';
+import './search.css';
 
 import '../autosuggest';
 import { getState, loadPage, loadState } from '../state';
 import { initTable, bindLoadEvent, scrollToResults } from '../ui/recipe-list';
 
-export { executeSearch, executeView };
+export { renderSearch, renderIndividual };
 
 function pushSearch() {
   var state = {'action': 'search'};
@@ -26,7 +26,7 @@ function pushSearch() {
 }
 $('#search button').click(pushSearch);
 
-function executeSearch() {
+function renderSearch() {
   var params = {
     include: $('#include').val(),
     exclude: $('#exclude').val(),
@@ -46,7 +46,7 @@ function executeSearch() {
   gtag('event', 'search');
 }
 
-function executeView() {
+function renderIndividual() {
   var id = getState().id;
   $('#search .recipe-list table').bootstrapTable('refresh', {
     url: '/api/recipes/' + encodeURIComponent(id) + '/view'

@@ -1,11 +1,8 @@
 prebuild: lint tests
 	yarnpkg run webpack -p --optimize-minimize
 
-install:
-	yarnpkg install
-
-lint: install
+lint:
 	yarnpkg run eslint src
 
-tests: install
+tests:
 	yarnpkg run mochapack --require setup.js

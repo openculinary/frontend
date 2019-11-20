@@ -1,6 +1,6 @@
 import 'jquery';
 
-import { executeSearch, executeView } from './models/search';
+import { renderSearch, renderIndividual } from './views/search';
 
 export { getState, loadPage, loadState };
 
@@ -49,8 +49,7 @@ function loadState() {
   var action = state.action;
   switch (action) {
     case 'join': joinCollaboration(); break;
-    case 'search': executeSearch(); break;
-    case 'verified': confirmVerified(); break;
-    case 'view': executeView(); break;
+    case 'search': renderSearch(); break;
+    case 'view': renderIndividual(); break;
   }
 }
