@@ -2,7 +2,7 @@ import 'jquery';
 import 'select2';
 
 import 'select2/dist/css/select2.css';
-import './products.css'
+import './shopping-list.css'
 
 import { addProduct } from '../pages/products';
 import { storage } from '../storage';
