@@ -1,6 +1,6 @@
-import './pages/search'
-import './pages/starred'
-import './pages/meals'
+import './models/search'
+import './models/starred'
+import './models/meals'
 import './views/shopping-list'
 import './main.css'
 

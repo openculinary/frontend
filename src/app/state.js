@@ -1,6 +1,6 @@
 import 'jquery';
 
-import { executeSearch, executeView } from './pages/search';
+import { executeSearch, executeView } from './models/search';
 
 export { getState, loadPage, loadState };
 

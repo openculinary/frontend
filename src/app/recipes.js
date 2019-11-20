@@ -1,8 +1,8 @@
 import 'jquery';
 
 import { getRecipe } from './common';
-import { removeMeal, renderMeals } from './pages/meals';
-import { addProduct, removeProduct } from './pages/products';
+import { removeMeal, renderMeals } from './models/meals';
+import { addProduct, removeProduct } from './models/products';
 import { storage } from './storage';
 import { updateRecipeState } from './ui/recipe-list';
 
