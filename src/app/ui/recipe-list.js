@@ -149,7 +149,7 @@ function bindPageChange(selector) {
     var state = getState();
     if (number > 1) state.page = number;
     else delete state.page;
-    window.location.hash = $.param(state);
+    window.location.hash = decodeURIComponent($.param(state));
 
     scrollToResults(selector);
   });

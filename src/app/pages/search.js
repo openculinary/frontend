@@ -22,7 +22,7 @@ function pushSearch() {
   })
   var sortChoice = getState().sort;
   if (sortChoice) state['sort'] = sortChoice;
-  window.location.hash = $.param(state);
+  window.location.hash = decodeURIComponent($.param(state));
 }
 $('#search button').click(pushSearch);
 
@@ -108,7 +108,7 @@ function createSortPrompt() {
     var state = getState();
     state.sort = this.value;
     delete state.page;
-    window.location.hash = $.param(state);
+    window.location.hash = decodeURIComponent($.param(state));
   });
 
   var sortPrompt = $('<span>').text('Order by ');
