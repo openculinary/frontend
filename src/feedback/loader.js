@@ -1,5 +1,8 @@
 import 'jquery';
 
+import './feedback';
+import './feedback.css';
+
 $(function() {
   Feedback({
     h2cPath: 'vendors/html2canvas/html2canvas.min.js',
