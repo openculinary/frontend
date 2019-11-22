@@ -1,3 +1,5 @@
+.PHONY: prebuild lint tests
+
 prebuild: lint tests
 	yarnpkg run webpack -p --optimize-minimize
 
