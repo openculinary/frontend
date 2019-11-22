@@ -12,7 +12,7 @@ Source code for the application is divided into three Javascript components:
 
 ## Install dependencies
 
-Make sure to follow the RecipeRadar [infrastructure](../infrastructure) setup to ensure all cluster dependencies are available in your environment.
+Make sure to follow the RecipeRadar [infrastructure](https://www.github.com/openculinary/infrastructure) setup to ensure all cluster dependencies are available in your environment.
 
 ## Development
 
@@ -32,4 +32,4 @@ sudo sh -x ./build.sh
 sh -x ./deploy.sh
 ```
 
-If you have configured and run `haproxy` per the [infrastructure](../infrastructure) setup instructions, you should be able to run the application by navigating to `http://localhost` in a web browser.
+If you have configured and run `haproxy` per the [infrastructure](https://www.github.com/openculinary/infrastructure) setup instructions, you should be able to run the application by navigating to `http://localhost` in a web browser.
