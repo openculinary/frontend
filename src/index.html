@@ -144,7 +144,11 @@
     </div>
 
     <footer>
-      <div class="text-center py-4">© 2019 Copyright: <a href="/">reciperadar.com</a></div>
+      <div class="text-center py-2">
+        <small>© <a href="https://beta.companieshouse.gov.uk/company/SC647817">OpenCulinary C.I.C.</a> 2019</small>
+        <div />
+        <small><a href="https://www.github.com/openculinary">Source code</a> available under the AGPL</small>
+      </div>
     </footer>
 
     <%= htmlWebpackPlugin.files.js.map(src => `<script type="text/javascript" src="${src}"></script>`).join('\n    ') %>
