@@ -1,6 +1,3 @@
-importScripts('vendors/workbox/workbox-sw.js');
-
-workbox.setConfig({modulePathPrefix: 'vendors/workbox/', debug: false});
 workbox.core.clientsClaim();
 
 function returnResponse(response) { return response; }
@@ -22,4 +19,4 @@ workbox.routing.registerRoute(
   searchHandler
 );
 
-workbox.precaching.precacheAndRoute(['/']);
+workbox.precaching.precacheAndRoute(self.__precacheManifest);
