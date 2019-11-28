@@ -1,4 +1,13 @@
+workbox.core.skipWaiting();
 workbox.core.clientsClaim();
+
+function contentUpdateHandler(event) {
+  console.log('updated content detected');
+}
+
+const updateChannel = 'precache-channel';
+workbox.precaching.addPlugins([new workbox.broadcastUpdate.Plugin(updateChannel)]);
+new BroadcastChannel(updateChannel).addEventListener('message', contentUpdateHandler);
 
 function returnResponse(response) { return response; }
 function returnEmptyResults() {
