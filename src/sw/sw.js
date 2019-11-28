@@ -23,4 +23,5 @@ workbox.routing.registerRoute(
   searchHandler
 );
 
+workbox.precaching.precacheAndRoute(['/']);
 workbox.precaching.precacheAndRoute(self.__precacheManifest);
