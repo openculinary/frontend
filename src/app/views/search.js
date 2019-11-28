@@ -134,11 +134,13 @@ $(function() {
   var state = getState();
   if (state.exclude || state.equipment) {
     $('#advanced-search').show();
+    $('#advanced-search select').trigger('change');
   }
   $('#advanced-toggle a').on('click', function() {
     if ($('#advanced-search').is(':hidden')) {
       $('#advanced-toggle .indicator').html('&#9650;');
       $('#advanced-search').slideDown();
+      $('#advanced-search select').trigger('change');
     } else {
       $('#advanced-toggle .indicator').html('&#9660;');
       $('#advanced-search').slideUp();
