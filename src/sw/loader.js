@@ -1,5 +1,17 @@
+import { Workbox } from 'workbox-window';
+
 $(function() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js');
+    const wb = new Workbox('sw.js');
+    wb.addEventListener('waiting', (event) => {
+      var shouldUpdate = confirm('Would you like to update to the latest version?');
+      if (shouldUpdate) {
+        wb.addEventListener('controlling', (event) => {
+          window.location.reload();
+        });
+        wb.messageSW({type: 'skipWaiting'});
+      }
+    });
+    wb.register();
   }
 });
