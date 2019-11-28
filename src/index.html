@@ -17,8 +17,6 @@
     <link rel="icon" href="data:;base64,=">
     <link rel="manifest" href="reciperadar.webmanifest">
     <%= htmlWebpackPlugin.files.css.map(href => `<link rel="stylesheet" href="${href}">`).join('\n    ') %>
-    <link rel="preload" href="vendors/fontawesome/webfonts/fa-regular-400.woff2" as="font" crossorigin>
-    <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
     <title>RecipeRadar - recipe search engine and meal planner</title>
   </head>
   <body>
