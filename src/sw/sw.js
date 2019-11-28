@@ -1,7 +1,8 @@
-importScripts('vendors/workbox/workbox-sw.js');
-
-workbox.setConfig({modulePathPrefix: 'vendors/workbox/', debug: false});
-workbox.core.clientsClaim();
+addEventListener('message', (event) => {
+  if (event.data && event.data.type == 'skipWaiting') {
+    skipWaiting();
+  }
+});
 
 function returnResponse(response) { return response; }
 function returnEmptyResults() {
@@ -23,3 +24,4 @@ workbox.routing.registerRoute(
 );
 
 workbox.precaching.precacheAndRoute(['/']);
+workbox.precaching.precacheAndRoute(self.__precacheManifest);

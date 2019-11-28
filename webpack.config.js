@@ -2,9 +2,9 @@ const webpack = require('webpack');
 const path = require('path');
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { InjectManifest } = require('workbox-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -33,8 +33,10 @@ module.exports = {
         'jQuery': 'jquery',
         'window.jQuery': 'jquery'
       }),
-      new ServiceWorkerWebpackPlugin({
-        entry: path.resolve(__dirname, 'src/sw/main.js')
+      new InjectManifest({
+        exclude: ['vendors'],
+        importWorkboxFrom: 'local',
+        swSrc: path.resolve(__dirname, 'src/sw/sw.js')
       }),
       new HtmlWebpackPlugin({
         template: path.resolve(__dirname, 'src/index.html'),

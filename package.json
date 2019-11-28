@@ -27,10 +27,10 @@
     "mini-css-extract-plugin": "^0.8.0",
     "mocha": "^6.2.2",
     "mochapack": "^1.1.11",
-    "serviceworker-webpack-plugin": "^1.0.1",
     "uglify-es": "3.3.9",
     "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.10",
+    "workbox-webpack-plugin": "^4.3.1"
   },
   "scripts": {
     "build": "yarnpkg install; mkdir -p static/vendors/npm; npx browserify --standalone peer-base node_modules/peer-base/src/index.js | npx uglifyjs > static/vendors/npm/peer-base.min.js"
