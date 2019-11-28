@@ -134,12 +134,14 @@ $(function() {
   var state = getState();
   if (state.exclude || state.equipment) {
     $('#advanced-search').show();
+    // TODO: Remove once https://github.com/select2/select2/issues/5585 fixed
     $('#advanced-search select').trigger('change');
   }
   $('#advanced-toggle a').on('click', function() {
     if ($('#advanced-search').is(':hidden')) {
       $('#advanced-toggle .indicator').html('&#9650;');
       $('#advanced-search').slideDown();
+      // TODO: Remove once https://github.com/select2/select2/issues/5585 fixed
       $('#advanced-search select').trigger('change');
     } else {
       $('#advanced-toggle .indicator').html('&#9660;');
