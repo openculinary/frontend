@@ -37,7 +37,7 @@ function renderText(token) {
 }
 
 function renderProduct(token) {
-  return '<span class="tag badge ' + token.state + '">' + token.value + '</span>'
+  return '<span class="tag badge ' + token.state + '">' + token.value + '</span>';
 }
 
 function renderQuantity(token) {
