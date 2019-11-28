@@ -19,7 +19,7 @@ function loadTags(element, data) {
   var terms = data.split(',');
   tags.forEach(function(tag) {
     if (terms.indexOf(tag) >= 0) return;
-    $(element).remove(`option[value='${tag}']`);
+    $(element).find(`option[value='${tag}']`).remove();
   });
   terms.forEach(function(term) {
     if (tags.indexOf(term) >= 0) return;
