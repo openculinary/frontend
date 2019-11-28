@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { InjectManifest } = require('workbox-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -31,6 +32,12 @@ module.exports = {
         '$': 'jquery',
         'jQuery': 'jquery',
         'window.jQuery': 'jquery'
+      }),
+      new InjectManifest({
+        chunks: ['app'],
+        exclude: ['vendors'],
+        importWorkboxFrom: 'local',
+        swSrc: path.resolve(__dirname, 'src/sw/sw.js')
       }),
       new HtmlWebpackPlugin({
         template: path.resolve(__dirname, 'src/index.html'),
