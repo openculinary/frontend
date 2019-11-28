@@ -57,7 +57,7 @@ function renderIndividual() {
 function renderRefinement(refinement) {
   if (refinement == 'match_any') {
     return $('<div />', {
-        'text': `Couldn't find recipes containining every ingredient - partial matches are displayed.`
+        'text': `Couldn't find recipes containing every ingredient - partial matches are displayed.`
     });
   }
   if (refinement.startsWith('removed:')) {
