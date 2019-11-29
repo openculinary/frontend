@@ -11,6 +11,7 @@ module.exports = {
     mode: 'development',
     entry: {
       'app': path.resolve(__dirname, 'src/app/main.js'),
+      'countly': path.resolve(__dirname, 'src/countly/index.js'),
       'feedback': path.resolve(__dirname, 'src/feedback/loader.js'),
       'sw': path.resolve(__dirname, 'src/sw/loader.js')
     },
