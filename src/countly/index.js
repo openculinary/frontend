@@ -4,7 +4,7 @@ var hostname = window.location.hostname;
 var hostURI = window.location.href.split('#')[0];
 
 var countlyHostname = `countly.${hostname}`;
-var countlyURI = hostURI.replace(hostname, countlyHostname);
+var countlyURI = hostURI.replace(hostname, countlyHostname).replace('www.', '');
 
 Countly.init({
   app_key: 'cbe9c80e3bae3df51d71ae0fbbfa6498d22c42ca',
