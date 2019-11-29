@@ -192,6 +192,7 @@ function selectTab() {
 
 function recipeRedirect() {
   gtag('event', 'generate_lead');
+  RecipeRadar.countly.add_event('recipeRedirect');
 }
 
 function bindPostBody(selector) {

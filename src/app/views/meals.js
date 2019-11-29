@@ -115,6 +115,7 @@ function scheduleMeal(evt) {
 
   if (toRow.length && !fromRow.length) {
     gtag('event', 'add_to_wishlist');
+    RecipeRadar.countly.add_event('scheduleMeal');
   }
 }
 

@@ -18,6 +18,7 @@ function addRecipe() {
   });
 
   gtag('event', 'add_to_cart');
+  RecipeRadar.countly.add_event('addRecipe');
 }
 
 function removeRecipe() {
