@@ -68,12 +68,12 @@ function renderMeals() {
         name: 'meal-planner'
       },
       delay: 100,
-      onEnd: endHandler
+      onEnd: scheduleMeal
     });
   });
 }
 
-function cloneHandler(evt) {
+function dragMeal(evt) {
   var elements = [evt.item, evt.clone];
   elements.forEach(function (element) {
     var recipeRemove = $(element).find('a.remove');
@@ -83,12 +83,10 @@ function cloneHandler(evt) {
     var mealRemove = $(element).find('span[data-role="remove"]');
     mealRemove.off('click');
     mealRemove.on('click', removeMeal);
-
-    gtag('event', 'add_to_wishlist');
   });
 }
 
-function endHandler(evt) {
+function scheduleMeal(evt) {
   var meals = storage.meals.load();
   var recipe = getRecipe(evt.item);
 
@@ -114,6 +112,10 @@ function endHandler(evt) {
     storage.meals.remove({'hashCode': date});
     storage.meals.add({'hashCode': date, 'value': meals[date]});
   }
+
+  if (toRow.length && !fromRow.length) {
+    gtag('event', 'add_to_wishlist');
+  }
 }
 
 $(function() {
@@ -126,8 +128,8 @@ $(function() {
       },
       delay: 100,
       sort: false,
-      onClone: cloneHandler,
-      onEnd: endHandler
+      onClone: dragMeal,
+      onEnd: scheduleMeal
     });
   });
 
