@@ -8,6 +8,7 @@ var countlyURI = hostURI.replace(hostname, countlyHostname);
 
 Countly.init({
   app_key: 'tbd',
+  app_version: `${VERSION}`,
   force_post: true,
   url: countlyURI,
   use_session_cookie: false
