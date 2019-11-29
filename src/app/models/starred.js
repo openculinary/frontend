@@ -12,7 +12,7 @@ function starRecipe() {
   storage.starred.add({'hashCode': recipe.id, 'value': recipe});
   updateStarState(recipe.id);
 
-  gtag('event', 'select_content');
+  RecipeRadar.countly.add_event('starRecipe');
 }
 
 function unstarRecipe() {

@@ -43,7 +43,7 @@ function renderSearch() {
 
   loadPage('search');
   scrollToResults('#search');
-  gtag('event', 'search');
+  RecipeRadar.countly.add_event('renderSearch');
 }
 
 function renderIndividual() {
