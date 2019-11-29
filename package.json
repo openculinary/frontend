@@ -6,6 +6,7 @@
     "@fortawesome/fontawesome-free": "^5.11.2",
     "bootstrap": "^4.3.1",
     "bootstrap-table": "^1.15.5",
+    "countly-sdk-web": "^19.8.0",
     "delta-crdts": "https://github.com/ipfs-shipyard/js-delta-crdts#639bce5c6d5afda423c0b6f4cef1c1901ca8c074",
     "jquery": "^3.4.1",
     "moment": "^2.24.0",
