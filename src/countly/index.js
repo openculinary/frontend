@@ -16,3 +16,6 @@ Countly.init({
 Countly.track_sessions()
 Countly.track_pageview()
 Countly.track_errors()
+
+const add_event = Countly.add_event;
+export { add_event };
