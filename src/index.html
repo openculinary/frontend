@@ -149,6 +149,6 @@
       </div>
     </footer>
 
-    <%= htmlWebpackPlugin.files.js.map(src => `<script type="text/javascript" src="${src}"></script>`).join('\n    ') %>
+    <%= htmlWebpackPlugin.files.js.map(src => `<script type="text/javascript" src="${src}"${src.match(/^app\./) ? '' : ' async'}></script>`).join('\n    ') %>
   </body>
 </html>
