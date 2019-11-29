@@ -5,6 +5,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { InjectManifest } = require('workbox-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const GitRevisionPlugin = require('git-revision-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -28,6 +29,9 @@ module.exports = {
       ]),
       new MiniCssExtractPlugin({
         filename: '[name].[chunkhash].css'
+      }),
+      new webpack.DefinePlugin({
+        'VERSION': JSON.stringify(new GitRevisionPlugin().version())
       }),
       new webpack.ProvidePlugin({
         '$': 'jquery',
