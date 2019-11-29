@@ -17,7 +17,6 @@ function addRecipe() {
     addProduct(product, recipe.id);
   });
 
-  gtag('event', 'add_to_cart');
   RecipeRadar.countly.add_event('addRecipe');
 }
 
