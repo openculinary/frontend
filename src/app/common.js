@@ -64,7 +64,7 @@ function getRecipe(el) {
 }
 
 function float2rat(x) {
-    var tolerance = 1.0E-2;
+    var tolerance = 0.1;
     var h1=1; var h2=0;
     var k1=0; var k2=1;
     var b = x;
