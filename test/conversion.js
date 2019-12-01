@@ -9,8 +9,6 @@ function fraction(nominator, denominator) {
 
 describe('unit conversion', function() {
 
-  // https://en.wikipedia.org/wiki/Cooking_weights_and_measures
-  // http://www.jsward.com/cooking/style.shtml
   describe('liquids', function() {
 
     it('renders small volumes', function() {

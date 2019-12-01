@@ -10,6 +10,11 @@ Source code for the application is divided into three Javascript components:
 * `src/feedback` - in-application feedback form based on [feedback.js](https://experiments.hertzen.com/jsfeedback)
 * `src/sw` - application [service worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
 
+The following resources are useful guides for designing ingredient and recipe rendering:
+
+* [The Metric Kitchen - Style Guide](https://www.jsward.com/cooking/style.shtml)
+* [Wikipedia - Cooking weights and measures](https://en.wikipedia.org/wiki/Cooking_weights_and_measures)
+
 ## Install dependencies
 
 Make sure to follow the RecipeRadar [infrastructure](https://www.github.com/openculinary/infrastructure) setup to ensure all cluster dependencies are available in your environment.
