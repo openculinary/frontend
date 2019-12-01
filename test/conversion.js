@@ -37,4 +37,22 @@ describe('unit conversion', function() {
 
   });
 
+  describe('weights', function() {
+
+    it('renders mid-size weights', function() {
+      var quantity = convert(50).from('g');
+      var rendered = renderQuantity(quantity);
+
+      assert.equal('50 g', rendered);
+    });
+
+    it('renders large weights', function() {
+      var quantity = convert(1500).from('g');
+      var rendered = renderQuantity(quantity);
+
+      assert.equal('1.5 kg', rendered);
+    });
+
+  });
+
 });

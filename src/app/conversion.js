@@ -25,7 +25,7 @@ function weightUnits(quantity) {
 function targetUnits(quantity) {
   switch (quantity.origin.measure) {
     case 'volume': return volumeUnits(quantity);
-    case 'weight': return weightUnits(quantity);
+    case 'mass': return weightUnits(quantity);
   };
 }
 
