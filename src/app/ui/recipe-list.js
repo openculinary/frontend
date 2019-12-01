@@ -7,6 +7,7 @@ import 'tablesaw/dist/stackonly/tablesaw.stackonly.css';
 import './recipe-list.css'
 
 import { float2rat, getRecipe } from '../common';
+import { renderIngredient } from '../conversion';
 import { getState } from '../state';
 import { storage } from '../storage';
 import { addRecipe } from '../models/recipes';
@@ -21,6 +22,27 @@ export {
     updateRecipeState,
     updateStarState,
 };
+
+function renderTokens(tokens) {
+  var collectedTokens = {};
+  tokens.map(token => {
+    collectedTokens[token.type] = token.value;
+    if (token.type === 'product') collectedTokens.product = {
+      product: token.value,
+      state: token.state,
+    };
+  });
+  if (collectedTokens.product && collectedTokens.quantity && collectedTokens.units) {
+    return renderIngredient({
+      product: collectedTokens.product,
+      quantity: {
+        magnitude: collectedTokens.quantity,
+        units: collectedTokens.units
+      }
+    });
+  }
+  return tokens.map(renderToken).join('');
+}
 
 function renderToken(token) {
   switch (token.type) {
@@ -97,7 +119,7 @@ function contentFormatter(recipe) {
   var ingredients = $('<div />', {'class': 'tab ingredients'});
   var ingredientList = $('<ul />');
   $.each(recipe.ingredients, function() {
-    ingredientList.append($('<li />', {'html': this.tokens.map(renderToken).join('')}));
+    ingredientList.append($('<li />', {'html': renderTokens(this.tokens)}));
   });
   ingredients.append(ingredientList);
   ingredients.append($('<button />', {
@@ -109,7 +131,7 @@ function contentFormatter(recipe) {
   var directions = $('<div />', {'class': 'tab directions collapse'});
   var directionList = $('<ul />');
   $.each(recipe.directions, function() {
-    directionList.append($('<li />', {'html': this.tokens.map(renderToken).join('')}));
+    directionList.append($('<li />', {'html': renderTokens(this.tokens)}));
   });
   directions.append(directionList);
   content.append(directions);
