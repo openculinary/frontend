@@ -5,6 +5,7 @@ import 'select2/dist/css/select2.css';
 import './shopping-list.css';
 
 import { float2rat } from '../common';
+import { renderQuantity } from '../conversion';
 import { storage } from '../storage';
 import { addProduct, aggregateUnitQuantities, removeProduct } from '../models/products';
 
@@ -13,7 +14,11 @@ function renderProductText(product, mealCounts) {
   var productText = '';
   $.each(unitQuantities, function(unit) {
     if (productText) productText += ' + ';
-    productText += float2rat(unitQuantities[unit]) + ' ' + unit;
+    var ingredient = renderQuantity({
+      magnitude: unitQuantities[unit],
+      units: unit
+    });
+    productText += `${ingredient.quantity.magnitude} ${ingredient.quantity.units}`;
   });
   productText += ' ' + product.product;
   return productText;
