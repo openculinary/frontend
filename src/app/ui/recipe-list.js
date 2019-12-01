@@ -45,8 +45,10 @@ function renderIngredients(tokens) {
       }
     });
   }
-  var renderedIngredient = renderTokens(tokens);
-  return `<th></th><td>${renderedIngredient}</td>`;
+
+  var quantity = renderTokens(tokens.filter(token => token.type != 'product'));
+  var product = renderTokens(tokens.filter(token => token.type == 'product'));
+  return `<th>${quantity}</th><td>${product}</td>`;
 }
 
 function renderToken(token) {
