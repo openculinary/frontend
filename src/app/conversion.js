@@ -11,8 +11,8 @@ const expandMeasures = [
 
 function volumeUnits(quantity) {
   if (quantity.val >= 1000) return 'l';
-  if (quantity.val <= 5) return 'tsp';
-  if (quantity.val <= 20) return 'Tbs';
+  if (quantity.val <= 15) return 'tsp';
+  if (quantity.val <= 45) return 'Tbs';
   return 'ml';
 }
 
@@ -23,7 +23,11 @@ function weightUnits(quantity) {
 }
 
 function targetUnits(quantity) {
-  switch (quantity.origin.measure) {
+  var measure = quantity.origin.measure;
+  if (expandMeasures.indexOf(measure) >= 0) {
+    return measure;
+  }
+  switch (measure) {
     case 'volume': return volumeUnits(quantity);
     case 'mass': return weightUnits(quantity);
   };

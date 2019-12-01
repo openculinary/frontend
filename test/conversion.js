@@ -12,8 +12,7 @@ describe('unit conversion', function() {
 
     it('renders small volumes', function() {
       var rendered = renderQuantity({magnitude: 10, units: 'ml'});
-      var expectedFraction = fraction(2, 3);
-      assert.equal(`${expectedFraction} tablespoon`, rendered);
+      assert.equal(`2 teaspoons`, rendered);
     });
 
     it('renders mid-size volumes', function() {
