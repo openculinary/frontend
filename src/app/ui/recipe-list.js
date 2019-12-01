@@ -45,7 +45,8 @@ function renderIngredients(tokens) {
       }
     });
   }
-  return renderTokens(tokens);
+  var renderedIngredient = renderTokens(tokens);
+  return `<td></td><td>${renderedIngredient}</td>`;
 }
 
 function renderToken(token) {
@@ -121,9 +122,9 @@ function contentFormatter(recipe) {
   content.append(tabs);
 
   var ingredients = $('<div />', {'class': 'tab ingredients'});
-  var ingredientList = $('<ul />');
+  var ingredientList = $('<table />');
   $.each(recipe.ingredients, function() {
-    ingredientList.append($('<li />', {'html': renderIngredients(this.tokens)}));
+    ingredientList.append($('<tr />', {'html': renderIngredients(this.tokens)}));
   });
   ingredients.append(ingredientList);
   ingredients.append($('<button />', {
