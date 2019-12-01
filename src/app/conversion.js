@@ -75,7 +75,10 @@ function renderQuantity(quantity) {
   try {
     fromQuantity = convert(quantity.magnitude).from(quantity.units);
   } catch (e) {
-    return `${quantity.magnitude} ${quantity.units}`;
+    return {
+      'magnitude': quantity.magnitude,
+      'units': quantity.units
+    };
   }
 
   var units = targetUnits(fromQuantity);
@@ -83,11 +86,17 @@ function renderQuantity(quantity) {
 
   var renderedMagnitude = renderMagnitude(units, magnitude);
   var renderedUnits = renderUnits(units, magnitude);
-  return `${renderedMagnitude} ${renderedUnits}`;
+  return {
+    'magnitude': renderedMagnitude,
+    'units': renderedUnits
+  };
 }
 
 function renderIngredient(ingredient) {
   var renderedQuantity = renderQuantity(ingredient.quantity);
   var renderedProduct = renderProduct(ingredient.product);
-  return `<th>${renderedQuantity}</th><td>${renderedProduct}</td>`;
+  return {
+    'quantity': renderedQuantity,
+    'product': renderedProduct
+  }
 }

@@ -37,13 +37,14 @@ function renderIngredients(tokens) {
     };
   });
   if (collectedTokens.product && collectedTokens.quantity && collectedTokens.units) {
-    return renderIngredient({
+    var ingredient = renderIngredient({
       product: collectedTokens.product,
       quantity: {
         magnitude: collectedTokens.quantity,
         units: collectedTokens.units
       }
     });
+    return `<th>${ingredient.quantity.magnitude} ${ingredient.quantity.units}</th><td>${ingredient.product}</td>`
   }
 
   var quantity = renderTokens(tokens.filter(token => token.type != 'product'));
