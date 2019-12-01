@@ -115,7 +115,13 @@ div.recipe-list .content .tab button {
 }
 
 div.recipe-list .content .ingredients table th {
+  padding: 1px;
+
   width: 200px;
   text-align: right;
   font-weight: normal;
+}
+
+div.recipe-list .content .ingredients table td {
+  padding: 1px;
 }
