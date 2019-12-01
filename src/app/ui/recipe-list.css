@@ -114,14 +114,17 @@ div.recipe-list .content .tab button {
   margin-top: 1rem;
 }
 
-div.recipe-list .content .ingredients table th {
-  padding: 1px;
-
+div.recipe-list .content .ingredients .quantity {
+  clear: both;
+  float: left;
   width: 120px;
   text-align: right;
-  font-weight: normal;
+
+  padding: 2px;
 }
 
-div.recipe-list .content .ingredients table td {
-  padding: 1px;
+div.recipe-list .content .ingredients .product {
+  float: left;
+
+  padding: 2px;
 }

@@ -44,12 +44,12 @@ function renderIngredients(tokens) {
         units: collectedTokens.units
       }
     });
-    return `<th>${ingredient.quantity.magnitude} ${ingredient.quantity.units}</th><td>${ingredient.product}</td>`
+    return `<div class="quantity">${ingredient.quantity.magnitude} ${ingredient.quantity.units}</div><div class="product">${ingredient.product}</div>`
   }
 
   var quantity = renderTokens(tokens.filter(token => token.type != 'product'));
   var product = renderTokens(tokens.filter(token => token.type == 'product'));
-  return `<th>${quantity}</th><td>${product}</td>`;
+  return `<div class="quantity">${quantity}</div><div class="product">${product}</div>`;
 }
 
 function renderToken(token) {
@@ -125,9 +125,10 @@ function contentFormatter(recipe) {
   content.append(tabs);
 
   var ingredients = $('<div />', {'class': 'tab ingredients'});
-  var ingredientList = $('<table />');
+  var ingredientList = $('<div  />');
   $.each(recipe.ingredients, function() {
-    ingredientList.append($('<tr />', {'html': renderIngredients(this.tokens)}));
+    ingredientList.append(renderIngredients(this.tokens));
+    ingredientList.append($('<div  />', {'style': 'clear: both'}));
   });
   ingredients.append(ingredientList);
   ingredients.append($('<button />', {
