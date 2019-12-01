@@ -31,6 +31,7 @@ function targetUnits(quantity) {
   switch (measure) {
     case 'volume': return volumeUnits(quantity);
     case 'mass': return weightUnits(quantity);
+    default: return quantity.origin.abbr;
   };
 }
 
