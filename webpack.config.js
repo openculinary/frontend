@@ -39,6 +39,7 @@ module.exports = {
         'window.jQuery': 'jquery'
       }),
       new InjectManifest({
+        dontCacheBustURLsMatching: /.*/,
         exclude: ['vendors'],
         importWorkboxFrom: 'local',
         swSrc: path.resolve(__dirname, 'src/sw/sw.js')
