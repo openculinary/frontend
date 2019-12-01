@@ -113,3 +113,9 @@ div.recipe-list .content .tab {
 div.recipe-list .content .tab button {
   margin-top: 1rem;
 }
+
+div.recipe-list .content .ingredients table th {
+  width: 200px;
+  text-align: right;
+  font-weight: normal;
+}

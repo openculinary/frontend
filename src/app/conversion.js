@@ -87,5 +87,5 @@ function renderQuantity(quantity) {
 function renderIngredient(ingredient) {
   var renderedQuantity = renderQuantity(ingredient.quantity);
   var renderedProduct = renderProduct(ingredient.product);
-  return `<td>${renderedQuantity}</td><td>${renderedProduct}</td>`;
+  return `<th>${renderedQuantity}</th><td>${renderedProduct}</td>`;
 }

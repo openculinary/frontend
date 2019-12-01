@@ -46,7 +46,7 @@ function renderIngredients(tokens) {
     });
   }
   var renderedIngredient = renderTokens(tokens);
-  return `<td></td><td>${renderedIngredient}</td>`;
+  return `<th></th><td>${renderedIngredient}</td>`;
 }
 
 function renderToken(token) {
