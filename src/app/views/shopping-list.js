@@ -14,11 +14,11 @@ function renderProductText(product, mealCounts) {
   var productText = '';
   $.each(unitQuantities, function(unit) {
     if (productText) productText += ' + ';
-    var ingredient = renderQuantity({
+    var quantity = renderQuantity({
       magnitude: unitQuantities[unit],
       units: unit
     });
-    productText += `${ingredient.quantity.magnitude} ${ingredient.quantity.units}`;
+    productText += `${quantity.magnitude} ${quantity.units}`;
   });
   productText += ' ' + product.product;
   return productText;
