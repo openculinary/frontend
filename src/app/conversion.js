@@ -2,7 +2,7 @@ import * as convert from 'convert-units';
 
 import { float2rat } from './common';
 
-export { renderIngredient };
+export { renderQuantity, renderIngredient };
 
 const expandMeasures = [
     'Tbs',
@@ -41,6 +41,10 @@ function renderMagnitude(units, magnitude) {
   return `<sup>${result}</sub>`;
 }
 
+function renderProduct(product) {
+  return `<span class="tag badge ${product.state}">${product.product}</span>`;
+}
+
 function renderUnits(units, magnitude) {
   var description = convert().describe(units);
   if (expandMeasures.indexOf(units) == -1) {
@@ -50,11 +54,17 @@ function renderUnits(units, magnitude) {
   return description.plural.toLowerCase();
 }
 
-function renderIngredient(ingredient) {
-  var quantity = convert(ingredient.quantity).from(ingredient.units);
+function renderQuantity(quantity) {
+  var quantity = convert(quantity.magnitude).from(quantity.units);
   var units = targetUnits(quantity);
   var magnitude = quantity.to(units);
   var renderedMagnitude = renderMagnitude(units, magnitude);
   var renderedUnits = renderUnits(units, magnitude);
   return `${renderedMagnitude} ${renderedUnits}`;
+}
+
+function renderIngredient(ingredient) {
+  var renderedQuantity = renderQuantity(ingredient.quantity);
+  var renderedProduct = renderProduct(ingredient.product);
+  return `${renderedQuantity} ${renderedProduct}`;
 }
