@@ -4,6 +4,11 @@ import { float2rat } from './common';
 
 export { renderQuantity };
 
+const expandMeasures = [
+    'Tbs',
+    'tsp',
+];
+
 function volumeUnits(quantity) {
   if (quantity.val >= 1000) return 'l';
   if (quantity.val <= 5) return 'tsp';
@@ -24,29 +29,31 @@ function targetUnits(quantity) {
   };
 }
 
-function renderMagnitude(magnitude) {
-  var result = float2rat(magnitude);
-  if (result.indexOf('/') >= 0) {
-    result = result.replace('/', '</sup>&frasl;<sub>');
-    return `<sup>${result}</sub>`;
+function renderMagnitude(units, magnitude) {
+  if (expandMeasures.indexOf(units) == -1) {
+    return magnitude.toFixed(2) / 1;
   }
-  return result;
+  var result = float2rat(magnitude);
+  if (result.indexOf('/') == -1) {
+    return result;
+  }
+  result = result.replace('/', '</sup>&frasl;<sub>');
+  return `<sup>${result}</sub>`;
 }
 
 function renderUnits(units, magnitude) {
   var description = convert().describe(units);
-  var expandMeasures = ['Tbs', 'tsp'];
-  if (expandMeasures.indexOf(units) >= 0) {
-    if (magnitude === 1) return description.singular.toLowerCase();
-    return description.plural.toLowerCase();
+  if (expandMeasures.indexOf(units) == -1) {
+    return description.abbr;
   }
-  return description.abbr;
+  if (magnitude === 1) return description.singular.toLowerCase();
+  return description.plural.toLowerCase();
 }
 
 function renderQuantity(quantity) {
   var units = targetUnits(quantity);
   var magnitude = quantity.to(units);
-  var renderedMagnitude = renderMagnitude(magnitude);
+  var renderedMagnitude = renderMagnitude(units, magnitude);
   var renderedUnits = renderUnits(units, magnitude);
   return `${renderedMagnitude} ${renderedUnits}`;
 }

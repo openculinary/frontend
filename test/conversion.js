@@ -28,6 +28,13 @@ describe('unit conversion', function() {
       assert.equal('50 ml', rendered);
     });
 
+    it('renders large volumes', function() {
+      var quantity = convert(1500).from('ml');
+      var rendered = renderQuantity(quantity);
+
+      assert.equal('1.5 l', rendered);
+    });
+
   });
 
 });
