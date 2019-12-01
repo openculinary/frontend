@@ -13,7 +13,7 @@ describe('unit conversion', function() {
       var quantity = convert(10).from('ml');
       var rendered = renderQuantity(quantity);
 
-      assert.equal('2/3 Tbs', rendered);
+      assert.equal('2/3 tablespoons', rendered);
     });
 
     it('renders mid-size volumes', function() {

@@ -24,10 +24,20 @@ function targetUnits(quantity) {
   };
 }
 
+function describeUnits(units, magnitude) {
+  var description = convert().describe(units);
+  var expandMeasures = ['Tbs', 'tsp'];
+  if (expandMeasures.indexOf(units) >= 0) {
+    if (magnitude === 1) return description.singular.toLowerCase();
+    return description.plural.toLowerCase();
+  }
+  return description.abbr;
+}
+
 function renderQuantity(quantity) {
   var units = targetUnits(quantity);
-  var unitDescription = convert().describe(units);
   var magnitude = float2rat(quantity.to(units));
+  var unitDescription = describeUnits(units, magnitude);
 
-  return `${magnitude} ${unitDescription.abbr}`;
+  return `${magnitude} ${unitDescription}`;
 }
