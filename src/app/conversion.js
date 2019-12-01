@@ -43,8 +43,12 @@ function renderMagnitude(units, magnitude) {
   if (result.indexOf('/') == -1) {
     return result;
   }
-  result = result.replace('/', '</sup>&frasl;<sub>');
-  return `<sup>${result}</sub>`;
+  result = result.split(' ');
+  var last = result.length - 1;
+  result[last] = result[last].replace('/', '</sup>&frasl;<sub>');
+  result[last] = `<sup>${result[last]}</sub>`;
+  result = result.join(' ');
+  return result;
 }
 
 function renderProduct(product) {
@@ -56,7 +60,7 @@ function renderUnits(units, magnitude) {
   if (expandMeasures.indexOf(units) == -1) {
     return description.abbr;
   }
-  if (magnitude === 1) return description.singular.toLowerCase();
+  if (magnitude <= 1) return description.singular.toLowerCase();
   return description.plural.toLowerCase();
 }
 

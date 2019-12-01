@@ -13,7 +13,7 @@ describe('unit conversion', function() {
     it('renders small volumes', function() {
       var rendered = renderQuantity({magnitude: 10, units: 'ml'});
       var expectedFraction = fraction(2, 3);
-      assert.equal(`${expectedFraction} tablespoons`, rendered);
+      assert.equal(`${expectedFraction} tablespoon`, rendered);
     });
 
     it('renders mid-size volumes', function() {
@@ -57,6 +57,22 @@ describe('unit conversion', function() {
     it('removes precision from large quantities', function() {
       var rendered = renderQuantity({magnitude: 6005, units: 'g'});
       assert.equal('6 kg', rendered);
+    });
+
+  });
+
+  describe('plurality', function() {
+
+    it('renders less-than-individual measures as singular', function() {
+      var rendered = renderQuantity({magnitude: 2.5, units: 'ml'});
+      var expectedFraction = fraction(1, 2);
+      assert.equal(`${expectedFraction} teaspoon`, rendered);
+    });
+
+    it('renders greater-than-individual measures as plural', function() {
+      var rendered = renderQuantity({magnitude: 20, units: 'ml'});
+      var expectedFraction = fraction(1, 3);
+      assert.equal(`1 ${expectedFraction} tablespoons`, rendered);
     });
 
   });
