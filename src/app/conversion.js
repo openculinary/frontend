@@ -55,9 +55,16 @@ function renderUnits(units, magnitude) {
 }
 
 function renderQuantity(quantity) {
-  var quantity = convert(quantity.magnitude).from(quantity.units);
-  var units = targetUnits(quantity);
-  var magnitude = quantity.to(units);
+  var fromQuantity;
+  try {
+    fromQuantity = convert(quantity.magnitude).from(quantity.units);
+  } catch (e) {
+    return `${quantity.magnitude} ${quantity.units}`;
+  }
+
+  var units = targetUnits(fromQuantity);
+  var magnitude = fromQuantity.to(units);
+
   var renderedMagnitude = renderMagnitude(units, magnitude);
   var renderedUnits = renderUnits(units, magnitude);
   return `${renderedMagnitude} ${renderedUnits}`;

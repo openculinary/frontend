@@ -42,4 +42,13 @@ describe('unit conversion', function() {
 
   });
 
+  describe('exceptions', function() {
+
+    it('renders non-standardized quantities', function() {
+      var rendered = renderQuantity({magnitude: 1, units: 'clove'});
+      assert.equal('1 clove', rendered);
+    });
+
+  });
+
 });
