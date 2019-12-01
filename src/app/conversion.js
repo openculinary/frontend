@@ -2,7 +2,7 @@ import * as convert from 'convert-units';
 
 import { float2rat } from './common';
 
-export { renderQuantity };
+export { renderIngredient };
 
 const expandMeasures = [
     'Tbs',
@@ -50,8 +50,8 @@ function renderUnits(units, magnitude) {
   return description.plural.toLowerCase();
 }
 
-function renderQuantity(quantity) {
-  quantity = convert(quantity.magnitude).from(quantity.units);
+function renderIngredient(ingredient) {
+  var quantity = convert(ingredient.quantity).from(ingredient.units);
   var units = targetUnits(quantity);
   var magnitude = quantity.to(units);
   var renderedMagnitude = renderMagnitude(units, magnitude);
