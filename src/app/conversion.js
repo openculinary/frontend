@@ -24,7 +24,16 @@ function targetUnits(quantity) {
   };
 }
 
-function describeUnits(units, magnitude) {
+function renderMagnitude(magnitude) {
+  var result = float2rat(magnitude);
+  if (result.indexOf('/') >= 0) {
+    result = result.replace('/', '</sup>&frasl;<sub>');
+    return `<sup>${result}</sub>`;
+  }
+  return result;
+}
+
+function renderUnits(units, magnitude) {
   var description = convert().describe(units);
   var expandMeasures = ['Tbs', 'tsp'];
   if (expandMeasures.indexOf(units) >= 0) {
@@ -36,8 +45,8 @@ function describeUnits(units, magnitude) {
 
 function renderQuantity(quantity) {
   var units = targetUnits(quantity);
-  var magnitude = float2rat(quantity.to(units));
-  var unitDescription = describeUnits(units, magnitude);
-
-  return `${magnitude} ${unitDescription}`;
+  var magnitude = quantity.to(units);
+  var renderedMagnitude = renderMagnitude(magnitude);
+  var renderedUnits = renderUnits(units, magnitude);
+  return `${renderedMagnitude} ${renderedUnits}`;
 }
