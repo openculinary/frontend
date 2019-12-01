@@ -24,6 +24,10 @@ export {
 };
 
 function renderTokens(tokens) {
+  return tokens.map(renderToken).join('');
+}
+
+function renderIngredients(tokens) {
   var collectedTokens = {};
   tokens.map(token => {
     collectedTokens[token.type] = token.value;
@@ -41,7 +45,7 @@ function renderTokens(tokens) {
       }
     });
   }
-  return tokens.map(renderToken).join('');
+  return renderTokens(tokens);
 }
 
 function renderToken(token) {
@@ -119,7 +123,7 @@ function contentFormatter(recipe) {
   var ingredients = $('<div />', {'class': 'tab ingredients'});
   var ingredientList = $('<ul />');
   $.each(recipe.ingredients, function() {
-    ingredientList.append($('<li />', {'html': renderTokens(this.tokens)}));
+    ingredientList.append($('<li />', {'html': renderIngredients(this.tokens)}));
   });
   ingredients.append(ingredientList);
   ingredients.append($('<button />', {
