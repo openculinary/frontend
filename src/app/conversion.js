@@ -18,7 +18,8 @@ function volumeUnits(quantity) {
 
 function weightUnits(quantity) {
   if (quantity.val >= 1000) return 'kg';
-  if (quantity.val <= 1) return 'pinch';
+  // TODO: Support custom rendering units
+  // if (quantity.val <= 1) return 'pinch';
   return 'g';
 }
 
