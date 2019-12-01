@@ -42,6 +42,25 @@ describe('unit conversion', function() {
 
   });
 
+  describe('rounding', function() {
+
+    it('leaves small quantities unmodified', function() {
+      var rendered = renderQuantity({magnitude: 3, units: 'g'});
+      assert.equal('3 g', rendered);
+    });
+
+    it('rounds mid-size quantities', function() {
+      var rendered = renderQuantity({magnitude: 63, units: 'g'});
+      assert.equal('65 g', rendered);
+    });
+
+    it('removes precision from large quantities', function() {
+      var rendered = renderQuantity({magnitude: 6005, units: 'g'});
+      assert.equal('6 kg', rendered);
+    });
+
+  });
+
   describe('exceptions', function() {
 
     it('renders non-standardized quantities', function() {

@@ -30,6 +30,12 @@ function targetUnits(quantity) {
 }
 
 function renderMagnitude(units, magnitude) {
+  if (magnitude >= 50) {
+    magnitude = magnitude / 5;
+    magnitude = Math.round(magnitude) * 5;
+    magnitude = Number(magnitude.toPrecision(3));
+    return magnitude.toFixed();
+  }
   if (expandMeasures.indexOf(units) == -1) {
     return magnitude.toFixed(2) / 1;
   }
