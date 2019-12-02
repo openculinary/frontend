@@ -4,7 +4,6 @@ import 'select2';
 import 'select2/dist/css/select2.css';
 import './shopping-list.css';
 
-import { float2rat } from '../common';
 import { renderQuantity } from '../conversion';
 import { storage } from '../storage';
 import { addProduct, aggregateUnitQuantities, removeProduct } from '../models/products';
