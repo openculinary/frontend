@@ -34,6 +34,7 @@ function targetUnits(quantity) {
 }
 
 function renderMagnitude(units, magnitude) {
+  if (!magnitude) return magnitude;
   if (magnitude >= 50) {
     magnitude = magnitude / 5;
     magnitude = Math.round(magnitude) * 5;
