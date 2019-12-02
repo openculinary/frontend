@@ -93,9 +93,9 @@ describe('unit conversion', function() {
       assert.equal('1 clove', rendered);
     });
 
-    it('renders units without explicit handling', function() {
-      var rendered = renderQuantityHelper({magnitude: 1, units: 'cm'});
-      assert.equal('1 cm', rendered);
+    it('renders units with empty magnitude', function() {
+      var rendered = renderQuantityHelper({magnitude: undefined, units: 'in'});
+      assert.equal('in', rendered);
     });
 
   });
