@@ -18,8 +18,6 @@ function volumeUnits(quantity) {
 
 function weightUnits(quantity) {
   if (quantity.val >= 1000) return 'kg';
-  // TODO: Support custom rendering units
-  // if (quantity.val <= 1) return 'pinch';
   return 'g';
 }
 
@@ -71,6 +69,15 @@ function renderUnits(units, magnitude) {
 }
 
 function renderQuantity(quantity) {
+
+  // Special case handling for 'pinch'
+  if (quantity.units === 'ml' && quantity.magnitude <= 0.25) {
+    return {
+      'magnitude': null,
+      'units': 'pinch'
+    };
+  }
+
   var fromQuantity;
   try {
     fromQuantity = convert(quantity.magnitude).from(quantity.units);

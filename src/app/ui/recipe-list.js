@@ -36,7 +36,7 @@ function renderIngredients(tokens) {
       state: token.state,
     };
   });
-  if (collectedTokens.product && collectedTokens.quantity && collectedTokens.units) {
+  if (collectedTokens.product && collectedTokens.units) {
     var ingredient = renderIngredient({
       product: collectedTokens.product,
       quantity: {
@@ -44,7 +44,7 @@ function renderIngredients(tokens) {
         units: collectedTokens.units
       }
     });
-    return `<div class="quantity">${ingredient.quantity.magnitude} ${ingredient.quantity.units}</div><div class="product">${ingredient.product}</div>`
+    return `<div class="quantity">${ingredient.quantity.magnitude || ''} ${ingredient.quantity.units}</div><div class="product">${ingredient.product}</div>`.trim();
   }
 
   var quantity = renderTokens(tokens.filter(token => token.type != 'product'));

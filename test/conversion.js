@@ -8,12 +8,17 @@ function fraction(nominator, denominator) {
 
 function renderQuantityHelper(quantity) {
   var rendered = renderQuantity(quantity);
-  return `${rendered.magnitude} ${rendered.units}`;
+  return `${rendered.magnitude || ''} ${rendered.units}`.trim();
 }
 
 describe('unit conversion', function() {
 
   describe('liquids', function() {
+
+    it('renders pinch volumes', function() {
+      var rendered = renderQuantityHelper({magnitude: 0.25, units: 'ml'});
+      assert.equal(`pinch`, rendered);
+    });
 
     it('renders small volumes', function() {
       var rendered = renderQuantityHelper({magnitude: 10, units: 'ml'});
