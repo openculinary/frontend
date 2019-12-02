@@ -66,7 +66,7 @@ function productElement(product, mealCounts) {
   }).appendTo(label);
 
   var productText = renderProductText(product, mealCounts);
-  $('<span />', {'text': productText}).appendTo(label);
+  $('<span />', {'html': productText}).appendTo(label);
 
   if (Object.keys(product.recipes || {}).length === 0) {
     $('<span />', {
