@@ -90,9 +90,12 @@ async function setupCollaboration(collaboration) {
 function joinCollaboration() {
   if (app) return;
 
+  var shareIcon = 'fa-share-alt-square';
+  var spinnerIcon = 'fa-spinner fa-spin';
+
   var toggle = $('#collaboration-toggle');
-  toggle.removeClass();
-  toggle.addClass('nav-link fa fa-spinner fa-spin')
+  toggle.removeClass(shareIcon);
+  toggle.addClass(spinnerIcon)
   toggle.off('click');
 
   $.ajaxSetup({'cache': true});
@@ -100,8 +103,8 @@ function joinCollaboration() {
     var collaboration = await getCollaboration(true);
     await setupCollaboration(collaboration);
 
-    toggle.removeClass();
-    toggle.addClass('nav-link fa fa-share-alt-square')
+    toggle.removeClass(spinnerIcon);
+    toggle.addClass(shareIcon)
     toggle.css('color', 'lime');
     toggle.on('click', leaveCollaboration);
 
