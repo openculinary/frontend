@@ -27,6 +27,10 @@ span.select2-dropdown {
   z-index: 1;
 }
 
+span.select2-dropdown--above {
+  z-index: 2000;
+}
+
 span.tag.badge {
   color: black;
   font-size: 13px;
