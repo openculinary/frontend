@@ -1,5 +1,6 @@
 import 'jquery';
 
+import { joinCollaboration } from './collaboration';
 import { renderSearch, renderIndividual } from './views/search';
 
 export { getState, loadPage, loadState };

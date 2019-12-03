@@ -3,6 +3,8 @@ import 'jquery';
 import { getState } from './state';
 import { storage, wrapMutators } from './storage';
 
+export { joinCollaboration };
+
 async function createCollaborativeModel(app, model, collaboration) {
   var name = `${model}-${collaboration.id}`;
   var type = 'rwlwwset';
