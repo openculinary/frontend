@@ -1,4 +1,5 @@
 *.lock
 *.swp
+.lighthouseci
 node_modules
 public
