@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="apple-touch-icon" href="images/icons/manifest-icon-192.png">
     <link rel="manifest" href="reciperadar.webmanifest">
-    <%= // TODO: Awaiting https://caniuse.com/#feat=link-rel-preload coverage %>
+    <% /* TODO: Awaiting https://caniuse.com/#feat=link-rel-preload coverage */ %>
     <%= htmlWebpackPlugin.files.css.map(href => `<link rel="preload" href="${href}" as="style">`).join('\n    ') %>
     <%= htmlWebpackPlugin.files.css.map(href => `<link rel="stylesheet" href="${href}">`).join('\n    ') %>
     <title>RecipeRadar - recipe search engine and meal planner</title>
