@@ -1,5 +1,10 @@
 {
   "ci": {
+    "assert": {
+      "preset": "lighthouse:recommended",
+      "assertions": {
+      }
+    },
     "collect": {
       "numberOfRuns": 1,
       "staticDistDir": "public"
