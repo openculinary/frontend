@@ -10,6 +10,7 @@ Countly.init({
   app_key: 'cbe9c80e3bae3df51d71ae0fbbfa6498d22c42ca',
   app_version: `${VERSION}`,
   force_post: true,
+  require_consent: true,
   url: countlyURI,
   use_session_cookie: false
 });
