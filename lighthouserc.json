@@ -3,6 +3,9 @@
     "assert": {
       "preset": "lighthouse:recommended",
       "assertions": {
+        "aria-required-children": "off",
+        "font-display": "off",
+        "unused-css-rules": "off",
         "redirects-http": "off",
         "uses-http2": "off"
       }
