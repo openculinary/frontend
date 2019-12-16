@@ -5,6 +5,7 @@ import 'select2/dist/css/select2.css';
 import './shopping-list.css';
 
 import { renderQuantity } from '../conversion';
+import { localize } from '../i18n';
 import { storage } from '../storage';
 import { addProduct, aggregateUnitQuantities, removeProduct } from '../models/products';
 
@@ -24,9 +25,20 @@ function renderProductText(product, mealCounts) {
 }
 
 function categoryElement(category) {
-  category = category || 'Other';
+  // TODO: backwards compatibility; remove
+  switch (category) {
+    case 'Bakery': category = 'bakery'; break;
+    case 'Dairy': category = 'dairy'; break;
+    case 'Dry Goods': category = 'dry_goods'; break;
+    case 'Fruit & Vegetables': category = 'fruit_and_veg'; break;
+    case 'Meat': category = 'meat_and_deli'; break;
+    case 'Oil, Vinegar & Condiments': category = 'oil_and_vinegar_and_condiments'; break;
+    default: category = 'other';
+  }
+  // END: backwards compatibility; remove
+
   var fieldset = $('<fieldset />', {'class': category.toLowerCase()});
-  $('<legend />', {'text': category}).appendTo(fieldset);
+  $('<legend />', {'data-i18n': `categories.${category}`}).appendTo(fieldset);
   return fieldset;
 }
 
@@ -137,6 +149,7 @@ function renderShoppingList() {
   });
   if (finalCategoryGroup) finalCategoryGroup.appendTo(productsHtml);
 
+  localize(productsHtml);
   populateNotifications(products);
 }
 
