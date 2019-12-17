@@ -26,6 +26,7 @@ module.exports = {
     plugins: [
       new CleanWebpackPlugin(),
       new CopyWebpackPlugin([
+        {from: 'i18n/dev', to: 'i18n/en'},
         {from: 'static'}
       ]),
       new MiniCssExtractPlugin({
