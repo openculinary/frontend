@@ -20,6 +20,7 @@ function localize(selector) {
 }
 
 i18next.use(BrowserLanguage).use(XHR).init({
+  fallbackLng: 'en', // TODO: remove this so that 'dev' becomes the fallback
   load: 'languageOnly',
   backend: {
     loadPath: 'i18n/{{lng}}/{{ns}}.json'
