@@ -41,7 +41,7 @@ function renderMagnitude(units, magnitude) {
     magnitude = Number(magnitude.toPrecision(3));
     return magnitude.toFixed();
   }
-  if (expandMeasures.indexOf(units) == -1) {
+  if (units && expandMeasures.indexOf(units) == -1) {
     return magnitude.toFixed(2) / 1;
   }
   var result = float2rat(magnitude);
@@ -84,7 +84,7 @@ function renderQuantity(quantity) {
     fromQuantity = convert(quantity.magnitude).from(quantity.units);
   } catch (e) {
     return {
-      'magnitude': quantity.magnitude,
+      'magnitude': renderMagnitude(quantity.units, quantity.magnitude),
       'units': quantity.units
     };
   }
