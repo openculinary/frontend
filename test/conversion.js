@@ -8,7 +8,7 @@ function fraction(nominator, denominator) {
 
 function renderQuantityHelper(quantity) {
   var rendered = renderQuantity(quantity);
-  return `${rendered.magnitude || ''} ${rendered.units}`.trim();
+  return `${rendered.magnitude || ''} ${rendered.units || ''}`.trim();
 }
 
 describe('unit conversion', function() {
@@ -66,6 +66,16 @@ describe('unit conversion', function() {
     it('removes precision from large quantities', function() {
       var rendered = renderQuantityHelper({magnitude: 6005, units: 'g'});
       assert.equal('6 kg', rendered);
+    });
+
+  });
+
+  describe('fractions', function() {
+
+    it('renders fractional amounts', function() {
+      var rendered = renderQuantityHelper({magnitude: 0.5, units: null});
+      var expectedFraction = fraction(1, 2);
+      assert.equal(expectedFraction, rendered);
     });
 
   });

@@ -18,7 +18,7 @@ function renderProductText(product, mealCounts) {
       magnitude: unitQuantities[unit],
       units: unit
     });
-    productText += `${quantity.magnitude || ''} ${quantity.units}`.trim();
+    productText += `${quantity.magnitude || ''} ${quantity.units || ''}`.trim();
   });
   productText += ' ' + product.product;
   return productText;

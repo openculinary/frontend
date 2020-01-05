@@ -44,7 +44,7 @@ function renderIngredients(tokens) {
         units: collectedTokens.units
       }
     });
-    return `<div class="quantity">${ingredient.quantity.magnitude || ''} ${ingredient.quantity.units}</div><div class="product">${ingredient.product}</div>`.trim();
+    return `<div class="quantity">${ingredient.quantity.magnitude || ''} ${ingredient.quantity.units || ''}</div><div class="product">${ingredient.product}</div>`.trim();
   }
 
   var quantity = renderTokens(tokens.filter(token => token.type != 'product'));
