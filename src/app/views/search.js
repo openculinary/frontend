@@ -7,7 +7,7 @@ import './search.css';
 
 import '../autosuggest';
 import { getState, loadPage, loadState } from '../state';
-import { initTable, bindLoadEvent, scrollToResults } from '../ui/recipe-list';
+import { initTable, bindLoadEvent } from '../ui/recipe-list';
 
 export { renderSearch, renderIndividual };
 
@@ -42,7 +42,6 @@ function renderSearch() {
   });
 
   loadPage('search');
-  scrollToResults('#search');
   RecipeRadar.countly.add_event('renderSearch');
 }
 
@@ -51,7 +50,6 @@ function renderIndividual() {
   $('#search .recipe-list table').bootstrapTable('refresh', {
     url: '/api/recipes/' + encodeURIComponent(id) + '/view'
   });
-  scrollToResults('#search');
 }
 
 function renderRefinement(refinement) {
