@@ -24,7 +24,7 @@ function pushSearch() {
   if (sortChoice) state['sort'] = sortChoice;
   window.location.hash = decodeURIComponent($.param(state));
 }
-$('#search button').on('click', pushSearch);
+$('#search form button').on('click', pushSearch);
 
 function renderSearch() {
   var params = {
