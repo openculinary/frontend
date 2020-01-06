@@ -55,7 +55,7 @@ $(function() {
   $(document).on('keyup', '.select2-search__field', function (event) {
     if (event.keyCode == 13) {
       $(event.target).parents('span.select2').prev('select').select2('close');
-      $('#search form button').click();
+      $('#search form button').trigger('click');
     }
   });
 })
