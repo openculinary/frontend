@@ -1,0 +1,13 @@
+#about-modal div.modal-body {
+  width: 100%;
+}
+
+#about-modal path.link {
+  fill: none;
+  stroke: rgb(0, 0, 0);
+  stroke-opacity: 0.2;
+}
+
+#about-modal path.link:hover {
+  stroke-opacity: 0.5;
+}
