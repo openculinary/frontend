@@ -25,19 +25,7 @@ function renderProductText(product, mealCounts) {
 }
 
 function categoryElement(category) {
-  // TODO: backwards compatibility; remove
-  switch (category) {
-    case 'Bakery': category = 'bakery'; break;
-    case 'Dairy': category = 'dairy'; break;
-    case 'Dry Goods': category = 'dry_goods'; break;
-    case 'Fruit & Vegetables': category = 'fruit_and_veg'; break;
-    case 'Meat': category = 'meat_and_deli'; break;
-    case 'Oil, Vinegar & Condiments': category = 'oil_and_vinegar_and_condiments'; break;
-    default: category = 'other';
-  }
-  // END: backwards compatibility; remove
-
-  var fieldset = $('<fieldset />', {'class': category.toLowerCase()});
+  var fieldset = $('<fieldset />', {'class': category});
   $('<legend />', {'data-i18n': `categories.${category}`}).appendTo(fieldset);
   return fieldset;
 }
