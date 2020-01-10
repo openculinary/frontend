@@ -23,12 +23,6 @@
 #shopping-list .products fieldset.meat_and_deli { border-color: pink; }
 #shopping-list .products fieldset.oil_and_vinegar_and_condiments { border-color: moccasin; }
 
-/* TODO: backwards compatibility; remove */
-#shopping-list .products fieldset.dry { border-color: khaki; }
-#shopping-list .products fieldset.fruit { border-color: palegreen; }
-#shopping-list .products fieldset.meat { border-color: pink; }
-/* END: backwards compatibility; remove */
-
 #shopping-list .products label {
   display: block;
   width: 240px;

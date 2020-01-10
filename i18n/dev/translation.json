@@ -6,7 +6,7 @@
     "dry_goods": "Dry Goods",
     "fruit_and_veg": "Fruit & Vegetables",
     "meat_and_deli": "Meat & Delicatessen",
-    "oil_and_vinegar_and_condiments": "Oil, Vinegar and Condiments",
-    "other": "Other"
+    "null": "Other",
+    "oil_and_vinegar_and_condiments": "Oil, Vinegar and Condiments"
   }
 }
