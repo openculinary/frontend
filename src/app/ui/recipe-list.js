@@ -18,6 +18,7 @@ export {
     bindLoadEvent,
     recipeFormatter,
     rowAttributes,
+    scrollToResults,
     updateRecipeState,
     updateStarState,
 };
@@ -236,8 +237,6 @@ function bindPostBody(selector) {
     $(this).find('.content .tabs a.nav-link').on('click', selectTab);
     $(this).find('.content button.add-to-shopping-list').on('click', addRecipe);
     $(this).parents('div.recipe-list').show();
-
-    scrollToResults(selector);
   });
 }
 
