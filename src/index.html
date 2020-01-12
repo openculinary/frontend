@@ -33,6 +33,7 @@
         <li class="nav-item">
           <a class="nav-link float-left fa fa-link hidden" id="collaboration-link"></a>
           <a class="nav-link float-left fa fa-share-alt-square" id="collaboration-toggle"></a>
+          <a class="nav-link float-left fa fa-info" data-toggle="modal" data-target="#about-modal"></a>
         </li>
       </ul>
     </header>
@@ -129,6 +130,111 @@
                 </label>
               </span>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="about-modal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <ul class="nav nav-pills" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" href="#about-application" data-toggle="tab" role="tab">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#about-vision" data-toggle="tab" role="tab">Vision</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#about-credits" data-toggle="tab" role="tab">Credits</a>
+              </li>
+            </ul>
+            <div class="ml-auto">
+              <button class="btn btn-link text-decoration-none" data-dismiss="modal">&times;</button>
+            </div>
+          </div>
+          <div class="modal-body tab-content">
+            <div class="tab-pane active" id="about-application" role="tabpanel">
+              <p>Thanks for taking an interest in RecipeRadar!</p>
+              <p>RecipeRadar is a free recipe search and meal planning application which respects your time, privacy, and ability to contribute feedback and improvements.</p>
+              <p>The application aims to encourage:</p>
+              <ul>
+                <li>Planning, cooking and sharing of meals</li>
+                <li>Healthy and economical eating habits</li>
+                <li>Reduction of food wastage</li>
+                <li>Good food safety and hygiene</li>
+              </ul>
+              <p>We are registered as a Community Interest Company in the United Kingdom, which means that our goals are legally aligned with community benefit rather than to maximize shareholder profit.</p>
+              <p>In order to provide the greatest possible value to the community and respect user values, the application is developed under the following leading principles:</p>
+              <ul>
+                <li>The app should provide the simplest and most distraction-free recipe planning and preparation assistance possible</li>
+                <li>The app should support internationalization and localization of content, weights and measures</li>
+                <li>The app should follow accessibility and usability best practices</li>
+                <li>The app should enable collaboration between multiple users during all stages of recipe planning and preparation</li>
+                <li>The app should continue to be useful in low bandwidth and offline environments</li>
+                <li>The service should not collect or store any personally-identifiable information</li>
+                <li>All data transmitted by the app - whether to the service or to other instances of the app - should use secure encryption</li>
+                <li>The code to the app and service should be made freely available for inspection and modification under the AGPLv3</li>
+                <li>The app and service should not rely on any proprietary software or development tools</li>
+              </ul>
+              <p>There's a lot still to do in order to deliver on all these principles, and we intend to be transparent and accountable as we progress towards them.</a>
+            </div>
+            <div class="tab-pane" id="about-vision" role="tabpanel">
+              <p>RecipeRadar aims to be a faithful and trustworthy companion for individuals and groups during all stages of meal preparation.</p>
+              <p>We're building the application as <a href="https://en.wikipedia.org/wiki/Free_software">free (or 'libre') software</a> because we believe that developing the project in the open and with the ability for our users to inspect it, modify it, and collaborate on it produces significant additional value for everyone involved.</p>
+              <p>RecipeRadar's vision is to help anyone discover recipes which make best use of the ingredients they have available - bearing in mind factors such as shelf life, cost and availability, dietary requirements, flavour profiles, nutritional value, and seasonality of the produce in their local area.</p>
+              <p>To put it another way, it's a <a href="https://en.wikipedia.org/wiki/Constraint_satisfaction_problem">constraint satisfaction problem</a> over a multi-dimensional domain of recipes, geography, time, and social networks.</p>
+              <p>We are strongly influenced by <a href="https://en.wikipedia.org/wiki/Information_retrieval">information retrieval</a> concepts, and view recipe search as a relevance optimization problem.  Our corpus of documents is a set of recipes, and our queries are ingredients and constraints.  By carefully tokenizing, indexing and scoring our documents and queries we can provide blazing-fast search results and improve our recipe recall and result precision over time.</p>
+              <p>The application should allow people to plan ahead and arrange the meals they'd like to prepare, and automatically create shopping lists which help them track the ingredients they need to find.</p>
+              <p>RecipeRadar should provide an intuitive list of instructions for preparation of meals, including diagrams to illustrate the steps required and time-based reminders of kitchen tasks.</p>
+              <p>We aim to transform text-based recipes into an open digital format which can be used to display the ingredients, steps, and progress of a meal.  For example, given a free-text recipe for 'Vegetarian Spaghetti Meatballs' as input, we'd like to produce an output something like this:</p>
+              <div class="chart"></div>
+              <p>All of this should be enabled collaboratively - with a preference for other users to 'opt-in' to any meal planning and preparation, rather than being assigned duties.</p>
+            </div>
+            <div class="tab-pane" id="about-credits" role="tabpanel">
+              <h3>Contributions</h3>
+              <p>We're grateful for all of the feedback and ideas which have been incorporated into RecipeRadar.</p>
+              <p>This page will soon include a list of contributions and credits (including any anonymous benefactors).</p>
+              <h3>Technology</h3>
+              <p>RecipeRadar is built on top of the best open source software we can find for each of the specific problem areas we've encountered during development.</p>
+              <p>We recognize the effort and hard work that goes into building these tools, and the value we derive by using them is a big factor in our decision to provide the source code for RecipeRadar itself to the public.</p>
+              <p>Included below is a list of some of the key software we use at various layers of the RecipeRadar technology stack.</p>
+              <h5>Infrastructure</h5>
+              <ul>
+                <li><a href="https://www.linuxfoundation.org">GNU/Linux</a> on our self-hosted server</li>
+                <li><a href="https://kubernetes.io">Kubernetes</a> to orchestrate our microservice containers</li>
+                <li><a href="https://www.projectcalico.org">Project Calico</a> to provide our container network fabric</li>
+                <li><a href="https://cri-o.io">CRI-O</a> as our preferred container runtime</li>
+                <li><a href="https://nginx.org">nginx</a> to terminate inbound requests and as an ingress controller</li>
+                <li><a href="http://www.squid-cache.org">Squid</a> to cache outbound requests</li>
+                <li><a href="https://postgresql.org">PostgreSQL</a> to model, persist and query relational recipe data</li>
+                <li><a href="https://www.elastic.co">Elasticsearch</a> to index and efficiently match ingredient and recipe contents</li>
+                <li><a href="https://www.rabbitmq.com">RabbitMQ</a> as a background task queue</li>
+              </ul>
+              <h5>Services</h5>
+              <ul>
+                <li><a href="https://github.com/countly/countly-server">Countly</a> to provide site usage analytics</li>
+                <li><a href="https://github.com/googlechrome/lighthouse">lighthouse</a> to assess site performance, accessibility, and other best-practices</li>
+                <li><a href="https://github.com/willnorris/imageproxy">imageproxy</a> for image thumbnail generation</li>
+              </ul>
+              <h5>Libraries</h5>
+              <ul>
+                <li><a href="https://github.com/pallets/flask">flask</a> as a base for Python microservices</li>
+                <li><a href="https://github.com/michaelaquilina/hashedindex">hashedindex</a> to build in-process inverted indices</li>
+                <li><a href="https://github.com/hhursev/recipe-scrapers">recipe-scrapers</a> to extract content from public recipe websites</li>
+                <li><a href="https://github.com/hgrecco/pint">pint</a> to parse and standardize ingredient quantities</li>
+                <li><a href="https://github.com/i18next/i18next">i18next</a> as an internationalization and localization framework</li>
+                <li><a href="https://github.com/peer-base/peer-base">peer-base</a> for secure, conflict-free realtime peer-to-peer collaboration</li>
+                <li><a href="https://github.com/googlechrome/workbox">workbox</a> to streamline delivery of the frontend application</li>
+              </ul>
+              <p>We're keen to hear of any alternative technology recommendations.</p>
+              <p>Whenever possible we contribute fixes and modifications we make back upstream; ideally even before deploying them ourselves.</p>
+              <p>We believe it's important to write software contributions in a way that offers reusable value to others, provides backwards-compatibility when possible, and that is optional to use unless it provides a clear benefit (with few negative externalities) to the vast majority of existing use cases.</p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <p>If you can help us reach our goals, we'd love to hear from you - please use the feedback form at the bottom of the screen, or create an issue or pull request within our <a href="https://www.github.com/openculinary">GitHub organization</a>.
           </div>
         </div>
       </div>

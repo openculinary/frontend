@@ -1,0 +1,61 @@
+{
+    "nodes": [
+        { "name": "Onion", "type": "ingredient", "color": "lightgreen" },
+        { "name": "Garlic", "type": "ingredient", "color": "lightgreen" },
+        { "name": "Tomato", "type": "ingredient", "color": "lightcoral" },
+        { "name": "Spaghetti", "type": "ingredient", "color": "khaki" },
+        { "name": "Water", "type": "ingredient", "color": "lightblue" },
+        { "name": "Veg. Meatballs", "type": "ingredient", "color": "burlywood" },
+        { "name": "Tomato Sauce", "type": "intermediate", "color": "lightcoral" },
+        { "name": "Cooked Spaghetti", "type": "intermediate", "color": "khaki" },
+        { "name": "Veg. Meatballs in Tomato Sauce", "type": "intermediate", "color": "lightcoral" },
+        { "name": "Veg. Spaghetti Meatballs", "type": "meal", "color": "lightcoral" }
+    ],
+    "links": [
+        {
+            "source": "Spaghetti",
+            "target": "Cooked Spaghetti",
+            "value": 1
+        },
+        {
+            "source": "Water",
+            "target": "Cooked Spaghetti",
+            "value": 1
+        },
+        {
+            "source": "Onion",
+            "target": "Tomato Sauce",
+            "value": 1
+        },
+        {
+            "source": "Garlic",
+            "target": "Tomato Sauce",
+            "value": 1
+        },
+        {
+            "source": "Tomato",
+            "target": "Tomato Sauce",
+            "value": 1
+        },
+        {
+            "source": "Tomato Sauce",
+            "target": "Veg. Meatballs in Tomato Sauce",
+            "value": 3
+        },
+        {
+            "source": "Veg. Meatballs",
+            "target": "Veg. Meatballs in Tomato Sauce",
+            "value": 2
+        },
+        {
+            "source": "Veg. Meatballs in Tomato Sauce",
+            "target": "Veg. Spaghetti Meatballs",
+            "value": 5
+        },
+        {
+            "source": "Cooked Spaghetti",
+            "target": "Veg. Spaghetti Meatballs",
+            "value": 2
+        }
+    ]
+}
