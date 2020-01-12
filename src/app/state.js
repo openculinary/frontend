@@ -36,6 +36,11 @@ function loadPage(pageId) {
   $('header a[href="#' + pageId + '"]').addClass('active');
 }
 
+function loadAboutTab(tabId) {
+  $('#about-modal').modal('show');
+  $('#about-modal a[href="#' + tabId + '"]').tab('show');
+}
+
 function loadState() {
   var state = getState();
 
@@ -47,6 +52,10 @@ function loadState() {
     if (this.id in state) loadPage(this.id);
   });
 
+  $('#about-modal div.tab-pane[id]').each(function() {
+    if (this.id in state) loadAboutTab(this.id);
+  });
+
   var action = state.action;
   switch (action) {
     case 'join': joinCollaboration(); break;
@@ -54,3 +63,9 @@ function loadState() {
     case 'view': renderIndividual(); break;
   }
 }
+
+$(function() {
+  $('#about-modal a').on('shown.bs.tab', function (e) {
+    history.pushState(null, null, e.target.hash);
+  });
+});
