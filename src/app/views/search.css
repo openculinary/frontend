@@ -7,8 +7,8 @@
 #search select { width: 200px; }
 #search .select2 { margin-top: 12px; }
 #search li.select2-selection__choice, #search li.select2-search {
-    display: inline-block;
-    clear: both;
+  display: inline-block;
+  clear: both;
 }
 
 #search .include + .fa { color: #70f070; }
