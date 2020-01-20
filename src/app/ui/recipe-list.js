@@ -84,7 +84,7 @@ function titleFormatter(recipe) {
   var title = $('<div />', {'class': 'title'});
   $('<img />', {'src': 'images/domains/' + recipe.domain + '.ico', 'alt':''}).appendTo(title);
   $('<a />', {
-    'href': recipe.src,
+    'href': recipe.dst,
     'text': recipe.title,
     'target': '_blank',
     'rel': 'noreferrer'
