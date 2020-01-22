@@ -15,8 +15,9 @@ function populateStorage() {
   $.each(storage, function (model) {
     var stored = window.localStorage.getItem(model);
     stored = JSON.parse(stored) || {}
-    stored = new Map(Object.entries(stored));
-    storage[model].apply(stored);
+    var data = new Map();
+    $.each(stored, key => data.set(key, stored[key]));
+    storage[model].apply(data);
   });
 }
 
@@ -44,8 +45,10 @@ $(function() {
     };
 
     modelStorage.save = function() {
-      var items = Object.fromEntries(modelStorage.state());
-      window.localStorage.setItem(model, JSON.stringify(items));
+      var state = modelStorage.state();
+      var data = {};
+      state.forEach((value, key) => data[key] = value);
+      window.localStorage.setItem(model, JSON.stringify(data));
     };
 
     storage[model] = modelStorage;
