@@ -28,7 +28,7 @@ function renderProductText(product, mealCounts) {
 
 function categoryElement(category) {
   var fieldset = $('<fieldset />', {'class': category});
-  $('<legend />', {'data-i18n': `categories.${category}`}).appendTo(fieldset);
+  $('<legend />', {'data-i18n': `categories:${category}`}).appendTo(fieldset);
   return fieldset;
 }
 
