@@ -44,6 +44,6 @@
     "workbox-webpack-plugin": "^4.3.1"
   },
   "scripts": {
-    "build": "yarnpkg install; mkdir -p static/vendors/npm; npx browserify --standalone peer-base node_modules/peer-base/src/index.js | npx uglifyjs > static/vendors/npm/peer-base.min.js"
+    "build-peer-base": "yarnpkg install; mkdir -p static/vendors/npm; npx browserify --standalone peer-base node_modules/peer-base/src/index.js | npx uglifyjs > static/vendors/npm/peer-base.min.js"
   }
 }
