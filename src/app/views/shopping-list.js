@@ -5,9 +5,11 @@ import 'select2/dist/css/select2.css';
 import './shopping-list.css';
 
 import { renderQuantity } from '../conversion';
-import { localize } from '../i18n';
 import { storage } from '../storage';
 import { addProduct, aggregateUnitQuantities, removeProduct } from '../models/products';
+
+import { localize } from '../i18n';
+import en from '../i18n/locales/en/categories.po';
 
 function renderProductText(product, mealCounts) {
   var unitQuantities = aggregateUnitQuantities(product, mealCounts);
