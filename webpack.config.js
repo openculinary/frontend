@@ -63,7 +63,7 @@ module.exports = {
             {
               loader: 'file-loader', options: {
                 regExp: 'src\/app\/i18n\/locales\/(.*)\/(.*).po$',
-                name: 'locales/[1]/[2].[ext]'
+                name: 'locales/[1]/[2].json'
               }
             },
             {loader: 'i18next-po-loader'}

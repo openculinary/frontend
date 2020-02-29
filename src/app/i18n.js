@@ -26,7 +26,7 @@ i18next.use(BrowserLanguage).use(XHR).init({
   fallbackLng: 'en',
   load: 'languageOnly',
   backend: {
-    loadPath: 'locales/{{lng}}/{{ns}}.po'
+    loadPath: 'locales/{{lng}}/{{ns}}.json'
   },
   detection: {
     caches: ['localStorage'],
