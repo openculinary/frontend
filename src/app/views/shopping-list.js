@@ -10,6 +10,9 @@ import { addProduct, aggregateUnitQuantities, removeProduct } from '../models/pr
 
 import { localize } from '../i18n';
 import en from '../i18n/locales/en/categories.po';
+import es from '../i18n/locales/es/categories.po';
+import fr from '../i18n/locales/fr/categories.po';
+import it from '../i18n/locales/it/categories.po';
 
 function renderProductText(product, mealCounts) {
   var unitQuantities = aggregateUnitQuantities(product, mealCounts);
