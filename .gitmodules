@@ -1,0 +1,3 @@
+[submodule "src/app/i18n"]
+	path = src/app/i18n
+	url = git@github.com:openculinary/internationalization.git
