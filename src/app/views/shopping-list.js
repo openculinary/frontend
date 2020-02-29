@@ -5,9 +5,14 @@ import 'select2/dist/css/select2.css';
 import './shopping-list.css';
 
 import { renderQuantity } from '../conversion';
-import { localize } from '../i18n';
 import { storage } from '../storage';
 import { addProduct, aggregateUnitQuantities, removeProduct } from '../models/products';
+
+import { localize } from '../i18n';
+import en from '../i18n/locales/en/categories.po';
+import es from '../i18n/locales/es/categories.po';
+import fr from '../i18n/locales/fr/categories.po';
+import it from '../i18n/locales/it/categories.po';
 
 function renderProductText(product, mealCounts) {
   var unitQuantities = aggregateUnitQuantities(product, mealCounts);
@@ -26,7 +31,7 @@ function renderProductText(product, mealCounts) {
 
 function categoryElement(category) {
   var fieldset = $('<fieldset />', {'class': category});
-  $('<legend />', {'data-i18n': `categories.${category}`}).appendTo(fieldset);
+  $('<legend />', {'data-i18n': `categories:${category}`}).appendTo(fieldset);
   return fieldset;
 }
 

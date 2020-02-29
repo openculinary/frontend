@@ -20,10 +20,13 @@ function localize(selector) {
 }
 
 i18next.use(BrowserLanguage).use(XHR).init({
-  fallbackLng: 'en', // TODO: remove this so that 'dev' becomes the fallback
+  ns: [
+    'categories',
+  ],
+  fallbackLng: 'en',
   load: 'languageOnly',
   backend: {
-    loadPath: 'i18n/{{lng}}/{{ns}}.json'
+    loadPath: 'locales/{{lng}}/{{ns}}.json'
   },
   detection: {
     caches: ['localStorage'],

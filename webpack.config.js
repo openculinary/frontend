@@ -26,7 +26,6 @@ module.exports = {
     plugins: [
       new CleanWebpackPlugin(),
       new CopyWebpackPlugin([
-        {from: 'i18n/dev', to: 'i18n/en'}, // TODO: source from i18n pipeline
         {from: 'static'}
       ]),
       new MiniCssExtractPlugin({
@@ -57,6 +56,18 @@ module.exports = {
         {
           test: /\.css$/,
           use: [MiniCssExtractPlugin.loader, 'css-loader']
+        },
+        {
+          test: /\.po$/,
+          use: [
+            {
+              loader: 'file-loader', options: {
+                regExp: 'src\/app\/i18n\/locales\/(.*)\/(.*).po$',
+                name: 'locales/[1]/[2].json'
+              }
+            },
+            {loader: 'i18next-po-loader'}
+          ]
         },
         {
           test: /\.(ttf|otf|eot|svg|woff|woff2)$/,
