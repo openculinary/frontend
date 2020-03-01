@@ -66,7 +66,7 @@ module.exports = {
                 name: 'locales/[1]/[2].json'
               }
             },
-            {loader: 'i18next-po-loader'}
+            {loader: 'i18next-gettext-loader'}
           ]
         },
         {
