@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+const glob = require('glob');
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { InjectManifest } = require('workbox-webpack-plugin');
@@ -15,6 +16,7 @@ module.exports = {
       'app': path.resolve(__dirname, 'src/app/main.js'),
       'countly': path.resolve(__dirname, 'src/countly/index.js'),
       'feedback': path.resolve(__dirname, 'src/feedback/loader.js'),
+      'locales': glob.sync('./i18n/locales/*/*.po', {ignore: ['./i18n/locales/templates/*.po']}),
       'sw': path.resolve(__dirname, 'src/sw/loader.js')
     },
     output: {
@@ -62,7 +64,7 @@ module.exports = {
           use: [
             {
               loader: 'file-loader', options: {
-                regExp: 'src\/app\/i18n\/locales\/(.*)\/(.*).po$',
+                regExp: 'i18n\/locales\/(.*)\/(.*).po$',
                 name: 'locales/[1]/[2].json'
               }
             },
