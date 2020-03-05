@@ -1,7 +1,7 @@
 .PHONY: prebuild lint tests
 
 prebuild: lint tests
-	webpack
+	webpack -p --optimize-minimize
 
 lint:
 	eslint src
