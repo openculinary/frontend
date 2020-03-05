@@ -10,18 +10,18 @@ export { localize };
 var pendingSelectors = [];
 
 function localize(selector) {
+  if (!selector) selector = 'body';
   if (!$.fn.localize) {
     pendingSelectors.push(selector);
     return;
   };
-
-  if (!selector) selector = 'body';
   $(selector).localize();
 }
 
 i18next.use(BrowserLanguage).use(XHR).init({
   ns: [
     'categories',
+    'navigation',
   ],
   fallbackLng: 'en',
   load: 'languageOnly',
@@ -34,6 +34,7 @@ i18next.use(BrowserLanguage).use(XHR).init({
   }
 }, function() {
   jqueryi18next.init(i18next, $);
+  localize();
 
   var selector;
   while (selector = pendingSelectors.pop()) {
