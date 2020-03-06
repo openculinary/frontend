@@ -1,3 +1,7 @@
+import { precacheAndRoute } from 'workbox-precaching';
+import { registerRoute } from 'workbox-routing';
+import { NetworkFirst } from 'workbox-strategies';
+
 addEventListener('message', (event) => {
   if (event.data && event.data.type == 'skipWaiting') {
     skipWaiting();
@@ -18,14 +22,14 @@ function searchHandler(event) {
   return fetch(event.request).catch(returnEmptyResults);
 }
 
-workbox.routing.registerRoute(
+registerRoute(
   new RegExp('/api/recipes/search'),
   searchHandler
 );
 
-workbox.routing.registerRoute(
+registerRoute(
   new RegExp('/(#.*)?'),
-  new workbox.strategies.NetworkFirst()
+  new NetworkFirst()
 );
 
-workbox.precaching.precacheAndRoute(self.__WB_MANIFEST);
+precacheAndRoute(self.__WB_MANIFEST);
