@@ -22,14 +22,7 @@ function searchHandler(event) {
   return fetch(event.request).catch(returnEmptyResults);
 }
 
-registerRoute(
-  new RegExp('/api/recipes/search'),
-  searchHandler
-);
-
-registerRoute(
-  new RegExp('/(#.*)?'),
-  new NetworkFirst()
-);
+registerRoute(new RegExp('/api/recipes/search'), searchHandler);
+registerRoute(new RegExp('/(#.*)?'), new NetworkFirst());
 
 precacheAndRoute(self.__WB_MANIFEST);
