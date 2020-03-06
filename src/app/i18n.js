@@ -22,6 +22,7 @@ i18next.use(BrowserLanguage).use(XHR).init({
   ns: [
     'categories',
     'navigation',
+    'search',
   ],
   fallbackLng: 'en',
   load: 'languageOnly',
