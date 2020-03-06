@@ -28,4 +28,4 @@ workbox.routing.registerRoute(
   new workbox.strategies.NetworkFirst()
 );
 
-workbox.precaching.precacheAndRoute(self.__precacheManifest);
+workbox.precaching.precacheAndRoute(self.__WB_MANIFEST);
