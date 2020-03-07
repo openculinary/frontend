@@ -25,6 +25,7 @@ i18next.use(BrowserLanguage).use(XHR).init({
     'navigation',
     'search',
     'shopping-list',
+    'starred-recipes',
   ],
   fallbackLng: 'en',
   load: 'languageOnly',

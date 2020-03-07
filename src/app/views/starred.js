@@ -17,8 +17,8 @@ function renderStarred() {
   recipeList.bootstrapTable('refreshOptions', {
     formatNoMatches: function() {
       return `
-        <p>You don't have any starred recipes at the moment.</p>
-        <p>Recipes you star in <a href='#search'>search</a> results will appear here.</p>
+        <p data-i18n="[html]starred-recipes:empty-recipes"></p>
+        <p data-i18n="[html]starred-recipes:feature-introduction"></p>
       `;
     }
   });
