@@ -1,6 +1,7 @@
 import 'jquery';
 import * as moment from 'moment';
 import { Sortable } from 'sortablejs';
+import i18next from 'i18next';
 
 import './meals.css';
 
@@ -11,7 +12,7 @@ import { removeRecipe } from '../models/recipes';
 import { recipeElement } from '../views/recipes';
 
 function defaultDate() {
-  var today = moment().startOf('day');
+  var today = moment().locale(i18next.language).startOf('day');
   return today;
 }
 

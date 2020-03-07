@@ -17,16 +17,16 @@
     <header class="navbar navbar-expand navbar-dark flex-column flex-md-row sticky-top">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" href="#search">Recipe Search</a>
+          <a class="nav-link active" href="#search" data-i18n="[html]navigation:search"></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#starred-recipes">Starred Recipes</a>
+          <a class="nav-link" href="#starred-recipes" data-i18n="[html]navigation:starred"></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#meal-planner">Meal Planner</a>
+          <a class="nav-link" href="#meal-planner" data-i18n="[html]navigation:meal-planner"></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#shopping-list">Shopping List<span class="notification collapse"></span></a>
+          <a class="nav-link" href="#shopping-list"><span data-i18n="[html]navigation:shopping-list"></span><span class="notification collapse"></span></a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
@@ -43,25 +43,25 @@
         <form class="card" onsubmit="return false">
           <div class="card-body">
             <div class="prompt include">
-              <p>Welcome to <strong><em>RecipeRadar</em></strong>, the free recipe search engine and meal planner.</p>
-              <p>To get started, enter the ingredients you have available.</p>
+              <p data-i18n="[html]search:prompt-welcome"></p>
+              <p data-i18n="[html]search:prompt-get-started"></p>
             </div>
             <span class="fa fa-plus-circle"></span>
             <select id="include" multiple></select>
             <div id="advanced-toggle">
-              <a><span class="indicator">&#9660;</span> additional search options</a>
+              <a><span class="indicator">&#9660;</span> <span data-i18n="[html]search:prompt-additional-options"></span></a>
             </div>
             <div id="advanced-search" class="collapse">
-              <div class="prompt exclude">Are there any ingredients you would <strong>not</strong> like to cook with?</div>
+              <div class="prompt exclude" data-i18n="[html]search:prompt-exclude"></div>
               <span class="fa fa-minus-circle"></span>
               <select id="exclude" multiple></select>
-              <div class="prompt equipment">Is there any kitchen equipment you'd like to use?</div>
+              <div class="prompt equipment" data-i18n="[html]search:prompt-equipment"></div>
               <span class="fa fa-cog"></span>
               <select id="equipment" multiple></select>
             </div>
           </div>
           <div class="card-footer">
-            <button class="btn btn-primary">Find recipes!</button>
+            <button class="btn btn-primary" data-i18n="[html]search:prompt-search-button"></button>
           </div>
         </form>
       </div>
@@ -112,7 +112,7 @@
       <div class="card-deck mb-4 pt-3">
         <div class="card">
           <div class="card-body">
-            <div class="hints">Hint: Drag recipes to schedule them during the week</div>
+            <div class="hints" data-i18n="[html]meal-planner:hint-drag"></div>
             <div class="recipes"></div>
             <table class="scheduler"></table>
           </div>
@@ -124,7 +124,7 @@
       <div class="card-deck mb-4 pt-3">
         <div class="card">
           <div class="card-body">
-            <div class="hints">Hint: Tap on ingredients to mark them as found</div>
+            <div class="hints" data-i18n="[html]shopping-list:hint-tap"></div>
             <div class="products"></div>
             <div class="entry">
               <span class="prompt">&plus;
@@ -248,7 +248,7 @@
       <div class="text-center py-2">
         <small>© <a href="https://beta.companieshouse.gov.uk/company/SC647817">OpenCulinary C.I.C.</a> 2019 &ndash; 2020</small>
         <div></div>
-        <small><a href="https://www.github.com/openculinary">Source code</a> available under the AGPL</small>
+        <small data-i18n="[html]footer:source-code"></small>
       </div>
     </footer>
 
