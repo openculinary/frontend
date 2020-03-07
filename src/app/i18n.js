@@ -24,6 +24,7 @@ i18next.use(BrowserLanguage).use(XHR).init({
     'meal-planner',
     'navigation',
     'search',
+    'shopping-list',
   ],
   fallbackLng: 'en',
   load: 'languageOnly',
