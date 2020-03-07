@@ -21,6 +21,7 @@ function localize(selector) {
 i18next.use(BrowserLanguage).use(XHR).init({
   ns: [
     'categories',
+    'footer',
     'meal-planner',
     'navigation',
     'search',
