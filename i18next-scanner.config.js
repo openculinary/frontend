@@ -37,7 +37,6 @@ module.exports = {
           ignorePlurals: !this.parser.options.plural,
         }
         i18nextToPo(lng, json, options).then(buffer => {
-          console.log(buffer)
           this.push(new VirtualFile({
             path: path,
             contents: Buffer.from(buffer.toString() + '\n')
