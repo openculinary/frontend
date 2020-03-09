@@ -1,5 +1,5 @@
 const { i18nextToPo } = require('i18next-conv');
-const VirtualFile = require('vinyl');
+const Vinyl = require('vinyl');
 
 module.exports = {
   input: [
@@ -37,7 +37,7 @@ module.exports = {
           ignorePlurals: !this.parser.options.plural,
         }
         i18nextToPo(lng, json, options).then(buffer => {
-          this.push(new VirtualFile({
+          this.push(new Vinyl({
             path: path,
             contents: Buffer.from(buffer.toString() + '\n')
           }));
