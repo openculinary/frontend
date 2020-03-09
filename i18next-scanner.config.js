@@ -19,7 +19,7 @@ module.exports = {
     ],
     resource: {
       loadPath: 'public/locales/{{lng}}/{{ns}}.json',
-      savePath: 'i18n/locales/templates/{{ns}}.json',
+      savePath: 'i18n/locales/templates/{{ns}}.po',
     },
   },
   flush: function() {
@@ -39,7 +39,7 @@ module.exports = {
         i18nextToPo(lng, json, options).then(buffer => {
           console.log(buffer)
           this.push(new VirtualFile({
-            path: path.replace('.json', '.po'),
+            path: path,
             contents: Buffer.from(buffer.toString() + '\n')
           }));
         });
