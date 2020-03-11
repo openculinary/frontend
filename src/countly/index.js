@@ -1,3 +1,4 @@
+/*
 import Countly from 'countly-sdk-web';
 
 var hostname = window.location.hostname;
@@ -19,4 +20,6 @@ Countly.track_pageview()
 Countly.track_errors()
 
 const add_event = Countly.add_event;
+*/
+const add_event = function() {};
 export { add_event };
