@@ -1,6 +1,7 @@
 import 'jquery';
 
 import { getRecipeById } from '../common';
+import { localize } from '../i18n';
 import { storage } from '../storage';
 import { initTable } from '../ui/recipe-list';
 
@@ -22,6 +23,7 @@ function renderStarred() {
       `;
     }
   });
+  localize(recipeList);
 }
 
 $(function() {
