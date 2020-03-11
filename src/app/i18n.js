@@ -10,7 +10,7 @@ export { localize };
 var pendingSelectors = [];
 
 function localize(selector) {
-  if (!selector) selector = 'body';
+  if (!selector) selector = 'body [data-i18n]';
   if (!$.fn.localize) {
     pendingSelectors.push(selector);
     return;
