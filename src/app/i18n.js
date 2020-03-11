@@ -30,6 +30,7 @@ i18next.use(BrowserLanguage).use(XHR).init({
   ],
   fallbackLng: 'en',
   load: 'languageOnly',
+  initImmediate: false,
   backend: {
     loadPath: 'locales/{{lng}}/{{ns}}.json'
   },
