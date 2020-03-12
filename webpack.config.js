@@ -48,6 +48,7 @@ module.exports = {
         swSrc: path.resolve(__dirname, 'src/sw/sw.js')
       }),
       new HtmlWebpackPlugin({
+        excludeChunks: ['locales'],
         template: path.resolve(__dirname, 'src/index.html'),
         inject: false
       })
