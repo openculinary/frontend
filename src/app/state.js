@@ -1,6 +1,5 @@
 import 'jquery';
 
-import { joinCollaboration } from './collaboration';
 import { renderSearch, renderIndividual } from './views/search';
 
 export { getState, loadPage, loadState };
@@ -58,7 +57,6 @@ function loadState() {
 
   var action = state.action;
   switch (action) {
-    case 'join': joinCollaboration(); break;
     case 'search': renderSearch(); break;
     case 'view': renderIndividual(); break;
   }

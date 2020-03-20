@@ -16,7 +16,6 @@
     "jquery": "^3.4.1",
     "jquery-i18next": "^1.2.1",
     "moment": "^2.24.0",
-    "peer-base": "https://github.com/jayaddison/peer-base#a1be5ecc166fb53118a0654d87327efac4bbf78a",
     "popper.js": "^1.16.1",
     "select2": "^4.0.13",
     "sortablejs": "^1.10.2",
@@ -43,8 +42,5 @@
     "webpack": "^4.42.0",
     "webpack-cli": "^3.3.11",
     "workbox-webpack-plugin": "^5.0.0"
-  },
-  "scripts": {
-    "build-peer-base": "yarn install; mkdir -p static/vendors/npm; npx browserify --standalone peer-base node_modules/peer-base/src/index.js | npx uglifyjs > static/vendors/npm/peer-base.min.js"
   }
 }
