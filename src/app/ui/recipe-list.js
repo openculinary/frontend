@@ -222,10 +222,6 @@ function selectTab() {
   $(recipeList).find(`.recipe[data-id="${recipe.id}"] div.tab.${target}`).removeClass('collapse');
 }
 
-function recipeRedirect() {
-  RecipeRadar.countly.add_event('recipeRedirect');
-}
-
 function bindPostBody(selector) {
   $(`${selector} div.recipe-list table`).on('post-body.bs.table', function(e, data) {
     data.forEach(function (row) {
@@ -233,7 +229,6 @@ function bindPostBody(selector) {
       updateStarState(row.id);
     });
 
-    $(this).find('.title a').on('click', recipeRedirect);
     $(this).find('.content .tabs a.nav-link').on('click', selectTab);
     $(this).find('.content button.add-to-shopping-list').on('click', addRecipe);
     $(this).parents('div.recipe-list').show();

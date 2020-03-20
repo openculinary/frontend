@@ -11,8 +11,6 @@ function starRecipe() {
 
   storage.starred.add({'hashCode': recipe.id, 'value': recipe});
   updateStarState(recipe.id);
-
-  RecipeRadar.countly.add_event('starRecipe');
 }
 
 function unstarRecipe() {

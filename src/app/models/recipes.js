@@ -16,8 +16,6 @@ function addRecipe() {
   recipe.products.forEach(function (product) {
     addProduct(product, recipe.id);
   });
-
-  RecipeRadar.countly.add_event('addRecipe');
 }
 
 function removeRecipe() {

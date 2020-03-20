@@ -106,10 +106,6 @@ function scheduleMeal(evt) {
     storage.meals.remove({'hashCode': date});
     storage.meals.add({'hashCode': date, 'value': meals[date]});
   }
-
-  if (toRow.length && !fromRow.length) {
-    RecipeRadar.countly.add_event('scheduleMeal');
-  }
 }
 
 $(function() {
