@@ -6,8 +6,5 @@ prebuild: lint tests
 lint:
 	eslint src
 
-score:
-	lhci autorun
-
 tests:
 	mochapack --require setup.js
