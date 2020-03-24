@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "frontend",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.12.1",
+    "@fortawesome/fontawesome-free": "^5.13.0",
     "bootstrap": "^4.4.1",
     "bootstrap-table": "^1.16.0",
     "convert-units": "^2.3.4",
