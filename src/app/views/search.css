@@ -17,20 +17,7 @@
 #search .equipment + .fa { color: #7070f0; }
 #search .equipment span.tag.badge-info { background-color: #b0b0ff; }
 
-#advanced-toggle {
-  margin-top: 1rem;
-  color: #707070;
-}
-
-#advanced-toggle a {
-  font-size: 12px;
-}
-
-#advanced-search {
-  margin-left: 1rem;
-}
-
-#advanced-search .prompt {
+#search .prompt {
   display: block;
   margin-top: 1rem;
 }
