@@ -22,7 +22,13 @@ function pushSearch() {
   })
   var sortChoice = getState().sort;
   if (sortChoice) state['sort'] = sortChoice;
-  window.location.hash = decodeURIComponent($.param(state));
+
+  var stateHash = decodeURIComponent($.param(state));
+  if (window.location.hash === stateHash) {
+    scrollToResults('#search');
+  } else {
+    window.location.hash = stateHash;
+  }
 }
 $('#search form button').on('click', pushSearch);
 
