@@ -107,10 +107,3 @@ li.page-item a {
   color: #0069d9;
 }
 /* end accessibility overrides */
-
-/* remove hover for disabled datetimepicker elements */
-div.bootstrap-datetimepicker-widget .deactivated:hover {
-  background-color: inherit !important;
-  cursor: inherit !important;
-}
-/* end datetimepicker hover removal */
