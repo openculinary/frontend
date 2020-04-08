@@ -232,6 +232,7 @@ function bindPostBody(selector) {
     $(this).find('.content button.add-to-shopping-list').on('click', addRecipe);
     $(this).parents('div.recipe-list').show();
 
+    // If the user is on the page containing this table, scroll it into view
     var state = getState();
     if (`#${state.action}` === selector) {
       scrollToResults(selector);
