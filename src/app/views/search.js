@@ -7,7 +7,7 @@ import './search.css';
 
 import '../autosuggest';
 import { getState, loadPage, loadState } from '../state';
-import { initTable, bindLoadEvent } from '../ui/recipe-list';
+import { initTable, bindLoadEvent, scrollToResults } from '../ui/recipe-list';
 
 export { renderSearch, renderIndividual };
 
