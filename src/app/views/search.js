@@ -27,9 +27,7 @@ function pushSearch() {
 
   // Simulate a results page change so that results are scrolled into view
   if (window.location.hash === `#${stateHash}`) {
-    var table = $('#search .recipe-list table');
-    var tableData = table.bootstrapTable('getData', {useCurrentPage: true});
-    table.trigger('page-change.bs.table', {data: tableData});
+    $('#search .recipe-list table').first().trigger('page-change.bs.table');
   }
 
   window.location.hash = stateHash;
