@@ -14,7 +14,8 @@
   </head>
   <body>
 
-    <header class="navbar navbar-expand navbar-dark flex-column flex-md-row sticky-top">
+    <header class="navbar navbar-expand navbar-dark flex-column flex-md-row flex-wrap sticky-top">
+      <div class="container-fluid ml-auto">
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link active" href="#search"><img class="logo" src="images/icons/manifest-icon-192.png" /></a>
@@ -28,6 +29,8 @@
           <a class="nav-link float-left fa fa-info" data-toggle="modal" data-target="#about-modal"></a>
         </li>
       </ul>
+      </div>
+      <div class="container-fluid">
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link active" href="#search" data-i18n="[html]navigation:search"></a>
@@ -42,6 +45,7 @@
           <a class="nav-link" href="#shopping-list"><span data-i18n="[html]navigation:shopping-list"></span><span class="notification collapse"></span></a>
         </li>
       </ul>
+      </div>
     </header>
 
     <div id="search" class="container">
