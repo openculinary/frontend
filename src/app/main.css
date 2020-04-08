@@ -6,6 +6,17 @@ header img.logo {
   height: 40px;
 }
 
+header h1 {
+  color: white;
+  display: inline;
+  font-size: 1em;
+  padding: 4px;
+}
+
+header a:hover {
+  text-decoration: none;
+}
+
 header div.menu {
   background-color: navy;
 }
