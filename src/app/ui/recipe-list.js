@@ -172,9 +172,9 @@ function rowAttributes(row) {
   }
 }
 
-function scrollToResults(selector) {
+function scrollToResults(selector, delay) {
   var scrollTop = $(`${selector} table[data-row-attributes]`).offset().top - $('header').height() - 32;
-  $('html, body').animate({scrollTop: scrollTop}, 500);
+  $('html, body').animate({scrollTop: scrollTop}, delay || 500);
 }
 
 function bindPageChange(selector) {
@@ -184,7 +184,7 @@ function bindPageChange(selector) {
     else delete state.page;
     window.location.hash = decodeURIComponent($.param(state));
 
-    scrollToResults(selector);
+    scrollToResults(selector, 50);
   });
 }
 
