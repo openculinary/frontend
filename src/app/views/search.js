@@ -7,7 +7,7 @@ import './search.css';
 
 import '../autosuggest';
 import { getState, loadPage, loadState } from '../state';
-import { initTable, bindLoadEvent, scrollToResults } from '../ui/recipe-list';
+import { initTable, bindLoadEvent } from '../ui/recipe-list';
 
 export { renderSearch, renderIndividual };
 
@@ -23,12 +23,14 @@ function pushSearch() {
   var sortChoice = getState().sort;
   if (sortChoice) state['sort'] = sortChoice;
 
+  // If the requested search is a repeat of the current state, perform a results refresh
+  // This is done to ensure that the results are scrolled into view
   var stateHash = decodeURIComponent($.param(state));
   if (window.location.hash === `#${stateHash}`) {
-    scrollToResults('#search');
-  } else {
-    window.location.hash = stateHash;
+    $('#search .recipe-list table').first().trigger('page-change.bs.table');
   }
+
+  window.location.hash = stateHash;
 }
 $('#search form button').on('click', pushSearch);
 
@@ -48,7 +50,6 @@ function renderSearch() {
   });
 
   loadPage('search');
-  scrollToResults('#search');
 }
 
 function renderIndividual() {
@@ -56,7 +57,6 @@ function renderIndividual() {
   $('#search .recipe-list table').bootstrapTable('refresh', {
     url: '/api/recipes/' + encodeURIComponent(id) + '/view'
   });
-  scrollToResults('#search');
 }
 
 function renderRefinement(refinement) {
