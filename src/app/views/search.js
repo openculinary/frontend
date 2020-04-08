@@ -27,7 +27,7 @@ function pushSearch() {
   // This is done to ensure that the results are scrolled into view
   var stateHash = decodeURIComponent($.param(state));
   if (window.location.hash === `#${stateHash}`) {
-    $('#search .recipe-list table').first().trigger('page-change.bs.table');
+    $('#search table[data-row-attributes]').trigger('page-change.bs.table');
   }
 
   window.location.hash = stateHash;
@@ -44,7 +44,7 @@ function renderSearch() {
   var state = getState();
   if (state.sort) params['sort'] = state.sort;
 
-  $('#search .recipe-list table').bootstrapTable('refresh', {
+  $('#search table[data-row-attributes]').bootstrapTable('refresh', {
     url: '/api/recipes/search?' + $.param(params),
     pageNumber: Number(state.page || 1)
   });
@@ -54,7 +54,7 @@ function renderSearch() {
 
 function renderIndividual() {
   var id = getState().id;
-  $('#search .recipe-list table').bootstrapTable('refresh', {
+  $('#search table[data-row-attributes]').bootstrapTable('refresh', {
     url: '/api/recipes/' + encodeURIComponent(id) + '/view'
   });
 }
@@ -80,7 +80,7 @@ function emptyResultHandler(data) {
   if (data.authority === 'local') {
     message = `Couldn't reach the recipe search service.  This could be due to a connection problem on your device, or our service could be experiencing problems.`;
   }
-  $('#search .recipe-list table').bootstrapTable('updateFormatText', 'formatNoMatches', message);
+  $('#search table[data-row-attributes]').bootstrapTable('updateFormatText', 'formatNoMatches', message);
 }
 
 function refinementHandler(data) {

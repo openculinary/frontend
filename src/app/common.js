@@ -46,7 +46,7 @@ function getRecipe(el) {
   var recipe = null;
 
   var target = $(el).hasClass('recipe') ? $(el) : $(el).parents('.recipe');
-  var recipeList = $(target).parents('div.recipe-list table');
+  var recipeList = $(target).parents('table[data-row-attributes]');
   if (recipeList.length) {
     var index = target.data('index');
     var data = $(recipeList).bootstrapTable('getData');
