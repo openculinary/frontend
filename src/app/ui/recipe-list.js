@@ -173,7 +173,7 @@ function rowAttributes(row) {
 }
 
 function scrollToResults(selector, delay) {
-  var scrollTop = $(`${selector} table[data-row-attributes]`).offset().top - $('header').height() - 32;
+  var scrollTop = $(`${selector} table[data-row-attributes]`).offset().top - $('header').height() - 80;
   $('html, body').animate({scrollTop: scrollTop}, delay || 500);
 }
 
