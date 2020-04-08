@@ -172,19 +172,19 @@ function rowAttributes(row) {
   }
 }
 
-function scrollToResults(selector) {
-  var scrollTop = $(`${selector} div.recipe-list`).offset().top - $('header').height() - 32;
-  $('html, body').animate({scrollTop: scrollTop}, 500);
+function scrollToResults(selector, delay) {
+  var scrollTop = $(`${selector} table[data-row-attributes]`).offset().top - $('header').height() - 80;
+  $('html, body').animate({scrollTop: scrollTop}, delay || 500);
 }
 
 function bindPageChange(selector) {
-  $(`${selector} div.recipe-list table`).on('page-change.bs.table', function(e, number, size) {
+  $(`${selector} table[data-row-attributes]`).on('page-change.bs.table', function(e, number, size) {
     var state = getState();
     if (number > 1) state.page = number;
     else delete state.page;
     window.location.hash = decodeURIComponent($.param(state));
 
-    scrollToResults(selector);
+    scrollToResults(selector, 50);
   });
 }
 
@@ -213,7 +213,7 @@ function updateStarState(recipeId) {
 function selectTab() {
   var recipe = getRecipe(this);
   var target = $(this).data('target');
-  var recipeList = $(this).parents('div.recipe-list table');
+  var recipeList = $(this).parents('table[data-row-attributes]');
 
   $(recipeList).find(`.recipe[data-id="${recipe.id}"] div.tabs a`).removeClass('active');
   $(recipeList).find(`.recipe[data-id="${recipe.id}"] div.tabs a[data-target="${target}"]`).addClass('active');
@@ -222,7 +222,7 @@ function selectTab() {
 }
 
 function bindPostBody(selector) {
-  $(`${selector} div.recipe-list table`).on('post-body.bs.table', function(e, data) {
+  $(`${selector} table[data-row-attributes]`).on('post-body.bs.table', function(e, data) {
     data.forEach(function (row) {
       updateRecipeState(row.id);
       updateStarState(row.id);
@@ -241,7 +241,7 @@ function bindPostBody(selector) {
 }
 
 function bindLoadEvent(selector, callback) {
-  $(`${selector} div.recipe-list table`).on('load-success.bs.table', function(e, data) {
+  $(`${selector} table[data-row-attributes]`).on('load-success.bs.table', function(e, data) {
     callback(data);
   });
 }

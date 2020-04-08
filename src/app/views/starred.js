@@ -13,7 +13,7 @@ function renderStarred() {
     if (recipe) data.push(recipe);
   });
 
-  var recipeList = $('#starred-recipes div.recipe-list table');
+  var recipeList = $('#starred-recipes table[data-row-attributes]');
   recipeList.bootstrapTable('load', data);
   recipeList.bootstrapTable('refreshOptions', {
     formatNoMatches: function() {
