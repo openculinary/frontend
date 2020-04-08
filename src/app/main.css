@@ -6,6 +6,10 @@ header img.logo {
   height: 40px;
 }
 
+header div.menu {
+  background-color: navy;
+}
+
 header span.notification {
   background-color: #af0000;
   border-radius: 2px;
