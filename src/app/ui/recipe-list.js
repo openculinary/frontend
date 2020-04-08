@@ -233,7 +233,10 @@ function bindPostBody(selector) {
     $(this).find('.content button.add-to-shopping-list').on('click', addRecipe);
     $(this).parents('div.recipe-list').show();
 
-    scrollToResults(selector);
+    var state = getState();
+    if (`#${state.action}` === selector) {
+      scrollToResults(selector);
+    }
   });
 }
 
