@@ -2,6 +2,10 @@ header {
   background-color: #006;
 }
 
+header img.logo {
+  height: 40px;
+}
+
 header span.notification {
   background-color: #af0000;
   border-radius: 2px;
