@@ -18,7 +18,6 @@ export {
     bindLoadEvent,
     recipeFormatter,
     rowAttributes,
-    scrollToResults,
     updateRecipeState,
     updateStarState,
 };

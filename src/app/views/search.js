@@ -7,7 +7,7 @@ import './search.css';
 
 import '../autosuggest';
 import { getState, loadPage, loadState } from '../state';
-import { initTable, bindLoadEvent, scrollToResults } from '../ui/recipe-list';
+import { initTable, bindLoadEvent } from '../ui/recipe-list';
 
 export { renderSearch, renderIndividual };
 
@@ -24,11 +24,15 @@ function pushSearch() {
   if (sortChoice) state['sort'] = sortChoice;
 
   var stateHash = decodeURIComponent($.param(state));
+
+  // Simulate a results page change so that results are scrolled into view
   if (window.location.hash === `#${stateHash}`) {
-    scrollToResults('#search');
-  } else {
-    window.location.hash = stateHash;
+    var table = $('#search .recipe-list table');
+    var tableData = table.bootstrapTable('getData', {useCurrentPage: true});
+    table.trigger('page-change.bs.table', {data: tableData});
   }
+
+  window.location.hash = stateHash;
 }
 $('#search form button').on('click', pushSearch);
 
