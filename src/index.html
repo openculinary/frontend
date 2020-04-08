@@ -14,19 +14,13 @@
   </head>
   <body>
 
-    <header class="navbar navbar-expand navbar-dark flex-column flex-md-row sticky-top">
+    <header class="navbar navbar-expand navbar-dark flex-column flex-md-row flex-wrap sticky-top">
+      <div class="container-fluid ml-auto">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" href="#search" data-i18n="[html]navigation:search"></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#starred-recipes" data-i18n="[html]navigation:starred"></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#meal-planner" data-i18n="[html]navigation:meal-planner"></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#shopping-list"><span data-i18n="[html]navigation:shopping-list"></span><span class="notification collapse"></span></a>
+          <a href="/">
+            <img class="logo" src="images/icons/manifest-icon-192.png" alt="Plate and Utensils" /><h1>RecipeRadar</h1>
+          </a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
@@ -34,16 +28,30 @@
           <a class="nav-link float-left fa fa-info" data-toggle="modal" data-target="#about-modal"></a>
         </li>
       </ul>
+      </div>
+      <div class="container-fluid menu">
+        <ul class="navbar-nav m-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#search" data-i18n="[html]navigation:search"></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#starred-recipes" data-i18n="[html]navigation:starred"></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#meal-planner" data-i18n="[html]navigation:meal-planner"></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#shopping-list"><span data-i18n="[html]navigation:shopping-list"></span><span class="notification collapse"></span></a>
+          </li>
+        </ul>
+      </div>
     </header>
 
     <div id="search" class="container">
       <div class="card-deck mb-4 pt-3">
         <form class="card" onsubmit="return false">
           <div class="card-body">
-            <div class="prompt include">
-              <p data-i18n="[html]search:prompt-welcome"></p>
-              <p data-i18n="[html]search:prompt-get-started"></p>
-            </div>
+            <div class="prompt include" data-i18n="[html]search:prompt-get-started"></div>
             <span class="fa fa-chevron-circle-right"></span>
             <select id="include" multiple></select>
             <div class="prompt exclude" data-i18n="[html]search:prompt-exclude"></div>

@@ -1,3 +1,7 @@
+#search div.card-body {
+  padding-top: 0;
+}
+
 #search .prompt + span.fa {
   vertical-align: top;
   margin-top: 20px;
