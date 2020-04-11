@@ -10,6 +10,8 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const GitRevisionPlugin = require('git-revision-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const environment = process.env.NODE_ENV || 'development';
+
 module.exports = {
     mode: 'development',
     entry: {
@@ -27,7 +29,17 @@ module.exports = {
     plugins: [
       new CleanWebpackPlugin(),
       new CopyWebpackPlugin([
-        {from: 'static'}
+        {
+          from: 'static',
+          ignore: ['images/icons/**']
+        }
+      ]),
+      new CopyWebpackPlugin([
+        {
+          from: `static/images/icons/${environment}/*`,
+          to: 'images/icons',
+          flatten: true
+        }
       ]),
       new MiniCssExtractPlugin({
         filename: '[name].[chunkhash].css'
