@@ -10,10 +10,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const GitRevisionPlugin = require('git-revision-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const environment = process.env.NODE_ENV || 'development';
-
-module.exports = {
-    mode: 'development',
+module.exports = (_, env) => { return {
     entry: {
       'app': path.resolve(__dirname, 'src/app/main.js'),
       'feedback': path.resolve(__dirname, 'src/feedback/loader.js'),
@@ -36,7 +33,7 @@ module.exports = {
       ]),
       new CopyWebpackPlugin([
         {
-          from: `static/images/icons/${environment}/*`,
+          from: `static/images/icons/${env.mode}/*`,
           to: 'images/icons',
           flatten: true
         }
@@ -91,4 +88,4 @@ module.exports = {
         },
       ]
     }
-};
+}};
