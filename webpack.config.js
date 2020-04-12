@@ -33,7 +33,7 @@ module.exports = (_, env) => { return {
       ]),
       new CopyWebpackPlugin([
         {
-          from: `static/images/icons/${env.mode || 'development'}/*`,
+          from: `static/images/icons/${env && env.mode || 'development'}/*`,
           to: 'images/icons',
           flatten: true
         }
