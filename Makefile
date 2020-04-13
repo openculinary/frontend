@@ -4,7 +4,7 @@ build-dev:
 	webpack
 
 build: lint tests
-	webpack -p
+	webpack --mode production --optimize-minimize
 
 lint:
 	eslint src
