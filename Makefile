@@ -10,4 +10,4 @@ lint:
 	eslint src
 
 tests:
-	mochapack --require setup.js
+	mochapack --mode development --require setup.js
