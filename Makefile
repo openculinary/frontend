@@ -1,13 +1,16 @@
 .PHONY: build-dev build lint tests
 
+MODE = 'development'
+build : MODE = 'production'
+
 build-dev:
-	webpack
+	webpack --mode ${MODE}
 
 build: lint tests
-	webpack -p
+	webpack --mode ${MODE} --optimize-minimize
 
 lint:
 	eslint src
 
 tests:
-	mochapack --require setup.js
+	mochapack --mode ${MODE} --require setup.js
