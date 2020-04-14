@@ -6,6 +6,7 @@ import 'bootstrap-table/dist/bootstrap-table.css';
 import './search.css';
 
 import '../autosuggest';
+import { localize } from '../i18n';
 import { getState, loadPage, loadState } from '../state';
 import { initTable, bindLoadEvent } from '../ui/recipe-list';
 
@@ -62,14 +63,15 @@ function renderIndividual() {
 function renderRefinement(refinement) {
   if (refinement == 'match_any') {
     return $('<div />', {
-        'text': `Couldn't find recipes containing every ingredient - partial matches are displayed.`
+      'data-i18n': '[html]search:refinement-partial-results'
     });
   }
   if (refinement.startsWith('removed:')) {
     var product = refinement.split(':')[1];
     $(`#search .include span.tag.badge:contains('${product}')`).css('background-color', 'silver');
     return $('<div />', {
-        'text': `Ingredient '${product}' didn't match any recipes and has been removed from the search.  `
+      'data-i18n': '[html]search:refinement-ingredient-removed',
+      'data-i18n-options': JSON.stringify({product: product})
     });
   }
 }
@@ -89,9 +91,12 @@ function refinementHandler(data) {
   data.refinements = data.refinements.map(renderRefinement);
   data.refinements = data.refinements.filter(refinement => refinement);
 
-  // Show or hide the list of refinements in the user interface
+  // Fill and localize the refinement list element
   var refinements = $('#search .refinements').empty();
   data.refinements.map(refinement => refinements.append(refinement));
+  localize(refinements);
+
+  // Show or hide the refinement list
   refinements.toggleClass('collapse', data.refinements.length == 0);
 }
 

@@ -39,7 +39,7 @@ i18next.use(BrowserLanguage).use(XHR).init({
     order: ['localStorage', 'navigator', 'htmlTag']
   }
 }, function() {
-  jqueryi18next.init(i18next, $);
+  jqueryi18next.init(i18next, $, {useOptionsAttr: true});
   localize();
 
   var selector;
