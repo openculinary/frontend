@@ -6,6 +6,7 @@ import 'bootstrap-table/dist/bootstrap-table.css';
 import './search.css';
 
 import '../autosuggest';
+import { localize } from '../i18n';
 import { getState, loadPage, loadState } from '../state';
 import { initTable, bindLoadEvent } from '../ui/recipe-list';
 
@@ -85,9 +86,12 @@ function refinementHandler(data) {
   data.refinements = data.refinements.map(renderRefinement);
   data.refinements = data.refinements.filter(refinement => refinement);
 
-  // Show or hide the list of refinements in the user interface
+  // Fill and localize the refinement list element
   var refinements = $('#search .refinements').empty();
   data.refinements.map(refinement => refinements.append(refinement));
+  localize(refinements);
+
+  // Show or hide the refinement list
   refinements.toggleClass('collapse', data.refinements.length == 0);
 }
 
