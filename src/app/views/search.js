@@ -62,12 +62,17 @@ function renderIndividual() {
 
 function renderRefinement(refinement) {
   if (refinement == 'match_any') {
-    return $('<div />', {'data-i18n': `[html]search:refinement-partial-results`});
+    return $('<div />', {
+      'data-i18n': `[html]search:refinement-partial-results`
+    });
   }
   if (refinement.startsWith('removed:')) {
     var product = refinement.split(':')[1];
     $(`#search .include span.tag.badge:contains('${product}')`).css('background-color', 'silver');
-    return $('<div />', {'data-i18n': `[html]search:refinement-ingredient-removed`});
+    return $('<div />', {
+      'data-i18n': `[html]search:refinement-ingredient-removed`,
+      'data-i18n-options': JSON.stringify({product: product})
+    });
   }
 }
 
