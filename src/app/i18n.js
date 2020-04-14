@@ -37,10 +37,6 @@ i18next.use(BrowserLanguage).use(XHR).init({
   detection: {
     caches: ['localStorage'],
     order: ['localStorage', 'navigator', 'htmlTag']
-  },
-  interpolation: {
-    prefix: '${',
-    suffix: '}'
   }
 }, function() {
   jqueryi18next.init(i18next, $);
