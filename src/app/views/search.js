@@ -61,16 +61,12 @@ function renderIndividual() {
 
 function renderRefinement(refinement) {
   if (refinement == 'match_any') {
-    return $('<div />', {
-        'text': `Couldn't find recipes containing every ingredient - partial matches are displayed.`
-    });
+    return $('<div />', {'data-i18n': `[html]search:refinement-partial-results`});
   }
   if (refinement.startsWith('removed:')) {
     var product = refinement.split(':')[1];
     $(`#search .include span.tag.badge:contains('${product}')`).css('background-color', 'silver');
-    return $('<div />', {
-        'text': `Ingredient '${product}' didn't match any recipes and has been removed from the search.  `
-    });
+    return $('<div />', {'data-i18n': `[html]search:refinement-ingredient-removed`});
   }
 }
 
