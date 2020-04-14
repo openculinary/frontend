@@ -84,12 +84,14 @@ function emptyResultHandler(data) {
 }
 
 function refinementHandler(data) {
-  var refinements = $('#search .refinements');
-  refinements.empty();
+  // Produce an array containing refinements that can be rendered
   data.refinements = data.refinements || [];
-  data.refinements.forEach(function(refinement) {
-    refinements.append(renderRefinement(refinement));
-  });
+  data.refinements = data.refinements.map(renderRefinement);
+  data.refinements = data.refinements.filter(refinement => refinement);
+
+  // Show or hide the list of refinements in the user interface
+  var refinements = $('#search .refinements').empty();
+  data.refinements.map(refinement => refinements.append(refinement));
   refinements.toggleClass('collapse', data.refinements.length == 0);
 }
 
