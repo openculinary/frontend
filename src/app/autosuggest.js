@@ -22,7 +22,7 @@ function bindEquipmentInput(element, label, placeholder) {
   });
 
   // TODO: Revisit once https://github.com/select2/select2/issues/3744 is handled
-  $(element).siblings('.select2').find('input[type=search]').attr('aria-label', label);
+  $(element).next('.select2').find('input[type=search]').attr('aria-label', label);
 }
 
 function bindIngredientInput(element, label, placeholder) {
@@ -44,7 +44,7 @@ function bindIngredientInput(element, label, placeholder) {
   });
 
   // TODO: Revisit once https://github.com/select2/select2/issues/3744 is handled
-  $(element).siblings('.select2').find('input[type=search]').attr('aria-label', label);
+  $(element).next('.select2').find('input[type=search]').attr('aria-label', label);
 }
 
 $(function() {
