@@ -53,11 +53,17 @@ $(function() {
   bindEquipmentInput('#equipment', 'Kitchen equipment to use', 'e.g. slow cooker');
 
   $(document).on('keyup', '.select2-search__field', function (event) {
-    if (event.keyCode == 13) {
-      $(event.target).parents('span.select2').prev('select').select2('close');
-      if ($(event.target).parents('#search form').length) {
-        $('#search form button').trigger('click');
-      }
+    if (event.which == 13) {
+      var selectElement = $(event.target).parents('span.select2').prev('select');
+      if (!selectElement.length) return;
+
+      var searchForm = selectElement.parents('#search form');
+      if (!searchForm.length) return;
+
+      var suggestionsOpen = !selectElement.select2('isOpen');
+      if (suggestionsOpen) return;
+
+      $('#search form button').trigger('click');
     }
   });
 })
