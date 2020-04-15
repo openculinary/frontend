@@ -73,7 +73,7 @@ function renderRefinement(refinement) {
   }
   if (refinement.startsWith('removed:')) {
     var product = refinement.split(':')[1];
-    $(`#search .include span.tag.badge:contains('${product}')`).css('background-color', 'silver');
+    $('#include').next('.select2').find(`li[title~='${product}']`).css('text-decoration', 'line-through');
     return $('<div />', {
       'data-i18n': '[html]search:refinement-ingredient-removed',
       'data-i18n-options': JSON.stringify({product: product})
