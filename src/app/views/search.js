@@ -61,6 +61,11 @@ function renderIndividual() {
 }
 
 function renderRefinement(refinement) {
+  if (refinement == 'empty_query') {
+    return $('<div />', {
+      'data-i18n': '[html]search:refinement-empty-query'
+    });
+  }
   if (refinement == 'match_any') {
     return $('<div />', {
       'data-i18n': '[html]search:refinement-partial-results'
