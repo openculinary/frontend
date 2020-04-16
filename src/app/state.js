@@ -13,6 +13,10 @@ function getState() {
   return state;
 }
 
+function pushState(hash) {
+  history.pushState(null, null, hash);
+}
+
 function loadTags(element, data) {
   if (!data) return;
   var tags = $(element).val();
@@ -64,6 +68,6 @@ function loadState() {
 
 $(function() {
   $('#about-modal a').on('shown.bs.tab', function (e) {
-    history.pushState(null, null, e.target.hash);
+    pushState(e.target.hash);
   });
 });
