@@ -30,7 +30,7 @@ function pushSearch() {
   if (window.location.hash === `#${stateHash}`) {
     $('#search table[data-row-attributes]').trigger('page-change.bs.table');
   }
-  pushState(`#${stateHash}`);
+  pushState(state, `#${stateHash}`);
 }
 $('#search form button').on('click', pushSearch);
 
@@ -126,7 +126,7 @@ function createSortPrompt() {
     delete state.page;
 
     var stateHash = decodeURIComponent($.param(state));
-    pushState(`#${stateHash}`);
+    pushState(state, `#${stateHash}`);
   });
 
   var sortPrompt = $('<span>').text('Order by ');

@@ -13,8 +13,8 @@ function getState() {
   return state;
 }
 
-function pushState(hash) {
-  history.pushState(null, null, hash);
+function pushState(state, hash) {
+  history.pushState(state, null, hash);
 }
 
 function loadTags(element, data) {
@@ -72,6 +72,6 @@ $(function() {
     var state = {href: null};
 
     var stateHash = decodeURIComponent($.param(state));
-    pushState(`#${stateHash}`);
+    pushState(state, `#${stateHash}`);
   });
 });
