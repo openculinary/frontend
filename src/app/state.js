@@ -14,7 +14,9 @@ function getState() {
 }
 
 function pushState(state, hash) {
+  if (window.location.hash === hash) return;
   history.pushState(state, '', hash);
+  $(window).trigger('hashchange');
 }
 
 function loadTags(element, data) {
