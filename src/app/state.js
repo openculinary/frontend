@@ -68,6 +68,10 @@ function loadState() {
 
 $(function() {
   $('#about-modal a').on('shown.bs.tab', function (e) {
-    pushState(e.target.hash);
+    var href = $(e.target).attr('href');
+    var state = {href: null};
+
+    var stateHash = decodeURIComponent($.param(state));
+    pushState(`#${stateHash}`);
   });
 });
