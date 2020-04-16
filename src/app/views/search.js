@@ -7,7 +7,7 @@ import './search.css';
 
 import '../autosuggest';
 import { localize } from '../i18n';
-import { getState, loadPage, loadState, pushState } from '../state';
+import { getState, loadPage, pushState } from '../state';
 import { initTable, bindLoadEvent } from '../ui/recipe-list';
 
 export { renderSearch, renderIndividual };

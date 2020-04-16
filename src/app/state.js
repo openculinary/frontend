@@ -2,7 +2,7 @@ import 'jquery';
 
 import { renderSearch, renderIndividual } from './views/search';
 
-export { getState, loadPage, loadState, pushState };
+export { getState, loadPage, pushState };
 
 function getState() {
   var state = {};
