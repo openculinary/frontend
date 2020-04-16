@@ -149,6 +149,6 @@ $(function() {
   bindLoadEvent('#search', refinementHandler);
   bindLoadEvent('#search', addSorting);
 
-  window.onpopstate = loadState;
+  window.onhashchange = loadState;
   loadState();
 });
