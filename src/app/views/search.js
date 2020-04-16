@@ -148,7 +148,4 @@ $(function() {
   bindLoadEvent('#search', emptyResultHandler);
   bindLoadEvent('#search', refinementHandler);
   bindLoadEvent('#search', addSorting);
-
-  window.onhashchange = loadState;
-  loadState();
 });

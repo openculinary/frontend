@@ -76,4 +76,7 @@ $(function() {
     var stateHash = decodeURIComponent($.param(state));
     pushState(state, `#${stateHash}`);
   });
+
+  window.onhashchange = loadState;
+  loadState();
 });
