@@ -77,6 +77,7 @@ $(function() {
     pushState(state, `#${stateHash}`);
   });
 
+  $(window).on('hashchange', loadState);
   $(window).on('popstate', loadState);
   loadState();
 });
