@@ -14,7 +14,7 @@ function getState() {
 }
 
 function pushState(state, hash) {
-  history.pushState(state, null, hash);
+  history.pushState(state, '', hash);
 }
 
 function loadTags(element, data) {
