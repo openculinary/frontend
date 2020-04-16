@@ -72,7 +72,7 @@ $(function() {
     var tabName = $(e.target).attr('href').substr(1);
     state[tabName] = null;
 
-    var stateHash = decodeURIComponent($.param(state));
+    var stateHash = decodeURIComponent($.param(state)).slice(0, -1);
     pushState(state, `#${stateHash}`);
   });
 
