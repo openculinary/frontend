@@ -16,7 +16,7 @@ function getState() {
 function pushState(state, hash) {
   if (window.location.hash === hash) return;
   history.pushState(state, '', hash);
-  $(window).trigger('hashchange');
+  loadState();
 }
 
 function loadTags(element, data) {
@@ -77,6 +77,5 @@ $(function() {
     pushState(state, `#${stateHash}`);
   });
 
-  window.onhashchange = loadState;
   loadState();
 });
