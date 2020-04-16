@@ -8,7 +8,7 @@ import './recipe-list.css'
 
 import { float2rat, getRecipe } from '../common';
 import { renderIngredient } from '../conversion';
-import { getState } from '../state';
+import { getState, pushState } from '../state';
 import { storage } from '../storage';
 import { addRecipe } from '../models/recipes';
 import { starRecipe, unstarRecipe } from '../models/starred';
@@ -182,7 +182,9 @@ function bindPageChange(selector) {
     var state = getState();
     if (number > 1) state.page = number;
     else delete state.page;
-    window.location.hash = decodeURIComponent($.param(state));
+
+    var stateHash = decodeURIComponent($.param(state));
+    pushState(`#${stateHash}`);
 
     scrollToResults(selector, 50);
   });
