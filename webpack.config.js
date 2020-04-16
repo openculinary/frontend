@@ -27,6 +27,11 @@ module.exports = (_, env) => { return {
       new CleanWebpackPlugin(),
       new CopyWebpackPlugin([
         {
+          from: 'LICENSE'
+        }
+      ]),
+      new CopyWebpackPlugin([
+        {
           from: 'static',
           ignore: ['images/icons/**']
         }
