@@ -48,6 +48,11 @@ function loadState() {
     urlParams.set('search', null);
   }
 
+  var activeTab = $('.modal.show a.active').attr('href');
+  if (activeTab && !urlParams.has(activeTab.slice(1))) {
+    $('.modal.show').modal('hide');
+  }
+
   loadTags('#include', state.include);
   loadTags('#exclude', state.exclude);
   loadTags('#equipment', state.equipment);
@@ -60,7 +65,6 @@ function loadState() {
     if (urlParams.has(this.id)) loadAboutTab(this.id);
   });
 
-  if (state.action) $('.modal.show').modal('hide');
   switch (state.action) {
     case 'search': renderSearch(); break;
     case 'view': renderIndividual(); break;
