@@ -13,6 +13,8 @@ export { renderSearch, renderIndividual };
 
 function pushSearch() {
   var state = {'action': 'search'};
+  if (history.state && history.state.sort) state['sort'] = history.state.sort;
+
   ['#include', '#exclude', '#equipment'].forEach(function (element) {
     var fragment = element.replace('#', '');
     var data = $(element).val();
@@ -20,8 +22,6 @@ function pushSearch() {
       state[fragment] = data.join(',');
     }
   })
-  var sortChoice = window.history.state.sort;
-  if (sortChoice) state['sort'] = sortChoice;
 
   // If the requested search is a repeat of the current state, perform a results refresh
   // This is done to ensure that the results are scrolled into view
@@ -41,7 +41,7 @@ function renderSearch() {
     equipment: $('#equipment').val(),
   };
 
-  var state = window.history.state;
+  var state = history.state || {};
   if (state.sort) params['sort'] = state.sort;
 
   $('#search table[data-row-attributes]').bootstrapTable('refresh', {
@@ -51,7 +51,7 @@ function renderSearch() {
 }
 
 function renderIndividual() {
-  var id = window.history.state.id;
+  var id = history.state.id;
   $('#search table[data-row-attributes]').bootstrapTable('refresh', {
     url: '/api/recipes/' + encodeURIComponent(id) + '/view'
   });
@@ -108,7 +108,9 @@ function createSortPrompt() {
     {val: 'relevance', text: 'most ingredients used'},
     {val: 'duration', text: 'shortest time to make'},
   ];
-  var sortChoice = window.history.state.sort || sortOptions[0].val;
+
+  var state = history.state || {};
+  var sortChoice = state.sort || sortOptions[0].val;
 
   var sortSelect = $('<select>', {'class': 'sort'}).attr('aria-label', 'Recipe sort selection');
   $(sortOptions).each(function() {
@@ -119,12 +121,14 @@ function createSortPrompt() {
     sortSelect.append(sortOption);
   });
   sortSelect.on('change', function() {
-    var state = window.history.state;
+    var state = history.state;
+
+    // Write the new sort selection, and reset to the first page
     state.sort = this.value;
     delete state.page;
 
     var stateHash = decodeURIComponent($.param(state));
-    window.history.pushState(state, '', `#${stateHash}`);
+    history.pushState(state, '', `#${stateHash}`);
   });
 
   var sortPrompt = $('<span>').text('Order by ');

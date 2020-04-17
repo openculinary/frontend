@@ -178,7 +178,9 @@ function scrollToResults(selector, delay) {
 
 function bindPageChange(selector) {
   $(`${selector} table[data-row-attributes]`).on('page-change.bs.table', function(e, number, size) {
-    var state = window.history.state;
+    var state = history.state;
+
+    // Write the new page number into the application's state
     if (number > 1) state.page = number;
     else delete state.page;
 
@@ -234,7 +236,7 @@ function bindPostBody(selector) {
     $(this).parents('div.recipe-list').show();
 
     // If the user is on the page containing this table, scroll it into view
-    if (`#${window.history.state.action}` === selector) {
+    if (`#${history.state.action}` === selector) {
       scrollToResults(selector);
     }
   });

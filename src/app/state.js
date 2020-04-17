@@ -31,7 +31,7 @@ function loadAboutTab(tabId) {
 }
 
 function loadState() {
-  var state = window.history.state;
+  var state = history.state;
 
   loadTags('#include', state.include);
   loadTags('#exclude', state.exclude);
