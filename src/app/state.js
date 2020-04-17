@@ -69,12 +69,7 @@ function loadState() {
 
 $(function() {
   $('#about-modal a').on('shown.bs.tab', function (e) {
-    var state = {};
-    var tabName = $(e.target).attr('href').substr(1);
-    state[tabName] = null;
-
-    var stateHash = decodeURIComponent($.param(state)).slice(0, -1);
-    pushState(state, `#${stateHash}`);
+    pushState(null, e.target.hash);
   });
 
   window.onpopstate = loadState;
