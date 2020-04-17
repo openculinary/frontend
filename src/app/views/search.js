@@ -31,6 +31,7 @@ function pushSearch() {
     $('#search table[data-row-attributes]').trigger('page-change.bs.table');
   }
   pushState(state, `#${stateHash}`);
+  $(window).trigger('popstate');
 }
 $('#search form button').on('click', pushSearch);
 
