@@ -37,6 +37,8 @@ function loadPage(pageId) {
 
   $('header a').removeClass('active');
   $('header a[href="#' + pageId + '"]').addClass('active');
+
+  $(window).animate({scrollTop: 0}, 50);
 }
 
 function loadAboutTab(tabId) {
@@ -59,8 +61,10 @@ function loadState() {
     if (this.id in state) loadAboutTab(this.id);
   });
 
-  var action = state.action;
-  switch (action) {
+  if (Object.keys(state).length === 0) {
+    loadPage('search');
+  }
+  switch (state.action) {
     case 'search': renderSearch(); break;
     case 'view': renderIndividual(); break;
   }
