@@ -2,6 +2,16 @@ import 'jquery';
 
 import { renderSearch, renderIndividual } from './views/search';
 
+export { getState, pushState };
+
+function getState() {
+  return history.state;
+}
+
+function pushState(state, hash) {
+  history.pushState(state, '', hash);
+}
+
 function loadTags(element, data) {
   var tags = $(element).val();
   var terms = data ? data.split(',') : [];
@@ -31,7 +41,7 @@ function loadAboutTab(tabId) {
 }
 
 function loadState() {
-  var state = history.state;
+  var state = getState();
 
   loadTags('#include', state.include);
   loadTags('#exclude', state.exclude);
@@ -45,6 +55,7 @@ function loadState() {
     if (this.id in state) loadAboutTab(this.id);
   });
 
+  // Render the homepage if the state is empty
   if (Object.keys(state).length === 0) {
     loadPage('search');
   }
@@ -61,10 +72,10 @@ $(function() {
     state[tabName] = null;
 
     var stateHash = decodeURIComponent($.param(state)).slice(0, -1);
-    window.history.pushState(state, '', `#${stateHash}`);
+    pushState(state, `#${stateHash}`);
   });
 
-  window.history.pushState({}, '', '');
+  pushState({}, '');
   window.onpopstate = loadState;
   loadState();
 });

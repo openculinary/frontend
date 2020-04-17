@@ -7,14 +7,13 @@ import './search.css';
 
 import '../autosuggest';
 import { localize } from '../i18n';
+import { getState, pushState } from '../state';
 import { initTable, bindLoadEvent } from '../ui/recipe-list';
 
 export { renderSearch, renderIndividual };
 
 function pushSearch() {
   var state = {'action': 'search'};
-  if (history.state && history.state.sort) state['sort'] = history.state.sort;
-
   ['#include', '#exclude', '#equipment'].forEach(function (element) {
     var fragment = element.replace('#', '');
     var data = $(element).val();
@@ -22,6 +21,8 @@ function pushSearch() {
       state[fragment] = data.join(',');
     }
   })
+  var sortChoice = getState().sort;
+  if (sortChoice) state['sort'] = sortChoice;
 
   // If the requested search is a repeat of the current state, perform a results refresh
   // This is done to ensure that the results are scrolled into view
@@ -29,7 +30,7 @@ function pushSearch() {
   if (window.location.hash === `#${stateHash}`) {
     $('#search table[data-row-attributes]').trigger('page-change.bs.table');
   }
-  window.history.pushState(state, '', `#${stateHash}`);
+  pushState(state, `#${stateHash}`);
   $(window).trigger('popstate');
 }
 $('#search form button').on('click', pushSearch);
@@ -128,7 +129,7 @@ function createSortPrompt() {
     delete state.page;
 
     var stateHash = decodeURIComponent($.param(state));
-    history.pushState(state, '', `#${stateHash}`);
+    pushState(state, `#${stateHash}`);
     $(window).trigger('popstate');
   });
 
