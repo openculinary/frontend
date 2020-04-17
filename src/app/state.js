@@ -41,9 +41,14 @@ function loadAboutTab(tabId) {
 }
 
 function loadState() {
-  var state = getState();
+  // Load any 'about' pages specified in the URL
+  var urlParams = new URLSearchParams(window.location.hash.slice(1));
+  $('#about-modal div.tab-pane[id]').each(function() {
+    if (urlParams.has(this.id)) loadAboutTab(this.id);
+  });
 
   // If we encounter an empty state, display the homepage
+  var state = getState();
   if (!state || Object.keys(state).length === 0) {
     loadPage('search');
     return;
@@ -55,10 +60,6 @@ function loadState() {
 
   $('body > div.container[id]').each(function() {
     if (this.id in state) loadPage(this.id);
-  });
-
-  $('#about-modal div.tab-pane[id]').each(function() {
-    if (this.id in state) loadAboutTab(this.id);
   });
 
   switch (state.action) {
