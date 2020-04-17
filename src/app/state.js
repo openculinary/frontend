@@ -60,6 +60,7 @@ function loadState() {
     if (urlParams.has(this.id)) loadAboutTab(this.id);
   });
 
+  if (state.action) $('.modal.show').modal('hide');
   switch (state.action) {
     case 'search': renderSearch(); break;
     case 'view': renderIndividual(); break;
