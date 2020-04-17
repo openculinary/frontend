@@ -68,10 +68,6 @@ function loadState() {
 }
 
 $(function() {
-  $('#about-modal a').on('shown.bs.tab', function (e) {
-    pushState(null, e.target.hash);
-  });
-
   window.onpopstate = loadState;
   loadState();
 });
