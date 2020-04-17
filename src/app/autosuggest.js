@@ -63,6 +63,7 @@ $(function() {
       var suggestionsOpen = !selectElement.select2('isOpen');
       if (suggestionsOpen) return;
 
+      selectElement.select2('close');
       $('#search form button').trigger('click');
     }
   });
