@@ -8,7 +8,6 @@ import './recipe-list.css'
 
 import { float2rat, getRecipe } from '../common';
 import { renderIngredient } from '../conversion';
-import { getState, pushState } from '../state';
 import { storage } from '../storage';
 import { addRecipe } from '../models/recipes';
 import { starRecipe, unstarRecipe } from '../models/starred';
@@ -179,12 +178,12 @@ function scrollToResults(selector, delay) {
 
 function bindPageChange(selector) {
   $(`${selector} table[data-row-attributes]`).on('page-change.bs.table', function(e, number, size) {
-    var state = getState();
+    var state = window.history.state;
     if (number > 1) state.page = number;
     else delete state.page;
 
     var stateHash = decodeURIComponent($.param(state));
-    pushState(state, `#${stateHash}`);
+    window.history.pushState(state, '', `#${stateHash}`);
 
     scrollToResults(selector, 50);
   });
@@ -235,8 +234,7 @@ function bindPostBody(selector) {
     $(this).parents('div.recipe-list').show();
 
     // If the user is on the page containing this table, scroll it into view
-    var state = getState();
-    if (`#${state.action}` === selector) {
+    if (`#${window.history.state.action}` === selector) {
       scrollToResults(selector);
     }
   });

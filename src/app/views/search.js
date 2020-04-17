@@ -7,7 +7,7 @@ import './search.css';
 
 import '../autosuggest';
 import { localize } from '../i18n';
-import { getState, loadPage, pushState } from '../state';
+import { loadPage } from '../state';
 import { initTable, bindLoadEvent } from '../ui/recipe-list';
 
 export { renderSearch, renderIndividual };
@@ -21,7 +21,7 @@ function pushSearch() {
       state[fragment] = data.join(',');
     }
   })
-  var sortChoice = getState().sort;
+  var sortChoice = window.history.state.sort;
   if (sortChoice) state['sort'] = sortChoice;
 
   // If the requested search is a repeat of the current state, perform a results refresh
@@ -30,7 +30,7 @@ function pushSearch() {
   if (window.location.hash === `#${stateHash}`) {
     $('#search table[data-row-attributes]').trigger('page-change.bs.table');
   }
-  pushState(state, `#${stateHash}`);
+  window.history.pushState(state, '', `#${stateHash}`);
   $(window).trigger('popstate');
 }
 $('#search form button').on('click', pushSearch);
@@ -42,7 +42,7 @@ function renderSearch() {
     equipment: $('#equipment').val(),
   };
 
-  var state = getState();
+  var state = window.history.state;
   if (state.sort) params['sort'] = state.sort;
 
   $('#search table[data-row-attributes]').bootstrapTable('refresh', {
@@ -54,7 +54,7 @@ function renderSearch() {
 }
 
 function renderIndividual() {
-  var id = getState().id;
+  var id = window.history.state.id;
   $('#search table[data-row-attributes]').bootstrapTable('refresh', {
     url: '/api/recipes/' + encodeURIComponent(id) + '/view'
   });
@@ -111,7 +111,7 @@ function createSortPrompt() {
     {val: 'relevance', text: 'most ingredients used'},
     {val: 'duration', text: 'shortest time to make'},
   ];
-  var sortChoice = getState().sort || sortOptions[0].val;
+  var sortChoice = window.history.state.sort || sortOptions[0].val;
 
   var sortSelect = $('<select>', {'class': 'sort'}).attr('aria-label', 'Recipe sort selection');
   $(sortOptions).each(function() {
@@ -122,12 +122,12 @@ function createSortPrompt() {
     sortSelect.append(sortOption);
   });
   sortSelect.on('change', function() {
-    var state = getState();
+    var state = window.history.state;
     state.sort = this.value;
     delete state.page;
 
     var stateHash = decodeURIComponent($.param(state));
-    pushState(state, `#${stateHash}`);
+    window.history.pushState(state, '', `#${stateHash}`);
   });
 
   var sortPrompt = $('<span>').text('Order by ');

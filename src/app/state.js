@@ -2,21 +2,7 @@ import 'jquery';
 
 import { renderSearch, renderIndividual } from './views/search';
 
-export { getState, loadPage, pushState };
-
-function getState() {
-  if (window.history.state) return window.history.state;
-  var state = {};
-  var urlParams = new URLSearchParams(window.location.hash.slice(1));
-  urlParams.forEach(function(value, key) {
-    state[key] = value;
-  })
-  return state;
-}
-
-function pushState(state, hash) {
-  history.pushState(state, '', hash);
-}
+export { loadPage };
 
 function loadTags(element, data) {
   var tags = $(element).val();
@@ -47,7 +33,7 @@ function loadAboutTab(tabId) {
 }
 
 function loadState() {
-  var state = getState();
+  var state = window.history.state;
 
   loadTags('#include', state.include);
   loadTags('#exclude', state.exclude);
@@ -77,7 +63,7 @@ $(function() {
     state[tabName] = null;
 
     var stateHash = decodeURIComponent($.param(state)).slice(0, -1);
-    pushState(state, `#${stateHash}`);
+    window.history.pushState(state, '', `#${stateHash}`);
   });
 
   $(window).on('popstate', loadState);
