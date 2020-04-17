@@ -73,7 +73,7 @@ function loadState() {
 
 $(function() {
   $('#about-modal a').on('shown.bs.tab', function (e) {
-    window.location.hash = e.target.hash;
+    pushState(getState(), e.target.hash);
   });
 
   window.onpopstate = loadState;
