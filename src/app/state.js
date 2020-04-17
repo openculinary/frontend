@@ -67,6 +67,6 @@ $(function() {
   });
 
   window.history.pushState({}, '', '');
-  $(window).on('popstate', loadState);
+  window.onpopstate = loadState;
   loadState();
 });
