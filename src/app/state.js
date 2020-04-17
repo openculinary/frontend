@@ -18,9 +18,8 @@ function pushState(state, hash) {
 }
 
 function loadTags(element, data) {
-  if (!data) return;
   var tags = $(element).val();
-  var terms = data.split(',');
+  var terms = data ? data.split(',') : [];
   tags.forEach(function(tag) {
     if (terms.indexOf(tag) >= 0) return;
     $(element).find(`option[value='${tag}']`).remove();
