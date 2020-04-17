@@ -129,6 +129,7 @@ function createSortPrompt() {
 
     var stateHash = decodeURIComponent($.param(state));
     history.pushState(state, '', `#${stateHash}`);
+    $(window).trigger('popstate');
   });
 
   var sortPrompt = $('<span>').text('Order by ');
