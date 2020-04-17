@@ -66,6 +66,7 @@ $(function() {
     window.history.pushState(state, '', `#${stateHash}`);
   });
 
+  window.history.pushState({}, '', '');
   $(window).on('popstate', loadState);
   loadState();
 });
