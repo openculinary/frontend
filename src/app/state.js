@@ -5,6 +5,7 @@ import { renderSearch, renderIndividual } from './views/search';
 export { getState, loadPage, pushState };
 
 function getState() {
+  if (window.history.state) return window.history.state;
   var state = {};
   var urlParams = new URLSearchParams(window.location.hash.slice(1));
   urlParams.forEach(function(value, key) {
