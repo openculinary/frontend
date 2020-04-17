@@ -2,21 +2,19 @@ import 'jquery';
 
 import { renderSearch, renderIndividual } from './views/search';
 
-export { getState, loadPage, loadState };
+export { getState, pushState };
 
 function getState() {
-  var state = {};
-  var urlParams = new URLSearchParams(window.location.hash.slice(1));
-  urlParams.forEach(function(value, key) {
-    state[key] = value;
-  })
-  return state;
+  return history.state || {};
+}
+
+function pushState(state, hash) {
+  history.pushState(state, '', hash);
 }
 
 function loadTags(element, data) {
-  if (!data) return;
   var tags = $(element).val();
-  var terms = data.split(',');
+  var terms = data ? data.split(',') : [];
   tags.forEach(function(tag) {
     if (terms.indexOf(tag) >= 0) return;
     $(element).find(`option[value='${tag}']`).remove();
@@ -33,6 +31,8 @@ function loadPage(pageId) {
 
   $('header a').removeClass('active');
   $('header a[href="#' + pageId + '"]').addClass('active');
+
+  $(window).animate({scrollTop: 0}, 50);
 }
 
 function loadAboutTab(tabId) {
@@ -41,29 +41,44 @@ function loadAboutTab(tabId) {
 }
 
 function loadState() {
+  // If we encounter an empty state, display the homepage
   var state = getState();
+  var urlParams = new URLSearchParams(window.location.hash.slice(1));
+  if (Object.keys(state).length === 0 && urlParams.keys().next().done) {
+    urlParams.set('search', null);
+  }
 
   loadTags('#include', state.include);
   loadTags('#exclude', state.exclude);
   loadTags('#equipment', state.equipment);
 
   $('body > div.container[id]').each(function() {
-    if (this.id in state) loadPage(this.id);
+    if (urlParams.has(this.id)) loadPage(this.id);
   });
 
   $('#about-modal div.tab-pane[id]').each(function() {
-    if (this.id in state) loadAboutTab(this.id);
+    if (urlParams.has(this.id)) loadAboutTab(this.id);
   });
 
-  var action = state.action;
-  switch (action) {
-    case 'search': renderSearch(); break;
-    case 'view': renderIndividual(); break;
+  var activeTab = $('.modal.show a.active').attr('href');
+  if (activeTab && !urlParams.has(activeTab.slice(1))) {
+    $('.modal.show').modal('hide');
+    activeTab = null;
+  }
+
+  if (!activeTab) {
+    switch (state.action) {
+      case 'search': renderSearch(); break;
+      case 'view': renderIndividual(); break;
+    }
   }
 }
 
 $(function() {
   $('#about-modal a').on('shown.bs.tab', function (e) {
-    history.pushState(null, null, e.target.hash);
+    pushState(getState(), e.target.hash);
   });
+
+  window.onpopstate = loadState;
+  loadState();
 });

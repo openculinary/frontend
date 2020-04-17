@@ -7,7 +7,7 @@ import './search.css';
 
 import '../autosuggest';
 import { localize } from '../i18n';
-import { getState, loadPage, loadState } from '../state';
+import { getState, pushState } from '../state';
 import { initTable, bindLoadEvent } from '../ui/recipe-list';
 
 export { renderSearch, renderIndividual };
@@ -30,8 +30,8 @@ function pushSearch() {
   if (window.location.hash === `#${stateHash}`) {
     $('#search table[data-row-attributes]').trigger('page-change.bs.table');
   }
-
-  window.location.hash = stateHash;
+  pushState(state, `#${stateHash}`);
+  $(window).trigger('popstate');
 }
 $('#search form button').on('click', pushSearch);
 
@@ -42,19 +42,17 @@ function renderSearch() {
     equipment: $('#equipment').val(),
   };
 
-  var state = getState();
+  var state = history.state || {};
   if (state.sort) params['sort'] = state.sort;
 
   $('#search table[data-row-attributes]').bootstrapTable('refresh', {
     url: '/api/recipes/search?' + $.param(params),
     pageNumber: Number(state.page || 1)
   });
-
-  loadPage('search');
 }
 
 function renderIndividual() {
-  var id = getState().id;
+  var id = history.state.id;
   $('#search table[data-row-attributes]').bootstrapTable('refresh', {
     url: '/api/recipes/' + encodeURIComponent(id) + '/view'
   });
@@ -111,7 +109,9 @@ function createSortPrompt() {
     {val: 'relevance', text: 'most ingredients used'},
     {val: 'duration', text: 'shortest time to make'},
   ];
-  var sortChoice = getState().sort || sortOptions[0].val;
+
+  var state = history.state || {};
+  var sortChoice = state.sort || sortOptions[0].val;
 
   var sortSelect = $('<select>', {'class': 'sort'}).attr('aria-label', 'Recipe sort selection');
   $(sortOptions).each(function() {
@@ -122,10 +122,15 @@ function createSortPrompt() {
     sortSelect.append(sortOption);
   });
   sortSelect.on('change', function() {
-    var state = getState();
+    var state = history.state;
+
+    // Write the new sort selection, and reset to the first page
     state.sort = this.value;
     delete state.page;
-    window.location.hash = decodeURIComponent($.param(state));
+
+    var stateHash = decodeURIComponent($.param(state));
+    pushState(state, `#${stateHash}`);
+    $(window).trigger('popstate');
   });
 
   var sortPrompt = $('<span>').text('Order by ');
@@ -147,7 +152,4 @@ $(function() {
   bindLoadEvent('#search', emptyResultHandler);
   bindLoadEvent('#search', refinementHandler);
   bindLoadEvent('#search', addSorting);
-
-  window.onhashchange = loadState;
-  loadState();
 });
