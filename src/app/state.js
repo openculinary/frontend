@@ -26,6 +26,8 @@ function loadTags(element, data) {
 }
 
 function loadPage(pageId) {
+  $('#about-modal').modal('hide');
+
   $('body > div.container[id]').hide();
   $(`body > div.container[id="${pageId}"]`).show();
 
