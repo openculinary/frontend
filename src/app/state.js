@@ -63,11 +63,14 @@ function loadState() {
   var activeTab = $('.modal.show a.active').attr('href');
   if (activeTab && !urlParams.has(activeTab.slice(1))) {
     $('.modal.show').modal('hide');
+    activeTab = null;
   }
 
-  switch (state.action) {
-    case 'search': renderSearch(); break;
-    case 'view': renderIndividual(); break;
+  if (!activeTab) {
+    switch (state.action) {
+      case 'search': renderSearch(); break;
+      case 'view': renderIndividual(); break;
+    }
   }
 }
 
