@@ -44,7 +44,7 @@ function loadState() {
   // If we encounter an empty state, display the homepage
   var state = getState();
   var urlParams = new URLSearchParams(window.location.hash.slice(1));
-  if (Object.keys(state).length === 0 && !urlParams.keys().next()) {
+  if (Object.keys(state).length === 0 && urlParams.keys().next().done) {
     urlParams.set('search', null);
   }
 
