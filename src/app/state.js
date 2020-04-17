@@ -72,6 +72,10 @@ function loadState() {
 }
 
 $(function() {
+  $('#about-modal a').on('shown.bs.tab', function (e) {
+    window.location.hash = e.target.hash;
+  });
+
   window.onpopstate = loadState;
   loadState();
 });
