@@ -2,8 +2,6 @@ import 'jquery';
 
 import { renderSearch, renderIndividual } from './views/search';
 
-export { loadPage };
-
 function loadTags(element, data) {
   var tags = $(element).val();
   var terms = data ? data.split(',') : [];

@@ -7,7 +7,6 @@ import './search.css';
 
 import '../autosuggest';
 import { localize } from '../i18n';
-import { loadPage } from '../state';
 import { initTable, bindLoadEvent } from '../ui/recipe-list';
 
 export { renderSearch, renderIndividual };
@@ -49,8 +48,6 @@ function renderSearch() {
     url: '/api/recipes/search?' + $.param(params),
     pageNumber: Number(state.page || 1)
   });
-
-  loadPage('search');
 }
 
 function renderIndividual() {
