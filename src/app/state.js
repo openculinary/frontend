@@ -47,8 +47,7 @@ function loadState() {
   var state = getState();
   var urlParams = new URLSearchParams(window.location.hash.slice(1));
   if (Object.keys(state).length === 0 && !urlParams.keys().next()) {
-    loadPage('search');
-    return;
+    urlParams.set('search', null);
   }
 
   loadTags('#include', state.include);
