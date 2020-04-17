@@ -48,11 +48,6 @@ function loadState() {
     urlParams.set('search', null);
   }
 
-  var activeTab = $('.modal.show a.active').attr('href');
-  if (activeTab && !urlParams.has(activeTab.slice(1))) {
-    $('.modal.show').modal('hide');
-  }
-
   loadTags('#include', state.include);
   loadTags('#exclude', state.exclude);
   loadTags('#equipment', state.equipment);
@@ -64,6 +59,11 @@ function loadState() {
   $('#about-modal div.tab-pane[id]').each(function() {
     if (urlParams.has(this.id)) loadAboutTab(this.id);
   });
+
+  var activeTab = $('.modal.show a.active').attr('href');
+  if (activeTab && !urlParams.has(activeTab.slice(1))) {
+    $('.modal.show').modal('hide');
+  }
 
   switch (state.action) {
     case 'search': renderSearch(); break;
