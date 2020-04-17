@@ -43,6 +43,12 @@ function loadAboutTab(tabId) {
 function loadState() {
   var state = getState();
 
+  // If we encounter an empty state, display the homepage
+  if (!state || Object.keys(state).length === 0) {
+    loadPage('search');
+    return;
+  }
+
   loadTags('#include', state.include);
   loadTags('#exclude', state.exclude);
   loadTags('#equipment', state.equipment);
@@ -55,10 +61,6 @@ function loadState() {
     if (this.id in state) loadAboutTab(this.id);
   });
 
-  // Render the homepage if the state is empty
-  if (Object.keys(state).length === 0) {
-    loadPage('search');
-  }
   switch (state.action) {
     case 'search': renderSearch(); break;
     case 'view': renderIndividual(); break;
