@@ -5,7 +5,7 @@ import { renderSearch, renderIndividual } from './views/search';
 export { getState, pushState };
 
 function getState() {
-  return history.state;
+  return history.state || {};
 }
 
 function pushState(state, hash) {
@@ -49,7 +49,7 @@ function loadState() {
 
   // If we encounter an empty state, display the homepage
   var state = getState();
-  if (!state || Object.keys(state).length === 0) {
+  if (Object.keys(state).length === 0) {
     loadPage('search');
     return;
   }
@@ -78,7 +78,6 @@ $(function() {
     pushState(state, `#${stateHash}`);
   });
 
-  pushState({}, '');
   window.onpopstate = loadState;
   loadState();
 });
