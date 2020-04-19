@@ -5,7 +5,14 @@ import { renderSearch, renderIndividual } from './views/search';
 export { getState, pushState };
 
 function getState() {
-  return history.state || {};
+  if (!history.state && !location.hash) return {'search': null};
+  if (!history.state && location.hash) {
+    var state = {}
+    var urlParams = new URLSearchParams(window.location.hash.slice(1));
+    urlParams.forEach((value, key) => { state[key] = value });
+    return state;
+  }
+  return history.state;
 }
 
 function pushState(state, hash) {
@@ -43,25 +50,21 @@ function loadAboutTab(tabId) {
 function loadState() {
   // If we encounter an empty state, display the homepage
   var state = getState();
-  var urlParams = new URLSearchParams(window.location.hash.slice(1));
-  if (Object.keys(state).length === 0 && urlParams.keys().next().done) {
-    urlParams.set('search', null);
-  }
 
   loadTags('#include', state.include);
   loadTags('#exclude', state.exclude);
   loadTags('#equipment', state.equipment);
 
   $('body > div.container[id]').each(function() {
-    if (urlParams.has(this.id)) loadPage(this.id);
+    if (this.id in state) loadPage(this.id);
   });
 
   $('#about-modal div.tab-pane[id]').each(function() {
-    if (urlParams.has(this.id)) loadAboutTab(this.id);
+    if (this.id in state) loadAboutTab(this.id);
   });
 
   var activeTab = $('.modal.show a.active').attr('href');
-  if (activeTab && !urlParams.has(activeTab.slice(1))) {
+  if (activeTab && !(activeTab.slice(1) in state)) {
     $('.modal.show').modal('hide');
     activeTab = null;
   }

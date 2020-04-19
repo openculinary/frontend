@@ -42,7 +42,7 @@ function renderSearch() {
     equipment: $('#equipment').val(),
   };
 
-  var state = history.state || {};
+  var state = getState();
   if (state.sort) params['sort'] = state.sort;
 
   $('#search table[data-row-attributes]').bootstrapTable('refresh', {
@@ -52,7 +52,7 @@ function renderSearch() {
 }
 
 function renderIndividual() {
-  var id = history.state.id;
+  var id = getState().id;
   $('#search table[data-row-attributes]').bootstrapTable('refresh', {
     url: '/api/recipes/' + encodeURIComponent(id) + '/view'
   });
@@ -110,7 +110,7 @@ function createSortPrompt() {
     {val: 'duration', text: 'shortest time to make'},
   ];
 
-  var state = history.state || {};
+  var state = getState();
   var sortChoice = state.sort || sortOptions[0].val;
 
   var sortSelect = $('<select>', {'class': 'sort'}).attr('aria-label', 'Recipe sort selection');
@@ -122,7 +122,7 @@ function createSortPrompt() {
     sortSelect.append(sortOption);
   });
   sortSelect.on('change', function() {
-    var state = history.state;
+    var state = getState();
 
     // Write the new sort selection, and reset to the first page
     state.sort = this.value;
