@@ -7,7 +7,7 @@ export { getState, pushState };
 function getState() {
   var state = history.state || {};
   var urlHash = window.location.hash || '#search';
-  var urlParams = new URLSearchParams(urlHash);
+  var urlParams = new URLSearchParams(urlHash.slice(1));
   urlParams.forEach(function(value, key) {
     state[key] = state[key] || value;
   });
