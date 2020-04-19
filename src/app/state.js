@@ -9,7 +9,7 @@ function getState() {
   if (!history.state && location.hash) {
     var state = {}
     var urlParams = new URLSearchParams(window.location.hash.slice(1));
-    urlParams.forEach((value, key) => { state[key] = state[key] || value });
+    urlParams.forEach((value, key) => { state[key] = value });
     return state;
   }
   return history.state;
