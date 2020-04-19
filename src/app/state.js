@@ -5,13 +5,15 @@ import { renderSearch, renderIndividual } from './views/search';
 export { getState, pushState };
 
 function getState() {
-  var state = history.state || {};
-  var urlHash = window.location.hash || '#search';
-  var urlParams = new URLSearchParams(urlHash.slice(1));
-  urlParams.forEach(function(value, key) {
-    state[key] = state[key] || value;
-  });
-  return state;
+  if (!history.state && window.location.hash) {
+    var state = {'search': null};
+    var urlParams = new URLSearchParams(window.location.hash.slice(1));
+    urlParams.forEach(function(value, key) {
+      state[key] = state[key] || value;
+    });
+    pushState(state);
+  }
+  return history.state || {};
 }
 
 function pushState(state, hash) {
