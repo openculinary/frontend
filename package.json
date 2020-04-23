@@ -19,7 +19,8 @@
     "popper.js": "^1.16.1",
     "select2": "^4.0.13",
     "sortablejs": "^1.10.2",
-    "tablesaw": "^3.1.2"
+    "tablesaw": "^3.1.2",
+    "xslt-ts": "^1.1.8"
   },
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",
