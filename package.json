@@ -9,7 +9,7 @@
     "convert-units": "^2.3.4",
     "d3": "^5.16.0",
     "d3-sankey": "git+https://github.com/jayaddison/d3-sankey.git#vertical-orientation",
-    "delta-crdts": "git+https://github.com/ipfs-shipyard/js-delta-crdts.git#639bce5c6d5afda423c0b6f4cef1c1901ca8c074",
+    "delta-crdts": "git+https://github.com/jayaddison/js-delta-crdts.git#9197dcc744184a55ee4f7dd865aa4f87f01a6308",
     "i18next": "^19.4.3",
     "i18next-browser-languagedetector": "^4.1.1",
     "i18next-xhr-backend": "^3.2.2",
