@@ -5,7 +5,7 @@
 
  Released under MIT License
 */
-(function( window, document, undefined ) {
+(function(window, document) {
 /*
   This allows custom messages and languages in the feedback.js library.
   The presidence order for messages is: Custom Message -> i18l -> defaults
