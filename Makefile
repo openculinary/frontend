@@ -10,8 +10,7 @@ build: lint tests
 	webpack --mode ${MODE} --optimize-minimize
 
 lint:
-	eslint src/app
-	eslint src/sw
+	eslint src
 
 tests:
 	mochapack --mode ${MODE} --require setup.js
