@@ -5,7 +5,7 @@
 
  Released under MIT License
 */
-(function(window, document) {
+
 /*
   This allows custom messages and languages in the feedback.js library.
   The presidence order for messages is: Custom Message -> i18l -> defaults
@@ -134,10 +134,6 @@ i18n.ru_RU = {
 };
 i18n.ru = i18n.ru_RU;
 
-if ( window.Feedback !== undefined ) { 
-    return; 
-}
-
 var loader = function() {
     var div = $('<div />', {'class': 'feedback-loader'});
     [1, 2, 3].forEach(function() { $('<span />').appendTo(div); });
@@ -167,7 +163,7 @@ nextButton,
 H2C_IGNORE = "data-html2canvas-ignore",
 modalBody = $('<div />', {'class': 'feedback-body'});
 
-window.Feedback = function( options ) {
+const Feedback = function( options ) {
 
     options = options || {};
 
@@ -181,9 +177,9 @@ window.Feedback = function( options ) {
 
     if (options.pages === undefined ) {
         options.pages = [
-            new window.Feedback.Form(),
-            new window.Feedback.Screenshot( options ),
-            new window.Feedback.Review()
+            new Feedback.Form(),
+            new Feedback.Screenshot( options ),
+            new Feedback.Review()
         ];
     }
 
@@ -197,7 +193,7 @@ window.Feedback = function( options ) {
             $('header').removeClass('sticky-top');
 
             options.pages.forEach(function (page) {
-                if (page instanceof window.Feedback.Review) return;
+                if (page instanceof Feedback.Review) return;
                 page.render();
             });
 
@@ -241,7 +237,7 @@ window.Feedback = function( options ) {
 
                     options.pages[ currentPage ].start(modal, nextButton);
                     
-                    if ( options.pages[ currentPage ] instanceof window.Feedback.Review ) {
+                    if ( options.pages[ currentPage ] instanceof Feedback.Review ) {
                         // create DOM for review page, based on collected data
                         options.pages[ currentPage ].render( options.pages );
                     }
@@ -255,7 +251,7 @@ window.Feedback = function( options ) {
                     }
                     
                     // if next page is review page, change button label
-                    if ( options.pages[ currentPage ] instanceof window.Feedback.Review ) {   
+                    if ( options.pages[ currentPage ] instanceof Feedback.Review ) {   
                         nextButton.firstChild.nodeValue = _('reviewLabel');
                     }
 
@@ -305,7 +301,7 @@ window.Feedback = function( options ) {
                 if (pageData) data.push(pageData);
             });
 
-            var adapter = new window.Feedback.XHR(options.url);
+            var adapter = new Feedback.XHR(options.url);
             adapter.send(data, function(success) {
                 nextButton.disabled = false;
                 nextButton.firstChild.nodeValue = _('closeLabel');
@@ -319,7 +315,7 @@ window.Feedback = function( options ) {
                 $(modalBody).text(message);
 
                 options.pages.forEach(function (page) {
-                    if (page instanceof window.Feedback.Review) return;
+                    if (page instanceof Feedback.Review) return;
                     delete page._data;
                 });
             });
@@ -345,8 +341,8 @@ window.Feedback = function( options ) {
     return returnMethods;
 };
 
-window.Feedback.Page = function() {};
-window.Feedback.Page.prototype = {
+Feedback.Page = function() {};
+Feedback.Page.prototype = {
     render: function(dom) { this.dom = dom; },
     start: function() {},
     close: function() {},
@@ -355,12 +351,12 @@ window.Feedback.Page.prototype = {
     end: function() { return true; }
 
 };
-window.Feedback.Send = function() {};
-window.Feedback.Send.prototype = {
+Feedback.Send = function() {};
+Feedback.Send.prototype = {
     send: function() {}
 };
 
-window.Feedback.Form = function(elements) {
+Feedback.Form = function(elements) {
     this.elements = elements || [{
         type: 'textarea',
         name: 'issue',
@@ -368,8 +364,8 @@ window.Feedback.Form = function(elements) {
     }];
     this.dom = document.createElement('div');
 };
-window.Feedback.Form.prototype = new window.Feedback.Page();
-window.Feedback.Form.prototype.render = function() {
+Feedback.Form.prototype = new Feedback.Page();
+Feedback.Form.prototype.render = function() {
     var $this = this;
     $(this.dom).empty();
     this.elements.forEach(function(item) {
@@ -382,7 +378,7 @@ window.Feedback.Form.prototype.render = function() {
     });
     return this;
 };
-window.Feedback.Form.prototype.data = function() {
+Feedback.Form.prototype.data = function() {
     
     if (this._data) return this._data;
     
@@ -421,7 +417,7 @@ window.Feedback.Form.prototype.data = function() {
 
     return this._data = data;
 };
-window.Feedback.Form.prototype.review = function(dom) {
+Feedback.Form.prototype.review = function(dom) {
     this.elements.forEach(function(item) {
         if (item.element.value.length > 0) {
             dom.appendChild(element('label', 'Feedback:'));
@@ -433,13 +429,13 @@ window.Feedback.Form.prototype.review = function(dom) {
     return dom;
 };
 
-window.Feedback.Review = function() {
+Feedback.Review = function() {
     this.dom = document.createElement("div");
     this.dom.className = "feedback-review";
 };
 
-window.Feedback.Review.prototype = new window.Feedback.Page();
-window.Feedback.Review.prototype.render = function( pages ) {
+Feedback.Review.prototype = new Feedback.Page();
+Feedback.Review.prototype.render = function( pages ) {
     $(this.dom).empty();
     var $this = this;
     pages.forEach(function (page) {
@@ -451,26 +447,26 @@ window.Feedback.Review.prototype.render = function( pages ) {
 
 
 
-window.Feedback.Screenshot = function( options ) {
+Feedback.Screenshot = function( options ) {
     this.options = options || {};
     this.options.highlightClass = this.options.highlightClass || 'feedback-highlighted';
 };
 
-window.Feedback.Screenshot.prototype = new window.Feedback.Page();
-window.Feedback.Screenshot.prototype.end = function(modal) {
+Feedback.Screenshot.prototype = new Feedback.Page();
+Feedback.Screenshot.prototype.end = function(modal) {
     $(modal).removeClass('feedback-animate-toside');
     $(document.body).off('mousemove', this.mouseMoveEvent);
     $(document.body).off('click', this.mouseClickEvent);
     $(this.h2cCanvas).remove();
 };
 
-window.Feedback.Screenshot.prototype.close = function(){
+Feedback.Screenshot.prototype.close = function(){
     $(this.highlightBox).remove();
     $(this.highlightClose).remove();
     $('.' + this.options.highlightClass).remove();
 };
 
-window.Feedback.Screenshot.prototype.start = function(modal, nextButton) {
+Feedback.Screenshot.prototype.start = function(modal, nextButton) {
     var $this = this;
     var $arguments = arguments;
 
@@ -593,7 +589,7 @@ window.Feedback.Screenshot.prototype.start = function(modal, nextButton) {
     $(document.body).on('click', this.mouseClickEvent);
 };
 
-window.Feedback.Screenshot.prototype.render = function() {
+Feedback.Screenshot.prototype.render = function() {
     this.dom = document.createElement("div");
     this.h2cDone = false;
 
@@ -611,7 +607,7 @@ window.Feedback.Screenshot.prototype.render = function() {
     return this;
 };
 
-window.Feedback.Screenshot.prototype.data = function() {
+Feedback.Screenshot.prototype.data = function() {
     if (!this.h2cCanvas) return;
 
     var ctx = this.h2cCanvas.getContext("2d"),
@@ -661,7 +657,7 @@ window.Feedback.Screenshot.prototype.data = function() {
 };
 
 
-window.Feedback.Screenshot.prototype.review = function(dom) {
+Feedback.Screenshot.prototype.review = function(dom) {
     var data = this.data();
     if (data) {
         var img = new Image();
@@ -670,9 +666,9 @@ window.Feedback.Screenshot.prototype.review = function(dom) {
     }
 };
 
-window.Feedback.XHR = function(url) { this.url = url; };
-window.Feedback.XHR.prototype = new window.Feedback.Send();
-window.Feedback.XHR.prototype.send = function(data, callback) {
+Feedback.XHR = function(url) { this.url = url; };
+Feedback.XHR.prototype = new Feedback.Send();
+Feedback.XHR.prototype.send = function(data, callback) {
     $.post({
         url: this.url,
         contentType: 'application/json',
@@ -681,4 +677,5 @@ window.Feedback.XHR.prototype.send = function(data, callback) {
         error: function() { callback(false) }
     });
 };
-})(window, document);
+
+export { Feedback };
