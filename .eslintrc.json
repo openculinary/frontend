@@ -1,5 +1,9 @@
 {
     "extends": "eslint:recommended",
+    "env": {
+        "browser": "true",
+        "jquery": "true"
+    },
     "parserOptions": {
         "ecmaVersion": 8,
         "ecmaFeatures": {
