@@ -1,7 +1,6 @@
 import 'jquery';
 import * as moment from 'moment';
 import 'tablesaw/dist/stackonly/tablesaw.stackonly.jquery.js';
-import 'convert-units';
 
 import 'tablesaw/dist/stackonly/tablesaw.stackonly.css';
 import './recipe-list.css'
