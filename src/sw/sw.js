@@ -1,3 +1,4 @@
+import { skipWaiting } from 'workbox-core';
 import { precacheAndRoute } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
 import { NetworkFirst } from 'workbox-strategies';
@@ -8,7 +9,6 @@ addEventListener('message', (event) => {
   }
 });
 
-function returnResponse(response) { return response; }
 function returnEmptyResults() {
   var response = {
     authority: 'local',

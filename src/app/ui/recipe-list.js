@@ -1,7 +1,6 @@
 import 'jquery';
 import * as moment from 'moment';
 import 'tablesaw/dist/stackonly/tablesaw.stackonly.jquery.js';
-import 'convert-units';
 
 import 'tablesaw/dist/stackonly/tablesaw.stackonly.css';
 import './recipe-list.css'
@@ -147,7 +146,7 @@ function contentFormatter(recipe) {
   return content;
 }
 
-function recipeFormatter(value, recipe, index) {
+function recipeFormatter(value, recipe) {
   var container = $('<div />');
   var title = titleFormatter(recipe);
   var star = starFormatter();
@@ -178,7 +177,7 @@ function scrollToResults(selector, delay) {
 }
 
 function bindPageChange(selector) {
-  $(`${selector} table[data-row-attributes]`).on('page-change.bs.table', function(e, number, size) {
+  $(`${selector} table[data-row-attributes]`).on('page-change.bs.table', function(e, number) {
     // Write the new page number into the application's state
     var state = getState();
     if (number > 1) state.page = number;

@@ -14,7 +14,7 @@ function localize(selector) {
   if (!$.fn.localize) {
     pendingSelectors.push(selector);
     return;
-  };
+  }
   $(selector).localize();
 }
 
@@ -43,6 +43,7 @@ i18next.use(BrowserLanguage).use(XHR).init({
   localize();
 
   var selector;
+  // eslint-disable-next-line no-cond-assign
   while (selector = pendingSelectors.pop()) {
     localize(selector);
   }
