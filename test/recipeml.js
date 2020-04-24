@@ -3,7 +3,7 @@ import * as assert from 'assert';
 import { renderToHTML } from '../src/app/recipeml';
 
 function recipeMLHelper(ingredient, product_id, quantity, units) {
-    return `<amt><qty>${quantity}</qty><unit>${units}</unit></amt><ingredient href="products/${product_id}">${ingredient}</ingredient>`; 
+    return `<amt><qty>${quantity}</qty><unit>${units}</unit></amt><ingredient href="products/${product_id}">${ingredient}</ingredient>`;
 }
 
 function expectedProductHTML(product, quantity, units) {
