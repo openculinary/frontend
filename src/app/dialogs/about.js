@@ -54,8 +54,7 @@ function renderDiagram() {
       .append('title')
       .text(d => d.name);
 
-  const link = svg
-      .append('g')
+  svg.append('g')
       .attr('fill', 'none')
       .selectAll('g')
       .data(graph.links)
@@ -74,6 +73,6 @@ function renderDiagram() {
       .attr('x', d => (d.x0 + d.x1) / 2)
       .attr('y', d => (d.y1 + d.y0) / 2)
       .attr('dy', '0.2em')
-      .attr('text-anchor', d => 'middle')
+      .attr('text-anchor', 'middle')
       .text(d => d.name);
 }
