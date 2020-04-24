@@ -98,6 +98,7 @@ function scheduleMeal(evt) {
 
   var toRow = $(evt.to).parents('tr');
   if (toRow.length) {
+    // eslint-disable-next-line no-redeclare
     var date = toRow.data('date');
 
     if (!(date in meals)) meals[date] = [];
