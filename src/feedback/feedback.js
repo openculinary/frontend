@@ -207,7 +207,7 @@ window.Feedback = function( options ) {
             $('#feedback-open').hide();
 
             // build header element
-            modalHeader = $('<div />', {'class': 'feedback-header'});
+            var modalHeader = $('<div />', {'class': 'feedback-header'});
             modalHeader.append($('<h3 />', {'text': _('header')}));
             modalHeader.append($('<a />', {
                 'class': 'feedback-close',
@@ -545,7 +545,7 @@ window.Feedback.Screenshot.prototype.start = function(modal, nextButton) {
             clearBox();
             previousElement = undefined;
 
-            bounds = getBounds(e.target);
+            var bounds = getBounds(e.target);
             $(highlightClose).css({
                 'left': (window.pageXOffset + bounds.left + bounds.width) + 'px',
                 'top': (window.pageYOffset + bounds.top) + 'px'

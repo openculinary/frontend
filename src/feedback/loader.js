@@ -1,6 +1,6 @@
 import 'jquery';
 
-import './feedback';
+import * as Feedback from './feedback';
 import './feedback.css';
 
 $(function() {
