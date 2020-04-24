@@ -1,7 +1,4 @@
-import 'array-flat-polyfill';
-import '@ungap/global-this';
-import { DOMImplementationImpl, DOMParserImpl, XMLSerializerImpl } from 'xmldom-ts';
-import { install, xsltProcess } from 'xslt-ts';
+import { xsltProcess, xmlParse } from 'xslt-processor'
 
 export { renderToHTML };
 
@@ -30,14 +27,8 @@ const template = `
 
 
 function renderToHTML(doc) {
-    const parser = new DOMParserImpl();
-    const serializer = new XMLSerializerImpl();
-    const dom = new DOMImplementationImpl();
-
-    install(parser, serializer, dom);
-
-    const recipeML = parser.parseFromString(doc, 'text/xml');
-    const recipeXSLT = parser.parseFromString(template, 'text/xml');
+    const recipeML = xmlParse(doc);
+    const recipeXSLT = xmlParse(template);
 
     return xsltProcess(recipeML, recipeXSLT);
 }
