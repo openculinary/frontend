@@ -534,7 +534,7 @@ window.Feedback.Screenshot.prototype.start = function(modal, nextButton) {
         e.preventDefault();
         if (highlightBox.getAttribute(dataExclude) === "false") {
             highlightBox.className += " " + $this.options.highlightClass;
-            highlightBox.className = highlightBox.className.replace(/feedback\-highlight\-element/g,"");
+            highlightBox.className = highlightBox.className.replace(/feedback-highlight-element/g,"");
             $this.highlightBox = highlightBox = document.createElement('canvas');
 
             ctx = highlightBox.getContext("2d");
