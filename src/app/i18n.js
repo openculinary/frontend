@@ -14,7 +14,7 @@ function localize(selector) {
   if (!$.fn.localize) {
     pendingSelectors.push(selector);
     return;
-  };
+  }
   $(selector).localize();
 }
 

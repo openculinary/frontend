@@ -30,7 +30,7 @@ function targetUnits(quantity) {
     case 'volume': return volumeUnits(quantity);
     case 'mass': return weightUnits(quantity);
     default: return quantity.origin.abbr;
-  };
+  }
 }
 
 function renderMagnitude(units, magnitude) {
