@@ -4,6 +4,7 @@ const glob = require('glob');
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { InjectManifest } = require('workbox-webpack-plugin');
+const LicensePlugin = require('webpack-license-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -25,9 +26,16 @@ module.exports = (_, env) => { return {
     },
     plugins: [
       new CleanWebpackPlugin(),
+      new LicensePlugin(),
       new CopyWebpackPlugin([
         {
           from: 'LICENSE'
+        }
+      ]),
+      new CopyWebpackPlugin([
+        {
+          from: 'src/feedback/LICENSE',
+          to: 'LICENSE.feedback'
         }
       ]),
       new CopyWebpackPlugin([
