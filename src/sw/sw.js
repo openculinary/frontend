@@ -8,7 +8,6 @@ addEventListener('message', (event) => {
   }
 });
 
-function returnResponse(response) { return response; }
 function returnEmptyResults() {
   var response = {
     authority: 'local',
