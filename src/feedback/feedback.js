@@ -655,7 +655,8 @@ window.Feedback.Screenshot.prototype.data = function() {
         ctx.globalAlpha = 1;
         ctx.drawImage(canvasCopy, 0,0);
     }
-        
+
+    /* eslint-disable-next-line no-empty */
     try { return this.h2cCanvas.toDataURL(); } catch (e) {}
 };
 
