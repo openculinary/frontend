@@ -18,8 +18,6 @@
     custom_message_strings.messageSuccess = "Woah, we succeeded!";
 */
 
-$ = require('jquery');
-
 // Message getter function
 function _(s) {
   return i18n.gettext(s);
