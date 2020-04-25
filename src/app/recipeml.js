@@ -32,9 +32,9 @@ const template = `
 <xsl:template match="ingredient">
 <div class="product">
 <xsl:apply-templates select="preceding-sibling::text()" />
-<div>
+<span class="tag badge required">
   <xsl:apply-templates select="node()" />
-</div>
+</span>
 <xsl:apply-templates select="following-sibling::text()" />
 </div>
 </xsl:template>
