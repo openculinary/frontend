@@ -1,0 +1,35 @@
+RecipeML Public License Version 1.0
+
+Copyright (c) FormatData. All rights reserved.
+Definitions
+
+"RecipeML Data" refers to a unit of data with RecipeML markup that is meant to comply with the RecipeML specification as posted on the FormatData site.
+
+"RecipeML Processing Software" refers to software written by a third party that reads, creates, edits, stores or otherwise processes RecipeML data according to the rules set forth in the RecipeML specification and DTD ("RecipeML format"). Generic XML processors are exempt from this definition.
+Requirements
+
+Distribution of RecipeML Processing Software in source and/or binary forms is permitted provided that the following conditions are met:
+
+1. Distributions in source code must retain the above copyright notice and this list of conditions.
+
+2. Distributions in binary form must reproduce the above copyright notice and this list of conditions in the documentation and/or other materials provided with the distribution.
+
+3. All advertising materials and documentation for RecipeML Processing Software must display the following acknowledgment:
+
+   "This product is RecipeML compatible."
+
+4. Names associated with RecipeML or FormatData must not be used to endorse or promote RecipeML Processing Software without prior written permission from FormatData. For written permission, please contact RecipeML@formatdata.com.
+
+(Re)distribution of machine-readable representations of the RecipeML format are permitted provided that the following conditions are met:
+
+1. Distributions of any DTDs, XML-Schema or any other schema-representation documents produced by FormatData must retain the copyright notice in the header intact.
+
+2. The name "RecipeML" can only be applied if a modified schema representation (DTD, XML-Schema document, etc. as edited or produced by a third party) exactly represents the RecipeML format set forth in the RecipeML specification, i.e., the same set of documents will validate against the third party representation as the representation (DTD, etc.) of any version of the RecipeML format posted on the FormatData site; past, present or future.
+
+3. The formal namespace and public identifier set forth in the RecipeML specification can only be applied to a modified schema representation if that schema representation exactly represents the RecipeML format according to the criteria in (2).
+
+Disclaimer
+
+THIS SOFTWARE IS PROVIDED BY FORMATDATA "AS IS" AND ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL FORMATDATA OR ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+© 2000 FormatData
