@@ -44,4 +44,13 @@ describe('html rendering', function() {
     assert.equal(expected, rendered);
   });
 
+  it('always renders a quantity element', function() {
+    var recipeML = '<ingredient>bananas</ingredient>';
+    var expected = '<div class="quantity"></div><div class="product"><span class="tag badge required">bananas</span></div>';
+
+    var rendered = renderToHTML(recipeML);
+
+    assert.equal(expected, rendered);
+  });
+
 });

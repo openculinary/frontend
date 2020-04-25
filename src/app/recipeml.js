@@ -9,8 +9,10 @@ const template = `
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:template match="/">
-  <xsl:apply-templates select="//amt" />
-  <xsl:apply-templates select="//ingredient" />
+  <xml>
+    <xsl:apply-templates select="//amt" />
+    <xsl:apply-templates select="//ingredient" />
+  </xml>
 </xsl:template>
 
 <xsl:template match="text()">
@@ -49,12 +51,16 @@ function renderToHTML(doc) {
     const recipeXSLT = $.parseXML(template);
     var recipeHTML = $(xsltProcess(recipeML, recipeXSLT));
 
+    if (!recipeHTML.find('div.quantity').length) {
+      recipeHTML.prepend($('<div>', {'class': 'quantity'}));
+    }
+
     const quantity = renderQuantity({
-        magnitude: Number($(recipeML).find('qty').text()),
-        units: $(recipeML).find('unit').text(),
+      magnitude: Number($(recipeML).find('qty').text()),
+      units: $(recipeML).find('unit').text(),
     });
     const quantityText = `${quantity.magnitude || ''} ${quantity.units || ''}`.trim();
+    recipeHTML.find('div.quantity').html(quantityText);
 
-    recipeHTML.filter('div.quantity').html(quantityText);
-    return recipeHTML.get().map(node => node.outerHTML).join('');
+    return recipeHTML.children().get().map(node => node.outerHTML).join('');
 }
