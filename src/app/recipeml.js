@@ -1,4 +1,4 @@
-import { xsltProcess, xmlParse } from 'xslt-processor'
+import { xsltProcess } from 'xslt-processor'
 
 export { renderToHTML };
 
@@ -40,12 +40,12 @@ const template = `
 </xsl:template>
 
 </xsl:stylesheet>
-`;
+`.trim();
 
 
 function renderToHTML(doc) {
-    const recipeML = xmlParse(`<xml>${doc}</xml>`);
-    const recipeXSLT = xmlParse(template);
+    const recipeML = $.parseXML(`<xml>${doc}</xml>`);
+    const recipeXSLT = $.parseXML(template);
 
     return xsltProcess(recipeML, recipeXSLT);
 }
