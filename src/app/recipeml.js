@@ -55,6 +55,6 @@ function renderToHTML(doc) {
     });
     const quantityText = `${quantity.magnitude || ''} ${quantity.units || ''}`.trim();
 
-    recipeHTML.filter('div.quantity').text(quantityText);
+    recipeHTML.filter('div.quantity').html(quantityText);
     return recipeHTML.get().map(node => node.outerHTML).join('');
 }

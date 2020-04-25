@@ -4,6 +4,11 @@ import { float2rat } from './common';
 
 export { renderQuantity };
 
+const decimalMeasures = [
+    'l',
+    'kg',
+];
+
 const expandMeasures = [
     'Tbs',
     'tsp',
@@ -41,7 +46,7 @@ function renderMagnitude(units, magnitude) {
     magnitude = Number(magnitude.toPrecision(3));
     return magnitude.toFixed();
   }
-  if (units && expandMeasures.indexOf(units) == -1) {
+  if (units && decimalMeasures.indexOf(units) >= 0) {
     return magnitude.toFixed(2) / 1;
   }
   var result = float2rat(magnitude);

@@ -10,7 +10,7 @@ describe('html rendering', function() {
 
   it('renders simple product', function() {
     var recipeML = '<amt><qty>0.5</qty><unit>bag</unit></amt><ingredient>potato wedges</ingredient>';
-    var expected = '<div class="quantity">0.5 bag</div><div class="product"><span class="tag badge required">potato wedges</span></div>';
+    var expected = '<div class="quantity"><sup>1</sup>⁄<sub>2</sub> bag</div><div class="product"><span class="tag badge required">potato wedges</span></div>';
 
     var rendered = renderToHTML(recipeML);
 
