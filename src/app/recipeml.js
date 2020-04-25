@@ -35,7 +35,7 @@ const template = `
 <xsl:template match="ingredient">
 <div class="product">
 <xsl:apply-templates select="preceding-sibling::text()" />
-<span class="tag badge required">
+<span class="tag badge">
   <xsl:apply-templates select="node()" />
 </span>
 <xsl:apply-templates select="following-sibling::text()" />
@@ -46,10 +46,12 @@ const template = `
 `.trim();
 
 
-function renderToHTML(doc) {
+function renderToHTML(doc, state) {
     const recipeML = $.parseXML(`<xml>${doc}</xml>`);
     const recipeXSLT = $.parseXML(template);
     var recipeHTML = $(xsltProcess(recipeML, recipeXSLT));
+
+    recipeHTML.find('div.product span.tag').addClass(state);
 
     if (!recipeHTML.find('div.quantity').length) {
       recipeHTML.prepend($('<div>', {'class': 'quantity'}));
