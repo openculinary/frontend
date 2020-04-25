@@ -30,11 +30,13 @@ const template = `
 </xsl:template>
 
 <xsl:template match="ingredient">
+<div>
 <xsl:apply-templates select="preceding-sibling::text()" />
 <div class="product">
   <xsl:apply-templates select="node()" />
 </div>
 <xsl:apply-templates select="following-sibling::text()" />
+</div>
 </xsl:template>
 
 </xsl:stylesheet>
