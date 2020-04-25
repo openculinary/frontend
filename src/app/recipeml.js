@@ -1,5 +1,7 @@
 import { xsltProcess } from 'xslt-processor'
 
+import { renderQuantity } from './conversion';
+
 export { renderToHTML };
 
 const template = `
@@ -20,7 +22,6 @@ const template = `
 <xsl:template match="amt">
 <div class="quantity">
   <xsl:apply-templates select="qty" />
-  <xsl:if test="qty and unit"><xsl:text> </xsl:text></xsl:if>
   <xsl:apply-templates select="unit" />
 </div>
 </xsl:template>
@@ -46,6 +47,14 @@ const template = `
 function renderToHTML(doc) {
     const recipeML = $.parseXML(`<xml>${doc}</xml>`);
     const recipeXSLT = $.parseXML(template);
+    var recipeHTML = $(xsltProcess(recipeML, recipeXSLT));
 
-    return xsltProcess(recipeML, recipeXSLT);
+    const quantity = renderQuantity({
+        magnitude: Number($(recipeML).find('qty').text()),
+        units: $(recipeML).find('unit').text(),
+    });
+    const quantityText = `${quantity.magnitude || ''} ${quantity.units || ''}`.trim();
+
+    recipeHTML.filter('div.quantity').text(quantityText);
+    return recipeHTML.get().map(node => node.outerHTML).join('');
 }
