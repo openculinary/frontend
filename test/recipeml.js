@@ -2,19 +2,33 @@ import * as assert from 'assert';
 
 import { renderToHTML } from '../src/app/recipeml';
 
-function recipeMLHelper(ingredient, product_id, quantity, units) {
-    return `<amt><qty>${quantity}</qty><unit>${units}</unit></amt><ingredient href="products/${product_id}">${ingredient}</ingredient>`;
-}
-
-function expectedProductHTML(product, quantity, units) {
-  return `<div class="quantity">${quantity} ${units}</div><div class="product">${product}</div>`;
+function recipeMLHelper(ingredient, product_id, quantity, units, preamble, postamble) {
+    return `<amt><qty>${quantity}</qty><unit>${units}</unit></amt>${preamble}<ingredient href="products/${product_id}">${ingredient}</ingredient>${postamble}`;
 }
 
 describe('html rendering', function() {
 
   it('renders simple product', function() {
-    var recipeML = recipeMLHelper('potato wedges', 'potato_wedg', 'half', 'bag');
-    var expected = expectedProductHTML('potato wedges', 'half', 'bag');
+    var recipeML = '<amt><qty>half</qty><unit>bag</unit></amt><ingredient>potato wedges</ingredient>';
+    var expected = '<div class="quantity">half bag</div><div class="product">potato wedges</div>';
+
+    var rendered = renderToHTML(recipeML);
+
+    assert.equal(expected, rendered);
+  });
+
+  it('renders contextual product', function() {
+    var recipeML = '<amt><qty>1</qty><unit>whole</unit></amt>small <ingredient>onion</ingredient> diced';
+    var expected = '<div class="quantity">1 whole</div>small <div class="product">onion</div> diced';
+
+    var rendered = renderToHTML(recipeML);
+
+    assert.equal(expected, rendered);
+  });
+
+  it('renders without units', function() {
+    var recipeML = '<amt><qty>1</qty></amt><ingredient>onion</ingredient>';
+    var expected = '<div class="quantity">1</div><div class="product">onion</div>';
 
     var rendered = renderToHTML(recipeML);
 

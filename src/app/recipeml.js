@@ -7,19 +7,34 @@ const template = `
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:template match="/">
-  <xsl:apply-templates />
+  <xsl:apply-templates select="//amt" />
+  <xsl:apply-templates select="//ingredient" />
+</xsl:template>
+
+<xsl:template match="text()">
+  <xsl:if test="not(. = 'undefined')">
+  <xsl:value-of select="." />
+  </xsl:if>
 </xsl:template>
 
 <xsl:template match="amt">
 <div class="quantity">
-  <xsl:value-of select="qty/text()" />
-  <xsl:text> </xsl:text>
-  <xsl:value-of select="unit/text()" />
+  <xsl:apply-templates select="qty" />
+  <xsl:if test="qty and unit"><xsl:text> </xsl:text></xsl:if>
+  <xsl:apply-templates select="unit" />
 </div>
 </xsl:template>
 
+<xsl:template match="qty|unit">
+  <xsl:apply-templates select="node()" />
+</xsl:template>
+
 <xsl:template match="ingredient">
-<div class="product"><xsl:value-of select="text()" /></div>
+<xsl:apply-templates select="preceding-sibling::text()" />
+<div class="product">
+  <xsl:apply-templates select="node()" />
+</div>
+<xsl:apply-templates select="following-sibling::text()" />
 </xsl:template>
 
 </xsl:stylesheet>
@@ -27,7 +42,7 @@ const template = `
 
 
 function renderToHTML(doc) {
-    const recipeML = xmlParse(doc);
+    const recipeML = xmlParse(`<xml>${doc}</xml>`);
     const recipeXSLT = xmlParse(template);
 
     return xsltProcess(recipeML, recipeXSLT);
