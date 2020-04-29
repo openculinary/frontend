@@ -1,5 +1,4 @@
 import 'jquery';
-import 'html2canvas/dist/html2canvas.esm.js';
 
 import { Feedback } from './feedback';
 import './feedback.css';
