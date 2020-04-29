@@ -29,7 +29,7 @@ module.exports = (_, env) => {
         return '[name].[chunkhash].js';
       },
       libraryTarget: 'var',
-      library: ['RecipeRadar', '[name]']
+      library: '[name]'
     },
     plugins: [
       new CleanWebpackPlugin(),
