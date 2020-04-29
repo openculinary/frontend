@@ -11,18 +11,25 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const GitRevisionPlugin = require('git-revision-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = (_, env) => { return {
+
+module.exports = (_, env) => {
+  const html2canvas = env && env.mode === 'production' ? 'html2canvas.min.js' : 'html2canvas.js';
+  return {
     entry: {
       'app': path.resolve(__dirname, 'src/app/main.js'),
       'feedback': path.resolve(__dirname, 'src/feedback/loader.js'),
+      'html2canvas': path.resolve(__dirname, `node_modules/html2canvas/dist/${html2canvas}`),
       'locales': glob.sync('./i18n/locales/*/*.po', {ignore: ['./i18n/locales/templates/*.po']}),
       'sw': path.resolve(__dirname, 'src/sw/loader.js')
     },
     output: {
       path: path.resolve(__dirname, 'public'),
-      filename: '[name].[chunkhash].js',
+      filename: (entry) => {
+        if (entry.chunk.name === 'html2canvas') return 'html2canvas.js';
+        return '[name].[chunkhash].js';
+      },
       libraryTarget: 'var',
-      library: ['RecipeRadar', '[name]']
+      library: '[name]'
     },
     plugins: [
       new CleanWebpackPlugin(),
