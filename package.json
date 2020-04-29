@@ -8,7 +8,7 @@
     "bootstrap-table": "^1.16.0",
     "convert-units": "^2.3.4",
     "d3": "^5.16.0",
-    "d3-sankey": "git+https://github.com/jayaddison/d3-sankey.git#vertical-orientation",
+    "d3-sankey": "git+https://github.com/jayaddison/d3-sankey.git#66afca1be8b3d8e0bd4a04e9a0fb42cb72d7037d",
     "delta-crdts": "git+https://github.com/jayaddison/js-delta-crdts.git#9197dcc744184a55ee4f7dd865aa4f87f01a6308",
     "html2canvas": "git+https://github.com/jayaddison/html2canvas.git#1add9b06b3c7eb44a0ea3ab55d1afeb3fcc5f681",
     "i18next": "^19.4.3",
