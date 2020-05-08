@@ -64,7 +64,7 @@ describe('html rendering', function() {
 
   it('renders simple direction', function() {
     var recipeML = 'place the <mark>casserole dish</mark> in the <mark>oven</mark>';
-    var expected = '<li>place the <div class="equipment">casserole dish</div> in the <div class="equipment">oven</div></li>';
+    var expected = '<li class="direction">place the <span class="equipment tag badge">casserole dish</span> in the <span class="equipment tag badge">oven</span></li>';
 
     var rendered = renderDirectionHTML(recipeML);
 

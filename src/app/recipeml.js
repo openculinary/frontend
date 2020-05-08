@@ -71,8 +71,8 @@ function renderDirectionHTML(doc) {
     const xml = $.parseXML(`<xml>${doc}</xml>`).firstChild;
     const container = $('<div />');
 
-    $(xml).find('mark').replaceWith((idx, text) => $('<div />', {'class': 'equipment', 'text': text}));
-    const direction = $('<li />', {'html': xml.childNodes});
+    $(xml).find('mark').replaceWith((idx, text) => $('<span />', {'class': 'equipment tag badge', 'text': text}));
+    const direction = $('<li />', {'class': 'direction', 'html': xml.childNodes});
 
     container.append(direction);
     return container.html();
