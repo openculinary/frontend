@@ -6,7 +6,7 @@ import 'tablesaw/dist/stackonly/tablesaw.stackonly.css';
 import './recipe-list.css'
 
 import { float2rat, getRecipe } from '../common';
-import { renderToHTML } from '../recipeml';
+import { renderToHTML, renderDirectionToHTML } from '../recipeml';
 import { getState, pushState } from '../state';
 import { storage } from '../storage';
 import { addRecipe } from '../models/recipes';
@@ -20,38 +20,6 @@ export {
     updateRecipeState,
     updateStarState,
 };
-
-function renderTokens(tokens) {
-  return tokens.map(renderToken).join('');
-}
-
-function renderToken(token) {
-  switch (token.type) {
-    case 'text': return renderText(token);
-    case 'product': return renderProduct(token);
-    case 'quantity': return renderQuantity(token);
-    case 'units': return renderUnits(token);
-    default: return '';
-  }
-}
-
-function renderText(token) {
-  if (!token.value) return '';
-  return token.value;
-}
-
-function renderProduct(token) {
-  return '<span class="tag badge ' + token.state + '">' + token.value + '</span>';
-}
-
-function renderQuantity(token) {
-  if (!token.value) return '';
-  return float2rat(token.value);
-}
-
-function renderUnits(token) {
-  return renderText(token);
-}
 
 function titleFormatter(recipe) {
   var title = $('<div />', {'class': 'title'});
@@ -113,7 +81,7 @@ function contentFormatter(recipe) {
   var directions = $('<div />', {'class': 'tab directions collapse'});
   var directionList = $('<ul />');
   $.each(recipe.directions, function() {
-    directionList.append($('<li />', {'html': renderTokens(this.tokens)}));
+    directionList.append(renderDirectionToHTML(this.markup));
   });
   directions.append(directionList);
   content.append(directions);

@@ -1,6 +1,6 @@
 import * as assert from 'assert';
 
-import { renderToHTML } from '../src/app/recipeml';
+import { renderToHTML, renderDirectionHTML } from '../src/app/recipeml';
 
 function recipeMLHelper(ingredient, product_id, quantity, units, preamble, postamble) {
     return `<amt><qty>${quantity}</qty><unit>${units}</unit></amt>${preamble}<ingredient href="products/${product_id}">${ingredient}</ingredient>${postamble}`;
@@ -58,6 +58,15 @@ describe('html rendering', function() {
     var expected = '<div class="quantity"></div><div class="product"><span class="tag badge available">garlic</span></div>';
 
     var rendered = renderToHTML(recipeML, 'available');
+
+    assert.equal(expected, rendered);
+  });
+
+  it('renders simple direction', function() {
+    var recipeML = 'place the <mark>casserole dish</mark> in the <mark>oven</mark>';
+    var expected = '<li>place the <div class="equipment">casserole dish</div> in the <div class="equipment">oven</div></li>';
+
+    var rendered = renderDirectionHTML(recipeML);
 
     assert.equal(expected, rendered);
   });

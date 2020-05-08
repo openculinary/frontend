@@ -2,7 +2,7 @@ import { xsltProcess } from 'xslt-processor'
 
 import { renderQuantity } from './conversion';
 
-export { renderToHTML };
+export { renderToHTML, renderDirectionHTML };
 
 const template = `
 <?xml version="1.0" encoding="utf-8" ?>
@@ -65,4 +65,15 @@ function renderToHTML(doc, state) {
     recipeHTML.find('div.quantity').html(quantityText);
 
     return recipeHTML.children().get().map(node => node.outerHTML).join('');
+}
+
+function renderDirectionHTML(doc) {
+    const xml = $.parseXML(`<xml>${doc}</xml>`).firstChild;
+    const container = $('<div />');
+
+    $(xml).find('mark').replaceWith((idx, text) => $('<div />', {'class': 'equipment', 'text': text}));
+    const direction = $('<li />', {'html': xml.childNodes});
+
+    container.append(direction);
+    return container.html();
 }
