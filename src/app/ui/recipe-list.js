@@ -6,7 +6,7 @@ import 'tablesaw/dist/stackonly/tablesaw.stackonly.css';
 import './recipe-list.css'
 
 import { float2rat, getRecipe } from '../common';
-import { renderToHTML, renderDirectionToHTML } from '../recipeml';
+import { renderIngredientHTML, renderDirectionToHTML } from '../recipeml';
 import { getState, pushState } from '../state';
 import { storage } from '../storage';
 import { addRecipe } from '../models/recipes';
@@ -68,7 +68,7 @@ function contentFormatter(recipe) {
   var ingredients = $('<div />', {'class': 'tab ingredients'});
   var ingredientList = $('<div  />');
   $.each(recipe.ingredients, function() {
-    ingredientList.append(renderToHTML(this.markup, this.state));
+    ingredientList.append(renderIngredientHTML(this.markup, this.state));
     ingredientList.append($('<div  />', {'style': 'clear: both'}));
   });
   ingredients.append(ingredientList);

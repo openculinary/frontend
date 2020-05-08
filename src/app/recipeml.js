@@ -2,7 +2,7 @@ import { xsltProcess } from 'xslt-processor'
 
 import { renderQuantity } from './conversion';
 
-export { renderToHTML, renderDirectionHTML };
+export { renderIngredientHTML, renderDirectionHTML };
 
 const template = `
 <?xml version="1.0" encoding="utf-8" ?>
@@ -46,7 +46,7 @@ const template = `
 `.trim();
 
 
-function renderToHTML(doc, state) {
+function renderIngredientHTML(doc, state) {
     const recipeML = $.parseXML(`<xml>${doc}</xml>`);
     const recipeXSLT = $.parseXML(template);
     var recipeHTML = $(xsltProcess(recipeML, recipeXSLT));
