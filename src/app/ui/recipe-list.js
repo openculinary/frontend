@@ -6,7 +6,7 @@ import 'tablesaw/dist/stackonly/tablesaw.stackonly.css';
 import './recipe-list.css'
 
 import { getRecipe } from '../common';
-import { renderIngredientHTML, renderDirectionToHTML } from '../recipeml';
+import { renderIngredientHTML, renderDirectionHTML } from '../recipeml';
 import { getState, pushState } from '../state';
 import { storage } from '../storage';
 import { addRecipe } from '../models/recipes';
@@ -81,7 +81,7 @@ function contentFormatter(recipe) {
   var directions = $('<div />', {'class': 'tab directions collapse'});
   var directionList = $('<ul />');
   $.each(recipe.directions, function() {
-    directionList.append(renderDirectionToHTML(this.markup));
+    directionList.append(renderDirectionHTML(this.markup));
   });
   directions.append(directionList);
   content.append(directions);
