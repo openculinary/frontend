@@ -1,5 +1,6 @@
 import 'jquery';
 
+import { getIngredientQuantity } from './recipeml';
 import { storage } from './storage';
 export { float2rat, getRecipe, getRecipeById };
 
@@ -22,21 +23,16 @@ function getRecipeById(recipeId) {
 function getRecipeProducts(recipe) {
   var recipeProducts = [];
   recipe.ingredients.forEach(function(ingredient) {
-    var productToken, quantityToken, unitsToken;
-    ingredient.tokens.forEach(function(token) {
-      if (token.type == 'product') productToken = token;
-      if (token.type == 'quantity') quantityToken = token;
-      if (token.type == 'units') unitsToken = token;
-    });
-
+    var quantity = getIngredientQuantity(ingredient.markup);
     recipeProducts.push({
-      product: productToken.value,
-      category: productToken.category,
-      singular: productToken.singular,
-      plural: productToken.plural,
-      state: productToken.state,
-      quantity: quantityToken ? quantityToken.value : null,
-      units: unitsToken ? unitsToken.value : null
+      product_id: ingredient.product.product_id,
+      product: ingredient.product.product,
+      category: ingredient.product.category,
+      singular: ingredient.product.singular,
+      plural: ingredient.product.plural,
+      state: ingredient.product.state,
+      quantity: quantity.magnitude,
+      units: quantity.units,
     });
   });
   return recipeProducts;
