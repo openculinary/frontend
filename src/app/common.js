@@ -25,6 +25,7 @@ function getRecipeProducts(recipe) {
   recipe.ingredients.forEach(function(ingredient) {
     var quantity = getIngredientQuantity(ingredient.markup);
     recipeProducts.push({
+      product_id: ingredient.product.product_id,
       product: ingredient.product.product,
       category: ingredient.product.category,
       singular: ingredient.product.singular,
