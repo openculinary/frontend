@@ -1,5 +1,3 @@
-import { xsltProcess } from 'xslt-processor'
-
 import { renderQuantity } from './conversion';
 
 export { renderIngredientHTML, renderDirectionHTML };
