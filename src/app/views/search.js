@@ -14,12 +14,20 @@ export { renderSearch, renderIndividual };
 
 function pushSearch() {
   var state = {'action': 'search'};
-  ['#include', '#exclude', '#equipment'].forEach(function (element) {
+  // TODO: Reconsolidate the ingredient and equipment loops
+  ['#equipment'].forEach(function (element) {
     var fragment = element.replace('#', '');
     var data = $(element).val();
     if (data.length > 0) {
       state[fragment] = data.join(',');
     }
+  ['#include', '#exclude'].forEach(function (element) {
+    var fragment = element.replace('#', '');
+    var data = $(element).select2("data");
+    if (data.length > 0) {
+      state[fragment] = data.map(item => item.product.singular).join(',');
+    }
+  })
   })
   var sortChoice = getState().sort;
   if (sortChoice) state['sort'] = sortChoice;
@@ -36,9 +44,10 @@ function pushSearch() {
 $('#search form button').on('click', pushSearch);
 
 function renderSearch() {
+  // TODO: Reconsolidate ingredient and equipment parameter construction
   var params = {
-    include: $('#include').val(),
-    exclude: $('#exclude').val(),
+    include: $('#include').select2("data").map(item => item.product.singular),
+    exclude: $('#exclude').select2("data").map(item => item.product.singular),
     equipment: $('#equipment').val(),
   };
 
