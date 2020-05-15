@@ -48,20 +48,20 @@ function toggleProductState() {
   };
   product.state = transitions[product.state];
 
-  storage.products.remove({'hashCode': product.product_id});
-  storage.products.add({'hashCode': product.product_id, 'value': product});
+  storage.products.remove({'hashCode': product.singular});
+  storage.products.add({'hashCode': product.singular, 'value': product});
 }
 
 function productElement(product, mealCounts) {
   var label = $('<label />', {
     'class': 'product',
-    'data-id': product.product_id,
+    'data-id': product.singular,
     'click': toggleProductState
   });
   $('<input />', {
     'type': 'checkbox',
     'name': 'products[]',
-    'value': product.product_id,
+    'value': product.singular,
     'checked': ['available', 'purchased'].includes(product.state)
   }).appendTo(label);
 
@@ -148,7 +148,7 @@ function bindShoppingListInput(element, placeholder) {
       data: params => ({pre: params.term}),
       processResults: data => ({
         results: data.map(item => ({
-          id: item.product_id,
+          id: item.singular,
           text: item.product,
           product: item
         }))
@@ -163,7 +163,7 @@ function bindShoppingListInput(element, placeholder) {
 
     var products = storage.products.load();
     var product = event.params.data.product;
-    if (product.product_id in products) return;
+    if (product.singular in products) return;
 
     addProduct(product);
   });
