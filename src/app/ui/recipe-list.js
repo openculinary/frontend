@@ -68,7 +68,7 @@ function contentFormatter(recipe) {
   var ingredients = $('<div />', {'class': 'tab ingredients'});
   var ingredientList = $('<div  />');
   $.each(recipe.ingredients, function() {
-    ingredientList.append(renderIngredientHTML(this.markup, this.state));
+    ingredientList.append(renderIngredientHTML(this.markup, this.product.state));
     ingredientList.append($('<div  />', {'style': 'clear: both'}));
   });
   ingredients.append(ingredientList);
