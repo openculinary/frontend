@@ -69,14 +69,6 @@ function renderRefinement(refinement) {
       'data-i18n': '[html]search:refinement-partial-results'
     });
   }
-  if (refinement.startsWith('removed:')) {
-    var product = refinement.split(':')[1];
-    $('#include').next('.select2').find(`li[title~='${product}']`).css('text-decoration', 'line-through');
-    return $('<div />', {
-      'data-i18n': '[html]search:refinement-ingredient-removed',
-      'data-i18n-options': JSON.stringify({product: product})
-    });
-  }
 }
 
 function emptyResultHandler(data) {
