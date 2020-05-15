@@ -22,8 +22,8 @@ function aggregateUnitQuantities(product, mealCounts) {
 
 function addProduct(product, recipeId) {
   var products = storage.products.load();
-  if (product.singular in products) {
-    product.category = products[product.singular].category;
+  if (product.product_id in products) {
+    product.category = products[product.product_id].category;
   }
   if (!product.state) {
     product.state = 'required';
@@ -42,13 +42,13 @@ function addProduct(product, recipeId) {
     });
   }
 
-  storage.products.remove({'hashCode': product.singular});
-  storage.products.add({'hashCode': product.singular, 'value': product});
+  storage.products.remove({'hashCode': product.product_id});
+  storage.products.add({'hashCode': product.product_id, 'value': product});
 }
 
 function removeProduct(product, recipeId) {
   if (recipeId) delete product.recipes[recipeId];
   if (Object.keys(product.recipes).length) return;
 
-  storage.products.remove({'hashCode': product.singular});
+  storage.products.remove({'hashCode': product.product_id});
 }
