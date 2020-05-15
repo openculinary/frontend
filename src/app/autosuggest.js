@@ -32,7 +32,7 @@ function bindIngredientInput(element, label, placeholder) {
       data: params => ({pre: params.term}),
       processResults: data => ({
         results: data.map(item => ({
-          id: item.product_id,
+          id: item.singular,
           text: item.product,
           product: item
         }))
