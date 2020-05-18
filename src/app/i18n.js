@@ -8,7 +8,7 @@ import BrowserLanguage from 'i18next-browser-languagedetector';
 export { i18nAttr, localize };
 
 function i18nAttr(key) {
-    return {'data-i18n': `[html]${key}`};
+    return `[html]${key}`;
 }
 
 var pendingSelectors = [];
