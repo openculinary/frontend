@@ -28,9 +28,10 @@ function filterMeals(meals) {
   return meals;
 }
 
-function updateHints(meals) {
+function updateHints() {
+    var recipes = storage.recipes.load();
     var hints = [];
-    if (Object.keys(meals).length) {
+    if (Object.keys(recipes).length) {
         hints.push($('<p />', {'data-i18n': i18nAttr('meal-planner:hint-drag')}));
     } else {
         hints.push($('<p />', {'data-i18n': i18nAttr('meal-planner:empty-meal-planner')}));
@@ -41,11 +42,11 @@ function updateHints(meals) {
 }
 
 function renderMeals() {
+  updateHints();
+
   var meals = filterMeals(storage.meals.load());
   var idxDate = defaultDate();
   var endDate = defaultDate().add(1, 'week');
-
-  updateHints(meals);
 
   var scheduler = $('#meal-planner table').empty();
   for (; idxDate < endDate; idxDate.add(1, 'day')) {
