@@ -38,3 +38,11 @@ sh -x ./deploy.sh
 ```
 
 If you have configured and run `haproxy` per the [infrastructure](https://www.github.com/openculinary/infrastructure) setup instructions, you should be able to run the application by navigating to `http://localhost` in a web browser.
+
+## Internationalization
+
+To gather the latest internationalization (i18n) resource strings from the application, execute the following commands:
+
+```
+npx i18next-scanner
+```
