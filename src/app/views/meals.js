@@ -32,7 +32,7 @@ function updateHints(meals) {
     var hints = $('#meal-planner div.hints').empty();
     var hint = i18nAttr('meal-planner:feature-introduction');
     if (meals.length) hint = i18nAttr('meal-planner:hint-drag');
-    hints.append($('<p />', hint));
+    hints.append($('<p />', {'data-i18n': hint}));
 }
 
 function renderMeals() {
