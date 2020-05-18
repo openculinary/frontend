@@ -30,7 +30,7 @@ function filterMeals(meals) {
 
 function updateHints(meals) {
     var hints = [];
-    if (meals.length) {
+    if (Object.keys(meals).length) {
         hints.push($('<p />', {'data-i18n': i18nAttr('meal-planner:hint-drag')}));
     } else {
         hints.push($('<p />', {'data-i18n': i18nAttr('meal-planner:empty-meal-planner')}));
