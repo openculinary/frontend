@@ -6,6 +6,7 @@ import i18next from 'i18next';
 import './meals.css';
 
 import { getRecipe } from '../common';
+import { i18nAttr, localize } from '../i18n';
 import { storage } from '../storage';
 import { removeMeal } from '../models/meals';
 import { removeRecipe } from '../models/recipes';
@@ -27,7 +28,22 @@ function filterMeals(meals) {
   return meals;
 }
 
+function updateHints() {
+    var recipes = storage.recipes.load();
+    var hints = [];
+    if (Object.keys(recipes).length) {
+        hints.push($('<p />', {'data-i18n': i18nAttr('meal-planner:hint-drag')}));
+    } else {
+        hints.push($('<p />', {'data-i18n': i18nAttr('meal-planner:empty-meal-planner')}));
+        hints.push($('<p />', {'data-i18n': i18nAttr('meal-planner:feature-introduction')}));
+    }
+    $('#meal-planner div.hints').empty().append(hints);
+    localize('#meal-planner div.hints');
+}
+
 function renderMeals() {
+  updateHints();
+
   var meals = filterMeals(storage.meals.load());
   var idxDate = defaultDate();
   var endDate = defaultDate().add(1, 'week');
