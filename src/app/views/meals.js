@@ -29,10 +29,14 @@ function filterMeals(meals) {
 }
 
 function updateHints(meals) {
-    var hints = $('#meal-planner div.hints').empty();
-    var hint = i18nAttr('meal-planner:feature-introduction');
-    if (meals.length) hint = i18nAttr('meal-planner:hint-drag');
-    hints.append($('<p />', {'data-i18n': hint}));
+    var hints = [];
+    if (meals.length) {
+        hints.push($('<p />', {'data-i18n': i18nAttr('meal-planner:hint-drag')}));
+    } else {
+        hints.push($('<p />', {'data-i18n': i18nAttr('meal-planner:empty-meal-planner')}));
+        hints.push($('<p />', {'data-i18n': i18nAttr('meal-planner:feature-introduction')}));
+    }
+    $('#meal-planner div.hints').empty().append(hints);
 }
 
 function renderMeals() {
