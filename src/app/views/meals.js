@@ -37,7 +37,7 @@ function updateHints(meals) {
         hints.push($('<p />', {'data-i18n': i18nAttr('meal-planner:feature-introduction')}));
     }
     $('#meal-planner div.hints').empty().append(hints);
-    localize('#mea-planner div.hints');
+    localize('#meal-planner div.hints');
 }
 
 function renderMeals() {
