@@ -6,6 +6,10 @@ module.exports = {
     'src/**/*.{html,js}',
   ],
   options: {
+    func: {
+      list: ['i18nAttr'],
+      extensions: ['.js'],
+    },
     contextSeparator: '|',
     pluralSeparator: '|',
     ns: [
