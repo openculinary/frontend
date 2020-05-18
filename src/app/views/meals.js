@@ -6,6 +6,7 @@ import i18next from 'i18next';
 import './meals.css';
 
 import { getRecipe } from '../common';
+import { i18nAttr } from '../i18n';
 import { storage } from '../storage';
 import { removeMeal } from '../models/meals';
 import { removeRecipe } from '../models/recipes';
@@ -27,10 +28,19 @@ function filterMeals(meals) {
   return meals;
 }
 
+function updateHints(meals) {
+    var hints = $('#meal-planner div.hints').empty();
+    var hint = i18nAttr('meal-planner:feature-introduction');
+    if (meals.length) hint = i18nAttr('meal-planner:hint-drag');
+    hints.append($('<p />', hint));
+}
+
 function renderMeals() {
   var meals = filterMeals(storage.meals.load());
   var idxDate = defaultDate();
   var endDate = defaultDate().add(1, 'week');
+
+  updateHints(meals);
 
   var scheduler = $('#meal-planner table').empty();
   for (; idxDate < endDate; idxDate.add(1, 'day')) {
