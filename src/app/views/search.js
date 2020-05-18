@@ -6,7 +6,7 @@ import 'bootstrap-table/dist/bootstrap-table.css';
 import './search.css';
 
 import '../autosuggest';
-import { localize } from '../i18n';
+import { i18nAttr, localize } from '../i18n';
 import { getState, pushState } from '../state';
 import { initTable, bindLoadEvent } from '../ui/recipe-list';
 
@@ -61,12 +61,12 @@ function renderIndividual() {
 function renderRefinement(refinement) {
   if (refinement == 'empty_query') {
     return $('<div />', {
-      'data-i18n': '[html]search:refinement-empty-query'
+      'data-i18n': i18nAttr('search:refinement-empty-query')
     });
   }
   if (refinement == 'match_any') {
     return $('<div />', {
-      'data-i18n': '[html]search:refinement-partial-results'
+      'data-i18n': i18nAttr('search:refinement-partial-results')
     });
   }
 }
