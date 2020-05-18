@@ -1,4 +1,4 @@
-const { i18nextToPo } = require('i18next-conv');
+const { i18nextToPot } = require('i18next-conv');
 const Vinyl = require('vinyl');
 
 module.exports = {
@@ -22,7 +22,6 @@ module.exports = {
       'starred-recipes',
     ],
     resource: {
-      loadPath: 'public/locales/{{lng}}/{{ns}}.json',
       savePath: 'i18n/locales/templates/{{ns}}.pot',
     },
   },
@@ -40,7 +39,7 @@ module.exports = {
           ctxSeparator: this.parser.options.contextSeparator,
           ignorePlurals: !this.parser.options.plural,
         }
-        i18nextToPo(lng, json, options).then(buffer => {
+        i18nextToPot(lng, json, options).then(buffer => {
           this.push(new Vinyl({
             path: path,
             contents: Buffer.from(buffer.toString() + '\n')
