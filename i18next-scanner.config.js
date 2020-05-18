@@ -19,7 +19,7 @@ module.exports = {
     ],
     resource: {
       loadPath: 'public/locales/{{lng}}/{{ns}}.json',
-      savePath: 'i18n/locales/templates/{{ns}}.po',
+      savePath: 'i18n/locales/templates/{{ns}}.pot',
     },
   },
   flush: function() {
