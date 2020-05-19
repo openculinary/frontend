@@ -108,7 +108,7 @@ function createSortPrompt() {
   var state = getState();
   var sortChoice = state.sort || sortOptions[0].val;
 
-  var sortSelect = $('<select>', {'class': 'sort'}).attr('aria-label', i18nAttr('search:sort-selection-label'));
+  var sortSelect = $('<select>', {'class': 'sort'}).attr('aria-label', 'Recipe sort selection');
   $(sortOptions).each(function() {
     var sortOption = $('<option>');
     sortOption.text(this.text);
