@@ -74,8 +74,8 @@ function contentFormatter(recipe) {
   });
   ingredients.append(ingredientList);
   ingredients.append($('<button />', {
-    'class': 'btn btn-outline-primary add-to-shopping-list',
-    'data-i18n': i18nAttr('search:result-add-to-shopping-list')
+    'class': 'btn btn-outline-primary add-recipe',
+    'data-i18n': i18nAttr('search:result-add-recipe')
   }));
   content.append(ingredients);
 
@@ -138,7 +138,7 @@ function updateRecipeState(recipeId) {
   var recipes = storage.recipes.load();
   var isInShoppingList = recipeId in recipes;
 
-  var addButton = $(`div.recipe-list .recipe[data-id="${recipeId}"] button.add-to-shopping-list`);
+  var addButton = $(`div.recipe-list .recipe[data-id="${recipeId}"] button.add-recipe`);
   addButton.prop('disabled', isInShoppingList);
   addButton.toggleClass('btn-outline-primary', !isInShoppingList);
   addButton.toggleClass('btn-outline-secondary', isInShoppingList);
@@ -175,7 +175,7 @@ function bindPostBody(selector) {
     });
 
     $(this).find('.content .tabs a.nav-link').on('click', selectTab);
-    $(this).find('.content button.add-to-shopping-list').on('click', addRecipe);
+    $(this).find('.content button.add-recipe').on('click', addRecipe);
     $(this).parents('div.recipe-list').show();
 
     // If the user is on the page containing this table, scroll it into view
