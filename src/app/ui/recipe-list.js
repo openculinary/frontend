@@ -136,12 +136,12 @@ function bindPageChange(selector) {
 
 function updateRecipeState(recipeId) {
   var recipes = storage.recipes.load();
-  var isInShoppingList = recipeId in recipes;
+  var isInRecipes = recipeId in recipes;
 
   var addButton = $(`div.recipe-list .recipe[data-id="${recipeId}"] button.add-recipe`);
-  addButton.prop('disabled', isInShoppingList);
-  addButton.toggleClass('btn-outline-primary', !isInShoppingList);
-  addButton.toggleClass('btn-outline-secondary', isInShoppingList);
+  addButton.prop('disabled', isInRecipes);
+  addButton.toggleClass('btn-outline-primary', !isInRecipes);
+  addButton.toggleClass('btn-outline-secondary', isInRecipes);
 }
 
 function updateStarState(recipeId) {
