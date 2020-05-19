@@ -112,6 +112,7 @@ function createSortPrompt() {
   $(sortOptions).each(function() {
     var sortOption = $('<option>', {
       'data-i18n': i18nAttr(`search:sort-${this.val}`),
+      'text': this.text,
       'value': this.val
     });
     if (sortChoice === this.val) sortOption.attr('selected', 'selected');
@@ -129,7 +130,10 @@ function createSortPrompt() {
     $(window).trigger('popstate');
   });
 
-  var sortPrompt = $('<span>', {'data-i18n': i18nAttr('search:sort-selection-prompt')});
+  var sortPrompt = $('<span>', {
+    'data-i18n': i18nAttr('search:sort-selection-prompt'),
+    'text': 'Order by '
+  });
   sortSelect.appendTo(sortPrompt);
 
   return sortPrompt;
