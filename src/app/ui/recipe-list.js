@@ -6,6 +6,7 @@ import 'tablesaw/dist/stackonly/tablesaw.stackonly.css';
 import './recipe-list.css'
 
 import { getRecipe } from '../common';
+import { i18nAttr } from '../i18n';
 import { renderIngredientHTML, renderDirectionHTML } from '../recipeml';
 import { getState, pushState } from '../state';
 import { storage } from '../storage';
@@ -55,12 +56,12 @@ function contentFormatter(recipe) {
   var tabs = $('<div />', {'class': 'nav tabs'});
   tabs.append($('<a />', {
     'class': 'nav-link active',
-    'text': 'Ingredients',
+    'text': i18nAttr('search:result-tab-ingredients'),
     'data-target': 'ingredients'
   }));
   tabs.append($('<a />', {
     'class': 'nav-link',
-    'text': 'Directions',
+    'text': i18nAttr('search:result-tab-directions'),
     'data-target': 'directions'
   }));
   content.append(tabs);
@@ -74,7 +75,7 @@ function contentFormatter(recipe) {
   ingredients.append(ingredientList);
   ingredients.append($('<button />', {
     'class': 'btn btn-outline-primary add-to-shopping-list',
-    'text': 'Add to shopping list'
+    'text': i18nAttr('search:result-add-to-shopping-list')
   }));
   content.append(ingredients);
 
