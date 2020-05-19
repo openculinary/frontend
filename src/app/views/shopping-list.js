@@ -81,7 +81,7 @@ function productElement(product, mealCounts) {
 
 function populateNotifications(products) {
   var empty = Object.keys(products).length == 0;
-  $('header span.notification').toggle(!empty);
+  $('header span.notification.shopping-list').toggle(!empty);
   if (empty) return;
 
   var total = 0, found = 0;
@@ -90,7 +90,7 @@ function populateNotifications(products) {
     total += 1;
     found += product.state === 'required' ? 0 : 1;
   });
-  $('header span.notification').text(found + '/' + total);
+  $('header span.notification.shopping-list').text(found + '/' + total);
 }
 
 function getProductsByCategory(products) {
