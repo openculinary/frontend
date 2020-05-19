@@ -97,9 +97,9 @@ function refinementHandler(data) {
 
 function createSortPrompt() {
   var sortOptions = [
-    {val: 'ingredients', text: 'fewest extras required'},
-    {val: 'relevance', text: 'most ingredients used'},
-    {val: 'duration', text: 'shortest time to make'},
+    {val: 'ingredients', text: i18nAttr('search:sort-ingredients')},
+    {val: 'relevance', text: i18nAttr('search:sort-relevance')},
+    {val: 'duration', text: i18nAttr('search:sort-duration')},
   ];
 
   var state = getState();
