@@ -136,13 +136,12 @@ function createSortPrompt() {
 }
 
 function addSorting() {
-  var target = '#search div.recipe-list div.pagination-detail';
-  var paginationDetail = $(target);
-  if (!paginationDetail.find('select.sort').length) {
+  var paginationDetail = '#search div.recipe-list div.pagination-detail';
+  if ($(paginationDetail).find('select.sort').length === 0) {
     var sortPrompt = createSortPrompt();
-    paginationDetail.append(sortPrompt);
+    $(paginationDetail).append(sortPrompt);
   }
-  localize(target);
+  localize(paginationDetail);
 }
 
 $(function() {
