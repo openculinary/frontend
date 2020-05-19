@@ -73,9 +73,9 @@ function renderRefinement(refinement) {
 
 function emptyResultHandler(data) {
   if (data.total !== 0) return;
-  var message = `Didn't find any recipes matching your search.  Send us a link via the feedback form if you know of any!`;
+  var message = i18nAttr('search:results-empty');
   if (data.authority === 'local') {
-    message = `Couldn't reach the recipe search service.  This could be due to a connection problem on your device, or our service could be experiencing problems.`;
+    message = i18nAttr('search:results-failed');
   }
   $('#search table[data-row-attributes]').bootstrapTable('updateFormatText', 'formatNoMatches', message);
 }
