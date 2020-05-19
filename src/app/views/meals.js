@@ -81,6 +81,8 @@ function renderMeals() {
       onEnd: scheduleMeal
     });
   });
+
+  populateNotifications(meals);
 }
 
 function dragMeal(evt) {
@@ -123,6 +125,16 @@ function scheduleMeal(evt) {
     storage.meals.remove({'hashCode': date});
     storage.meals.add({'hashCode': date, 'value': meals[date]});
   }
+}
+
+function populateNotifications(meals) {
+  var recipes = storage.recipes.load();
+  var empty = Object.keys(recipes).length == 0;
+  $('header span.notification.meal-planner').toggle(!empty);
+  if (empty) return;
+
+  var total = Object.keys(meals).length;
+  $('header span.notification.meal-planner').text(total);
 }
 
 $(function() {
