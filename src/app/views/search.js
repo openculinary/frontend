@@ -73,9 +73,9 @@ function renderRefinement(refinement) {
 
 function emptyResultHandler(data) {
   if (data.total !== 0) return;
-  var message = i18nAttr('search:results-empty');
+  var message = `Didn't find any recipes matching your search.  Send us a link via the feedback form if you know of any!`;
   if (data.authority === 'local') {
-    message = i18nAttr('search:results-failed');
+    message = `Couldn't reach the recipe search service.  This could be due to a connection problem on your device, or our service could be experiencing problems.`;
   }
   $('#search table[data-row-attributes]').bootstrapTable('updateFormatText', 'formatNoMatches', message);
 }
@@ -97,15 +97,15 @@ function refinementHandler(data) {
 
 function createSortPrompt() {
   var sortOptions = [
-    {val: 'ingredients', text: i18nAttr('search:sort-ingredients')},
-    {val: 'relevance', text: i18nAttr('search:sort-relevance')},
-    {val: 'duration', text: i18nAttr('search:sort-duration')},
+    {val: 'ingredients', text: 'fewest extras required'},
+    {val: 'relevance', text: 'most ingredients used'},
+    {val: 'duration', text: 'shortest time to make'},
   ];
 
   var state = getState();
   var sortChoice = state.sort || sortOptions[0].val;
 
-  var sortSelect = $('<select>', {'class': 'sort'}).attr('aria-label', i18nAttr('search:sort-selection-label'));
+  var sortSelect = $('<select>', {'class': 'sort'}).attr('aria-label', 'Recipe sort selection');
   $(sortOptions).each(function() {
     var sortOption = $('<option>');
     sortOption.text(this.text);
@@ -125,7 +125,7 @@ function createSortPrompt() {
     $(window).trigger('popstate');
   });
 
-  var sortPrompt = $('<span>').text(i18nAttr('search:sort-selection-prompt'));
+  var sortPrompt = $('<span>').text('Order by ');
   sortSelect.appendTo(sortPrompt);
 
   return sortPrompt;
