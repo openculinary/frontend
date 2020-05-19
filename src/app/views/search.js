@@ -129,10 +129,9 @@ function createSortPrompt() {
     $(window).trigger('popstate');
   });
 
-  var sortPrompt = $('<span>', {
-    'data-i18n': i18nAttr('search:sort-selection-prompt'),
-    'text': 'Order by '
-  });
+  var sortPrompt = $('<span>');
+  sortPrompt.text('Order by ');
+  sortPrompt.attr('data-i18n', i18nAttr('search:sort-selection-prompt'));
   sortSelect.appendTo(sortPrompt);
 
   return sortPrompt;
