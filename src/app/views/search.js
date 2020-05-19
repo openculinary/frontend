@@ -77,7 +77,10 @@ function emptyResultHandler(data) {
   if (data.authority === 'local') {
     message = i18nAttr('search:results-failed');
   }
-  $('#search table[data-row-attributes]').bootstrapTable('updateFormatText', 'formatNoMatches', message);
+
+  var target = '#search table[data-row-attributes]';
+  $(target).bootstrapTable('updateFormatText', 'formatNoMatches', message);
+  localize(target);
 }
 
 function refinementHandler(data) {
@@ -132,11 +135,13 @@ function createSortPrompt() {
 }
 
 function addSorting() {
-  var paginationDetail = $('#search div.recipe-list div.pagination-detail');
+  var target = '#search div.recipe-list div.pagination-detail';
+  var paginationDetail = $(target);
   if (!paginationDetail.find('select.sort').length) {
     var sortPrompt = createSortPrompt();
     paginationDetail.append(sortPrompt);
   }
+  localize(target);
 }
 
 $(function() {
