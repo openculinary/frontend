@@ -110,10 +110,11 @@ function createSortPrompt() {
 
   var sortSelect = $('<select>', {'class': 'sort'}).attr('aria-label', 'Recipe sort selection');
   $(sortOptions).each(function() {
-    var sortOption = $('<option>');
-    sortOption.text(this.text);
-    sortOption.attr('data-i18n', i18nAttr(`search:sort-${this.val}`));
-    sortOption.attr('value', this.val);
+    var sortOption = $('<option>', {
+      'data-i18n': i18nAttr(`search:sort-${this.val}`),
+      'text': this.text,
+      'value': this.val
+    });
     if (sortChoice === this.val) sortOption.attr('selected', 'selected');
     sortSelect.append(sortOption);
   });
