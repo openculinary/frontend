@@ -100,9 +100,9 @@ function refinementHandler(data) {
 
 function createSortPrompt() {
   var sortOptions = [
-    {val: 'ingredients', text: i18nAttr('search:sort-ingredients')},
-    {val: 'relevance', text: i18nAttr('search:sort-relevance')},
-    {val: 'duration', text: i18nAttr('search:sort-duration')},
+    {val: 'ingredients', text: 'fewest extras required'},
+    {val: 'relevance', text: 'most ingredients used'},
+    {val: 'duration', text: 'shortest time to make'},
   ];
 
   var state = getState();
@@ -111,7 +111,8 @@ function createSortPrompt() {
   var sortSelect = $('<select>', {'class': 'sort'}).attr('aria-label', i18nAttr('search:sort-selection-label'));
   $(sortOptions).each(function() {
     var sortOption = $('<option>');
-    sortOption.attr('data-i18n', this.text);
+    sortOption.text(this.text);
+    sortOption.attr('data-i18n', i18nAttr(`search:sort-${this.val}`));
     sortOption.attr('value', this.val);
     if (sortChoice === this.val) sortOption.attr('selected', 'selected');
     sortSelect.append(sortOption);
@@ -128,7 +129,7 @@ function createSortPrompt() {
     $(window).trigger('popstate');
   });
 
-  var sortPrompt = $('<span>').attr('data-i18n', i18nAttr('search:sort-selection-prompt'));
+  var sortPrompt = $('<span>').text('Order by ');
   sortSelect.appendTo(sortPrompt);
 
   return sortPrompt;
