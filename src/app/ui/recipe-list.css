@@ -8,7 +8,7 @@ div.recipe-list span.pagination-info {
   display: none !important;
 }
 
-div.recipe-list span.pagination-detail span.sort-prompt {
+div.recipe-list div.pagination-detail span.sort-prompt {
   margin-left: 0.5em;
   margin-right: 0.5em;
 }
