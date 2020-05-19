@@ -77,10 +77,7 @@ function emptyResultHandler(data) {
   if (data.authority === 'local') {
     message = `Couldn't reach the recipe search service.  This could be due to a connection problem on your device, or our service could be experiencing problems.`;
   }
-
-  var target = '#search table[data-row-attributes]';
-  $(target).bootstrapTable('updateFormatText', 'formatNoMatches', message);
-  localize(target);
+  $('#search table[data-row-attributes]').bootstrapTable('updateFormatText', 'formatNoMatches', message);
 }
 
 function refinementHandler(data) {
