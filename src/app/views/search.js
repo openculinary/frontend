@@ -132,9 +132,8 @@ function createSortPrompt() {
   var sortMessage = $('<span>', {'data-i18n': i18nAttr('search:sort-selection-prompt')});
 
   var sortPrompt = $('<span>');
-  sortMessage.appendTo(sortPrompt);
-  sortSelect.appendTo(sortPrompt);
-
+  sortPrompt.append(sortMessage);
+  sortPrompt.append(sortSelect);
   return sortPrompt;
 }
 
