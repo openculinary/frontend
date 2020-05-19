@@ -100,9 +100,9 @@ function refinementHandler(data) {
 
 function createSortPrompt() {
   var sortOptions = [
-    {val: 'ingredients', text: 'fewest extras required'},
-    {val: 'relevance', text: 'most ingredients used'},
-    {val: 'duration', text: 'shortest time to make'},
+    {val: 'ingredients'},
+    {val: 'relevance'},
+    {val: 'duration'},
   ];
 
   var state = getState();
@@ -112,7 +112,6 @@ function createSortPrompt() {
   $(sortOptions).each(function() {
     var sortOption = $('<option>', {
       'data-i18n': i18nAttr(`search:sort-${this.val}`),
-      'text': this.text,
       'value': this.val
     });
     if (sortChoice === this.val) sortOption.attr('selected', 'selected');
