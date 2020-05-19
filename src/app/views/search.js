@@ -97,9 +97,9 @@ function refinementHandler(data) {
 
 function createSortPrompt() {
   var sortOptions = [
-    {val: 'ingredients'},
-    {val: 'relevance'},
-    {val: 'duration'},
+    {val: 'ingredients', i18n: i18nAttr('search:sort-ingredients')},
+    {val: 'relevance', i18n: i18nAttr('search:sort-relevance')},
+    {val: 'duration', i18n: i18nAttr('search:sort-duration')},
   ];
 
   var state = getState();
@@ -108,7 +108,7 @@ function createSortPrompt() {
   var sortSelect = $('<select>', {'class': 'sort'}).attr('aria-label', 'Recipe sort selection');
   $(sortOptions).each(function() {
     var sortOption = $('<option>', {
-      'data-i18n': i18nAttr(`search:sort-${this.val}`),
+      'data-i18n': this.i18n,
       'value': this.val
     });
     if (sortChoice === this.val) sortOption.attr('selected', 'selected');
