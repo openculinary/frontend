@@ -56,12 +56,12 @@ function contentFormatter(recipe) {
   var tabs = $('<div />', {'class': 'nav tabs'});
   tabs.append($('<a />', {
     'class': 'nav-link active',
-    'text': i18nAttr('search:result-tab-ingredients'),
+    'data-i18n': i18nAttr('search:result-tab-ingredients'),
     'data-target': 'ingredients'
   }));
   tabs.append($('<a />', {
     'class': 'nav-link',
-    'text': i18nAttr('search:result-tab-directions'),
+    'data-i18n': i18nAttr('search:result-tab-directions'),
     'data-target': 'directions'
   }));
   content.append(tabs);
@@ -75,7 +75,7 @@ function contentFormatter(recipe) {
   ingredients.append(ingredientList);
   ingredients.append($('<button />', {
     'class': 'btn btn-outline-primary add-to-shopping-list',
-    'text': i18nAttr('search:result-add-to-shopping-list')
+    'data-i18n': i18nAttr('search:result-add-to-shopping-list')
   }));
   content.append(ingredients);
 

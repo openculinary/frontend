@@ -111,7 +111,7 @@ function createSortPrompt() {
   var sortSelect = $('<select>', {'class': 'sort'}).attr('aria-label', i18nAttr('search:sort-selection-label'));
   $(sortOptions).each(function() {
     var sortOption = $('<option>');
-    sortOption.text(this.text);
+    sortOption.attr('data-i18n', this.text);
     sortOption.attr('value', this.val);
     if (sortChoice === this.val) sortOption.attr('selected', 'selected');
     sortSelect.append(sortOption);
@@ -128,7 +128,7 @@ function createSortPrompt() {
     $(window).trigger('popstate');
   });
 
-  var sortPrompt = $('<span>').text(i18nAttr('search:sort-selection-prompt'));
+  var sortPrompt = $('<span>').attr('data-i18n', i18nAttr('search:sort-selection-prompt'));
   sortSelect.appendTo(sortPrompt);
 
   return sortPrompt;
