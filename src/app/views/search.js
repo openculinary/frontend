@@ -105,7 +105,7 @@ function createSortPrompt() {
   var state = getState();
   var sortChoice = state.sort || sortOptions[0].val;
 
-  var sortSelect = $('<select>', {'class': 'sort'}).attr('aria-label', 'Recipe sort selection');
+  var sortSelect = $('<select>', {'class': 'sort'}).attr('aria-label', i18nAttr('search:sort-selection-label'));
   $(sortOptions).each(function() {
     var sortOption = $('<option>');
     sortOption.text(this.text);
@@ -125,7 +125,7 @@ function createSortPrompt() {
     $(window).trigger('popstate');
   });
 
-  var sortPrompt = $('<span>').text('Order by ');
+  var sortPrompt = $('<span>').text(i18nAttr('search:sort-selection-prompt'));
   sortSelect.appendTo(sortPrompt);
 
   return sortPrompt;
