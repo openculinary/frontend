@@ -4,13 +4,13 @@ MODE = 'development'
 build : MODE = 'production'
 
 build-dev:
-	webpack --mode ${MODE}
+	npx webpack --mode ${MODE}
 
 build: lint tests
-	webpack --mode ${MODE} --optimize-minimize
+	npx webpack --mode ${MODE} --optimize-minimize
 
 lint:
-	eslint src
+	npx eslint src
 
 tests:
-	mochapack --mode ${MODE} --require setup.js
+	npx mochapack --mode ${MODE} --require setup.js
