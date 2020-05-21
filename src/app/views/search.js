@@ -97,9 +97,9 @@ function refinementHandler(data) {
 
 function createSortPrompt() {
   var sortOptions = [
-    {val: 'ingredients', text: 'fewest extras required'},
-    {val: 'relevance', text: 'most ingredients used'},
-    {val: 'duration', text: 'shortest time to make'},
+    {val: 'ingredients', i18n: i18nAttr('search:sort-ingredients')},
+    {val: 'relevance', i18n: i18nAttr('search:sort-relevance')},
+    {val: 'duration', i18n: i18nAttr('search:sort-duration')},
   ];
 
   var state = getState();
@@ -107,9 +107,10 @@ function createSortPrompt() {
 
   var sortSelect = $('<select>', {'class': 'sort'}).attr('aria-label', 'Recipe sort selection');
   $(sortOptions).each(function() {
-    var sortOption = $('<option>');
-    sortOption.text(this.text);
-    sortOption.attr('value', this.val);
+    var sortOption = $('<option>', {
+      'data-i18n': this.i18n,
+      'value': this.val
+    });
     if (sortChoice === this.val) sortOption.attr('selected', 'selected');
     sortSelect.append(sortOption);
   });
@@ -125,18 +126,24 @@ function createSortPrompt() {
     $(window).trigger('popstate');
   });
 
-  var sortPrompt = $('<span>').text('Order by ');
-  sortSelect.appendTo(sortPrompt);
+  var sortMessage = $('<span>', {
+    'class': 'sort-prompt',
+    'data-i18n': i18nAttr('search:sort-selection-prompt')}
+  );
 
+  var sortPrompt = $('<span>');
+  sortPrompt.append(sortMessage);
+  sortPrompt.append(sortSelect);
   return sortPrompt;
 }
 
 function addSorting() {
-  var paginationDetail = $('#search div.recipe-list div.pagination-detail');
-  if (!paginationDetail.find('select.sort').length) {
+  var paginationDetail = '#search div.recipe-list div.pagination-detail';
+  if ($(paginationDetail).find('select.sort').length === 0) {
     var sortPrompt = createSortPrompt();
-    paginationDetail.append(sortPrompt);
+    $(paginationDetail).append(sortPrompt);
   }
+  localize(paginationDetail);
 }
 
 $(function() {

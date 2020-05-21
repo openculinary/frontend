@@ -6,6 +6,7 @@ import 'tablesaw/dist/stackonly/tablesaw.stackonly.css';
 import './recipe-list.css'
 
 import { getRecipe } from '../common';
+import { i18nAttr, localize } from '../i18n';
 import { renderIngredientHTML, renderDirectionHTML } from '../recipeml';
 import { getState, pushState } from '../state';
 import { storage } from '../storage';
@@ -55,12 +56,12 @@ function contentFormatter(recipe) {
   var tabs = $('<div />', {'class': 'nav tabs'});
   tabs.append($('<a />', {
     'class': 'nav-link active',
-    'text': 'Ingredients',
+    'data-i18n': i18nAttr('search:result-tab-ingredients'),
     'data-target': 'ingredients'
   }));
   tabs.append($('<a />', {
     'class': 'nav-link',
-    'text': 'Directions',
+    'data-i18n': i18nAttr('search:result-tab-directions'),
     'data-target': 'directions'
   }));
   content.append(tabs);
@@ -73,8 +74,8 @@ function contentFormatter(recipe) {
   });
   ingredients.append(ingredientList);
   ingredients.append($('<button />', {
-    'class': 'btn btn-outline-primary add-to-shopping-list',
-    'text': 'Add to shopping list'
+    'class': 'btn btn-outline-primary add-recipe',
+    'data-i18n': i18nAttr('search:result-add-recipe')
   }));
   content.append(ingredients);
 
@@ -135,12 +136,12 @@ function bindPageChange(selector) {
 
 function updateRecipeState(recipeId) {
   var recipes = storage.recipes.load();
-  var isInShoppingList = recipeId in recipes;
+  var isInRecipes = recipeId in recipes;
 
-  var addButton = $(`div.recipe-list .recipe[data-id="${recipeId}"] button.add-to-shopping-list`);
-  addButton.prop('disabled', isInShoppingList);
-  addButton.toggleClass('btn-outline-primary', !isInShoppingList);
-  addButton.toggleClass('btn-outline-secondary', isInShoppingList);
+  var addButton = $(`div.recipe-list .recipe[data-id="${recipeId}"] button.add-recipe`);
+  addButton.prop('disabled', isInRecipes);
+  addButton.toggleClass('btn-outline-primary', !isInRecipes);
+  addButton.toggleClass('btn-outline-secondary', isInRecipes);
 }
 
 function updateStarState(recipeId) {
@@ -174,7 +175,7 @@ function bindPostBody(selector) {
     });
 
     $(this).find('.content .tabs a.nav-link').on('click', selectTab);
-    $(this).find('.content button.add-to-shopping-list').on('click', addRecipe);
+    $(this).find('.content button.add-recipe').on('click', addRecipe);
     $(this).parents('div.recipe-list').show();
 
     // If the user is on the page containing this table, scroll it into view
@@ -182,6 +183,9 @@ function bindPostBody(selector) {
     if (`#${state.action}` === selector) {
       scrollToResults(selector);
     }
+
+    // Localize search result elements
+    localize(selector);
   });
 }
 

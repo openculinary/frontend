@@ -22,7 +22,6 @@ header div.menu {
 }
 
 header span.notification {
-  background-color: #af0000;
   border-radius: 2px;
   color: white;
 
@@ -32,6 +31,14 @@ header span.notification {
   position: relative;
   top: -0.8rem;
   right: -0.2rem;
+}
+
+header span.notification.meal-planner {
+  background-color: #00af00;
+}
+
+header span.notification.shopping-list {
+  background-color: #af0000;
 }
 
 li.select2-results__message {
