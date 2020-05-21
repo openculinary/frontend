@@ -15,6 +15,10 @@ build-dev: image-create webpack-dev image-finalize
 
 build: lint tests image-create webpack image-finalize
 
+deploy:
+	kubectl apply -f k8s
+	kubectl set image deployments -l app=${SERVICE} ${SERVICE}=${IMAGE_NAME}:${IMAGE_TAG}
+
 image-create:
 	$(eval container=$(shell buildah from docker.io/library/nginx:alpine))
 	buildah copy $(container) 'etc/nginx/conf.d' '/etc/nginx/conf.d'
