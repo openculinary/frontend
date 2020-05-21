@@ -1,4 +1,4 @@
-.PHONY: build-common build-dev build lint tests
+.PHONY: build-dev build lint tests
 
 SERVICE=$(shell basename $(shell git rev-parse --show-toplevel))
 REGISTRY=registry.openculinary.org
