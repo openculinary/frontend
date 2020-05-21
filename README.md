@@ -23,18 +23,18 @@ Make sure to follow the RecipeRadar [infrastructure](https://www.github.com/open
 
 To install development tools and run linting and tests locally, execute the following commands:
 
-```
-npm install
-npx make
+```sh
+$ npm install
+$ make lint tests
 ```
 
 ## Local Deployment
 
 To deploy the service to the local infrastructure environment, execute the following commands:
 
-```
-sudo sh -x ./build.sh
-sh -x ./deploy.sh
+```sh
+$ make
+$ make deploy
 ```
 
 If you have configured and run `haproxy` per the [infrastructure](https://www.github.com/openculinary/infrastructure) setup instructions, you should be able to run the application by navigating to `http://localhost` in a web browser.
@@ -43,6 +43,6 @@ If you have configured and run `haproxy` per the [infrastructure](https://www.gi
 
 To gather the latest internationalization (i18n) resource strings from the application, execute the following commands:
 
-```
-npx i18next-scanner
+```sh
+$ npx i18next-scanner
 ```
