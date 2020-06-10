@@ -7,7 +7,7 @@ import './recipe-list.css'
 
 import { getRecipe } from '../../common';
 import { i18nAttr, localize } from '../../i18n';
-import { renderIngredientHTML, renderDirectionHTML } from '../../recipeml';
+import { renderIngredientHTML } from '../../recipeml';
 import { getState, pushState } from '../../state';
 import { storage } from '../../storage';
 import { addRecipe } from '../../models/recipes';
@@ -63,11 +63,6 @@ function contentFormatter(recipe) {
     'data-i18n': i18nAttr('search:result-tab-ingredients'),
     'data-target': 'ingredients'
   }));
-  tabs.append($('<a />', {
-    'class': 'nav-link',
-    'data-i18n': i18nAttr('search:result-tab-directions'),
-    'data-target': 'directions'
-  }));
   content.append(tabs);
 
   var ingredients = $('<div />', {'class': 'tab ingredients'});
@@ -82,14 +77,6 @@ function contentFormatter(recipe) {
     'data-i18n': i18nAttr('search:result-add-recipe')
   }));
   content.append(ingredients);
-
-  var directions = $('<div />', {'class': 'tab directions collapse'});
-  var directionList = $('<ul />');
-  $.each(recipe.directions, function() {
-    directionList.append(renderDirectionHTML(this.markup));
-  });
-  directions.append(directionList);
-  content.append(directions);
 
   return content;
 }
