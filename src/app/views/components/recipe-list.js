@@ -180,7 +180,7 @@ function bindPostBody(selector) {
 
     // If the user is on the page containing this table, scroll it into view
     var state = getState();
-    if (`#${state.action}` === selector) {
+    if (selector.substring(1) in state) {
       scrollToResults(selector);
     }
 
