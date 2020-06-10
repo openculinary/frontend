@@ -53,9 +53,7 @@ function renderSearch() {
 
 function renderIndividual() {
   var id = getState().id;
-  $('#search table[data-row-attributes]').bootstrapTable('refresh', {
-    url: '/api/recipes/' + encodeURIComponent(id) + '/view'
-  });
+  $('#search form').hide();
 }
 
 function renderRefinement(refinement) {
