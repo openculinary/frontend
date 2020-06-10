@@ -41,7 +41,11 @@ function starFormatter() {
 function sidebarFormatter(recipe) {
   var duration = moment.duration(recipe.time, 'minutes');
   var sidebar = $('<td />', {'class': 'sidebar align-top'});
-  $('<img />', {'src': recipe.image_url, 'alt': recipe.title}).appendTo(sidebar);
+
+  var link = $('<a />', {'href': `#search&action=view&id=${recipe.id}`});
+  $('<img />', {'src': recipe.image_url, 'alt': recipe.title}).appendTo(link);
+  link.appendTo(sidebar);
+
   $('<span />', {'html': '<strong>serves</strong>'}).appendTo(sidebar);
   $('<span />', {'text': recipe.servings}).appendTo(sidebar);
   $('<br />').appendTo(sidebar);
