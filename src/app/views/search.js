@@ -8,7 +8,7 @@ import './search.css';
 import '../autosuggest';
 import { i18nAttr, localize } from '../i18n';
 import { getState, pushState } from '../state';
-import { initTable, bindLoadEvent } from '../ui/recipe-list';
+import { initTable, bindLoadEvent } from './components/recipe-list';
 
 export { renderSearch, renderIndividual };
 

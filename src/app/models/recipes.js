@@ -3,7 +3,7 @@ import 'jquery';
 import { getRecipe } from '../common';
 import { storage } from '../storage';
 import { addProduct, removeProduct } from '../models/products';
-import { updateRecipeState } from '../ui/recipe-list';
+import { updateRecipeState } from '../views/components/recipe-list';
 
 export { addRecipe, removeRecipe };
 

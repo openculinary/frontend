@@ -2,7 +2,7 @@ import 'jquery';
 
 import { getRecipe } from '../common';
 import { storage } from '../storage';
-import { updateStarState } from '../ui/recipe-list';
+import { updateStarState } from '../views/components/recipe-list';
 
 export { starRecipe, unstarRecipe };
 

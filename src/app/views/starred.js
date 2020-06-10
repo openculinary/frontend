@@ -3,7 +3,7 @@ import 'jquery';
 import { getRecipeById } from '../common';
 import { localize } from '../i18n';
 import { storage } from '../storage';
-import { initTable } from '../ui/recipe-list';
+import { initTable } from './components/recipe-list';
 
 function renderStarred() {
   var data = [];

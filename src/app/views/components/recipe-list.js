@@ -5,13 +5,13 @@ import 'tablesaw/dist/stackonly/tablesaw.stackonly.jquery.js';
 import 'tablesaw/dist/stackonly/tablesaw.stackonly.css';
 import './recipe-list.css'
 
-import { getRecipe } from '../common';
-import { i18nAttr, localize } from '../i18n';
-import { renderIngredientHTML, renderDirectionHTML } from '../recipeml';
-import { getState, pushState } from '../state';
-import { storage } from '../storage';
-import { addRecipe } from '../models/recipes';
-import { starRecipe, unstarRecipe } from '../models/starred';
+import { getRecipe } from '../../common';
+import { i18nAttr, localize } from '../../i18n';
+import { renderIngredientHTML, renderDirectionHTML } from '../../recipeml';
+import { getState, pushState } from '../../state';
+import { storage } from '../../storage';
+import { addRecipe } from '../../models/recipes';
+import { starRecipe, unstarRecipe } from '../../models/starred';
 
 export {
     initTable,

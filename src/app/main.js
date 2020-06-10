@@ -12,5 +12,5 @@ import 'jquery';
 import { populateStorage } from './storage';
 $(populateStorage);
 
-import { recipeFormatter, rowAttributes } from './ui/recipe-list';
+import { recipeFormatter, rowAttributes } from './views/components/recipe-list';
 export { recipeFormatter, rowAttributes };
