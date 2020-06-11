@@ -73,6 +73,7 @@ div.recipe-list .recipe table {
 
 div.recipe-list .sidebar img {
   max-width: 192px;
+  box-shadow: 2px 2px 2px 1px #ccc;
 }
 
 div.recipe-list .sidebar span {
