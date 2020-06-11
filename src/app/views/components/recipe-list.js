@@ -119,7 +119,7 @@ function bindPageChange(selector) {
     else delete state.page;
 
     var stateHash = decodeURIComponent($.param(state));
-    pushState(state, `#${stateHash}`);
+    pushState(state, `${selector}&${stateHash}`);
 
     scrollToResults(selector, 50);
   });
