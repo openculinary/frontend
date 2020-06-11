@@ -127,6 +127,10 @@ function bindPageChange(selector) {
     if (number > 1) state.page = number;
     else delete state.page;
 
+    // Special-case: perform a search action when returning to search results
+    var page = selector.substring(1);
+    if (page === 'search') state['action'] = page;
+
     var stateHash = decodeURIComponent($.param(state));
     stateHash = stateHash.split('&').map(item => item.replace(RegExp('=$'), '')).join('&');
 
