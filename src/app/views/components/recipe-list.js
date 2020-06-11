@@ -8,7 +8,7 @@ import './recipe-list.css'
 import { getRecipe } from '../../common';
 import { i18nAttr, localize } from '../../i18n';
 import { renderIngredientHTML, renderDirectionHTML } from '../../recipeml';
-import { getState, pushState } from '../../state';
+import { getState, pushState, renderStateHash } from '../../state';
 import { storage } from '../../storage';
 import { addRecipe } from '../../models/recipes';
 import { starRecipe, unstarRecipe } from '../../models/starred';
@@ -127,8 +127,12 @@ function bindPageChange(selector) {
     if (number > 1) state.page = number;
     else delete state.page;
 
-    var stateHash = decodeURIComponent($.param(state));
-    pushState(state, `#${stateHash}`);
+    // Special-case: perform a search action when returning to search results
+    var page = selector.substring(1);
+    if (page === 'search') state['action'] = page;
+
+    var stateHash = renderStateHash(state);
+    pushState(state, stateHash);
 
     scrollToResults(selector, 50);
   });

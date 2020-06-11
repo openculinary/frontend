@@ -2,7 +2,7 @@ import 'jquery';
 
 import { renderSearch, renderIndividual } from './views/search';
 
-export { getState, pushState };
+export { getState, pushState, renderStateHash };
 
 function getState() {
   if (!history.state && !location.hash) return {'search': null};
@@ -17,6 +17,12 @@ function getState() {
 
 function pushState(state, hash) {
   history.pushState(state, '', hash);
+}
+
+function renderStateHash(state) {
+    var stateHash = decodeURIComponent($.param(state));
+    stateHash = stateHash.split('&').map(item => item.replace(RegExp('=$'), '')).join('&');
+    return `#${stateHash}`;
 }
 
 function loadTags(element, data) {
