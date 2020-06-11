@@ -1,6 +1,7 @@
 import 'jquery';
 
-import { renderSearch, renderIndividual } from './views/search';
+import { renderRecipe } from './views/recipe';
+import { renderSearch } from './views/search';
 
 export { getState, loadPage, pushState };
 
@@ -72,7 +73,7 @@ function loadState() {
   if (!activeTab) {
     switch (state.action) {
       case 'search': renderSearch(); break;
-      case 'view': renderIndividual(); break;
+      case 'view': renderRecipe(); break;
     }
   }
 }

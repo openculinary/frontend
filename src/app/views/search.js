@@ -6,12 +6,11 @@ import 'bootstrap-table/dist/bootstrap-table.css';
 import './search.css';
 
 import '../autosuggest';
-import { getRecipeById } from '../common';
 import { i18nAttr, localize } from '../i18n';
-import { getState, loadPage, pushState } from '../state';
+import { getState, pushState } from '../state';
 import { initTable, bindLoadEvent } from './components/recipe-list';
 
-export { renderSearch, renderIndividual };
+export { renderSearch };
 
 function pushSearch() {
   var state = {'action': 'search'};
@@ -50,15 +49,6 @@ function renderSearch() {
     url: '/api/recipes/search?' + $.param(params),
     pageNumber: Number(state.page || 1)
   });
-}
-
-function renderIndividual() {
-  var id = getState().id;
-  var recipe = getRecipeById(id);
-
-  $('#recipe div.title').text(recipe.title);
-
-  loadPage('recipe');
 }
 
 function renderRefinement(refinement) {
