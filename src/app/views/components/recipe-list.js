@@ -63,21 +63,11 @@ function sidebarFormatter(recipe) {
 function contentFormatter(recipe) {
   var content = $('<td />', {'class': 'content align-top'});
 
-  var tabs = $('<div />', {'class': 'nav tabs'});
-  tabs.append($('<a />', {
-    'class': 'nav-link active',
-    'data-i18n': i18nAttr('search:result-tab-ingredients'),
-    'data-target': 'ingredients'
-  }));
-  content.append(tabs);
-
-  var ingredients = $('<div />', {'class': 'tab ingredients'});
-  var ingredientList = $('<div  />');
+  var ingredients = $('<div  />', {'class': 'ingredients'});
   $.each(recipe.ingredients, function() {
-    ingredientList.append(renderIngredientHTML(this.markup, this.product.state));
-    ingredientList.append($('<div  />', {'style': 'clear: both'}));
+    ingredients.append(renderIngredientHTML(this.markup, this.product.state));
+    ingredients.append($('<div  />', {'style': 'clear: both'}));
   });
-  ingredients.append(ingredientList);
   content.append(ingredients);
 
   return content;
@@ -149,17 +139,6 @@ function updateStarState(recipeId) {
   star.on('click', isStarred ? unstarRecipe : starRecipe);
 }
 
-function selectTab() {
-  var recipe = getRecipe(this);
-  var target = $(this).data('target');
-  var recipeList = $(this).parents('table[data-row-attributes]');
-
-  $(recipeList).find(`.recipe[data-id="${recipe.id}"] div.tabs a`).removeClass('active');
-  $(recipeList).find(`.recipe[data-id="${recipe.id}"] div.tabs a[data-target="${target}"]`).addClass('active');
-  $(recipeList).find(`.recipe[data-id="${recipe.id}"] div.tab`).addClass('collapse');
-  $(recipeList).find(`.recipe[data-id="${recipe.id}"] div.tab.${target}`).removeClass('collapse');
-}
-
 function bindPostBody(selector) {
   $(`${selector} table[data-row-attributes]`).on('post-body.bs.table', function(e, data) {
     data.forEach(function (row) {
@@ -167,7 +146,6 @@ function bindPostBody(selector) {
       updateStarState(row.id);
     });
 
-    $(this).find('.content .tabs a.nav-link').on('click', selectTab);
     $(this).find('.sidebar button.add-recipe').on('click', addRecipe);
     $(this).parents('div.recipe-list').show();
 
