@@ -8,7 +8,7 @@ import './recipe-list.css'
 import { getRecipe } from '../../common';
 import { i18nAttr, localize } from '../../i18n';
 import { renderIngredientHTML } from '../../recipeml';
-import { getState, pushState } from '../../state';
+import { getState, pushState, renderStateHash } from '../../state';
 import { storage } from '../../storage';
 import { addRecipe } from '../../models/recipes';
 import { starRecipe, unstarRecipe } from '../../models/starred';
@@ -118,14 +118,12 @@ function bindPageChange(selector) {
     if (number > 1) state.page = number;
     else delete state.page;
 
-    // Record the page the user was on in the state
+    // Special-case: perform a search action when returning to search results
     var page = selector.substring(1);
     if (page === 'search') state['action'] = page;
-    delete state[page];
-    var stateHash = decodeURIComponent($.param(state));
-    state[page] = null;
 
-    pushState(state, `#${page}&${stateHash}`);
+    var stateHash = renderStateHash(state);
+    pushState(state, stateHash);
 
     scrollToResults(selector, 50);
   });
