@@ -128,6 +128,8 @@ function bindPageChange(selector) {
     else delete state.page;
 
     var stateHash = decodeURIComponent($.param(state));
+    stateHash = stateHash.split('&').map(item => item.replace(RegExp('=$'), '')).join('&');
+
     pushState(state, `#${stateHash}`);
 
     scrollToResults(selector, 50);
