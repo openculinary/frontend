@@ -52,6 +52,14 @@ function sidebarFormatter(recipe) {
   $('<span />', {'html': '<strong>time</strong>'}).appendTo(sidebar);
   $('<span />', {'text': duration.as('minutes') + ' mins'}).appendTo(sidebar);
 
+  // TODO: i18n
+  var destination = $('<a />', {'href': recipe.dst});
+  destination.append($('<button />', {
+    'class': 'btn btn-outline-primary',
+    'text': `View on ${recipe.domain}`
+  }));
+  sidebar.append(destination);
+
   sidebar.append($('<button />', {
     'class': 'btn btn-outline-primary add-recipe',
     'data-i18n': i18nAttr('search:result-add-recipe')
