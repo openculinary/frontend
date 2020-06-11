@@ -13,7 +13,7 @@ import { initTable, bindLoadEvent } from './components/recipe-list';
 export { renderSearch, renderIndividual };
 
 function pushSearch() {
-  var state = {'action': 'search'};
+  var state = {'search': null, 'action': 'search'};
   ['#include', '#exclude', '#equipment'].forEach(function (element) {
     var fragment = element.replace('#', '');
     var data = $(element).val();
