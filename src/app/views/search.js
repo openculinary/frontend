@@ -6,8 +6,9 @@ import 'bootstrap-table/dist/bootstrap-table.css';
 import './search.css';
 
 import '../autosuggest';
+import { getRecipeById } from '../common';
 import { i18nAttr, localize } from '../i18n';
-import { getState, pushState } from '../state';
+import { getState, loadPage, pushState } from '../state';
 import { initTable, bindLoadEvent } from './components/recipe-list';
 
 export { renderSearch, renderIndividual };
@@ -53,7 +54,11 @@ function renderSearch() {
 
 function renderIndividual() {
   var id = getState().id;
-  $('#search form').hide();
+  var recipe = getRecipeById(id);
+
+  $('#recipe div.title').text(recipe.title);
+
+  loadPage('recipe');
 }
 
 function renderRefinement(refinement) {

@@ -2,7 +2,7 @@ import 'jquery';
 
 import { renderSearch, renderIndividual } from './views/search';
 
-export { getState, pushState };
+export { getState, loadPage, pushState };
 
 function getState() {
   if (!history.state && !location.hash) return {'search': null};
