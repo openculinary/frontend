@@ -51,6 +51,12 @@ function sidebarFormatter(recipe) {
   $('<br />').appendTo(sidebar);
   $('<span />', {'html': '<strong>time</strong>'}).appendTo(sidebar);
   $('<span />', {'text': duration.as('minutes') + ' mins'}).appendTo(sidebar);
+
+  sidebar.append($('<button />', {
+    'class': 'btn btn-outline-primary add-recipe',
+    'data-i18n': i18nAttr('search:result-add-recipe')
+  }));
+
   return sidebar;
 }
 
@@ -72,10 +78,6 @@ function contentFormatter(recipe) {
     ingredientList.append($('<div  />', {'style': 'clear: both'}));
   });
   ingredients.append(ingredientList);
-  ingredients.append($('<button />', {
-    'class': 'btn btn-outline-primary add-recipe',
-    'data-i18n': i18nAttr('search:result-add-recipe')
-  }));
   content.append(ingredients);
 
   return content;
@@ -166,7 +168,7 @@ function bindPostBody(selector) {
     });
 
     $(this).find('.content .tabs a.nav-link').on('click', selectTab);
-    $(this).find('.content button.add-recipe').on('click', addRecipe);
+    $(this).find('.sidebar button.add-recipe').on('click', addRecipe);
     $(this).parents('div.recipe-list').show();
 
     // If the user is on the page containing this table, scroll it into view
