@@ -24,13 +24,15 @@ function pushSearch() {
   var sortChoice = getState().sort;
   if (sortChoice) state['sort'] = sortChoice;
 
+  var stateHash = decodeURIComponent($.param(state));
+  stateHash = stateHash.split('&').map(item => item.replace(RegExp('=$'), '')).join('&');
+
   // If the requested search is a repeat of the current state, perform a results refresh
   // This is done to ensure that the results are scrolled into view
-  var stateHash = decodeURIComponent($.param(state));
   if (window.location.hash === `#${stateHash}`) {
     $('#search table[data-row-attributes]').trigger('page-change.bs.table');
   }
-  pushState(state, `#search&${stateHash}`);
+  pushState(state, `#${stateHash}`);
   $(window).trigger('popstate');
 }
 $('#search form button').on('click', pushSearch);
@@ -115,7 +117,9 @@ function createSortPrompt() {
     delete state.page;
 
     var stateHash = decodeURIComponent($.param(state));
-    pushState(state, `#search&${stateHash}`);
+    stateHash = stateHash.split('&').map(item => item.replace(RegExp('=$'), '')).join('&');
+
+    pushState(state, `#${stateHash}`);
     $(window).trigger('popstate');
   });
 
