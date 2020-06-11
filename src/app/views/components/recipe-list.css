@@ -95,7 +95,7 @@ div.recipe-list .content span.tag.badge {
 div.recipe-list .content .ingredients .quantity {
   clear: both;
   float: left;
-  width: 120px;
+  width: 60px;
   text-align: right;
 
   padding: 2px;
