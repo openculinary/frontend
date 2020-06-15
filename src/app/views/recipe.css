@@ -33,6 +33,17 @@
   grid-column-gap: 0.5em;
 }
 
+#recipe div.contents div.ingredients .heading {
+  grid-column: 1 / 3;
+
+  width: 100%;
+  text-align: center;
+
+  font-weight: bold;
+  color: #006;
+  padding: 0.5em;
+}
+
 #recipe div.contents div.ingredients .quantity {
   grid-column: 1;
   text-align: right;
@@ -40,6 +51,12 @@
 
 #recipe div.contents div.ingredients .product {
   grid-column: 2;
+}
+
+#recipe div.contents div.directions .heading {
+  font-weight: bold;
+  color: #006;
+  padding: 0.5em;
 }
 
 #recipe div.contents div.directions {

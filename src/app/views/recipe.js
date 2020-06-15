@@ -1,6 +1,7 @@
 import './recipe.css';
 
 import { getRecipeById } from '../common';
+import { i18nAttr, localize } from '../i18n';
 import { renderIngredientHTML, renderDirectionHTML } from '../recipeml';
 import { getState, loadPage } from '../state';
 
@@ -20,14 +21,25 @@ function renderRecipe() {
 
   title.text(recipe.title);
   image.append(link);
+
+  ingredients.append($('<div />', {
+    'class': 'heading',
+    'data-i18n': i18nAttr('search:result-tab-ingredients')
+  }));
   $.each(recipe.ingredients, function() {
     ingredients.append(renderIngredientHTML(this.markup, this.product.state));
     ingredients.append($('<div  />', {'style': 'clear: both'}));
   });
+
+  directions.append($('<div />', {
+    'class': 'heading',
+    'data-i18n': i18nAttr('search:result-tab-directions')
+  }));
   $.each(recipe.directions, function() {
     directions.append(renderDirectionHTML(this.markup));
     directions.append($('<div  />', {'style': 'clear: both'}));
   });
 
+  localize('#recipe');
   loadPage('recipe');
 }
