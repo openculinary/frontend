@@ -7,9 +7,11 @@
 
 #recipe div.title {
   font-weight: bold;
-  font-size: large;
+  font-size: 24px;
   color: #006;
-  padding: 1em;
+
+  padding-top: 1em;
+  padding-left: 2em;
 }
 
 #recipe div.contents div.image {
