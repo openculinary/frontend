@@ -29,7 +29,6 @@ function renderRecipe() {
 
   $.each(recipe.ingredients, function() {
     ingredients.append(renderIngredientHTML(this.markup, this.product.state));
-    ingredients.append($('<div  />', {'style': 'clear: both'}));
   });
 
   directions.append($('<div />', {
@@ -40,7 +39,6 @@ function renderRecipe() {
   var directionList  = $('<ol />');
   $.each(recipe.directions, function() {
     directionList.append(renderDirectionHTML(this.markup));
-    directionList.append($('<div  />', {'style': 'clear: both'}));
   });
   directions.append(directionList);
 
