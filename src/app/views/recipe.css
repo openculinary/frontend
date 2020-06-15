@@ -40,4 +40,6 @@
 #recipe div.contents div.directions {
   grid-row: 1 / 3;
   grid-column: 2;
+
+  padding: 2rem;
 }
