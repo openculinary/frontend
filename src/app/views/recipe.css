@@ -20,6 +20,19 @@
 #recipe div.contents div.ingredients {
   grid-row: 2;
   grid-column: 1;
+
+  display: grid;
+  grid-row-gap: 0.25em;
+  grid-column-gap: 0.5em;
+}
+
+#recipe div.contents div.ingredients .quantity {
+  grid-column: 1;
+  text-align: right;
+}
+
+#recipe div.contents div.ingredients .product {
+  grid-column: 2;
 }
 
 #recipe div.contents div.directions {
