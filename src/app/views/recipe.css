@@ -1,6 +1,6 @@
 #recipe div.contents {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: minmax(20%, 30%) auto;
   grid-row-gap: 1em;
   grid-column-gap: 1em;
 }
