@@ -36,7 +36,7 @@ function renderRecipe() {
   image.append(link);
 
   ingredients.append($('<div />', {
-    'class': 'heading',
+    'class': 'headline section-title',
     'data-i18n': i18nAttr('search:result-tab-ingredients')
   }));
 
@@ -45,7 +45,7 @@ function renderRecipe() {
   });
 
   directions.append($('<div />', {
-    'class': 'heading',
+    'class': 'section-title',
     'data-i18n': i18nAttr('search:result-tab-directions')
   }));
 
