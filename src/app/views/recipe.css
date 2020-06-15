@@ -1,10 +1,3 @@
-#recipe div.contents {
-  display: grid;
-  grid-template-columns: minmax(20%, 30%) auto;
-  grid-row-gap: 1em;
-  grid-column-gap: 1em;
-}
-
 #recipe div.title {
   font-weight: bold;
   font-size: 24px;
@@ -14,11 +7,18 @@
   padding-left: 2em;
 }
 
-#recipe div.contents div.image {
-  grid-row: 1;
-  grid-column: 1;
+#recipe div.contents {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, max-content));
+  grid-row-gap: 1em;
+  grid-column-gap: 1em;
+}
 
+#recipe div.contents div.image {
   padding: 2rem;
+
+  grid-column: 1 / 3;
+  text-align: center;
 }
 
 #recipe div.contents div.image img {
@@ -27,9 +27,6 @@
 }
 
 #recipe div.contents div.ingredients {
-  grid-row: 2;
-  grid-column: 1;
-
   display: grid;
   grid-row-gap: 0.25em;
   grid-column-gap: 0.5em;
@@ -62,8 +59,6 @@
 }
 
 #recipe div.contents div.directions {
-  grid-row: 2;
-  grid-column: 2;
 }
 
 #recipe div.contents div.directions li.direction {
