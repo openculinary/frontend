@@ -26,6 +26,7 @@ function renderRecipe() {
     'class': 'heading',
     'data-i18n': i18nAttr('search:result-tab-ingredients')
   }));
+
   $.each(recipe.ingredients, function() {
     ingredients.append(renderIngredientHTML(this.markup, this.product.state));
     ingredients.append($('<div  />', {'style': 'clear: both'}));
@@ -35,10 +36,13 @@ function renderRecipe() {
     'class': 'heading',
     'data-i18n': i18nAttr('search:result-tab-directions')
   }));
+
+  var directionList  = $('<ol />');
   $.each(recipe.directions, function() {
-    directions.append(renderDirectionHTML(this.markup));
-    directions.append($('<div  />', {'style': 'clear: both'}));
+    directionList.append(renderDirectionHTML(this.markup));
+    directionList.append($('<div  />', {'style': 'clear: both'}));
   });
+  directions.append(directionList);
 
   localize('#recipe');
   loadPage('recipe');
