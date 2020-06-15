@@ -5,6 +5,13 @@
   grid-column-gap: 1em;
 }
 
+#recipe div.title {
+  font-weight: bold;
+  font-size: large;
+  color: #006;
+  padding: 1em;
+}
+
 #recipe div.contents div.image {
   grid-row: 1;
   grid-column: 1;
