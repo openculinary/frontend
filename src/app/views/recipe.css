@@ -69,3 +69,15 @@
 #recipe div.contents div.directions li.direction {
   padding: 0.2rem;
 }
+
+#recipe div.contents div.directions li.direction.hover {
+  background-color: #eee;
+}
+
+#recipe div.contents div.directions li.direction.mark {
+  background-color: #ee9;
+}
+
+#recipe div.contents div.directions li.direction.hover.mark {
+  background-color: #dd8;
+}

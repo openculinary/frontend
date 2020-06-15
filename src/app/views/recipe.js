@@ -7,6 +7,19 @@ import { getState, loadPage } from '../state';
 
 export { renderRecipe };
 
+function hoverDirection() {
+  $(this).addClass('hover');
+}
+
+function unhoverDirection() {
+  $(this).removeClass('hover');
+}
+
+function markDirection() {
+  $('#recipe div.directions li.direction').removeClass('mark');
+  $(this).addClass('mark');
+}
+
 function renderRecipe() {
   var id = getState().id;
   var recipe = getRecipeById(id);
@@ -38,7 +51,11 @@ function renderRecipe() {
 
   var directionList  = $('<ol />');
   $.each(recipe.directions, function() {
-    directionList.append(renderDirectionHTML(this.markup));
+    var directionHTML = renderDirectionHTML(this.markup);
+    var direction = $(directionHTML);
+    direction.hover(hoverDirection, unhoverDirection);
+    direction.click(markDirection);
+    directionList.append(direction);
   });
   directions.append(directionList);
 
