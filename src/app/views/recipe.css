@@ -41,6 +41,7 @@
 
 #recipe div.contents div.ingredients {
   display: grid;
+  grid-auto-rows: min-content;
   grid-row-gap: 0.25em;
   grid-column-gap: 0.5em;
 }
