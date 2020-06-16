@@ -14,7 +14,7 @@
   grid-column-gap: 1em;
 }
 
-#recipe div.headline {
+#recipe .headline {
   grid-column: 1 / 3;
 
   width: 100%;

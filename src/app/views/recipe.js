@@ -4,8 +4,10 @@ import './recipe.css';
 
 import { getRecipeById } from '../common';
 import { i18nAttr, localize } from '../i18n';
+import { addRecipe } from '../models/recipes';
 import { renderIngredientHTML, renderDirectionHTML } from '../recipeml';
 import { getState, loadPage } from '../state';
+import { storage } from '../storage';
 
 export { renderRecipe };
 
@@ -22,11 +24,23 @@ function markDirection() {
   $(this).addClass('mark');
 }
 
+function updateRecipeState() {
+  var recipes = storage.recipes.load();
+  var recipeId = $('#recipe').data('id');
+  var isInRecipes = recipeId in recipes;
+
+  var addButton = $('#recipe button.add-recipe');
+  addButton.prop('disabled', isInRecipes);
+  addButton.toggleClass('btn-outline-primary', !isInRecipes);
+  addButton.toggleClass('btn-outline-secondary', isInRecipes);
+}
+
 function renderRecipe() {
   var id = getState().id;
   var recipe = getRecipeById(id);
   var duration = moment.duration(recipe.time, 'minutes');
 
+  var container = $('#recipe');
   var title = $('#recipe div.title').empty();
   var image = $('#recipe div.image').empty();
   var metadata = $('#recipe div.metadata').empty();
@@ -36,6 +50,7 @@ function renderRecipe() {
   var link = $('<a />', {'href': recipe.dst});
   $('<img />', {'src': recipe.image_url, 'alt': recipe.title}).appendTo(link);
 
+  container.data('id', recipe.id);
   title.text(recipe.title);
   image.append(link);
 
@@ -52,6 +67,15 @@ function renderRecipe() {
   $.each(recipe.ingredients, function() {
     ingredients.append(renderIngredientHTML(this.markup, this.product.state));
   });
+
+  // TODO: i18n
+  var addButton = $('<button />', {
+    'class': 'headline btn btn-outline-primary add-recipe',
+    'text': 'Add to shopping list'
+  });
+  addButton.on('click', addRecipe);
+
+  ingredients.append(addButton);
 
   directions.append($('<div />', {
     'class': 'section-title',
@@ -71,3 +95,7 @@ function renderRecipe() {
   localize('#recipe');
   loadPage('recipe');
 }
+
+$(function() {
+  storage.recipes.on('state changed', updateRecipeState);
+});
