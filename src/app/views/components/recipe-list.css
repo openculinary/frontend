@@ -93,44 +93,18 @@ div.recipe-list .content span.tag.badge {
   white-space: normal;
 }
 
-div.recipe-list .content .tabs a {
-  background-color: #f0f0f0;
-  font-size: 0.75rem;
-}
-
-div.recipe-list .content .tabs a.active {
-  background-color: #fafafa;
-  font-weight: bold;
-
-  border-top: solid 1px silver;
-  border-left: solid 1px silver;
-  border-right: solid 1px silver;
-
-  margin-bottom: -1px;
-}
-
-div.recipe-list .content .tab {
-  background-color: #fafafa;
-  padding: 0.75rem;
-
-  border: solid 1px silver;
-}
-
-div.recipe-list .content .tab button {
-  margin-top: 1rem;
+div.recipe-list .content .ingredients {
+  display: grid;
+  grid-row-gap: 0.25em;
+  grid-column-gap: 0.5em;
+  grid-template-columns: fit-content(25%) auto;
 }
 
 div.recipe-list .content .ingredients .quantity {
-  clear: both;
-  float: left;
-  width: 120px;
+  grid-column: 1;
   text-align: right;
-
-  padding: 2px;
 }
 
 div.recipe-list .content .ingredients .product {
-  float: left;
-
-  padding: 2px;
+  grid-column: 2;
 }

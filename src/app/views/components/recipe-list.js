@@ -7,7 +7,7 @@ import './recipe-list.css'
 
 import { getRecipe } from '../../common';
 import { i18nAttr, localize } from '../../i18n';
-import { renderIngredientHTML, renderDirectionHTML } from '../../recipeml';
+import { renderIngredientHTML } from '../../recipeml';
 import { getState, pushState, renderStateHash } from '../../state';
 import { storage } from '../../storage';
 import { addRecipe } from '../../models/recipes';
@@ -41,51 +41,42 @@ function starFormatter() {
 function sidebarFormatter(recipe) {
   var duration = moment.duration(recipe.time, 'minutes');
   var sidebar = $('<td />', {'class': 'sidebar align-top'});
-  $('<img />', {'src': recipe.image_url, 'alt': recipe.title}).appendTo(sidebar);
+
+  var link = $('<a />', {'href': `#search&action=view&id=${recipe.id}`});
+  $('<img />', {'src': recipe.image_url, 'alt': recipe.title}).appendTo(link);
+  link.appendTo(sidebar);
+
   $('<span />', {'html': '<strong>serves</strong>'}).appendTo(sidebar);
   $('<span />', {'text': recipe.servings}).appendTo(sidebar);
   $('<br />').appendTo(sidebar);
   $('<span />', {'html': '<strong>time</strong>'}).appendTo(sidebar);
   $('<span />', {'text': duration.as('minutes') + ' mins'}).appendTo(sidebar);
+
+  // TODO: i18n
+  var destination = $('<a />', {'href': recipe.dst});
+  destination.append($('<button />', {
+    'class': 'btn btn-outline-primary',
+    'text': `View on ${recipe.domain}`
+  }));
+  sidebar.append(destination);
+
+  sidebar.append($('<button />', {
+    'class': 'btn btn-outline-primary add-recipe',
+    'data-i18n': i18nAttr('search:result-add-recipe')
+  }));
+
   return sidebar;
 }
 
 function contentFormatter(recipe) {
   var content = $('<td />', {'class': 'content align-top'});
 
-  var tabs = $('<div />', {'class': 'nav tabs'});
-  tabs.append($('<a />', {
-    'class': 'nav-link active',
-    'data-i18n': i18nAttr('search:result-tab-ingredients'),
-    'data-target': 'ingredients'
-  }));
-  tabs.append($('<a />', {
-    'class': 'nav-link',
-    'data-i18n': i18nAttr('search:result-tab-directions'),
-    'data-target': 'directions'
-  }));
-  content.append(tabs);
-
-  var ingredients = $('<div />', {'class': 'tab ingredients'});
-  var ingredientList = $('<div  />');
+  var ingredients = $('<div  />', {'class': 'ingredients'});
   $.each(recipe.ingredients, function() {
-    ingredientList.append(renderIngredientHTML(this.markup, this.product.state));
-    ingredientList.append($('<div  />', {'style': 'clear: both'}));
+    ingredients.append(renderIngredientHTML(this.markup, this.product.state));
+    ingredients.append($('<div  />', {'style': 'clear: both'}));
   });
-  ingredients.append(ingredientList);
-  ingredients.append($('<button />', {
-    'class': 'btn btn-outline-primary add-recipe',
-    'data-i18n': i18nAttr('search:result-add-recipe')
-  }));
   content.append(ingredients);
-
-  var directions = $('<div />', {'class': 'tab directions collapse'});
-  var directionList = $('<ul />');
-  $.each(recipe.directions, function() {
-    directionList.append(renderDirectionHTML(this.markup));
-  });
-  directions.append(directionList);
-  content.append(directions);
 
   return content;
 }
@@ -160,17 +151,6 @@ function updateStarState(recipeId) {
   star.on('click', isStarred ? unstarRecipe : starRecipe);
 }
 
-function selectTab() {
-  var recipe = getRecipe(this);
-  var target = $(this).data('target');
-  var recipeList = $(this).parents('table[data-row-attributes]');
-
-  $(recipeList).find(`.recipe[data-id="${recipe.id}"] div.tabs a`).removeClass('active');
-  $(recipeList).find(`.recipe[data-id="${recipe.id}"] div.tabs a[data-target="${target}"]`).addClass('active');
-  $(recipeList).find(`.recipe[data-id="${recipe.id}"] div.tab`).addClass('collapse');
-  $(recipeList).find(`.recipe[data-id="${recipe.id}"] div.tab.${target}`).removeClass('collapse');
-}
-
 function bindPostBody(selector) {
   $(`${selector} table[data-row-attributes]`).on('post-body.bs.table', function(e, data) {
     data.forEach(function (row) {
@@ -178,8 +158,7 @@ function bindPostBody(selector) {
       updateStarState(row.id);
     });
 
-    $(this).find('.content .tabs a.nav-link').on('click', selectTab);
-    $(this).find('.content button.add-recipe').on('click', addRecipe);
+    $(this).find('.sidebar button.add-recipe').on('click', addRecipe);
     $(this).parents('div.recipe-list').show();
 
     // If the user is on the page containing this table, scroll it into view

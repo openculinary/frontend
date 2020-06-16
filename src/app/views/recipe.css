@@ -1,0 +1,116 @@
+#recipe div.title {
+  float: left;
+
+  font-weight: bold;
+  font-size: 24px;
+  color: #006;
+
+  padding-top: 1em;
+  padding-left: 2em;
+}
+
+#recipe .star {
+  float: right;
+
+  font-size: 24px;
+  line-height: inherit;
+
+  padding-top: 1em;
+  padding-right: 2em;
+}
+
+#recipe div.contents {
+  clear: both;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, max-content));
+  grid-row-gap: 1em;
+  grid-column-gap: 1em;
+}
+
+#recipe .headline {
+  grid-column: 1 / 3;
+
+  width: 100%;
+  text-align: center;
+}
+
+#recipe div.contents div.image {
+  grid-column: 1;
+
+  padding: 2rem;
+  text-align: center;
+}
+
+#recipe div.contents div.image img {
+  max-width: 192px;
+  box-shadow: 2px 2px 2px 1px #ccc;
+}
+
+#recipe div.contents div.metadata {
+  display: grid;
+
+  grid-auto-columns: 100px;
+  grid-auto-rows: min-content;
+  grid-row-gap: 0.25em;
+  grid-column-gap: 0.5em;
+
+  padding: 2rem;
+  justify-content: right;
+}
+
+#recipe div.contents div.metadata .property {
+  grid-column: 1;
+
+  text-align: right;
+  font-weight: bold;
+  color: #006;
+}
+
+#recipe div.contents div.metadata .value {
+  grid-column: 2;
+}
+
+#recipe div.contents div.section-title {
+  font-weight: bold;
+  color: #006;
+  padding: 0.5em;
+}
+
+#recipe div.contents div.ingredients {
+  grid-column: 1;
+
+  display: grid;
+  grid-auto-rows: min-content;
+  grid-row-gap: 0.25em;
+  grid-column-gap: 0.5em;
+}
+
+#recipe div.contents div.ingredients .quantity {
+  grid-column: 1;
+  text-align: right;
+}
+
+#recipe div.contents div.ingredients .product {
+  grid-column: 2;
+}
+
+#recipe div.contents div.ingredients .add-recipe {
+  margin-top: 1rem;
+}
+
+#recipe div.contents div.directions li.direction {
+  padding: 0.2rem;
+}
+
+#recipe div.contents div.directions li.direction.hover {
+  background-color: #eee;
+}
+
+#recipe div.contents div.directions li.direction.mark {
+  background-color: #ee9;
+}
+
+#recipe div.contents div.directions li.direction.hover.mark {
+  background-color: #dd8;
+}

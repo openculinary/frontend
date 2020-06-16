@@ -10,7 +10,7 @@ import { i18nAttr, localize } from '../i18n';
 import { getState, pushState, renderStateHash } from '../state';
 import { initTable, bindLoadEvent } from './components/recipe-list';
 
-export { renderSearch, renderIndividual };
+export { renderSearch };
 
 function pushSearch() {
   var state = {'search': null, 'action': 'search'};
@@ -48,13 +48,6 @@ function renderSearch() {
   $('#search table[data-row-attributes]').bootstrapTable('refresh', {
     url: '/api/recipes/search?' + $.param(params),
     pageNumber: Number(state.page || 1)
-  });
-}
-
-function renderIndividual() {
-  var id = getState().id;
-  $('#search table[data-row-attributes]').bootstrapTable('refresh', {
-    url: '/api/recipes/' + encodeURIComponent(id) + '/view'
   });
 }
 
