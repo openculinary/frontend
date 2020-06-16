@@ -1,3 +1,5 @@
+import * as moment from 'moment';
+
 import './recipe.css';
 
 import { getRecipeById } from '../common';
@@ -23,9 +25,11 @@ function markDirection() {
 function renderRecipe() {
   var id = getState().id;
   var recipe = getRecipeById(id);
+  var duration = moment.duration(recipe.time, 'minutes');
 
   var title = $('#recipe div.title').empty();
   var image = $('#recipe div.image').empty();
+  var metadata = $('#recipe div.metadata').empty();
   var ingredients = $('#recipe div.ingredients').empty();
   var directions = $('#recipe div.directions').empty();
 
@@ -34,6 +38,11 @@ function renderRecipe() {
 
   title.text(recipe.title);
   image.append(link);
+
+  metadata.append($('<div />', {'class': 'property', 'text': 'servings'}));
+  metadata.append($('<div />', {'class': 'value', 'text': recipe.servings}));
+  metadata.append($('<div />', {'class': 'property', 'text': 'time'}));
+  metadata.append($('<div />', {'class': 'value', 'text': duration.as('minutes') + ' mins'}));
 
   ingredients.append($('<div />', {
     'class': 'headline section-title',

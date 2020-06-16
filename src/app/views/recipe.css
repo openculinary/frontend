@@ -33,6 +33,29 @@
   box-shadow: 2px 2px 2px 1px #ccc;
 }
 
+#recipe div.contents div.metadata {
+  display: grid;
+
+  grid-auto-columns: 100px;
+  grid-auto-rows: min-content;
+  grid-row-gap: 0.25em;
+  grid-column-gap: 0.5em;
+
+  padding: 2rem;
+  justify-content: right;
+}
+
+#recipe div.contents div.metadata .property {
+  grid-column: 1;
+
+  text-align: right;
+  font-weight: bold;
+}
+
+#recipe div.contents div.metadata .value {
+  grid-column: 2;
+}
+
 #recipe div.contents div.section-title {
   font-weight: bold;
   color: #006;
