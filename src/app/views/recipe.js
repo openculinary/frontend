@@ -5,6 +5,7 @@ import './recipe.css';
 import { getRecipeById } from '../common';
 import { i18nAttr, localize } from '../i18n';
 import { addRecipe } from '../models/recipes';
+import { starRecipe, unstarRecipe } from '../models/starred';
 import { renderIngredientHTML, renderDirectionHTML } from '../recipeml';
 import { getState, loadPage } from '../state';
 import { storage } from '../storage';
@@ -24,6 +25,10 @@ function markDirection() {
   $(this).addClass('mark');
 }
 
+function starFormatter() {
+  return $('<div />', {'class': 'star far fa-star'});
+}
+
 function updateRecipeState() {
   var recipes = storage.recipes.load();
   var recipeId = $('#recipe').data('id');
@@ -35,6 +40,20 @@ function updateRecipeState() {
   addButton.toggleClass('btn-outline-secondary', isInRecipes);
 }
 
+function updateStarState() {
+  var starred = storage.starred.load();
+  var recipeId = $('#recipe').data('id');
+  var isStarred = recipeId in starred;
+
+  var star = $('#recipe .star');
+  star.toggleClass('fas', isStarred);
+  star.toggleClass('far', !isStarred);
+  star.css('color', isStarred ? 'gold' : 'dimgray');
+  star.off('click');
+  star.on('click', isStarred ? unstarRecipe : starRecipe);
+  star.on('click', updateStarState);
+}
+
 function renderRecipe() {
   var id = getState().id;
   var recipe = getRecipeById(id);
@@ -42,6 +61,7 @@ function renderRecipe() {
 
   var container = $('#recipe');
   var title = $('#recipe div.title').empty();
+  var corner = $('#recipe div.corner').empty();
   var image = $('#recipe div.image').empty();
   var metadata = $('#recipe div.metadata').empty();
   var ingredients = $('#recipe div.ingredients').empty();
@@ -52,6 +72,7 @@ function renderRecipe() {
 
   container.data('id', recipe.id);
   title.text(recipe.title);
+  corner.append(starFormatter());
   image.append(link);
 
   metadata.append($('<div />', {'class': 'property', 'text': 'servings'}));
@@ -94,6 +115,8 @@ function renderRecipe() {
 
   localize('#recipe');
   loadPage('recipe');
+
+  updateStarState();
 }
 
 $(function() {
