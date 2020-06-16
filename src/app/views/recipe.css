@@ -81,6 +81,10 @@
   grid-column: 2;
 }
 
+#recipe div.contents div.ingredients .add-recipe {
+  margin-top: 1rem;
+}
+
 #recipe div.contents div.directions li.direction {
   padding: 0.2rem;
 }
