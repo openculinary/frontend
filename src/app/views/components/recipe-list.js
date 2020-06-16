@@ -5,7 +5,6 @@ import 'tablesaw/dist/stackonly/tablesaw.stackonly.jquery.js';
 import 'tablesaw/dist/stackonly/tablesaw.stackonly.css';
 import './recipe-list.css'
 
-import { getRecipe } from '../../common';
 import { i18nAttr, localize } from '../../i18n';
 import { renderIngredientHTML } from '../../recipeml';
 import { getState, pushState, renderStateHash } from '../../state';
