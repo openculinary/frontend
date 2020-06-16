@@ -22,9 +22,9 @@
 }
 
 #recipe div.contents div.image {
-  padding: 2rem;
+  grid-column: 1;
 
-  grid-column: 1 / 3;
+  padding: 2rem;
   text-align: center;
 }
 
@@ -40,6 +40,8 @@
 }
 
 #recipe div.contents div.ingredients {
+  grid-column: 1;
+
   display: grid;
   grid-auto-rows: min-content;
   grid-row-gap: 0.25em;
