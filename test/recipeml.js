@@ -3,20 +3,20 @@ import * as assert from 'assert';
 import { renderIngredientHTML, renderDirectionHTML } from '../src/app/recipeml';
 
 function ingredientHelper(markup, state) {
-    return {
-      markup: markup,
-      product: {state: state}
-    }
+  return {
+    markup: markup,
+    product: {state: state}
+  }
 }
 
 function directionHelper(markup) {
-    return {
-      markup: markup
-    }
+  return {
+    markup: markup
+  }
 }
 
 function recipeMLHelper(ingredient, product_id, quantity, units, preamble, postamble) {
-    return `<amt><qty>${quantity}</qty><unit>${units}</unit></amt>${preamble}<ingredient href="products/${product_id}">${ingredient}</ingredient>${postamble}`;
+  return `<amt><qty>${quantity}</qty><unit>${units}</unit></amt>${preamble}<ingredient href="products/${product_id}">${ingredient}</ingredient>${postamble}`;
 }
 
 describe('html rendering', function() {
