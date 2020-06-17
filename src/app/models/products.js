@@ -30,6 +30,7 @@ function addProduct(product, recipeId) {
   }
   if (product.product_id in products) {
     product.category = products[product.product_id].category;
+    Object.assign(product.recipes, products[product.product_id].recipes);
   }
   if (recipeId) {
     if (!(recipeId in product.recipes)) {
