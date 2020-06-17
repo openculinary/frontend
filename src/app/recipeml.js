@@ -1,6 +1,6 @@
 import { renderQuantity } from './conversion';
 
-export { renderIngredientHTML, renderDirectionHTML };
+export { getIngredientQuantity, renderIngredientHTML, renderDirectionHTML };
 
 function getIngredientQuantity(markup) {
     const xml = $.parseXML(`<xml>${markup}</xml>`).firstChild;
