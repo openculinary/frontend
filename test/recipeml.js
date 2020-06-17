@@ -15,10 +15,6 @@ function directionHelper(markup) {
   }
 }
 
-function recipeMLHelper(ingredient, product_id, quantity, units, preamble, postamble) {
-  return `<amt><qty>${quantity}</qty><unit>${units}</unit></amt>${preamble}<ingredient href="products/${product_id}">${ingredient}</ingredient>${postamble}`;
-}
-
 describe('html rendering', function() {
 
   it('renders simple product', function() {
