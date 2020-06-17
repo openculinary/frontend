@@ -9,8 +9,8 @@ import { localize } from '../i18n';
 import { storage } from '../storage';
 import { addProduct, aggregateUnitQuantities, removeProduct } from '../models/products';
 
-function renderProductText(product, mealCounts) {
-  var unitQuantities = aggregateUnitQuantities(product, mealCounts);
+function renderProductText(product, recipeServings) {
+  var unitQuantities = aggregateUnitQuantities(product, recipeServings);
   var productText = '';
   $.each(unitQuantities, function(unit) {
     if (productText) productText += ' + ';
@@ -52,7 +52,7 @@ function toggleProductState() {
   storage.products.add({'hashCode': product.product_id, 'value': product});
 }
 
-function productElement(product, mealCounts) {
+function productElement(product, recipeServings) {
   var label = $('<label />', {
     'class': 'product',
     'data-id': product.product_id,
@@ -65,7 +65,7 @@ function productElement(product, mealCounts) {
     'checked': ['available', 'purchased'].includes(product.state)
   }).appendTo(label);
 
-  var productText = renderProductText(product, mealCounts);
+  var productText = renderProductText(product, recipeServings);
   $('<span />', {'html': productText}).appendTo(label);
 
   if (Object.keys(product.recipes || {}).length === 0) {
@@ -107,30 +107,30 @@ function getProductsByCategory(products) {
   return productsByCategory;
 }
 
-function getMealCounts() {
+function getRecipeServings() {
   var meals = storage.meals.load();
-  var mealCounts = {};
+  var recipeServings = {};
   $.each(meals, function(date) {
-    meals[date].forEach(function (meal) {
-      if (!(meal.id in mealCounts)) mealCounts[meal.id] = 0;
-      mealCounts[meal.id]++;
+    meals[date].forEach(function (recipe) {
+      if (!(recipe.id in recipeServings)) recipeServings[recipe.id] = 0;
+      recipeServings[recipe.id] += recipe.servings;
     });
   });
-  return mealCounts;
+  return recipeServings;
 }
 
 function renderShoppingList() {
   var products = storage.products.load();
   var productsHtml = $('#shopping-list .products').empty();
   var finalCategoryGroup = null;
-  var mealCounts = getMealCounts();
+  var recipeServings = getRecipeServings();
   var productsByCategory = getProductsByCategory(products);
   $.each(productsByCategory, function(category) {
     if (category === 'null') category = null;
     var categoryGroup = categoryElement(category);
     productsByCategory[category].forEach(function(productId) {
       var product = products[productId];
-      productElement(product, mealCounts).appendTo(categoryGroup);
+      productElement(product, recipeServings).appendTo(categoryGroup);
     });
     if (category) categoryGroup.appendTo(productsHtml);
     else finalCategoryGroup = categoryGroup;
