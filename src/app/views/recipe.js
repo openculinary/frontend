@@ -55,9 +55,12 @@ function updateStarState() {
 }
 
 function renderRecipe() {
-  var id = getState().id;
+  var state = getState();
+
+  var id = state.id;
   var recipe = getRecipeById(id);
   var duration = moment.duration(recipe.time, 'minutes');
+  var targetServings = state.servings || recipe.servings;
 
   var container = $('#recipe');
   var title = $('#recipe div.title').empty();
