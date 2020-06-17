@@ -22,16 +22,15 @@ function aggregateUnitQuantities(product, mealCounts) {
 
 function addProduct(product, recipeId) {
   var products = storage.products.load();
-  if (product.product_id in products) {
-    product.category = products[product.product_id].category;
-  }
   if (!product.state) {
     product.state = 'required';
   }
   if (!product.recipes) {
     product.recipes = {};
   }
-
+  if (product.product_id in products) {
+    product.category = products[product.product_id].category;
+  }
   if (recipeId) {
     if (!(recipeId in product.recipes)) {
       product.recipes[recipeId] = {amounts: []};
