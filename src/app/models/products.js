@@ -8,7 +8,7 @@ function aggregateUnitQuantities(product, recipeServings) {
   var unitQuantities = {};
   var recipes = storage.recipes.load();
   $.each(product.recipes, function(recipeId) {
-    var defaultServings = recipes[recipeId].servings;
+    var defaultServings = recipes[recipeId] ? recipes[recipeId].servings : 1;
     var requestedServings = recipeServings[recipeId] || defaultServings;
     product.recipes[recipeId].amounts.forEach(function (amount) {
       if (!amount.units) amount.units = '';
