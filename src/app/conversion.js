@@ -16,6 +16,7 @@ const expandMeasures = [
 
 function volumeUnits(quantity) {
   if (quantity.val >= 1000) return 'l';
+  if (235 <= quantity.val && quantity.val <= 250) return 'cup';
   if (quantity.val <= 15) return 'tsp';
   if (quantity.val <= 45) return 'Tbs';
   return 'ml';
