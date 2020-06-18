@@ -44,6 +44,7 @@ function renderMagnitude(units, magnitude) {
     magnitude = magnitude / 5;
     magnitude = Math.round(magnitude) * 5;
     magnitude = Number(magnitude.toPrecision(3));
+    magnitude = Math.round(magnitude);
     return magnitude.toFixed();
   }
   if (units && decimalMeasures.indexOf(units) >= 0) {
