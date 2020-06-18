@@ -1,6 +1,4 @@
 #recipe div.title {
-  float: left;
-
   font-weight: bold;
   font-size: 24px;
   color: #006;
@@ -16,6 +14,7 @@
   line-height: inherit;
 
   padding-top: 1em;
+  padding-left: 1em;
   padding-right: 2em;
 }
 
