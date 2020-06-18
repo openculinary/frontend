@@ -20,6 +20,13 @@
   text-decoration: inherit;
 }
 
+#meal-planner .recipe a.link {
+  color: red;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+  margin-right: 0.5em;
+}
 #meal-planner .recipe a.remove {
   color: red;
   cursor: pointer;

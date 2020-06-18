@@ -65,7 +65,7 @@ function recipeElement(recipe) {
   // TODO: only include 'servings' parameter when the value overrides the recipe default
   // This may require some data model refactoring
   var link = $('<a />', {
-    'class': 'fa fa-link',
+    'class': 'link fa fa-link',
     'href': `#search&action=view&id=${recipe.id}&servings=${recipe.servings}`
   });
   var item = $('<div />', {'style': 'float: left'});
