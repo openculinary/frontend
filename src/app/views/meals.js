@@ -41,12 +41,15 @@ function updateHints() {
 }
 
 function recipeElement(recipe) {
-  var link = $('<a />', {'class': 'remove fa fa-link', 'href': `#search&action=view&id=${recipe.id}`});
+  var link = $('<a />', {
+    'class': 'remove fa fa-link',
+    'href': `#search&action=view&id=${recipe.id}`
+  });
+
   var cloneRemove = $('<span />', {
     'click': removeMeal,
     'data-role': 'remove'
   });
-
   var title = $('<span />', {
     'class': 'tag badge badge-info',
     'text': recipe.title
