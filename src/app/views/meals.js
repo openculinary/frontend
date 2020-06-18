@@ -62,6 +62,8 @@ function recipeElement(recipe) {
   });
   remove.on('click', removeRecipe);
 
+  // TODO: only include 'servings' parameter when the value overrides the recipe default
+  // This may require some data model refactoring
   var link = $('<a />', {
     'class': 'remove fa fa-link',
     'href': `#search&action=view&id=${recipe.id}&servings=${recipe.servings}`
