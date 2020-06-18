@@ -2,7 +2,7 @@ import * as moment from 'moment';
 
 import './recipe.css';
 
-import { getRecipeById } from '../common';
+import { getRecipe } from '../common';
 import { i18nAttr, localize } from '../i18n';
 import { addRecipe } from '../models/recipes';
 import { starRecipe, unstarRecipe } from '../models/starred';
@@ -56,13 +56,13 @@ function updateStarState() {
 
 function renderRecipe() {
   var state = getState();
+  var container = $('#recipe');
+  container.data('id', state.id);
 
-  var id = state.id;
-  var recipe = getRecipeById(id);
+  var recipe = getRecipe(container);
   var duration = moment.duration(recipe.time, 'minutes');
   var targetServings = state.servings || recipe.servings;
 
-  var container = $('#recipe');
   var title = $('#recipe div.title').empty();
   var corner = $('#recipe div.corner').empty();
   var image = $('#recipe div.image').empty();
