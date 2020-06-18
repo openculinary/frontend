@@ -12,7 +12,7 @@ function addRecipe() {
   var recipe = getRecipe(this);
 
   var state = getState();
-  if (state.servings) scaleRecipe(recipe, state.servings);
+  if (state.servings) scaleRecipe(recipe, Number(state.servings));
 
   storage.recipes.add({'hashCode': recipe.id, 'value': recipe});
   updateRecipeState(recipe.id);

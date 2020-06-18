@@ -62,7 +62,7 @@ function renderRecipe() {
   var recipe = getRecipe(container);
   var duration = moment.duration(recipe.time, 'minutes');
 
-  var targetServings = state.servings || recipe.servings;
+  var targetServings = Number(state.servings) || recipe.servings;
   scaleRecipe(recipe, targetServings);
 
   var title = $('#recipe div.title').empty();
