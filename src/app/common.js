@@ -23,7 +23,6 @@ function getRecipeById(recipeId) {
 function getRecipeProducts(recipe) {
   var recipeProducts = [];
   recipe.ingredients.forEach(function(ingredient) {
-    var quantity = getIngredientQuantity(ingredient.markup);
     recipeProducts.push({
       product_id: ingredient.product.product_id,
       product: ingredient.product.product,
@@ -31,8 +30,8 @@ function getRecipeProducts(recipe) {
       singular: ingredient.product.singular,
       plural: ingredient.product.plural,
       state: ingredient.product.state,
-      quantity: quantity.magnitude,
-      units: quantity.units,
+      quantity: ingredient.quantity,
+      units: ingredient.units,
     });
   });
   return recipeProducts;
