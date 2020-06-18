@@ -1,6 +1,5 @@
 import 'jquery';
 
-import { getIngredientQuantity } from './recipeml';
 import { storage } from './storage';
 export { float2rat, getRecipe, getRecipeById };
 

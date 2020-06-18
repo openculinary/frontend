@@ -1,14 +1,6 @@
 import { renderQuantity } from './conversion';
 
-export { getIngredientQuantity, renderIngredientHTML, renderDirectionHTML };
-
-function getIngredientQuantity(markup) {
-    const xml = $.parseXML(`<xml>${markup}</xml>`).firstChild;
-    return {
-      magnitude: Number($(xml).find('amt qty').text()),
-      units: $(xml).find('amt unit').text(),
-    };
-}
+export { renderIngredientHTML, renderDirectionHTML };
 
 function renderIngredientHTML(ingredient) {
     const xml = $.parseXML(`<xml>${ingredient.markup}</xml>`).firstChild;
