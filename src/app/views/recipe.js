@@ -116,6 +116,7 @@ function renderRecipe() {
   localize('#recipe');
   loadPage('recipe');
 
+  updateRecipeState();
   updateStarState();
 }
 
