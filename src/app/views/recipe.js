@@ -155,7 +155,7 @@ function renderIngredients(servings) {
 
   ingredients.append(addButton);
 
-  localize('#recipe .ingredients');
-
   existingIngredients.replaceWith(ingredients);
+
+  localize('#recipe .ingredients');
 }
