@@ -41,11 +41,6 @@ function updateHints() {
 }
 
 function recipeElement(recipe) {
-  var link = $('<a />', {
-    'class': 'remove fa fa-link',
-    'href': `#search&action=view&id=${recipe.id}`
-  });
-
   var cloneRemove = $('<span />', {
     'click': removeMeal,
     'data-role': 'remove'
@@ -67,6 +62,10 @@ function recipeElement(recipe) {
   });
   remove.on('click', removeRecipe);
 
+  var link = $('<a />', {
+    'class': 'remove fa fa-link',
+    'href': `#search&action=view&id=${recipe.id}`
+  });
   var item = $('<div />', {
     'style': 'float: left'
   });
