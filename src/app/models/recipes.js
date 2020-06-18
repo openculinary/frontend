@@ -1,6 +1,7 @@
 import 'jquery';
 
 import { getRecipe } from '../common';
+import { getState } from '../state';
 import { storage } from '../storage';
 import { addProduct, removeProduct } from '../models/products';
 import { updateRecipeState } from '../views/components/recipe-list';
@@ -9,6 +10,9 @@ export { addRecipe, removeRecipe, scaleRecipe };
 
 function addRecipe() {
   var recipe = getRecipe(this);
+
+  var state = getState();
+  if (state.servings) scaleRecipe(recipe, state.servings);
 
   storage.recipes.add({'hashCode': recipe.id, 'value': recipe});
   updateRecipeState(recipe.id);
