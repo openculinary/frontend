@@ -23,17 +23,19 @@ function aggregateUnitQuantities(product, recipeServings) {
 }
 
 function addProduct(product, recipeId) {
-  var products = storage.products.load();
   if (!product.state) {
     product.state = 'required';
   }
   if (!product.recipes) {
     product.recipes = {};
   }
+
+  var products = storage.products.load();
   if (product.product_id in products) {
     product.category = products[product.product_id].category;
     Object.assign(product.recipes, products[product.product_id].recipes);
   }
+
   if (recipeId) {
     if (!(recipeId in product.recipes)) {
       product.recipes[recipeId] = {amounts: []};
