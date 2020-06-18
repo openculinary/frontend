@@ -86,7 +86,7 @@ function renderRecipe() {
   }));
 
   $.each(recipe.ingredients, function() {
-    ingredients.append(renderIngredientHTML(this.markup, this.product.state));
+    ingredients.append(renderIngredientHTML(this));
   });
 
   // TODO: i18n

@@ -16,6 +16,7 @@ const expandMeasures = [
 
 function volumeUnits(quantity) {
   if (quantity.val >= 1000) return 'l';
+  if (235 <= quantity.val && quantity.val <= 250) return 'cup';
   if (quantity.val <= 15) return 'tsp';
   if (quantity.val <= 45) return 'Tbs';
   return 'ml';
@@ -44,6 +45,7 @@ function renderMagnitude(units, magnitude) {
     magnitude = magnitude / 5;
     magnitude = Math.round(magnitude) * 5;
     magnitude = Number(magnitude.toPrecision(3));
+    magnitude = Math.round(magnitude);
     return magnitude.toFixed();
   }
   if (units && decimalMeasures.indexOf(units) >= 0) {
@@ -90,6 +92,9 @@ function renderQuantity(quantity) {
     };
   }
 
+  // TODO: Consider retrieving 'native units' (named units as retrieved from
+  // the original recipe) and using these as a first-preference for rendering
+  // purposes
   var units = targetUnits(fromQuantity);
   var magnitude = fromQuantity.to(units);
 
