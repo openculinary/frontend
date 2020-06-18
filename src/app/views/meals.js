@@ -64,7 +64,7 @@ function recipeElement(recipe) {
 
   var link = $('<a />', {
     'class': 'remove fa fa-link',
-    'href': `#search&action=view&id=${recipe.id}`
+    'href': `#search&action=view&id=${recipe.id}&servings=${recipe.servings}`
   });
   var item = $('<div />', {'style': 'float: left'});
   item.append(link);
