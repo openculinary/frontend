@@ -7,7 +7,7 @@ import { i18nAttr, localize } from '../i18n';
 import { addRecipe, scaleRecipe } from '../models/recipes';
 import { starRecipe, unstarRecipe } from '../models/starred';
 import { renderIngredientHTML, renderDirectionHTML } from '../recipeml';
-import { getState, loadPage } from '../state';
+import { getState, loadPage, pushState, renderStateHash } from '../state';
 import { storage } from '../storage';
 
 export { renderRecipe };
@@ -54,6 +54,15 @@ function updateStarState() {
   star.on('click', updateStarState);
 }
 
+function updateServings() {
+  var state = getState();
+  state.servings = $('#recipe div.metadata input.servings').val();
+
+  var stateHash = renderStateHash(state);
+  pushState(state, stateHash);
+  $(window).trigger('popstate');
+}
+
 function renderRecipe() {
   var state = getState();
   var container = $('#recipe');
@@ -80,8 +89,18 @@ function renderRecipe() {
   corner.append(starFormatter());
   image.append(link);
 
+  var servingsInput = $('<input>', {
+    'class': 'servings',
+    'min': 1,
+    'max': 50,
+    'type': 'number',
+  });
+  servingsInput.attr('aria-label', 'Serving count selection');
+  servingsInput.val(recipe.servings);
+  servingsInput.on('change', updateServings);
+
   metadata.append($('<div />', {'class': 'property', 'text': 'servings'}));
-  metadata.append($('<div />', {'class': 'value', 'text': recipe.servings}));
+  metadata.append($('<div />', {'class': 'value'}).append(servingsInput));
   metadata.append($('<div />', {'class': 'property', 'text': 'time'}));
   metadata.append($('<div />', {'class': 'value', 'text': duration.as('minutes') + ' mins'}));
 
