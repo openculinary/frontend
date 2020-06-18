@@ -92,6 +92,9 @@ function renderQuantity(quantity) {
     };
   }
 
+  // TODO: Consider retrieving 'native units' (named units as retrieved from
+  // the original recipe) and using these as a first-preference for rendering
+  // purposes
   var units = targetUnits(fromQuantity);
   var magnitude = fromQuantity.to(units);
 
