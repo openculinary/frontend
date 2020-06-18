@@ -105,7 +105,7 @@ function renderRecipe() {
 
   var directionList  = $('<ol />');
   $.each(recipe.directions, function() {
-    var directionHTML = renderDirectionHTML(this.markup);
+    var directionHTML = renderDirectionHTML(this);
     var direction = $(directionHTML);
     direction.hover(hoverDirection, unhoverDirection);
     direction.click(markDirection);
