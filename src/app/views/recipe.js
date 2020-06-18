@@ -152,4 +152,6 @@ function renderIngredients(servings) {
   addButton.on('click', updateRecipeState);
 
   ingredients.append(addButton);
+
+  localize('#recipe .ingredients');
 }
