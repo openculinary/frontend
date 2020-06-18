@@ -53,6 +53,11 @@ function recipeElement(recipe) {
   });
   title.append(cloneRemove);
 
+  var servings = $('<span />', {
+    'class': 'tag badge servings',
+    'text': recipe.servings
+  });
+
   var remove = $('<a />', {
     'class': 'remove fa fa-trash-alt',
     'style': 'float: right; margin-left: 8px; margin-top: 3px;'
@@ -71,6 +76,7 @@ function recipeElement(recipe) {
     'data-id': recipe.id
   });
   container.append(item);
+  container.append(servings);
   container.append(remove);
 
   return container;
