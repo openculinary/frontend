@@ -129,7 +129,9 @@ function renderRecipe() {
 }
 
 function renderIngredients(servings) {
-  var ingredients = $('#recipe div.ingredients').empty();
+  var existingIngredients = $('#recipe div.ingredients');
+
+  var ingredients = $('<div />', {'class': 'ingredients'});
   ingredients.append($('<div />', {
     'class': 'headline section-title',
     'data-i18n': i18nAttr('search:result-tab-ingredients')
@@ -154,4 +156,6 @@ function renderIngredients(servings) {
   ingredients.append(addButton);
 
   localize('#recipe .ingredients');
+
+  existingIngredients.replaceWith(ingredients);
 }
