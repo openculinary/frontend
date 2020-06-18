@@ -95,6 +95,7 @@ function renderRecipe() {
     'text': 'Add to shopping list'
   });
   addButton.on('click', addRecipe);
+  addButton.on('click', updateRecipeState);
 
   ingredients.append(addButton);
 
@@ -119,7 +120,3 @@ function renderRecipe() {
   updateRecipeState();
   updateStarState();
 }
-
-$(function() {
-  storage.recipes.on('state changed', updateRecipeState);
-});
