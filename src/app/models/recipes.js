@@ -5,7 +5,7 @@ import { storage } from '../storage';
 import { addProduct, removeProduct } from '../models/products';
 import { updateRecipeState } from '../views/components/recipe-list';
 
-export { addRecipe, removeRecipe };
+export { addRecipe, removeRecipe, scaleRecipe };
 
 function addRecipe() {
   var recipe = getRecipe(this);
@@ -31,4 +31,12 @@ function removeRecipe() {
 
   storage.recipes.remove({'hashCode': recipe.id});
   updateRecipeState(recipe.id);
+}
+
+function scaleRecipe(recipe, targetServings) {
+  $.each(recipe.ingredients, function() {
+    this.quantity *= targetServings;
+    this.quantity /= recipe.servings;
+  });
+  recipe.servings = targetServings;
 }

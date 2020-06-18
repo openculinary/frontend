@@ -4,7 +4,7 @@ import './recipe.css';
 
 import { getRecipe } from '../common';
 import { i18nAttr, localize } from '../i18n';
-import { addRecipe } from '../models/recipes';
+import { addRecipe, scaleRecipe } from '../models/recipes';
 import { starRecipe, unstarRecipe } from '../models/starred';
 import { renderIngredientHTML, renderDirectionHTML } from '../recipeml';
 import { getState, loadPage } from '../state';
@@ -61,7 +61,9 @@ function renderRecipe() {
 
   var recipe = getRecipe(container);
   var duration = moment.duration(recipe.time, 'minutes');
+
   var targetServings = state.servings || recipe.servings;
+  scaleRecipe(recipe, targetServings);
 
   var title = $('#recipe div.title').empty();
   var corner = $('#recipe div.corner').empty();
@@ -89,8 +91,6 @@ function renderRecipe() {
   }));
 
   $.each(recipe.ingredients, function() {
-    this.quantity *= targetServings;
-    this.quantity /= recipe.servings;
     ingredients.append(renderIngredientHTML(this));
   });
 
