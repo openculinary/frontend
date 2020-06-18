@@ -55,12 +55,15 @@ function updateStarState() {
 }
 
 function updateServings() {
+  var targetServings = $('#recipe div.metadata input.servings').val();
+
   var state = getState();
-  state.servings = $('#recipe div.metadata input.servings').val();
+  state.servings = targetServings;
 
   var stateHash = renderStateHash(state);
   pushState(state, stateHash);
-  $(window).trigger('popstate');
+
+  renderIngredients(targetServings);
 }
 
 function renderRecipe() {
@@ -71,14 +74,10 @@ function renderRecipe() {
   var recipe = getRecipe(container);
   var duration = moment.duration(recipe.time, 'minutes');
 
-  var targetServings = Number(state.servings) || recipe.servings;
-  scaleRecipe(recipe, targetServings);
-
   var title = $('#recipe div.title').empty();
   var corner = $('#recipe div.corner').empty();
   var image = $('#recipe div.image').empty();
   var metadata = $('#recipe div.metadata').empty();
-  var ingredients = $('#recipe div.ingredients').empty();
   var directions = $('#recipe div.directions').empty();
 
   var link = $('<a />', {'href': recipe.dst});
@@ -89,6 +88,7 @@ function renderRecipe() {
   corner.append(starFormatter());
   image.append(link);
 
+  var targetServings = Number(state.servings) || recipe.servings;
   var servingsInput = $('<input>', {
     'class': 'servings',
     'min': 1,
@@ -96,7 +96,7 @@ function renderRecipe() {
     'type': 'number',
   });
   servingsInput.attr('aria-label', 'Serving count selection');
-  servingsInput.val(recipe.servings);
+  servingsInput.val(targetServings);
   servingsInput.on('change', updateServings);
 
   metadata.append($('<div />', {'class': 'property', 'text': 'servings'}));
@@ -104,24 +104,7 @@ function renderRecipe() {
   metadata.append($('<div />', {'class': 'property', 'text': 'time'}));
   metadata.append($('<div />', {'class': 'value', 'text': duration.as('minutes') + ' mins'}));
 
-  ingredients.append($('<div />', {
-    'class': 'headline section-title',
-    'data-i18n': i18nAttr('search:result-tab-ingredients')
-  }));
-
-  $.each(recipe.ingredients, function() {
-    ingredients.append(renderIngredientHTML(this));
-  });
-
-  // TODO: i18n
-  var addButton = $('<button />', {
-    'class': 'headline btn btn-outline-primary add-recipe',
-    'text': 'Add to shopping list'
-  });
-  addButton.on('click', addRecipe);
-  addButton.on('click', updateRecipeState);
-
-  ingredients.append(addButton);
+  renderIngredients(targetServings);
 
   directions.append($('<div />', {
     'class': 'section-title',
@@ -143,4 +126,30 @@ function renderRecipe() {
 
   updateRecipeState();
   updateStarState();
+}
+
+function renderIngredients(servings) {
+  var ingredients = $('#recipe div.ingredients').empty();
+  ingredients.append($('<div />', {
+    'class': 'headline section-title',
+    'data-i18n': i18nAttr('search:result-tab-ingredients')
+  }));
+
+  var container = $('#recipe');
+  var recipe = getRecipe(container);
+  scaleRecipe(recipe, servings);
+
+  $.each(recipe.ingredients, function() {
+    ingredients.append(renderIngredientHTML(this));
+  });
+
+  // TODO: i18n
+  var addButton = $('<button />', {
+    'class': 'headline btn btn-outline-primary add-recipe',
+    'text': 'Add to shopping list'
+  });
+  addButton.on('click', addRecipe);
+  addButton.on('click', updateRecipeState);
+
+  ingredients.append(addButton);
 }
