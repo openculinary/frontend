@@ -89,6 +89,8 @@ function renderRecipe() {
   }));
 
   $.each(recipe.ingredients, function() {
+    this.quantity *= targetServings;
+    this.quantity /= recipe.servings;
     ingredients.append(renderIngredientHTML(this));
   });
 
