@@ -13,8 +13,8 @@ function addRecipe() {
   storage.recipes.add({'hashCode': recipe.id, 'value': recipe});
   updateRecipeState(recipe.id);
 
-  recipe.products.forEach(function (product) {
-    addProduct(product, recipe.id);
+  recipe.ingredients.forEach(function (ingredient) {
+    addProduct(ingredient, recipe.id);
   });
 }
 

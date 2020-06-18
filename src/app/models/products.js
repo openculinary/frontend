@@ -22,25 +22,28 @@ function aggregateUnitQuantities(product, recipeServings) {
   return unitQuantities;
 }
 
-function addProduct(product, recipeId) {
-  var products = storage.products.load();
+function addProduct(ingredient, recipeId) {
+  var product = ingredient.product;
   if (!product.state) {
     product.state = 'required';
   }
   if (!product.recipes) {
     product.recipes = {};
   }
+
+  var products = storage.products.load();
   if (product.product_id in products) {
     product.category = products[product.product_id].category;
     Object.assign(product.recipes, products[product.product_id].recipes);
   }
+
   if (recipeId) {
     if (!(recipeId in product.recipes)) {
       product.recipes[recipeId] = {amounts: []};
     }
     product.recipes[recipeId].amounts.push({
-      quantity: product.quantity,
-      units: product.units
+      quantity: ingredient.quantity,
+      units: ingredient.units
     });
   }
 
