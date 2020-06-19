@@ -27,8 +27,6 @@ function titleFormatter(recipe) {
   $('<a />', {
     'href': `#search&action=view&id=${recipe.id}`,
     'text': recipe.title,
-    'target': '_blank',
-    'rel': 'noreferrer'
   }).appendTo(title);
   return title;
 }
@@ -52,7 +50,11 @@ function sidebarFormatter(recipe) {
   $('<span />', {'text': duration.as('minutes') + ' mins'}).appendTo(sidebar);
 
   // TODO: i18n
-  var destination = $('<a />', {'href': recipe.dst});
+  var destination = $('<a />', {
+    'href': recipe.dst,
+    'target': '_blank',
+    'rel': 'noreferrer'
+  });
   destination.append($('<button />', {
     'class': 'btn btn-outline-primary',
     'text': `View on ${recipe.domain}`
