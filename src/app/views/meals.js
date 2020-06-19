@@ -41,17 +41,20 @@ function updateHints() {
 }
 
 function recipeElement(recipe) {
-  var link = $('<a />', {'class': 'remove fa fa-link', 'href': `#search&action=view&id=${recipe.id}`});
   var cloneRemove = $('<span />', {
     'click': removeMeal,
     'data-role': 'remove'
   });
-
   var title = $('<span />', {
     'class': 'tag badge badge-info',
     'text': recipe.title
   });
   title.append(cloneRemove);
+
+  var servings = $('<span />', {
+    'class': 'tag badge servings',
+    'text': recipe.servings
+  });
 
   var remove = $('<a />', {
     'class': 'remove fa fa-trash-alt',
@@ -59,9 +62,13 @@ function recipeElement(recipe) {
   });
   remove.on('click', removeRecipe);
 
-  var item = $('<div />', {
-    'style': 'float: left'
+  // TODO: only include 'servings' parameter when the value overrides the recipe default
+  // This may require some data model refactoring
+  var link = $('<a />', {
+    'class': 'link fa fa-link',
+    'href': `#search&action=view&id=${recipe.id}&servings=${recipe.servings}`
   });
+  var item = $('<div />', {'style': 'float: left'});
   item.append(link);
   item.append(title);
 
@@ -71,6 +78,7 @@ function recipeElement(recipe) {
     'data-id': recipe.id
   });
   container.append(item);
+  container.append(servings);
   container.append(remove);
 
   return container;

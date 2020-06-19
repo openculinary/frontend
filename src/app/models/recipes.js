@@ -1,20 +1,24 @@
 import 'jquery';
 
 import { getRecipe } from '../common';
+import { getState } from '../state';
 import { storage } from '../storage';
 import { addProduct, removeProduct } from '../models/products';
 import { updateRecipeState } from '../views/components/recipe-list';
 
-export { addRecipe, removeRecipe };
+export { addRecipe, removeRecipe, scaleRecipe };
 
 function addRecipe() {
   var recipe = getRecipe(this);
 
+  var state = getState();
+  if (state.servings) scaleRecipe(recipe, Number(state.servings));
+
   storage.recipes.add({'hashCode': recipe.id, 'value': recipe});
   updateRecipeState(recipe.id);
 
-  recipe.products.forEach(function (product) {
-    addProduct(product, recipe.id);
+  recipe.ingredients.forEach(function (ingredient) {
+    addProduct(ingredient, recipe.id);
   });
 }
 
@@ -31,4 +35,12 @@ function removeRecipe() {
 
   storage.recipes.remove({'hashCode': recipe.id});
   updateRecipeState(recipe.id);
+}
+
+function scaleRecipe(recipe, targetServings) {
+  $.each(recipe.ingredients, function() {
+    this.quantity *= targetServings;
+    this.quantity /= recipe.servings;
+  });
+  recipe.servings = targetServings;
 }

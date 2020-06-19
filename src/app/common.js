@@ -29,8 +29,6 @@ function getRecipeProducts(recipe) {
       singular: ingredient.product.singular,
       plural: ingredient.product.plural,
       state: ingredient.product.state,
-      quantity: ingredient.quantity,
-      units: ingredient.units,
     });
   });
   return recipeProducts;

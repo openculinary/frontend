@@ -70,6 +70,10 @@
   grid-column: 2;
 }
 
+#recipe div.contents div.metadata input.servings {
+  width: 4rem;
+}
+
 #recipe div.contents div.section-title {
   font-weight: bold;
   color: #006;

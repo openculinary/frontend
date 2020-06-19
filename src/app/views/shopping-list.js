@@ -165,7 +165,8 @@ function bindShoppingListInput(element, placeholder) {
     var product = event.params.data.product;
     if (product.product_id in products) return;
 
-    addProduct(product);
+    var ingredient = {product: product};
+    addProduct(ingredient);
   });
 }
 

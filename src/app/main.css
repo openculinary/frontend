@@ -81,6 +81,10 @@ span.tag.required {
   background-color: #f0f0f0;
 }
 
+span.tag.servings {
+  background-color: #b0b0ff;
+}
+
 /* disable pull-down-to-refresh in chrome */
 body {
   overscroll-behavior: contain;

@@ -2,12 +2,12 @@ import * as moment from 'moment';
 
 import './recipe.css';
 
-import { getRecipeById } from '../common';
+import { getRecipe } from '../common';
 import { i18nAttr, localize } from '../i18n';
-import { addRecipe } from '../models/recipes';
+import { addRecipe, scaleRecipe } from '../models/recipes';
 import { starRecipe, unstarRecipe } from '../models/starred';
 import { renderIngredientHTML, renderDirectionHTML } from '../recipeml';
-import { getState, loadPage } from '../state';
+import { getState, loadPage, pushState, renderStateHash } from '../state';
 import { storage } from '../storage';
 
 export { renderRecipe };
@@ -54,17 +54,30 @@ function updateStarState() {
   star.on('click', updateStarState);
 }
 
+function updateServings() {
+  var targetServings = $('#recipe div.metadata input.servings').val();
+
+  var state = getState();
+  state.servings = targetServings;
+
+  var stateHash = renderStateHash(state);
+  pushState(state, stateHash);
+
+  renderIngredients(targetServings);
+}
+
 function renderRecipe() {
-  var id = getState().id;
-  var recipe = getRecipeById(id);
+  var state = getState();
+  var container = $('#recipe');
+  container.data('id', state.id);
+
+  var recipe = getRecipe(container);
   var duration = moment.duration(recipe.time, 'minutes');
 
-  var container = $('#recipe');
   var title = $('#recipe div.title').empty();
   var corner = $('#recipe div.corner').empty();
   var image = $('#recipe div.image').empty();
   var metadata = $('#recipe div.metadata').empty();
-  var ingredients = $('#recipe div.ingredients').empty();
   var directions = $('#recipe div.directions').empty();
 
   var link = $('<a />', {'href': recipe.dst});
@@ -75,29 +88,23 @@ function renderRecipe() {
   corner.append(starFormatter());
   image.append(link);
 
+  var targetServings = Number(state.servings) || recipe.servings;
+  var servingsInput = $('<input>', {
+    'class': 'servings',
+    'min': 1,
+    'max': 50,
+    'type': 'number',
+  });
+  servingsInput.attr('aria-label', 'Serving count selection');
+  servingsInput.val(targetServings);
+  servingsInput.on('change', updateServings);
+
   metadata.append($('<div />', {'class': 'property', 'text': 'servings'}));
-  metadata.append($('<div />', {'class': 'value', 'text': recipe.servings}));
+  metadata.append($('<div />', {'class': 'value'}).append(servingsInput));
   metadata.append($('<div />', {'class': 'property', 'text': 'time'}));
   metadata.append($('<div />', {'class': 'value', 'text': duration.as('minutes') + ' mins'}));
 
-  ingredients.append($('<div />', {
-    'class': 'headline section-title',
-    'data-i18n': i18nAttr('search:result-tab-ingredients')
-  }));
-
-  $.each(recipe.ingredients, function() {
-    ingredients.append(renderIngredientHTML(this));
-  });
-
-  // TODO: i18n
-  var addButton = $('<button />', {
-    'class': 'headline btn btn-outline-primary add-recipe',
-    'text': 'Add to shopping list'
-  });
-  addButton.on('click', addRecipe);
-  addButton.on('click', updateRecipeState);
-
-  ingredients.append(addButton);
+  renderIngredients(targetServings);
 
   directions.append($('<div />', {
     'class': 'section-title',
@@ -119,4 +126,36 @@ function renderRecipe() {
 
   updateRecipeState();
   updateStarState();
+}
+
+function renderIngredients(servings) {
+  var existingIngredients = $('#recipe div.ingredients');
+
+  var ingredients = $('<div />', {'class': 'ingredients'});
+  ingredients.append($('<div />', {
+    'class': 'headline section-title',
+    'data-i18n': i18nAttr('search:result-tab-ingredients')
+  }));
+
+  var container = $('#recipe');
+  var recipe = getRecipe(container);
+  scaleRecipe(recipe, servings);
+
+  $.each(recipe.ingredients, function() {
+    ingredients.append(renderIngredientHTML(this));
+  });
+
+  // TODO: i18n
+  var addButton = $('<button />', {
+    'class': 'headline btn btn-outline-primary add-recipe',
+    'text': 'Add to shopping list'
+  });
+  addButton.on('click', addRecipe);
+  addButton.on('click', updateRecipeState);
+
+  ingredients.append(addButton);
+
+  existingIngredients.replaceWith(ingredients);
+
+  localize('#recipe .ingredients');
 }

@@ -22,7 +22,8 @@ function aggregateUnitQuantities(product, recipeServings) {
   return unitQuantities;
 }
 
-function addProduct(product, recipeId) {
+function addProduct(ingredient, recipeId) {
+  var product = ingredient.product;
   if (!product.state) {
     product.state = 'required';
   }
@@ -41,8 +42,8 @@ function addProduct(product, recipeId) {
       product.recipes[recipeId] = {amounts: []};
     }
     product.recipes[recipeId].amounts.push({
-      quantity: product.quantity,
-      units: product.units
+      quantity: ingredient.quantity,
+      units: ingredient.units
     });
   }
 
