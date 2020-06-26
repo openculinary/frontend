@@ -123,7 +123,7 @@ function getProductsByCategory() {
     productsByCategory[product.category].push(product);
   });
   // Move the null category to the end of the map
-  if (productsByCategory.hasOwnProperty(null)) {
+  if (Object.hasOwnProperty.call(productsByCategory, null)) {
     var product = productsByCategory[null];
     delete productsByCategory[null];
     productsByCategory[null] = product;
