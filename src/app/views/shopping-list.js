@@ -41,9 +41,12 @@ function renderProductText(product, servingsByRecipe) {
   return productText;
 }
 
-function renderCategory(category) {
+function renderCategory(category, products, servingsByRecipe) {
   var fieldset = $('<fieldset />', {'class': category});
   $('<legend />', {'data-i18n': `[html]categories:${category}`}).appendTo(fieldset);
+  products.forEach(function(product) {
+    fieldset.append(productElement(product, servingsByRecipe))
+  });
   return fieldset;
 }
 
@@ -146,12 +149,8 @@ function renderShoppingList() {
   var productsByCategory = getProductsByCategory();
   $.each(productsByCategory, function(category) {
     if (category === 'null') category = null;
-    var categoryProducts = productsByCategory[category];
-    var categoryGroup = renderCategory(category);
-    categoryProducts.forEach(function(product) {
-      categoryGroup.append(productElement(product, servingsByRecipe))
-    });
-    shoppingList.append(categoryGroup);
+    var products = productsByCategory[category];
+    shoppingList.append(renderCategory(category, products, servingsByRecipe));
   });
 
   localize(shoppingList);
