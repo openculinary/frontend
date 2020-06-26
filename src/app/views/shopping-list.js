@@ -135,7 +135,7 @@ function getRecipeServings() {
 }
 
 function renderShoppingList() {
-  var productsHtml = $('#shopping-list .products').empty();
+  var container = $('#shopping-list .products').empty();
   var finalCategoryGroup = null;
   var recipeServings = getRecipeServings();
   var productsByCategory = getProductsByCategory();
@@ -146,12 +146,12 @@ function renderShoppingList() {
     categoryProducts.forEach(function(product) {
       productElement(product, recipeServings).appendTo(categoryGroup);
     });
-    if (category) categoryGroup.appendTo(productsHtml);
+    if (category) categoryGroup.appendTo(container);
     else finalCategoryGroup = categoryGroup;
   });
-  if (finalCategoryGroup) finalCategoryGroup.appendTo(productsHtml);
+  if (finalCategoryGroup) finalCategoryGroup.appendTo(container);
 
-  localize(productsHtml);
+  localize(container);
   populateNotifications();
 }
 
