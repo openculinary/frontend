@@ -110,7 +110,8 @@ function populateNotifications(products) {
   $('header span.notification.shopping-list').text(found + '/' + total);
 }
 
-function getProductsByCategory(products) {
+function getProductsByCategory() {
+  var products = storage.products.load();
   var categoriesByProduct = {};
   $.each(products, function(productId) {
     categoriesByProduct[productId] = products[productId].category;
@@ -141,7 +142,7 @@ function renderShoppingList() {
   var productsHtml = $('#shopping-list .products').empty();
   var finalCategoryGroup = null;
   var recipeServings = getRecipeServings();
-  var productsByCategory = getProductsByCategory(products);
+  var productsByCategory = getProductsByCategory();
   $.each(productsByCategory, function(category) {
     if (category === 'null') category = null;
     var categoryProducts = productsByCategory[category];
