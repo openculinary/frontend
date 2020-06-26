@@ -113,7 +113,7 @@ function populateNotifications() {
 
 function getProductsByCategory() {
   var products = storage.products.load();
-  var productsByCategory = {};
+  var productsByCategory = new Map();
   $.each(products, function(productId) {
     var product = products[productId];
     productsByCategory[product.category] = productsByCategory[product.category] || [];
