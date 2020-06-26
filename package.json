@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "frontend",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.13.0",
+    "@fortawesome/fontawesome-free": "^5.13.1",
     "@popperjs/core": "^2.4.2",
     "bootstrap": "^4.5.0",
     "bootstrap-table": "^1.16.0",
@@ -12,12 +12,12 @@
     "d3-sankey": "git+https://github.com/jayaddison/d3-sankey.git#66afca1be8b3d8e0bd4a04e9a0fb42cb72d7037d",
     "delta-crdts": "git+https://github.com/jayaddison/js-delta-crdts.git#9197dcc744184a55ee4f7dd865aa4f87f01a6308",
     "html2canvas": "git+https://github.com/jayaddison/html2canvas.git#1add9b06b3c7eb44a0ea3ab55d1afeb3fcc5f681",
-    "i18next": "^19.4.5",
+    "i18next": "^19.5.1",
     "i18next-browser-languagedetector": "^4.3.1",
     "i18next-xhr-backend": "^3.2.2",
     "jquery": "^3.5.1",
     "jquery-i18next": "^1.2.1",
-    "moment": "^2.26.0",
+    "moment": "^2.27.0",
     "select2": "^4.0.13",
     "sortablejs": "^1.10.2",
     "tablesaw": "^3.1.2"
@@ -25,7 +25,7 @@
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.1.1",
-    "css-loader": "^3.5.3",
+    "css-loader": "^3.6.0",
     "eslint": "^6.8.0",
     "file-loader": "^5.1.0",
     "html-webpack-plugin": "^3.2.0",
