@@ -144,12 +144,12 @@ function renderShoppingList() {
     var categoryProducts = productsByCategory[category];
     var categoryGroup = renderCategory(category);
     categoryProducts.forEach(function(product) {
-      productElement(product, recipeServings).appendTo(categoryGroup);
+      categoryGroup.append(productElement(product, recipeServings))
     });
-    if (category) categoryGroup.appendTo(container);
+    if (category) container.append(categoryGroup);
     else finalCategoryGroup = categoryGroup;
   });
-  if (finalCategoryGroup) finalCategoryGroup.appendTo(container);
+  if (finalCategoryGroup) container.append(finalCategoryGroup);
 
   localize(container);
   populateNotifications();
