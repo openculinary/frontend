@@ -1,13 +1,30 @@
 import 'jquery';
 import 'select2';
 
-import 'select2/dist/css/select2.css';
-import './shopping-list.css';
-
 import { renderQuantity } from '../conversion';
 import { localize } from '../i18n';
 import { storage } from '../storage';
-import { addProduct, aggregateUnitQuantities, removeProduct } from '../models/products';
+import { addProduct, removeProduct } from '../models/products';
+
+export { aggregateUnitQuantities };
+
+function aggregateUnitQuantities(product, recipeServings) {
+  var unitQuantities = {};
+  var recipes = storage.recipes.load();
+  $.each(product.recipes, function(recipeId) {
+    var defaultServings = recipes[recipeId] ? recipes[recipeId].servings : 1;
+    var requestedServings = recipeServings[recipeId] || defaultServings;
+    product.recipes[recipeId].amounts.forEach(function (amount) {
+      if (!amount.units) amount.units = '';
+      if (!(amount.units in unitQuantities)) unitQuantities[amount.units] = 0;
+      unitQuantities[amount.units] += (amount.quantity * requestedServings) / defaultServings;
+    });
+  });
+  $.each(unitQuantities, function(unit) {
+    if (unitQuantities[unit] === 0) delete unitQuantities[unit];
+  });
+  return unitQuantities;
+}
 
 function renderProductText(product, recipeServings) {
   var unitQuantities = aggregateUnitQuantities(product, recipeServings);

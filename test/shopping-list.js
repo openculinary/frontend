@@ -1,6 +1,6 @@
 import * as assert from 'assert';
 
-import { aggregateUnitQuantities } from '../src/app/models/products';
+import { aggregateUnitQuantities } from '../src/app/views/shopping-list';
 
 var kgProduct = {
   recipes: {

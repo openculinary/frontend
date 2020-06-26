@@ -2,25 +2,7 @@ import 'jquery';
 
 import { storage } from '../storage';
 
-export { aggregateUnitQuantities, addProduct, removeProduct };
-
-function aggregateUnitQuantities(product, recipeServings) {
-  var unitQuantities = {};
-  var recipes = storage.recipes.load();
-  $.each(product.recipes, function(recipeId) {
-    var defaultServings = recipes[recipeId] ? recipes[recipeId].servings : 1;
-    var requestedServings = recipeServings[recipeId] || defaultServings;
-    product.recipes[recipeId].amounts.forEach(function (amount) {
-      if (!amount.units) amount.units = '';
-      if (!(amount.units in unitQuantities)) unitQuantities[amount.units] = 0;
-      unitQuantities[amount.units] += (amount.quantity * requestedServings) / defaultServings;
-    });
-  });
-  $.each(unitQuantities, function(unit) {
-    if (unitQuantities[unit] === 0) delete unitQuantities[unit];
-  });
-  return unitQuantities;
-}
+export { addProduct, removeProduct };
 
 function addProduct(ingredient, recipeId) {
   var product = ingredient.product;
