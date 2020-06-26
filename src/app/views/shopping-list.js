@@ -96,7 +96,8 @@ function productElement(product, recipeServings) {
   return label;
 }
 
-function populateNotifications(products) {
+function populateNotifications() {
+  var products = storage.products.load();
   var empty = Object.keys(products).length == 0;
   $('header span.notification.shopping-list').toggle(!empty);
   if (empty) return;
@@ -153,7 +154,7 @@ function renderShoppingList() {
   if (finalCategoryGroup) finalCategoryGroup.appendTo(productsHtml);
 
   localize(productsHtml);
-  populateNotifications(products);
+  populateNotifications();
 }
 
 function bindShoppingListInput(element, placeholder) {
