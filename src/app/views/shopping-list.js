@@ -133,7 +133,7 @@ function getServingsByRecipe() {
   var servingsByRecipe = {};
   $.each(meals, function(date) {
     meals[date].forEach(function (recipe) {
-      if (!(recipe.id in servingsByRecipe)) servingsByRecipe[recipe.id] = 0;
+      servingsByRecipe[recipe.id] = servingsByRecipe[recipe.id] || 0;
       servingsByRecipe[recipe.id] += recipe.servings;
     });
   });
