@@ -41,7 +41,7 @@ function renderProductText(product, recipeServings) {
   return productText;
 }
 
-function categoryElement(category) {
+function renderCategory(category) {
   var fieldset = $('<fieldset />', {'class': category});
   $('<legend />', {'data-i18n': `[html]categories:${category}`}).appendTo(fieldset);
   return fieldset;
@@ -144,7 +144,7 @@ function renderShoppingList() {
   var productsByCategory = getProductsByCategory(products);
   $.each(productsByCategory, function(category) {
     if (category === 'null') category = null;
-    var categoryGroup = categoryElement(category);
+    var categoryGroup = renderCategory(category);
     productsByCategory[category].forEach(function(productId) {
       var product = products[productId];
       productElement(product, recipeServings).appendTo(categoryGroup);
