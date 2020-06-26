@@ -1,7 +1,5 @@
 import * as moment from 'moment';
 
-import './recipe.css';
-
 import { getRecipe } from '../common';
 import { i18nAttr, localize } from '../i18n';
 import { addRecipe, scaleRecipe } from '../models/recipes';

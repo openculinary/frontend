@@ -2,9 +2,6 @@ import 'jquery';
 import * as moment from 'moment';
 import 'tablesaw/dist/stackonly/tablesaw.stackonly.jquery.js';
 
-import 'tablesaw/dist/stackonly/tablesaw.stackonly.css';
-import './recipe-list.css'
-
 import { i18nAttr, localize } from '../../i18n';
 import { renderIngredientHTML } from '../../recipeml';
 import { getState, pushState, renderStateHash } from '../../state';

@@ -1,10 +1,6 @@
 import 'jquery';
 import 'bootstrap-table';
 
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-table/dist/bootstrap-table.css';
-import './search.css';
-
 import '../autosuggest';
 import { i18nAttr, localize } from '../i18n';
 import { getState, pushState, renderStateHash } from '../state';

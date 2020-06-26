@@ -3,8 +3,6 @@ import * as moment from 'moment';
 import { Sortable } from 'sortablejs';
 import i18next from 'i18next';
 
-import './meals.css';
-
 import { getRecipe } from '../common';
 import { i18nAttr, localize } from '../i18n';
 import { storage } from '../storage';
