@@ -16,7 +16,7 @@ function aggregateUnitQuantities(product, recipeServings) {
     var requestedServings = recipeServings[recipeId] || defaultServings;
     product.recipes[recipeId].amounts.forEach(function (amount) {
       if (!amount.units) amount.units = '';
-      if (!(amount.units in unitQuantities)) unitQuantities[amount.units] = 0;
+      unitQuantities[amount.units] = unitQuantities[amount.units] || 0;
       unitQuantities[amount.units] += (amount.quantity * requestedServings) / defaultServings;
     });
   });
@@ -26,8 +26,8 @@ function aggregateUnitQuantities(product, recipeServings) {
   return unitQuantities;
 }
 
-function renderProductText(product, recipeServings) {
-  var unitQuantities = aggregateUnitQuantities(product, recipeServings);
+function renderProductText(product, servingsByRecipe) {
+  var unitQuantities = aggregateUnitQuantities(product, servingsByRecipe);
   var productText = '';
   $.each(unitQuantities, function(unit) {
     if (productText) productText += ' + ';
@@ -41,9 +41,12 @@ function renderProductText(product, recipeServings) {
   return productText;
 }
 
-function categoryElement(category) {
+function renderCategory(category, products, servingsByRecipe) {
   var fieldset = $('<fieldset />', {'class': category});
   $('<legend />', {'data-i18n': `[html]categories:${category}`}).appendTo(fieldset);
+  products.forEach(function(product) {
+    fieldset.append(productElement(product, servingsByRecipe))
+  });
   return fieldset;
 }
 
@@ -69,7 +72,7 @@ function toggleProductState() {
   storage.products.add({'hashCode': product.product_id, 'value': product});
 }
 
-function productElement(product, recipeServings) {
+function productElement(product, servingsByRecipe) {
   var label = $('<label />', {
     'class': 'product',
     'data-id': product.product_id,
@@ -82,7 +85,7 @@ function productElement(product, recipeServings) {
     'checked': ['available', 'purchased'].includes(product.state)
   }).appendTo(label);
 
-  var productText = renderProductText(product, recipeServings);
+  var productText = renderProductText(product, servingsByRecipe);
   $('<span />', {'html': productText}).appendTo(label);
 
   if (Object.keys(product.recipes || {}).length === 0) {
@@ -96,7 +99,8 @@ function productElement(product, recipeServings) {
   return label;
 }
 
-function populateNotifications(products) {
+function populateNotifications() {
+  var products = storage.products.load();
   var empty = Object.keys(products).length == 0;
   $('header span.notification.shopping-list').toggle(!empty);
   if (empty) return;
@@ -110,52 +114,47 @@ function populateNotifications(products) {
   $('header span.notification.shopping-list').text(found + '/' + total);
 }
 
-function getProductsByCategory(products) {
-  var categoriesByProduct = {};
+function getProductsByCategory() {
+  var products = storage.products.load();
+  var productsByCategory = new Map();
   $.each(products, function(productId) {
-    categoriesByProduct[productId] = products[productId].category;
+    var product = products[productId];
+    productsByCategory[product.category] = productsByCategory[product.category] || [];
+    productsByCategory[product.category].push(product);
   });
-  var productsByCategory = {};
-  $.each(categoriesByProduct, function(productId) {
-    var category = categoriesByProduct[productId];
-    if (!(category in productsByCategory)) productsByCategory[category] = [];
-    productsByCategory[category].push(productId);
-  });
+  // Move the null category to the end of the map
+  if (Object.hasOwnProperty.call(productsByCategory, null)) {
+    var product = productsByCategory[null];
+    delete productsByCategory[null];
+    productsByCategory[null] = product;
+  }
   return productsByCategory;
 }
 
-function getRecipeServings() {
+function getServingsByRecipe() {
   var meals = storage.meals.load();
-  var recipeServings = {};
+  var servingsByRecipe = {};
   $.each(meals, function(date) {
     meals[date].forEach(function (recipe) {
-      if (!(recipe.id in recipeServings)) recipeServings[recipe.id] = 0;
-      recipeServings[recipe.id] += recipe.servings;
+      servingsByRecipe[recipe.id] = servingsByRecipe[recipe.id] || 0;
+      servingsByRecipe[recipe.id] += recipe.servings;
     });
   });
-  return recipeServings;
+  return servingsByRecipe;
 }
 
 function renderShoppingList() {
-  var products = storage.products.load();
-  var productsHtml = $('#shopping-list .products').empty();
-  var finalCategoryGroup = null;
-  var recipeServings = getRecipeServings();
-  var productsByCategory = getProductsByCategory(products);
+  var shoppingList = $('#shopping-list .products').empty();
+  var servingsByRecipe = getServingsByRecipe();
+  var productsByCategory = getProductsByCategory();
   $.each(productsByCategory, function(category) {
     if (category === 'null') category = null;
-    var categoryGroup = categoryElement(category);
-    productsByCategory[category].forEach(function(productId) {
-      var product = products[productId];
-      productElement(product, recipeServings).appendTo(categoryGroup);
-    });
-    if (category) categoryGroup.appendTo(productsHtml);
-    else finalCategoryGroup = categoryGroup;
+    var products = productsByCategory[category];
+    shoppingList.append(renderCategory(category, products, servingsByRecipe));
   });
-  if (finalCategoryGroup) finalCategoryGroup.appendTo(productsHtml);
 
-  localize(productsHtml);
-  populateNotifications(products);
+  localize(shoppingList);
+  populateNotifications();
 }
 
 function bindShoppingListInput(element, placeholder) {
