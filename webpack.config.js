@@ -33,36 +33,39 @@ module.exports = (_, env) => {
     plugins: [
       new CleanWebpackPlugin(),
       new LicensePlugin(),
-      new CopyWebpackPlugin([
+      new CopyWebpackPlugin({patterns: [
         {
           from: 'static/.well-known',
-          to: '.well-known'
+          to: '.well-known',
+          noErrorOnMissing: true
         }
-      ]),
-      new CopyWebpackPlugin([
+      ]}),
+      new CopyWebpackPlugin({patterns: [
         {
           from: 'LICENSE'
         }
-      ]),
-      new CopyWebpackPlugin([
+      ]}),
+      new CopyWebpackPlugin({patterns: [
         {
           from: 'src/feedback/LICENSE',
           to: 'LICENSE.feedback'
         }
-      ]),
-      new CopyWebpackPlugin([
+      ]}),
+      new CopyWebpackPlugin({patterns: [
         {
           from: 'static',
-          ignore: ['images/icons/**']
+          globOptions: {
+            ignore: ['images/icons/**']
+          }
         }
-      ]),
-      new CopyWebpackPlugin([
+      ]}),
+      new CopyWebpackPlugin({patterns: [
         {
           from: `static/images/icons/${env && env.mode || 'development'}/*`,
           to: 'images/icons',
           flatten: true
         }
-      ]),
+      ]}),
       new MiniCssExtractPlugin({
         filename: '[name].[chunkhash].css'
       }),
