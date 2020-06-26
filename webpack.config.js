@@ -35,7 +35,7 @@ module.exports = (_, env) => {
       new LicensePlugin(),
       new CopyWebpackPlugin([
         {
-          from: '.well-known',
+          from: 'static/.well-known',
           to: '.well-known'
         }
       ]),
