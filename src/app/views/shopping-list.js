@@ -112,15 +112,11 @@ function populateNotifications(products) {
 
 function getProductsByCategory() {
   var products = storage.products.load();
-  var categoriesByProduct = {};
-  $.each(products, function(productId) {
-    categoriesByProduct[productId] = products[productId].category;
-  });
   var productsByCategory = {};
-  $.each(categoriesByProduct, function(productId) {
-    var category = categoriesByProduct[productId];
-    if (!(category in productsByCategory)) productsByCategory[category] = [];
-    productsByCategory[category].push(productId);
+  $.each(products, function(productId) {
+    var product = products[productId];
+    productsByCategory[product.category] = productsByCategory[product.category] || [];
+    productsByCategory[product.category].push(product.product_id);
   });
   return productsByCategory;
 }
