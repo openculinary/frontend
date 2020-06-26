@@ -144,8 +144,9 @@ function renderShoppingList() {
   var productsByCategory = getProductsByCategory(products);
   $.each(productsByCategory, function(category) {
     if (category === 'null') category = null;
+    var categoryProducts = productsByCategory[category];
     var categoryGroup = renderCategory(category);
-    productsByCategory[category].forEach(function(productId) {
+    categoryProducts.forEach(function(productId) {
       var product = products[productId];
       productElement(product, recipeServings).appendTo(categoryGroup);
     });
