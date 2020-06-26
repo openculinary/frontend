@@ -35,6 +35,12 @@ module.exports = (_, env) => {
       new LicensePlugin(),
       new CopyWebpackPlugin([
         {
+          from: '.well-known',
+          to: '.well-known'
+        }
+      ]),
+      new CopyWebpackPlugin([
+        {
           from: 'LICENSE'
         }
       ]),
