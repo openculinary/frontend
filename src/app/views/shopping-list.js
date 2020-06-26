@@ -26,8 +26,8 @@ function aggregateUnitQuantities(product, recipeServings) {
   return unitQuantities;
 }
 
-function renderProductText(product, recipeServings) {
-  var unitQuantities = aggregateUnitQuantities(product, recipeServings);
+function renderProductText(product, servingsByRecipe) {
+  var unitQuantities = aggregateUnitQuantities(product, servingsByRecipe);
   var productText = '';
   $.each(unitQuantities, function(unit) {
     if (productText) productText += ' + ';
@@ -69,7 +69,7 @@ function toggleProductState() {
   storage.products.add({'hashCode': product.product_id, 'value': product});
 }
 
-function productElement(product, recipeServings) {
+function productElement(product, servingsByRecipe) {
   var label = $('<label />', {
     'class': 'product',
     'data-id': product.product_id,
@@ -82,7 +82,7 @@ function productElement(product, recipeServings) {
     'checked': ['available', 'purchased'].includes(product.state)
   }).appendTo(label);
 
-  var productText = renderProductText(product, recipeServings);
+  var productText = renderProductText(product, servingsByRecipe);
   $('<span />', {'html': productText}).appendTo(label);
 
   if (Object.keys(product.recipes || {}).length === 0) {
@@ -128,28 +128,28 @@ function getProductsByCategory() {
   return productsByCategory;
 }
 
-function getRecipeServings() {
+function getServingsByRecipe() {
   var meals = storage.meals.load();
-  var recipeServings = {};
+  var servingsByRecipe = {};
   $.each(meals, function(date) {
     meals[date].forEach(function (recipe) {
-      if (!(recipe.id in recipeServings)) recipeServings[recipe.id] = 0;
-      recipeServings[recipe.id] += recipe.servings;
+      if (!(recipe.id in servingsByRecipe)) servingsByRecipe[recipe.id] = 0;
+      servingsByRecipe[recipe.id] += recipe.servings;
     });
   });
-  return recipeServings;
+  return servingsByRecipe;
 }
 
 function renderShoppingList() {
   var shoppingList = $('#shopping-list .products').empty();
-  var recipeServings = getRecipeServings();
+  var servingsByRecipe = getServingsByRecipe();
   var productsByCategory = getProductsByCategory();
   $.each(productsByCategory, function(category) {
     if (category === 'null') category = null;
     var categoryProducts = productsByCategory[category];
     var categoryGroup = renderCategory(category);
     categoryProducts.forEach(function(product) {
-      categoryGroup.append(productElement(product, recipeServings))
+      categoryGroup.append(productElement(product, servingsByRecipe))
     });
     shoppingList.append(categoryGroup);
   });
