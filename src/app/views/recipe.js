@@ -79,7 +79,8 @@ function renderRecipe() {
   var directions = $('#recipe div.directions').empty();
 
   var link = $('<a />', {'href': recipe.dst});
-  $('<img />', {'src': recipe.image_url, 'alt': recipe.title}).appendTo(link);
+  var img = $('<img />', {'src': recipe.image_url, 'alt': recipe.title});
+  link.append(img);
 
   container.data('id', recipe.id);
   title.text(recipe.title);

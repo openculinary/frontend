@@ -43,10 +43,14 @@ function renderProductText(product, servingsByRecipe) {
 
 function renderCategory(category, products, servingsByRecipe) {
   var fieldset = $('<fieldset />', {'class': category});
-  $('<legend />', {'data-i18n': `[html]categories:${category}`}).appendTo(fieldset);
+
+  var legend = $('<legend />', {'data-i18n': `[html]categories:${category}`});
+  fieldset.append(legend);
+
   products.forEach(function(product) {
     fieldset.append(productElement(product, servingsByRecipe))
   });
+
   return fieldset;
 }
 
@@ -73,28 +77,31 @@ function toggleProductState() {
 }
 
 function productElement(product, servingsByRecipe) {
+  var checkbox = $('<input />', {
+    'type': 'checkbox',
+    'name': 'products[]',
+    'value': product.product_id,
+    'checked': ['available', 'purchased'].includes(product.state)
+  });
   var label = $('<label />', {
     'class': 'product',
     'data-id': product.product_id,
     'click': toggleProductState
   });
-  $('<input />', {
-    'type': 'checkbox',
-    'name': 'products[]',
-    'value': product.product_id,
-    'checked': ['available', 'purchased'].includes(product.state)
-  }).appendTo(label);
+  label.append(checkbox);
 
   var productText = renderProductText(product, servingsByRecipe);
-  $('<span />', {'html': productText}).appendTo(label);
+  var productContainer = $('<span />', {'html': productText});
+  label.append(productContainer);
 
   if (Object.keys(product.recipes || {}).length === 0) {
-    $('<span />', {
+    var removeButton = $('<span />', {
       'data-role': 'remove',
       'click': function() {
         removeProduct(product);
       }
-    }).appendTo(label);
+    });
+    label.append(removeButton);
   }
   return label;
 }

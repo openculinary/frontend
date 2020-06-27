@@ -19,13 +19,18 @@ export {
 };
 
 function titleFormatter(recipe) {
-  var title = $('<div />', {'class': 'title'});
-  $('<img />', {'src': 'images/domains/' + recipe.domain + '.ico', 'alt':''}).appendTo(title);
-  $('<a />', {
+  var container = $('<div />', {'class': 'title'});
+
+  var icon = $('<img />', {'src': 'images/domains/' + recipe.domain + '.ico', 'alt':''});
+  var title = $('<a />', {
     'href': `#search&action=view&id=${recipe.id}`,
     'text': recipe.title,
-  }).appendTo(title);
-  return title;
+  });
+
+  container.append(icon);
+  container.append(title);
+
+  return container;
 }
 
 function starFormatter() {
@@ -34,17 +39,19 @@ function starFormatter() {
 
 function sidebarFormatter(recipe) {
   var duration = moment.duration(recipe.time, 'minutes');
-  var sidebar = $('<td />', {'class': 'sidebar align-top'});
 
   var link = $('<a />', {'href': `#search&action=view&id=${recipe.id}`});
-  $('<img />', {'src': recipe.image_url, 'alt': recipe.title}).appendTo(link);
-  link.appendTo(sidebar);
+  var img = $('<img />', {'src': recipe.image_url, 'alt': recipe.title});
+  link.append(img);
 
-  $('<span />', {'html': '<strong>serves</strong>'}).appendTo(sidebar);
-  $('<span />', {'text': recipe.servings}).appendTo(sidebar);
-  $('<br />').appendTo(sidebar);
-  $('<span />', {'html': '<strong>time</strong>'}).appendTo(sidebar);
-  $('<span />', {'text': duration.as('minutes') + ' mins'}).appendTo(sidebar);
+  var sidebar = $('<td />', {'class': 'sidebar align-top'});
+  sidebar.append(link);
+
+  sidebar.append($('<span />', {'html': '<strong>serves</strong>'}));
+  sidebar.append($('<span />', {'text': recipe.servings}));
+  sidebar.append($('<br />'));
+  sidebar.append($('<span />', {'html': '<strong>time</strong>'}));
+  sidebar.append($('<span />', {'text': duration.as('minutes') + ' mins'}));
 
   // TODO: i18n
   var destination = $('<a />', {
@@ -81,19 +88,24 @@ function contentFormatter(recipe) {
 
 function recipeFormatter(value, recipe) {
   var container = $('<div />');
+
   var title = titleFormatter(recipe);
   var star = starFormatter();
+
+  var row = $('<tr />');
+  row.append(sidebarFormatter(recipe));
+  row.append(contentFormatter(recipe));
+
   var table = $('<table />', {
     'class': 'tablesaw tablesaw-stack',
     'data-tablesaw-mode': 'stack'
   });
-  var row = $('<tr />');
-  row.append(sidebarFormatter(recipe));
-  row.append(contentFormatter(recipe));
-  row.appendTo(table);
+  table.append(row);
+
   container.append(title);
   container.append(star);
   container.append(table);
+
   return container.html();
 }
 
