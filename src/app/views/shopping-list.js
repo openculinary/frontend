@@ -14,10 +14,10 @@ function aggregateUnitQuantities(product, recipeServings) {
   $.each(product.recipes, function(recipeId) {
     var defaultServings = recipes[recipeId] ? recipes[recipeId].servings : 1;
     var requestedServings = recipeServings[recipeId] || defaultServings;
-    product.recipes[recipeId].amounts.forEach(function (amount) {
-      amount.units = amount.units || '';
-      unitQuantities[amount.units] = unitQuantities[amount.units] || 0;
-      unitQuantities[amount.units] += (amount.quantity * requestedServings) / defaultServings;
+    product.recipes[recipeId].quantities.forEach(function (quantity) {
+      quantity.units = quantity.units || '';
+      unitQuantities[quantity.units] = unitQuantities[quantity.units] || 0;
+      unitQuantities[quantity.units] += (quantity.quantity * requestedServings) / defaultServings;
     });
   });
   $.each(unitQuantities, function(unit) {

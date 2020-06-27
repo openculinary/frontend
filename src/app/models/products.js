@@ -16,8 +16,8 @@ function addProduct(ingredient, recipeId) {
   }
 
   if (recipeId) {
-    product.recipes[recipeId] = product.recipes[recipeId] || {amounts: []};
-    product.recipes[recipeId].amounts.push({
+    product.recipes[recipeId] = product.recipes[recipeId] || {quantities: []};
+    product.recipes[recipeId].quantities.push({
       quantity: ingredient.quantity,
       units: ingredient.units
     });
