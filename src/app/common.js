@@ -36,22 +36,16 @@ function getRecipeProducts(recipe) {
 
 function getRecipe(el) {
   var recipe = null;
-
   var target = $(el).hasClass('recipe') ? $(el) : $(el).parents('.recipe');
   var recipeList = $(target).parents('table[data-row-attributes]');
   if (recipeList.length) {
     var index = target.data('index');
-    var data = $(recipeList).bootstrapTable('getData');
-    recipe = data[index];
+    recipe = $(recipeList).bootstrapTable('getData')[index];
   } else {
     var recipeId = target.data('id');
     recipe = getRecipeById(recipeId);
   }
-
-  if (!recipe.products) {
-    recipe.products = getRecipeProducts(recipe);
-  }
-
+  recipe.products = recipe.products || getRecipeProducts(recipe);
   return recipe;
 }
 
