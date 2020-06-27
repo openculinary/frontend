@@ -10,8 +10,7 @@ import { removeMeal } from '../models/meals';
 import { removeRecipe } from '../models/recipes';
 
 function defaultDate() {
-  var today = moment().locale(i18next.language).startOf('day');
-  return today;
+  return moment().locale(i18next.language).startOf('day');
 }
 
 function filterMeals(meals) {
