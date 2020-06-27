@@ -154,7 +154,7 @@ function scheduleMeal(evt) {
   var fromRow = $(evt.from).parents('tr');
   if (fromRow.length) {
     var date = fromRow.data('date');
-    var index = meals[date].map(function(recipe) { return recipe.id; }).indexOf(recipe.id)
+    var index = meals[date].map(meal => meal.id).indexOf(recipe.id)
 
     if (index >= 0) meals[date].splice(index, 1);
     if (!meals[date].length) delete meals[date];

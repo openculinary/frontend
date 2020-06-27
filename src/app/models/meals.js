@@ -10,7 +10,7 @@ function removeMeal() {
   var recipe = getRecipe(this);
 
   var date = $(this).parents('tr').data('date');
-  var index = meals[date].map(function(recipe) { return recipe.id; }).indexOf(recipe.id);
+  var index = meals[date].map(meal => meal.id).indexOf(recipe.id);
 
   if (index >= 0) meals[date].splice(index, 1);
   if (!meals[date].length) delete meals[date];
