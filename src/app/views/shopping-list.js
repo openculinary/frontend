@@ -15,7 +15,7 @@ function aggregateUnitQuantities(product, recipeServings) {
     var defaultServings = recipes[recipeId] ? recipes[recipeId].servings : 1;
     var requestedServings = recipeServings[recipeId] || defaultServings;
     product.recipes[recipeId].amounts.forEach(function (amount) {
-      if (!amount.units) amount.units = '';
+      amount.units = amount.units || '';
       unitQuantities[amount.units] = unitQuantities[amount.units] || 0;
       unitQuantities[amount.units] += (amount.quantity * requestedServings) / defaultServings;
     });
