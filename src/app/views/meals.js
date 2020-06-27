@@ -169,7 +169,7 @@ function scheduleMeal(evt) {
     // eslint-disable-next-line no-redeclare
     var date = toRow.data('date');
 
-    if (!(date in meals)) meals[date] = [];
+    meals[date] = meals[date] || [];
     meals[date].push(recipe);
 
     storage.meals.remove({'hashCode': date});

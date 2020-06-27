@@ -6,12 +6,8 @@ export { addProduct, removeProduct };
 
 function addProduct(ingredient, recipeId) {
   var product = ingredient.product;
-  if (!product.state) {
-    product.state = 'required';
-  }
-  if (!product.recipes) {
-    product.recipes = {};
-  }
+  product.state = product.state || 'required';
+  product.recipes = product.recipes || {};
 
   var products = storage.products.load();
   if (product.product_id in products) {
@@ -20,9 +16,7 @@ function addProduct(ingredient, recipeId) {
   }
 
   if (recipeId) {
-    if (!(recipeId in product.recipes)) {
-      product.recipes[recipeId] = {amounts: []};
-    }
+    product.recipes[recipeId] = product.recipes[recipeId] || {amounts: []};
     product.recipes[recipeId].amounts.push({
       quantity: ingredient.quantity,
       units: ingredient.units
