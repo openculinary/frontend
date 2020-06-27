@@ -82,8 +82,8 @@ function recipeElement(recipe) {
 }
 
 function renderRecipes() {
-  var recipes = storage.recipes.load();
   var container = $('#meal-planner .recipes').empty();
+  var recipes = storage.recipes.load();
   $.each(recipes, function(recipeId) {
     var recipe = recipes[recipeId];
     container.append(recipeElement(recipe));
