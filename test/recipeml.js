@@ -2,12 +2,14 @@ import * as assert from 'assert';
 
 import { renderIngredientHTML, renderDirectionHTML } from '../src/app/recipeml';
 
-function ingredientHelper(markup, quantity, units, state) {
+function ingredientHelper(markup, magnitude, units, state) {
   return {
     markup: markup,
     product: {state: state},
-    quantity: quantity,
-    units: units
+    quantity: {
+      magnitude: magnitude,
+      units: units
+    }
   }
 }
 
