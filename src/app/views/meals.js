@@ -111,8 +111,7 @@ function renderMeals() {
 
     if (date in meals) {
       $.each(meals[date], function (index, recipe) {
-        var element = recipeElement(recipe);
-        cell.append(element);
+        cell.append(recipeElement(recipe));
       });
     }
 
