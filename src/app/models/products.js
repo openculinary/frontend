@@ -17,10 +17,7 @@ function addProduct(ingredient, recipeId) {
 
   if (recipeId) {
     product.recipes[recipeId] = product.recipes[recipeId] || {quantities: []};
-    product.recipes[recipeId].quantities.push({
-      magnitude: ingredient.quantity,
-      units: ingredient.units
-    });
+    product.recipes[recipeId].quantities.push(ingredient.quantity);
   }
 
   storage.products.remove({'hashCode': product.product_id});

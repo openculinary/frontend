@@ -6,10 +6,7 @@ function renderIngredientHTML(ingredient) {
     const xml = $.parseXML(`<xml>${ingredient.markup}</xml>`).firstChild;
     const container = $('<div />');
 
-    const quantity = renderQuantity({
-      magnitude: ingredient.quantity,
-      units: ingredient.units
-    });
+    const quantity = renderQuantity(ingredient.quantity);
     const quantityHTML = `${quantity.magnitude || ''} ${quantity.units || ''}`.trim();
     container.append($('<div />', {'class': 'quantity', 'html': quantityHTML}));
 
