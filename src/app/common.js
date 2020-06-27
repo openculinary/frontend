@@ -50,6 +50,7 @@ function getRecipe(el) {
   return recipe;
 }
 
+// Source: https://stackoverflow.com/a/14357170
 function float2rat(x) {
     var tolerance = 0.1;
     var h1=1; var h2=0;
