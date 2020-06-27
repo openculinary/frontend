@@ -6,13 +6,13 @@ var kgProduct = {
   recipes: {
     'first_recipe': {
       quantities: [
-        {units: 'kg', quantity: 2},
-        {units: 'kg', quantity: 1}
+        {units: 'kg', magnitude: 2},
+        {units: 'kg', magnitude: 1}
       ]
     },
     'second_recipe': {
       quantities: [
-        {units: 'kg', quantity: 3}
+        {units: 'kg', magnitude: 3}
       ]
     }
   }
@@ -22,13 +22,13 @@ var mixedProduct = {
   recipes: {
     'first_recipe': {
       quantities: [
-        {units: 'tablespoon', quantity: 1},
-        {units: 'teaspoon', quantity: 1}
+        {units: 'tablespoon', magnitude: 1},
+        {units: 'teaspoon', magnitude: 1}
       ]
     },
     'second_recipe': {
       quantities: [
-        {units: 'teaspoon', quantity: 2}
+        {units: 'teaspoon', magnitude: 2}
       ]
     }
   }

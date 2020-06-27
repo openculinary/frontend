@@ -17,7 +17,7 @@ function aggregateUnitQuantities(product, recipeServings) {
     product.recipes[recipeId].quantities.forEach(function (quantity) {
       quantity.units = quantity.units || '';
       unitQuantities[quantity.units] = unitQuantities[quantity.units] || 0;
-      unitQuantities[quantity.units] += (quantity.quantity * requestedServings) / defaultServings;
+      unitQuantities[quantity.units] += (quantity.magnitude * requestedServings) / defaultServings;
     });
   });
   $.each(unitQuantities, function(unit) {
