@@ -6,6 +6,7 @@ import 'select2/dist/css/select2.css';
 import 'tablesaw/dist/stackonly/tablesaw.stackonly.css';
 
 import './dialogs/about';
+import './dialogs/about.css';
 import './views/recipe';
 import './views/recipe.css';
 import './views/search';
