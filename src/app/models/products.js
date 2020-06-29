@@ -1,5 +1,6 @@
 import 'jquery';
 
+import { db } from '../database';
 import { storage } from '../storage';
 
 export { addProduct, removeProduct };
@@ -22,6 +23,12 @@ function addProduct(ingredient, recipeId) {
 
   storage.products.remove({'hashCode': product.product_id});
   storage.products.add({'hashCode': product.product_id, 'value': product});
+  db.products.put({
+    id: product.product_id,
+    category: product.category,
+    singular: product.singular,
+    plural: product.plural,
+  });
 }
 
 function removeProduct(product, recipeId) {
@@ -29,4 +36,5 @@ function removeProduct(product, recipeId) {
   if (Object.keys(product.recipes).length) return;
 
   storage.products.remove({'hashCode': product.product_id});
+  db.products.delete(product.product_id);
 }

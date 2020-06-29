@@ -4,6 +4,7 @@ import { Sortable } from 'sortablejs';
 import i18next from 'i18next';
 
 import { getRecipe } from '../common';
+import { db } from '../database';
 import { i18nAttr, localize } from '../i18n';
 import { storage } from '../storage';
 import { removeMeal } from '../models/meals';
@@ -172,6 +173,12 @@ function scheduleMeal(evt) {
 
     storage.meals.remove({'hashCode': date});
     storage.meals.add({'hashCode': date, 'value': meals[date]});
+    db.meals.put({
+      id: undefined,
+      recipe_id: recipe.id,
+      datetime: date,
+      servings: recipe.servings,
+    });
   }
 }
 

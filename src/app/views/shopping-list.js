@@ -2,6 +2,7 @@ import 'jquery';
 import 'select2';
 
 import { renderQuantity } from '../conversion';
+import { db } from '../database';
 import { localize } from '../i18n';
 import { storage } from '../storage';
 import { addProduct, removeProduct } from '../models/products';
@@ -74,6 +75,11 @@ function toggleProductState() {
 
   storage.products.remove({'hashCode': product.product_id});
   storage.products.add({'hashCode': product.product_id, 'value': product});
+  if (product.state === 'purchased') {
+    db.basket.put({product_id: product.product_id});
+  } else {
+    db.basket.delete(product.product_id);
+  }
 }
 
 function productElement(product, servingsByRecipe) {

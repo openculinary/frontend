@@ -1,6 +1,7 @@
 import 'jquery';
 
 import { getRecipe } from '../common';
+import { db } from '../database';
 import { getState } from '../state';
 import { storage } from '../storage';
 import { addProduct, removeProduct } from '../models/products';
@@ -15,6 +16,17 @@ function addRecipe() {
   if (state.servings) scaleRecipe(recipe, Number(state.servings));
 
   storage.recipes.add({'hashCode': recipe.id, 'value': recipe});
+  db.recipes.add({
+    id: recipe.id,
+    title: recipe.title,
+    image_url: recipe.image_url,
+    time: recipe.time,
+    servings: recipe.servings,
+    rating: recipe.rating,
+    domain: recipe.domain,
+    dst: recipe.dst,
+  });
+
   updateRecipeState(recipe.id);
 
   recipe.ingredients.forEach(function (ingredient) {
@@ -34,6 +46,8 @@ function removeRecipe() {
   });
 
   storage.recipes.remove({'hashCode': recipe.id});
+  db.recipes.delete(recipe.id);
+
   updateRecipeState(recipe.id);
 }
 

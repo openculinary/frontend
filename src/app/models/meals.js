@@ -1,6 +1,7 @@
 import 'jquery';
 
 import { getRecipe } from '../common';
+import { db } from '../database';
 import { storage } from '../storage';
 
 export { removeMeal };
