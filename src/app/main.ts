@@ -22,6 +22,7 @@ import './views/components/recipe-list.css';
 import './main.css';
 
 import 'jquery';
+import { Database } from './database';
 import { populateStorage } from './storage';
 $(populateStorage);
 
