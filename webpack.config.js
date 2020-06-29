@@ -15,7 +15,7 @@ module.exports = (_, env) => {
   const html2canvas = env && env.mode === 'production' ? 'html2canvas.min.js' : 'html2canvas.js';
   return {
     entry: {
-      'app': path.resolve(__dirname, 'src/app/main.js'),
+      'app': path.resolve(__dirname, 'src/app/main.ts'),
       'feedback': path.resolve(__dirname, 'src/feedback/loader.js'),
       'html2canvas': path.resolve(__dirname, `node_modules/html2canvas/dist/${html2canvas}`),
       'locales': glob.sync('./i18n/locales/*/*.po', {ignore: ['./i18n/locales/templates/*.po']}),
@@ -110,6 +110,10 @@ module.exports = (_, env) => {
           options: {
             outputPath: 'fonts'
           }
+        },
+        {
+          test: /\.ts$/,
+          loader: 'ts-loader'
         },
       ]
     }
