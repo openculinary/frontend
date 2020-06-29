@@ -84,3 +84,5 @@ export class Database extends Dexie {
       this.kitchen = this.table('kitchen');
     }
 }
+
+export var db = new Database();
