@@ -21,6 +21,9 @@ module.exports = (_, env) => {
       'locales': glob.sync('./i18n/locales/*/*.po', {ignore: ['./i18n/locales/templates/*.po']}),
       'sw': path.resolve(__dirname, 'src/sw/loader.js')
     },
+    resolve: {
+      extensions: ['.js', '.ts']
+    },
     output: {
       path: path.resolve(__dirname, 'public'),
       filename: (entry) => {
