@@ -41,7 +41,7 @@ export interface Meal {
     id?: string,
     recipe_id: string,
     datetime: number,
-    servings?: number,
+    servings: number,
 }
 
 export interface Stock {
