@@ -8,9 +8,8 @@ import { initTable } from './components/recipe-list';
 
 function renderStarred() {
   var data = [];
-  var starred = db.starred.toArray();
-  $.each(starred, function (recipeId) {
-    var recipe = getRecipeById(recipeId);
+  var starred = db.starred.each(starred => {
+    var recipe = getRecipeById(starred.recipe_id);
     if (recipe) data.push(recipe);
   });
 

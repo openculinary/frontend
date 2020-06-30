@@ -74,9 +74,7 @@ function recipeElement(recipe) {
 
 function renderRecipes() {
   var container = $('#meal-planner .recipes').empty();
-  var recipes = db.recipes.toArray();
-  $.each(recipes, function(recipeId) {
-    var recipe = recipes[recipeId];
+  db.recipes.each(recipe => {
     container.append(recipeElement(recipe));
   });
 }
@@ -99,8 +97,7 @@ function renderMeals() {
     var header = $('<th />', {'text': day});
     var cell = $('<td />');
 
-    var meals = db.meals.where({datetime: date}).toArray();
-    $.each(meals, function (index, meal) {
+    db.meals.where({datetime: date}).each(meal => {
       var recipe = db.recipes.get(meal.recipe_id);
       cell.append(recipeElement(recipe));
     });
