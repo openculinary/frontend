@@ -5,47 +5,43 @@ export interface Ingredient {
     product_id: string,
     index: number,
     markup: string,
-    quantity: Quantity
+    magnitude: number,
+    units: string,
 }
 
 export interface Product {
     id: string,
     category: string,
     singular: string,
-    plural: string
-}
-
-export interface Quantity {
-    magnitude: number,
-    units: string
+    plural: string,
 }
 
 export interface Direction {
    recipe_id: string,
    index: number,
-   markup: string
+   markup: string,
 }
 
 export interface Recipe {
     id: string,
     title: string,
+    image_url: string,
     time: number,
     servings: number,
     rating: number,
-    dst: string,
     domain: string,
-    image_url: string,
+    dst: string,
 }
 
 export interface Starred {
-    recipe_id: string
+    recipe_id: string,
 }
 
 export interface Meal {
     id?: string,
     recipe_id: string,
     datetime: number,
-    servings: number
+    servings?: number,
 }
 
 export interface Stock {
@@ -65,7 +61,7 @@ export class Database extends Dexie {
     kitchen: Dexie.Table<Stock, string>;
 
     constructor() {
-      super('Database', {addons: [observable]});
+      super('Database');
 
       this.version(1).stores({
         ingredients: '[recipe_id+product_id+index], markup, magnitude, units',
