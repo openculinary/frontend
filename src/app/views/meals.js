@@ -28,7 +28,7 @@ function updateHints() {
   });
 }
 
-function recipeElement(recipe) {
+function recipeElement(recipe, meal) {
   var cloneRemove = $('<span />', {
     'click': removeMeal,
     'data-role': 'remove'
@@ -64,7 +64,7 @@ function recipeElement(recipe) {
     'class': 'recipe',
     'style': 'clear: both',
     'data-id': recipe.id,
-    'data-meal-id': recipe.mealId
+    'data-meal-id': meal && meal.id
   });
   container.append(item);
   container.append(servings);
@@ -107,7 +107,7 @@ function renderMeals() {
     db.meals.each(meal => {
       db.recipes.get(meal.recipe_id, recipe => {
         var cell = $(`#meal-planner table tr[data-date="${meal.datetime}"] td`);
-        cell.append(recipeElement(recipe));
+        cell.append(recipeElement(recipe, meal));
       });
     });
   });
