@@ -47,6 +47,9 @@ function removeRecipe() {
 
   storage.recipes.remove({'hashCode': recipe.id});
   db.recipes.delete(recipe.id);
+  db.meals
+    .where({recipe_id: recipe.id})
+    .delete();
 
   updateRecipeState(recipe.id);
 }
