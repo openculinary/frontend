@@ -30,9 +30,9 @@ function addProduct(ingredient, recipeId, index) {
     plural: product.plural,
   });
   db.ingredients.add({
-    recipe_id: recipeId,
+    recipe_id: recipeId || '',
     product_id: product.product_id,
-    index: index,
+    index: index || 0,
   });
 }
 
@@ -40,8 +40,8 @@ function removeProduct(product, recipeId) {
   db.ingredients
     .where("[recipe_id+product_id+index]")
     .between(
-      [recipeId, product.product_id, db.minKey()],
-      [recipeId, product.product_id, db.maxKey()]
+      [recipeId || '', product.product_id, db.minKey()],
+      [recipeId || '', product.product_id, db.maxKey()]
     )
     .delete();
 
