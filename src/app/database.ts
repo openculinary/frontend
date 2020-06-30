@@ -40,7 +40,7 @@ export interface Starred {
 export interface Meal {
     id?: string,
     recipe_id: string,
-    datetime: number,
+    datetime: string,
     servings: number,
 }
 
