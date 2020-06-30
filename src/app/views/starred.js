@@ -29,5 +29,5 @@ function renderStarred() {
 $(function() {
   initTable('#starred-recipes');
 
-  storage.starred.on('state changed', renderStarred);
+  db.on('changes', changes => { changes.find(c => c.table === 'starred') && renderStarred() });
 });
