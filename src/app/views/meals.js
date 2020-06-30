@@ -73,7 +73,8 @@ function recipeElement(recipe) {
   var container = $('<div />', {
     'class': 'recipe',
     'style': 'clear: both',
-    'data-id': recipe.id
+    'data-id': recipe.id,
+    'data-meal-id': recipe.mealId
   });
   container.append(item);
   container.append(servings);
@@ -148,11 +149,13 @@ function dragMeal(evt) {
 }
 
 function scheduleMeal(evt) {
+  var id = undefined;
   var meals = storage.meals.load();
   var recipe = getRecipe(evt.item);
 
   var fromRow = $(evt.from).parents('tr');
   if (fromRow.length) {
+    id = $(evt.item).data('meal-id');
     var date = fromRow.data('date');
     var index = meals[date].map(meal => meal.id).indexOf(recipe.id)
 
@@ -167,17 +170,19 @@ function scheduleMeal(evt) {
   if (toRow.length) {
     // eslint-disable-next-line no-redeclare
     var date = toRow.data('date');
-
-    meals[date] = meals[date] || [];
-    meals[date].push(recipe);
-
-    storage.meals.remove({'hashCode': date});
-    storage.meals.add({'hashCode': date, 'value': meals[date]});
     db.meals.put({
-      id: undefined,
+      id: id,
       recipe_id: recipe.id,
       datetime: date,
       servings: recipe.servings,
+    }).then(id => {
+      recipe.mealId = id;
+
+      meals[date] = meals[date] || [];
+      meals[date].push(recipe);
+
+      storage.meals.remove({'hashCode': date});
+      storage.meals.add({'hashCode': date, 'value': meals[date]});
     });
   }
 }
