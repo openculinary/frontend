@@ -46,6 +46,7 @@ function getRecipe(el) {
     var recipeId = target.data('id');
     recipe = getRecipeById(recipeId);
   }
+  recipe.mealId = target.data('meal-id');
   recipe.products = recipe.products || getRecipeProducts(recipe);
   return recipe;
 }

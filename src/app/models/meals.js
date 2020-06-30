@@ -19,6 +19,5 @@ function removeMeal() {
   storage.meals.remove({'hashCode': date});
   if (date in meals) storage.meals.add({'hashCode': date, 'value': meals[date]});
 
-  var id = $(this).parents('.recipe').data('meal-id');
-  db.meals.delete(id);
+  db.meals.delete(recipe.mealId);
 }
