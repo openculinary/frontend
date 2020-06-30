@@ -5,7 +5,7 @@ import { storage } from '../storage';
 
 export { addProduct, removeProduct };
 
-function addProduct(ingredient, recipeId) {
+function addProduct(ingredient, recipeId, index) {
   var product = ingredient.product;
   product.state = product.state || 'required';
   product.recipes = product.recipes || {};
@@ -29,12 +29,24 @@ function addProduct(ingredient, recipeId) {
     singular: product.singular,
     plural: product.plural,
   });
+  db.ingredients.add({
+    recipe_id: recipeId,
+    product_id: product.product_id,
+    index: index,
+  });
 }
 
 function removeProduct(product, recipeId) {
+  db.ingredients
+    .where("[recipe_id+product_id+index]")
+    .between(
+      [recipeId, product.product_id, db.minKey()],
+      [recipeId, product.product_id, db.maxKey()]
+    )
+    .delete();
+
   if (recipeId) delete product.recipes[recipeId];
   if (Object.keys(product.recipes).length) return;
 
   storage.products.remove({'hashCode': product.product_id});
-  db.products.delete(product.product_id);
 }

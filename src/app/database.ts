@@ -84,6 +84,9 @@ export class Database extends Dexie {
       this.basket = this.table('basket');
       this.kitchen = this.table('kitchen');
     }
+
+    minKey() { return Dexie.minKey; }
+    maxKey() { return Dexie.maxKey; }
 }
 
 export var db = new Database();

@@ -29,9 +29,9 @@ function addRecipe() {
 
   updateRecipeState(recipe.id);
 
-  recipe.ingredients.forEach(function (ingredient) {
-    addProduct(ingredient, recipe.id);
-  });
+  for (var index in recipe.ingredients) {
+    addProduct(recipe.ingredients[index], recipe.id, Number(index));
+  };
 }
 
 function removeRecipe() {
