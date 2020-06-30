@@ -10,6 +10,8 @@ function removeMeal() {
   var meals = storage.meals.load();
   var recipe = getRecipe(this);
 
+  db.meals.delete(recipe.mealId);
+
   var date = $(this).parents('tr').data('date');
   if (!meals[date]) return;
   var index = meals[date].map(meal => meal.id).indexOf(recipe.id);
@@ -19,6 +21,4 @@ function removeMeal() {
 
   storage.meals.remove({'hashCode': date});
   if (date in meals) storage.meals.add({'hashCode': date, 'value': meals[date]});
-
-  db.meals.delete(recipe.mealId);
 }
