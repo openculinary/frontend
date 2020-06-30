@@ -29,25 +29,29 @@ function starFormatter() {
 
 function updateRecipeState() {
   var recipeId = $('#recipe').data('id');
-  var isInRecipes = !!db.recipes.get(recipeId);
+  db.recipes.get(recipeId, recipe => {
+    var isInRecipes = !!recipe;
 
-  var addButton = $('#recipe button.add-recipe');
-  addButton.prop('disabled', isInRecipes);
-  addButton.toggleClass('btn-outline-primary', !isInRecipes);
-  addButton.toggleClass('btn-outline-secondary', isInRecipes);
+    var addButton = $('#recipe button.add-recipe');
+    addButton.prop('disabled', isInRecipes);
+    addButton.toggleClass('btn-outline-primary', !isInRecipes);
+    addButton.toggleClass('btn-outline-secondary', isInRecipes);
+  });
 }
 
 function updateStarState() {
   var recipeId = $('#recipe').data('id');
-  var isStarred = !!db.starred.get(recipeId);
+  db.starred.get(recipeId, starred => {
+    var isStarred = !!starred;
 
-  var star = $('#recipe .star');
-  star.toggleClass('fas', isStarred);
-  star.toggleClass('far', !isStarred);
-  star.css('color', isStarred ? 'gold' : 'dimgray');
-  star.off('click');
-  star.on('click', isStarred ? unstarRecipe : starRecipe);
-  star.on('click', updateStarState);
+    var star = $('#recipe .star');
+    star.toggleClass('fas', isStarred);
+    star.toggleClass('far', !isStarred);
+    star.css('color', isStarred ? 'gold' : 'dimgray');
+    star.off('click');
+    star.on('click', isStarred ? unstarRecipe : starRecipe);
+    star.on('click', updateStarState);
+  });
 }
 
 function updateServings() {

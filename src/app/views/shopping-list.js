@@ -65,16 +65,18 @@ function toggleProductState() {
   var products = storage.products.load();
   var product = products[productId];
 
-  var wasInBasket = !!db.basket.get(productId);
-  product.state = wasInBasket ? 'required' : 'purchased';
+  db.basket.get(productId, product => {
+    var wasInBasket = !!product;
+    product.state = wasInBasket ? 'required' : 'purchased';
 
-  storage.products.remove({'hashCode': product.product_id});
-  storage.products.add({'hashCode': product.product_id, 'value': product});
-  if (wasInBasket) {
-    db.basket.delete(product.product_id);
-  } else {
-    db.basket.put({product_id: product.product_id});
-  }
+    storage.products.remove({'hashCode': product.product_id});
+    storage.products.add({'hashCode': product.product_id, 'value': product});
+    if (wasInBasket) {
+      db.basket.delete(product.product_id);
+    } else {
+      db.basket.put({product_id: product.product_id});
+    }
+  });
 }
 
 function productElement(product, servingsByRecipe) {
@@ -108,13 +110,15 @@ function productElement(product, servingsByRecipe) {
 }
 
 function populateNotifications() {
-  var total = db.products.count();
-  var empty = total === 0;
-  $('header span.notification.shopping-list').toggle(!empty);
-  if (empty) return;
+  db.products.count(total => {
+    var empty = total === 0;
+    $('header span.notification.shopping-list').toggle(!empty);
+    if (empty) return;
 
-  var found = db.basket.count();
-  $('header span.notification.shopping-list').text(found + '/' + total);
+    db.basket.count(found => {
+      $('header span.notification.shopping-list').text(found + '/' + total);
+    });
+  });
 }
 
 function getProductsByCategory() {

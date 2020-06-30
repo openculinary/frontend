@@ -15,7 +15,7 @@ function defaultDate() {
 }
 
 function updateHints() {
-    var count = db.recipes.count();
+  db.recipes.count(count => {
     var hints = [];
     if (count) {
         hints.push($('<p />', {'data-i18n': i18nAttr('meal-planner:hint-drag')}));
@@ -25,6 +25,7 @@ function updateHints() {
     }
     $('#meal-planner div.hints').empty().append(hints);
     localize('#meal-planner div.hints');
+  });
 }
 
 function recipeElement(recipe) {
@@ -98,8 +99,9 @@ function renderMeals() {
     var cell = $('<td />');
 
     db.meals.where({datetime: date}).each(meal => {
-      var recipe = db.recipes.get(meal.recipe_id);
-      cell.append(recipeElement(recipe));
+      var recipe = db.recipes.get(meal.recipe_id, recipe => {
+        cell.append(recipeElement(recipe));
+      });
     });
 
     row.append(header);
@@ -171,12 +173,15 @@ function scheduleMeal(evt) {
 }
 
 function populateNotifications() {
-  var empty = db.recipes.count() === 0;
-  $('header span.notification.meal-planner').toggle(!empty);
-  if (empty) return;
+  db.recipes.count(count => {
+    var empty = count === 0;
+    $('header span.notification.meal-planner').toggle(!empty);
+    if (empty) return;
 
-  var total = db.meals.count();
-  $('header span.notification.meal-planner').text(total);
+    db.meals.count(total => {
+      $('header span.notification.meal-planner').text(total);
+    });
+  });
 }
 
 $(function() {
