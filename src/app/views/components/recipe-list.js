@@ -2,10 +2,10 @@ import 'jquery';
 import * as moment from 'moment';
 import 'tablesaw/dist/stackonly/tablesaw.stackonly.jquery.js';
 
+import { db } from '../../database';
 import { i18nAttr, localize } from '../../i18n';
 import { renderIngredientHTML } from '../../recipeml';
 import { getState, pushState, renderStateHash } from '../../state';
-import { storage } from '../../storage';
 import { addRecipe } from '../../models/recipes';
 import { starRecipe, unstarRecipe } from '../../models/starred';
 
@@ -140,8 +140,7 @@ function bindPageChange(selector) {
 }
 
 function updateRecipeState(recipeId) {
-  var recipes = storage.recipes.load();
-  var isInRecipes = recipeId in recipes;
+  var isInRecipes = !!db.recipes.get(recipeId);
 
   var addButton = $(`div.recipe-list .recipe[data-id="${recipeId}"] button.add-recipe`);
   addButton.prop('disabled', isInRecipes);
@@ -150,8 +149,7 @@ function updateRecipeState(recipeId) {
 }
 
 function updateStarState(recipeId) {
-  var starred = storage.starred.load();
-  var isStarred = recipeId in starred;
+  var isStarred = !!db.starred.get(recipeId);
 
   var star = $(`div.recipe-list .recipe[data-id="${recipeId}"] .star`);
   star.toggleClass('fas', isStarred);

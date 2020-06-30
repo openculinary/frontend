@@ -1,13 +1,14 @@
 import 'jquery';
 
 import { getRecipeById } from '../common';
+import { db } from '../database';
 import { localize } from '../i18n';
 import { storage } from '../storage';
 import { initTable } from './components/recipe-list';
 
 function renderStarred() {
   var data = [];
-  var starred = storage.starred.load();
+  var starred = db.starred.toArray();
   $.each(starred, function (recipeId) {
     var recipe = getRecipeById(recipeId);
     if (recipe) data.push(recipe);

@@ -14,21 +14,10 @@ function defaultDate() {
   return moment().locale(i18next.language).startOf('day');
 }
 
-function filterMeals(meals) {
-  var startDate = defaultDate();
-  var recipes = storage.recipes.load();
-  $.each(meals, function(date) {
-    if (date === 'undefined') delete meals[date];
-    if (moment(date).isBefore(startDate, 'day')) delete meals[date];
-    if (meals[date]) meals[date] = meals[date].filter(meal => meal.id in recipes);
-  });
-  return meals;
-}
-
 function updateHints() {
-    var recipes = storage.recipes.load();
+    var count = db.recipes.count();
     var hints = [];
-    if (Object.keys(recipes).length) {
+    if (count) {
         hints.push($('<p />', {'data-i18n': i18nAttr('meal-planner:hint-drag')}));
     } else {
         hints.push($('<p />', {'data-i18n': i18nAttr('meal-planner:empty-meal-planner')}));
@@ -85,7 +74,7 @@ function recipeElement(recipe) {
 
 function renderRecipes() {
   var container = $('#meal-planner .recipes').empty();
-  var recipes = storage.recipes.load();
+  var recipes = db.recipes.toArray();
   $.each(recipes, function(recipeId) {
     var recipe = recipes[recipeId];
     container.append(recipeElement(recipe));
@@ -95,7 +84,6 @@ function renderRecipes() {
 function renderMeals() {
   updateHints();
 
-  var meals = filterMeals(storage.meals.load());
   var idxDate = defaultDate();
   var endDate = defaultDate().add(1, 'week');
 
@@ -111,11 +99,11 @@ function renderMeals() {
     var header = $('<th />', {'text': day});
     var cell = $('<td />');
 
-    if (date in meals) {
-      $.each(meals[date], function (index, recipe) {
-        cell.append(recipeElement(recipe));
-      });
-    }
+    var meals = db.meals.where({datetime: date}).toArray();
+    $.each(meals, function (index, meal) {
+      var recipe = db.recipes.get(meal.recipe_id);
+      cell.append(recipeElement(recipe));
+    });
 
     row.append(header);
     row.append(cell);
@@ -132,7 +120,7 @@ function renderMeals() {
     });
   });
 
-  populateNotifications(meals);
+  populateNotifications();
 }
 
 function dragMeal(evt) {
@@ -186,12 +174,11 @@ function scheduleMeal(evt) {
 }
 
 function populateNotifications(meals) {
-  var recipes = storage.recipes.load();
-  var empty = Object.keys(recipes).length == 0;
+  var empty = db.recipes.count() === 0;
   $('header span.notification.meal-planner').toggle(!empty);
   if (empty) return;
 
-  var total = Object.keys(meals).length;
+  var total = db.meals.count();
   $('header span.notification.meal-planner').text(total);
 }
 

@@ -65,20 +65,15 @@ function toggleProductState() {
   var products = storage.products.load();
   var product = products[productId];
 
-  var transitions = {
-    undefined: 'purchased',
-    'available': 'required',
-    'required': 'purchased',
-    'purchased': 'required'
-  };
-  product.state = transitions[product.state];
+  var wasInBasket = !!db.basket.get(productId);
+  product.state = wasInBasket ? 'required' : 'purchased';
 
   storage.products.remove({'hashCode': product.product_id});
   storage.products.add({'hashCode': product.product_id, 'value': product});
-  if (product.state === 'purchased') {
-    db.basket.put({product_id: product.product_id});
-  } else {
+  if (wasInBasket) {
     db.basket.delete(product.product_id);
+  } else {
+    db.basket.put({product_id: product.product_id});
   }
 }
 
@@ -113,17 +108,12 @@ function productElement(product, servingsByRecipe) {
 }
 
 function populateNotifications() {
-  var products = storage.products.load();
-  var empty = Object.keys(products).length == 0;
+  var total = db.products.count();
+  var empty = total === 0;
   $('header span.notification.shopping-list').toggle(!empty);
   if (empty) return;
 
-  var total = 0, found = 0;
-  $.each(products, function(productId) {
-    var product = products[productId];
-    total += 1;
-    found += product.state === 'required' ? 0 : 1;
-  });
+  var found = db.basket.count();
   $('header span.notification.shopping-list').text(found + '/' + total);
 }
 

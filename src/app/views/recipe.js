@@ -1,12 +1,12 @@
 import * as moment from 'moment';
 
 import { getRecipe } from '../common';
+import { db } from '../database';
 import { i18nAttr, localize } from '../i18n';
 import { addRecipe, scaleRecipe } from '../models/recipes';
 import { starRecipe, unstarRecipe } from '../models/starred';
 import { renderIngredientHTML, renderDirectionHTML } from '../recipeml';
 import { getState, loadPage, pushState, renderStateHash } from '../state';
-import { storage } from '../storage';
 
 export { renderRecipe };
 
@@ -28,9 +28,8 @@ function starFormatter() {
 }
 
 function updateRecipeState() {
-  var recipes = storage.recipes.load();
   var recipeId = $('#recipe').data('id');
-  var isInRecipes = recipeId in recipes;
+  var isInRecipes = !!db.recipes.get(recipeId);
 
   var addButton = $('#recipe button.add-recipe');
   addButton.prop('disabled', isInRecipes);
@@ -39,9 +38,8 @@ function updateRecipeState() {
 }
 
 function updateStarState() {
-  var starred = storage.starred.load();
   var recipeId = $('#recipe').data('id');
-  var isStarred = recipeId in starred;
+  var isStarred = !!db.starred.get(recipeId);
 
   var star = $('#recipe .star');
   star.toggleClass('fas', isStarred);
