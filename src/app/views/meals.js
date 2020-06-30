@@ -98,16 +98,19 @@ function renderMeals() {
     var header = $('<th />', {'text': day});
     var cell = $('<td />');
 
-    db.meals.where({datetime: date}).each(meal => {
-      var recipe = db.recipes.get(meal.recipe_id, recipe => {
-        cell.append(recipeElement(recipe));
-      });
-    });
-
     row.append(header);
     row.append(cell);
     scheduler.append(row);
   }
+
+  db.transaction('r!', db.meals, db.recipes, () => {
+    db.meals.each(meal => {
+      db.recipes.get(meal.recipe_id, recipe => {
+        var cell = $(`#meal-planner table tr[data-date="${meal.datetime}"] td`);
+        cell.append(recipeElement(recipe));
+      });
+    });
+  });
 
   $('#meal-planner td').each(function(index, element) {
     Sortable.create(element, {
@@ -201,5 +204,4 @@ $(function() {
 
   storage.meals.on('state changed', renderMeals);
   storage.recipes.on('state changed', renderRecipes);
-  storage.recipes.on('state changed', renderMeals);
 });
