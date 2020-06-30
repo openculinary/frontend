@@ -1,4 +1,5 @@
 import Dexie from 'dexie';
+import observable from 'dexie-observable';
 
 export interface Ingredient {
     recipe_id: string,
@@ -61,7 +62,7 @@ export class Database extends Dexie {
     kitchen: Dexie.Table<Stock, string>;
 
     constructor() {
-      super('Database');
+      super('Database', {addons: [observable]});
 
       this.version(1).stores({
         ingredients: '[recipe_id+product_id+index], markup, magnitude, units',
