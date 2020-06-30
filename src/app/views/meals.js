@@ -173,7 +173,7 @@ function scheduleMeal(evt) {
   }
 }
 
-function populateNotifications(meals) {
+function populateNotifications() {
   var empty = db.recipes.count() === 0;
   $('header span.notification.meal-planner').toggle(!empty);
   if (empty) return;

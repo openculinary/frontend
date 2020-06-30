@@ -31,7 +31,7 @@ function addRecipe() {
 
   for (var index in recipe.ingredients) {
     addProduct(recipe.ingredients[index], recipe.id, Number(index));
-  };
+  }
 }
 
 function removeRecipe() {
