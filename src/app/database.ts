@@ -62,7 +62,7 @@ export class Database extends Dexie {
     kitchen: Dexie.Table<Stock, string>;
 
     constructor() {
-      super('Database', {addons: [observable]});
+      super('RecipeRadar', {addons: [observable]});
 
       this.version(1).stores({
         ingredients: '[recipe_id+product_id+index], recipe_id, product_id, markup, magnitude, units',
