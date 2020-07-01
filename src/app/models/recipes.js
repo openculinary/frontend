@@ -15,9 +15,9 @@ function addRecipe() {
 
     db.transaction('rw', db.recipes, db.products, db.ingredients, () => {
       db.recipes.add(recipe).then(() => {
-        for (var index in recipe.ingredients) {
-          addProduct(recipe.ingredients[index], recipe.id, Number(index));
-        }
+        $.each(recipe.ingredients, (index, ingredient) => {
+          addProduct(ingredient, recipe.id, index);
+        });
       });
     }).then(() => {
       updateRecipeState(recipe.id);
