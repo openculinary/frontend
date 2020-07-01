@@ -6,14 +6,16 @@ export { starRecipe, unstarRecipe };
 
 function starRecipe() {
   getRecipe(this).then(recipe => {
-    db.starred.add({recipe_id: recipe.id});
-    updateStarState(recipe.id);
+    db.starred.add({recipe_id: recipe.id}).then(() => {
+      updateStarState(recipe.id);
+    });
   });
 }
 
 function unstarRecipe() {
   getRecipe(this).then(recipe => {
-    db.starred.delete(recipe.id);
-    updateStarState(recipe.id);
+    db.starred.delete(recipe.id).then(() => {
+      updateStarState(recipe.id);
+    });
   });
 }
