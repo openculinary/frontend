@@ -39,8 +39,8 @@ function removeRecipe() {
 
 function scaleRecipe(recipe, targetServings) {
   $.each(recipe.ingredients, function() {
-    this.quantity *= targetServings;
-    this.quantity /= recipe.servings;
+    this.quantity.magnitude *= targetServings;
+    this.quantity.magnitude /= recipe.servings;
   });
   recipe.servings = targetServings;
 }
