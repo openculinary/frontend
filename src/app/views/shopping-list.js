@@ -65,16 +65,16 @@ function toggleProductState() {
   var products = storage.products.load();
   var product = products[productId];
 
-  db.basket.get(productId, product => {
-    var wasInBasket = !!product;
+  db.basket.get(productId, item => {
+    var wasInBasket = !!item;
     product.state = wasInBasket ? 'required' : 'purchased';
 
     storage.products.remove({'hashCode': product.product_id});
     storage.products.add({'hashCode': product.product_id, 'value': product});
     if (wasInBasket) {
-      db.basket.delete(product.product_id);
+      db.basket.delete(productId);
     } else {
-      db.basket.put({product_id: product.product_id});
+      db.basket.put({product_id: productId});
     }
   });
 }
