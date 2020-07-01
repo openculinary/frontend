@@ -204,4 +204,7 @@ $(function() {
 
   db.on('changes', changes => { changes.find(c => c.table === 'meals') && renderMeals() });
   db.on('changes', changes => { changes.find(c => c.table === 'recipes') && renderRecipes() });
+
+  renderMeals();
+  renderRecipes();
 });

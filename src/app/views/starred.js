@@ -29,4 +29,6 @@ $(function() {
   initTable('#starred-recipes');
 
   db.on('changes', changes => { changes.find(c => c.table === 'starred') && renderStarred() });
+
+  renderStarred();
 });
