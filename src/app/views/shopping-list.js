@@ -108,9 +108,9 @@ async function getProductsByCategory(servingsByRecipe) {
   })
   // Move the null category to the end of the map
   if (Object.hasOwnProperty.call(productsByCategory, null)) {
-    var ingredient = productsByCategory[null];
+    var product = productsByCategory[null];
     delete productsByCategory[null];
-    productsByCategory[null] = ingredient;
+    productsByCategory[null] = product;
   }
   return {
     ingredientsByProduct: ingredientsByProduct,
