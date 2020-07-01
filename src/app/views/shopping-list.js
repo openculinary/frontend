@@ -4,7 +4,6 @@ import 'select2';
 import { renderQuantity } from '../conversion';
 import { db } from '../database';
 import { localize } from '../i18n';
-import { storage } from '../storage';
 import { addProduct, removeProduct } from '../models/products';
 
 function renderProduct(product, ingredients) {
@@ -87,35 +86,6 @@ function populateNotifications() {
       $('header span.notification.shopping-list').text(found + '/' + total);
     });
   });
-}
-
-function getProductsByCategory() {
-  var products = storage.products.load();
-  var productsByCategory = new Map();
-  $.each(products, function(productId) {
-    var product = products[productId];
-    productsByCategory[product.category] = productsByCategory[product.category] || [];
-    productsByCategory[product.category].push(product);
-  });
-  // Move the null category to the end of the map
-  if (Object.hasOwnProperty.call(productsByCategory, null)) {
-    var product = productsByCategory[null];
-    delete productsByCategory[null];
-    productsByCategory[null] = product;
-  }
-  return productsByCategory;
-}
-
-function getServingsByRecipe() {
-  var meals = storage.meals.load();
-  var servingsByRecipe = {};
-  $.each(meals, function(date) {
-    meals[date].forEach(function (recipe) {
-      servingsByRecipe[recipe.id] = servingsByRecipe[recipe.id] || 0;
-      servingsByRecipe[recipe.id] += recipe.servings;
-    });
-  });
-  return servingsByRecipe;
 }
 
 function renderShoppingList() {
