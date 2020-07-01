@@ -13,22 +13,15 @@ function addRecipe() {
     var state = getState();
     if (state.servings) scaleRecipe(recipe, Number(state.servings));
 
-    db.recipes.add({
-      id: recipe.id,
-      title: recipe.title,
-      image_url: recipe.image_url,
-      time: recipe.time,
-      servings: recipe.servings,
-      rating: recipe.rating,
-      domain: recipe.domain,
-      dst: recipe.dst,
+    db.transaction('rw', db.recipes, db.ingredients, db.products, () => {
+      db.recipes.add(recipe).then(() => {
+        for (var index in recipe.ingredients) {
+          addProduct(recipe.ingredients[index], recipe.id, Number(index));
+        }
+      });
+    }).then(() => {
+      updateRecipeState(recipe.id);
     });
-
-    updateRecipeState(recipe.id);
-
-    for (var index in recipe.ingredients) {
-      addProduct(recipe.ingredients[index], recipe.id, Number(index));
-    }
   });
 }
 

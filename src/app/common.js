@@ -4,19 +4,9 @@ import { db } from './database';
 
 export { float2rat, getRecipe, getRecipeById };
 
-async function getIngredients(recipeId) {
-  return await db.ingredients
-                 .where("recipe_id")
-                 .equals(recipeId)
-                 .toArray();
-}
-
 async function getRecipeById(recipeId) {
   return await db.recipes.get(recipeId, async (recipe) => {
-    if (recipe) {
-      recipe.ingredients = await getIngredients(recipe.id);
-      return recipe;
-    }
+    if (recipe) return recipe;
     recipe = await $.ajax({url: `api/recipes/${recipeId}/view`});
     if (recipe.total === 1) return recipe.results[0];
   });
