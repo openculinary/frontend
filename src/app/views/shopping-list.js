@@ -4,7 +4,7 @@ import 'select2';
 import { renderQuantity } from '../conversion';
 import { db } from '../database';
 import { localize } from '../i18n';
-import { addStandaloneIngredient, removeStandaloneIngredient } from '../models/products';
+import { addStandaloneIngredient, removeStandaloneIngredient } from '../models/ingredients';
 
 function renderProduct(product, ingredients) {
   var text = '';

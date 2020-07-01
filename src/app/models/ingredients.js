@@ -1,29 +1,18 @@
 import { db } from '../database';
+import { addProduct } from './products';
 
-export { addStandaloneIngredient, removeStandaloneIngredients };
+export { addStandaloneIngredient, removeStandaloneIngredient };
 
-function addStandaloneIngredient(ingredient, recipeId, index) {
-  var product = ingredient.product;
-  db.products.put({
-    id: product.product_id,
-    category: product.category,
-    singular: product.singular,
-    plural: product.plural,
-  });
-  db.ingredients.add({
-    recipe_id: recipeId || '',
-    product_id: product.product_id,
-    index: index || 0,
-    quantity: ingredient.quantity,
-  });
+function addStandaloneIngredient(product) {
+  addProduct({product: product}, '', 0);
 }
 
-function removeStandaloneIngredients(product, recipeId) {
+function removeStandaloneIngredient(product) {
   db.ingredients
     .where("[recipe_id+product_id+index]")
     .between(
-      [recipeId || '', product.id, db.minKey()],
-      [recipeId || '', product.id, db.maxKey()]
+      ['', product.id, db.minKey()],
+      ['', product.id, db.maxKey()]
     )
     .delete();
 }

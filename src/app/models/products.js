@@ -1,6 +1,6 @@
 import { db } from '../database';
 
-export { addProduct, addStandaloneIngredient, removeStandaloneIngredient };
+export { addProduct };
 
 function addProduct(ingredient, recipeId, index) {
   var product = ingredient.product;
@@ -14,18 +14,4 @@ function addProduct(ingredient, recipeId, index) {
     index: index,
     ...ingredient
   });
-}
-
-function addStandaloneIngredient(product) {
-  addProduct({product: product}, '', 0);
-}
-
-function removeStandaloneIngredient(product) {
-  db.ingredients
-    .where("[recipe_id+product_id+index]")
-    .between(
-      ['', product.id, db.minKey()],
-      ['', product.id, db.maxKey()]
-    )
-    .delete();
 }
