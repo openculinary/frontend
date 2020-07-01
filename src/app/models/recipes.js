@@ -4,7 +4,7 @@ import { getRecipe } from '../common';
 import { db } from '../database';
 import { getState } from '../state';
 import { storage } from '../storage';
-import { addProduct, removeProduct } from '../models/products';
+import { addProduct } from '../models/products';
 import { updateRecipeState } from '../views/components/recipe-list';
 
 export { addRecipe, removeRecipe, scaleRecipe };
@@ -37,21 +37,18 @@ function addRecipe() {
 function removeRecipe() {
   var recipe = getRecipe(this);
 
-  var products = storage.products.load();
-  $.each(products, function(productId) {
-    var product = products[productId];
-    if (recipe.id in product.recipes) {
-      removeProduct(product, recipe.id);
-    }
+  db.transaction('rw', db.recipes, db.meals, db.ingredients, () => {
+    db.recipes
+      .delete(recipe.id);
+    db.meals
+      .where({recipe_id: recipe.id})
+      .delete();
+    db.ingredients
+      .where({recipe_id: recipe.id})
+      .delete();
+  }).then(() => {
+    updateRecipeState(recipe.id);
   });
-
-  storage.recipes.remove({'hashCode': recipe.id});
-  db.recipes.delete(recipe.id);
-  db.meals
-    .where({recipe_id: recipe.id})
-    .delete();
-
-  updateRecipeState(recipe.id);
 }
 
 function scaleRecipe(recipe, targetServings) {
