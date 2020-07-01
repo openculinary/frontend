@@ -1,13 +1,17 @@
 import Dexie from 'dexie';
 import observable from 'dexie-observable';
 
+export interface Quantity {
+    magnitude: number,
+    units: string,
+}
+
 export interface Ingredient {
     recipe_id: string,
     product_id: string,
     index: number,
     markup: string,
-    magnitude: number,
-    units: string,
+    quantity: Quantity,
 }
 
 export interface Product {
@@ -65,7 +69,7 @@ export class Database extends Dexie {
       super('RecipeRadar', {addons: [observable]});
 
       this.version(1).stores({
-        ingredients: '[recipe_id+product_id+index], recipe_id, product_id, markup, magnitude, units',
+        ingredients: '[recipe_id+product_id+index], recipe_id, product_id, markup, quantity.magnitude, quantity.units',
         products: 'id, category, singular, plural',
         directions: '[recipe_id+index], markup',
         recipes: 'id, title, image_url, time, servings, rating, domain, dst',
