@@ -1,6 +1,5 @@
 import 'jquery';
 
-import { getRecipeById } from './common';
 import { renderRecipe } from './views/recipe';
 import { renderSearch } from './views/search';
 
