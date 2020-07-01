@@ -86,48 +86,60 @@ function populateNotifications() {
   });
 }
 
-function renderShoppingList() {
+async function getProductsByCategory(servingsByRecipe) {
+  var ingredientsByProduct = new Map();
+  var productsByCategory = new Map();
+  await db.transaction('r!', db.ingredients, db.products, () => {
+    db.ingredients.each(ingredient => {
+      var servings = servingsByRecipe[ingredient.recipe_id];
+      if (ingredient.quantity && ingredient.quantity.magnitude && servings.scheduled) {
+        ingredient.quantity.magnitude *= servings.scheduled;
+        ingredient.quantity.magnitude /= servings.recipe;
+      }
+
+      db.products.get(ingredient.product_id, product => {
+        if (!product) return;
+        ingredientsByProduct[product.id] = ingredientsByProduct[product.id] || [];
+        ingredientsByProduct[product.id].push(ingredient);
+        productsByCategory[product.category] = productsByCategory[product.category] || {};
+        productsByCategory[product.category][product.id] = product;
+      });
+    });
+  })
+  // Move the null category to the end of the map
+  if (Object.hasOwnProperty.call(productsByCategory, null)) {
+    var ingredient = productsByCategory[null];
+    delete productsByCategory[null];
+    productsByCategory[null] = ingredient;
+  }
+  return {
+    ingredientsByProduct: ingredientsByProduct,
+    productsByCategory: productsByCategory,
+  };
+}
+
+async function getRecipeServings() {
   var servingsByRecipe = new Map();
-  db.transaction('r!', db.recipes, db.meals, () => {
+  await db.transaction('r!', db.recipes, db.meals, () => {
     db.recipes.each(recipe => {
       servingsByRecipe[recipe.id] = {recipe: recipe.servings, scheduled: 0};
     });
     db.meals.each(meal => {
       servingsByRecipe[meal.recipe_id].scheduled += meal.servings;
     });
-  }).then(() => {
-    var ingredientsByProduct = new Map();
-    var productsByCategory = new Map();
-    db.transaction('r!', db.ingredients, db.products, () => {
-      db.ingredients.each(ingredient => {
-        var servings = servingsByRecipe[ingredient.recipe_id];
-        if (ingredient.quantity && ingredient.quantity.magnitude && servings.scheduled) {
-          ingredient.quantity.magnitude *= servings.scheduled;
-          ingredient.quantity.magnitude /= servings.recipe;
-        }
+  });
+  return servingsByRecipe;
+}
 
-        db.products.get(ingredient.product_id, product => {
-          if (!product) return;
-          ingredientsByProduct[product.id] = ingredientsByProduct[product.id] || [];
-          ingredientsByProduct[product.id].push(ingredient);
-          productsByCategory[product.category] = productsByCategory[product.category] || {};
-          productsByCategory[product.category][product.id] = product;
-        });
-      });
-    }).then(() => {
-      // Move the null category to the end of the map
-      if (Object.hasOwnProperty.call(productsByCategory, null)) {
-        var product = productsByCategory[null];
-        delete productsByCategory[null];
-        productsByCategory[null] = product;
-      }
-
+function renderShoppingList() {
+  getRecipeServings().then(servingsByRecipe => {
+    getProductsByCategory(servingsByRecipe).then(results => {
       var shoppingList = $('#shopping-list .products').empty();
-      $.each(productsByCategory, category => {
+      $.each(results.productsByCategory, (category, products) => {
         if (category === 'null') category = null;
         var categoryElement = renderCategory(category);
-        $.each(productsByCategory[category], (productId, product) => {
-          var ingredients = ingredientsByProduct[productId];
+        $.each(products, (productId, product) => {
+          var ingredients = results.ingredientsByProduct[productId];
           categoryElement.append(productElement(product, ingredients));
         });
         shoppingList.append(categoryElement);
