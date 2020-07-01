@@ -110,7 +110,11 @@ function productElement(product, servingsByRecipe) {
 }
 
 function populateNotifications() {
-  db.products.count(total => {
+  var requiredProducts = new Set();
+  db.ingredients.each(ingredient => {
+    requiredProducts.add(ingredient.product_id);
+  }).then(() => {
+    var total = requiredProducts.size;
     var empty = total === 0;
     $('header span.notification.shopping-list').toggle(!empty);
     if (empty) return;
