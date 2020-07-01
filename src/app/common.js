@@ -1,41 +1,19 @@
 import 'jquery';
 
+import { db } from './database';
 import { storage } from './storage';
 
 export { float2rat, getRecipe, getRecipeById };
 
-function getRecipeById(recipeId) {
-  var recipes = storage.recipes.load();
-  var starred = storage.starred.load();
-  var recipe = recipes[recipeId] || starred[recipeId];
-  if (!recipe || !recipe.ingredients) {
-    $.ajax({
-      async: false,
-      url: `api/recipes/${recipeId}/view`,
-      success: function(data) {
-        if (data.total === 1) recipe = data.results[0];
-      }
-    });
-  }
-  return recipe;
-}
-
-function getRecipeProducts(recipe) {
-  var recipeProducts = [];
-  recipe.ingredients.forEach(function(ingredient) {
-    recipeProducts.push({
-      product_id: ingredient.product.product_id,
-      product: ingredient.product.product,
-      category: ingredient.product.category,
-      singular: ingredient.product.singular,
-      plural: ingredient.product.plural,
-      state: ingredient.product.state,
-    });
+async function getRecipeById(recipeId) {
+  return await db.recipes.get(recipeId, async (recipe) => {
+    if (recipe) return recipe;
+    recipe = await $.ajax({url: `api/recipes/${recipeId}/view`});
+    if (recipe.total === 1) return recipe.results[0];
   });
-  return recipeProducts;
 }
 
-function getRecipe(el) {
+async function getRecipe(el) {
   var recipe = null;
   var target = $(el).hasClass('recipe') ? $(el) : $(el).parents('.recipe');
   var recipeList = $(target).parents('table[data-row-attributes]');
@@ -44,10 +22,9 @@ function getRecipe(el) {
     recipe = $(recipeList).bootstrapTable('getData')[index];
   } else {
     var recipeId = target.data('id');
-    recipe = getRecipeById(recipeId);
+    recipe = await getRecipeById(recipeId);
   }
   recipe.mealId = target.data('meal-id');
-  recipe.products = recipe.products || getRecipeProducts(recipe);
   return recipe;
 }
 

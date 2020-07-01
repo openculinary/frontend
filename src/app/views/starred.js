@@ -6,22 +6,21 @@ import { localize } from '../i18n';
 import { initTable } from './components/recipe-list';
 
 function renderStarred() {
-  var data = [];
-  db.starred.each(starred => {
-    var recipe = getRecipeById(starred.recipe_id);
-    if (recipe) data.push(recipe);
-  }).then(() => {
-    var recipeList = $('#starred-recipes table[data-row-attributes]');
-    recipeList.bootstrapTable('load', data);
-    recipeList.bootstrapTable('refreshOptions', {
-      formatNoMatches: function() {
-        return `
-          <p data-i18n="[html]starred-recipes:empty-recipes"></p>
-          <p data-i18n="[html]starred-recipes:feature-introduction"></p>
-        `;
-      }
+  db.starred.toCollection().keys(keys => {
+    var promises = keys.map(key => getRecipeById(key));
+    Promise.all(promises).then(recipes => {
+      var recipeList = $('#starred-recipes table[data-row-attributes]');
+      recipeList.bootstrapTable('load', recipes);
+      recipeList.bootstrapTable('refreshOptions', {
+        formatNoMatches: function() {
+          return `
+            <p data-i18n="[html]starred-recipes:empty-recipes"></p>
+            <p data-i18n="[html]starred-recipes:feature-introduction"></p>
+          `;
+        }
+      });
+      localize(recipeList);
     });
-    localize(recipeList);
   });
 }
 

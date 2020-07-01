@@ -1,6 +1,6 @@
 import * as moment from 'moment';
 
-import { getRecipe } from '../common';
+import { getRecipeById } from '../common';
 import { db } from '../database';
 import { i18nAttr, localize } from '../i18n';
 import { addRecipe, scaleRecipe } from '../models/recipes';
@@ -63,15 +63,16 @@ function updateServings() {
   var stateHash = renderStateHash(state);
   pushState(state, stateHash);
 
-  renderIngredients(targetServings);
+  getRecipeById(state.id).then(recipe => {
+    renderIngredients(recipe, targetServings);
+  });
 }
 
-function renderRecipe() {
+function renderRecipe(recipe) {
   var state = getState();
   var container = $('#recipe');
   container.data('id', state.id);
 
-  var recipe = getRecipe(container);
   var duration = moment.duration(recipe.time, 'minutes');
 
   var title = $('#recipe div.title').empty();
@@ -105,7 +106,7 @@ function renderRecipe() {
   metadata.append($('<div />', {'class': 'property', 'text': 'time'}));
   metadata.append($('<div />', {'class': 'value', 'text': duration.as('minutes') + ' mins'}));
 
-  renderIngredients(targetServings);
+  renderIngredients(recipe, targetServings);
 
   directions.append($('<div />', {
     'class': 'section-title',
@@ -129,7 +130,7 @@ function renderRecipe() {
   updateStarState();
 }
 
-function renderIngredients(servings) {
+function renderIngredients(recipe, servings) {
   var existingIngredients = $('#recipe div.ingredients');
 
   var ingredients = $('<div />', {'class': 'ingredients'});
@@ -139,7 +140,6 @@ function renderIngredients(servings) {
   }));
 
   var container = $('#recipe');
-  var recipe = getRecipe(container);
   scaleRecipe(recipe, servings);
 
   $.each(recipe.ingredients, function() {
