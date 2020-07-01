@@ -9,8 +9,9 @@ import { addStandaloneIngredient, removeStandaloneIngredient } from '../models/p
 function renderProduct(product, ingredients) {
   var text = '';
   $.each(ingredients, (index, ingredient) => {
+    if (!ingredient.quantity) return;
     if (text) text += ' + ';
-    var quantity = renderQuantity({magnitude: ingredient.magnitude, units: ingredient.units});
+    var quantity = renderQuantity(ingredient.quantity);
     text += `${quantity.magnitude || ''} ${quantity.units || ''}`.trim();
   });
   text += ' ' + product.singular;
@@ -100,9 +101,9 @@ function renderShoppingList() {
     db.transaction('r!', db.ingredients, db.products, () => {
       db.ingredients.each(ingredient => {
         var servings = servingsByRecipe[ingredient.recipe_id];
-        if (ingredient.magnitude && servings.scheduled) {
-          ingredient.magnitude *= servings.scheduled;
-          ingredient.magnitude /= servings.recipe;
+        if (ingredient.quantity && ingredient.quantity.magnitude && servings.scheduled) {
+          ingredient.quantity.magnitude *= servings.scheduled;
+          ingredient.quantity.magnitude /= servings.recipe;
         }
 
         db.products.get(ingredient.product_id, product => {
