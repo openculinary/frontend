@@ -202,6 +202,6 @@ $(function() {
     });
   });
 
-  storage.meals.on('state changed', renderMeals);
-  storage.recipes.on('state changed', renderRecipes);
+  db.on('changes', changes => { changes.find(c => c.table === 'meals') && renderMeals() });
+  db.on('changes', changes => { changes.find(c => c.table === 'recipes') && renderRecipes() });
 });
