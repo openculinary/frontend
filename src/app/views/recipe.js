@@ -63,9 +63,7 @@ function updateServings() {
   var stateHash = renderStateHash(state);
   pushState(state, stateHash);
 
-  getRecipeById(state.id).then(recipe => {
-    renderIngredients(recipe, targetServings);
-  });
+  getRecipeById(state.id).then(recipe => { renderIngredients(recipe, targetServings); });
 }
 
 function renderRecipe() {
