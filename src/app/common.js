@@ -1,7 +1,6 @@
 import 'jquery';
 
 import { db } from './database';
-import { storage } from './storage';
 
 export { float2rat, getRecipe, getRecipeById };
 

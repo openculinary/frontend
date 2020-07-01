@@ -21,10 +21,7 @@ import './views/components/recipe-list';
 import './views/components/recipe-list.css';
 import './main.css';
 
-import 'jquery';
 import { Database } from './database';
-import { populateStorage } from './storage';
-$(populateStorage);
 
 import { recipeFormatter, rowAttributes } from './views/components/recipe-list';
 export { recipeFormatter, rowAttributes };

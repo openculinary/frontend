@@ -3,7 +3,6 @@ import 'jquery';
 import { getRecipe } from '../common';
 import { db } from '../database';
 import { getState } from '../state';
-import { storage } from '../storage';
 import { addProduct } from '../models/products';
 import { updateRecipeState } from '../views/components/recipe-list';
 
@@ -14,7 +13,6 @@ function addRecipe() {
     var state = getState();
     if (state.servings) scaleRecipe(recipe, Number(state.servings));
 
-    storage.recipes.add({'hashCode': recipe.id, 'value': recipe});
     db.recipes.add({
       id: recipe.id,
       title: recipe.title,
