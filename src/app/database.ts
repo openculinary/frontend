@@ -69,14 +69,14 @@ export class Database extends Dexie {
       super('RecipeRadar', {addons: [observable]});
 
       this.version(1).stores({
-        ingredients: '[recipe_id+product_id+index], recipe_id, product_id, markup, quantity.magnitude, quantity.units',
-        products: 'id, category, singular, plural',
-        directions: '[recipe_id+index], markup',
-        recipes: 'id, title, image_url, time, servings, rating, domain, dst',
+        ingredients: '[recipe_id+product_id+index], recipe_id, product_id',
+        products: 'id',
+        directions: '[recipe_id+index]',
+        recipes: 'id',
         starred: 'recipe_id',
-        meals: '$$id, recipe_id, datetime, servings',
-        basket: 'product_id, magnitude, units',
-        kitchen: 'product_id, magnitude, units',
+        meals: '$$id, recipe_id',
+        basket: 'product_id',
+        kitchen: 'product_id',
       });
 
       this.ingredients = this.table('ingredients');
