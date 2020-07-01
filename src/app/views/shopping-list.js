@@ -191,12 +191,11 @@ function bindShoppingListInput(element, placeholder) {
   $(element).on('select2:select', function(event) {
     $(this).val(null).trigger('change');
 
-    var products = storage.products.load();
     var product = event.params.data.product;
-    if (product.product_id in products) return;
-
-    var ingredient = {product: product};
-    addProduct(ingredient);
+    db.ingredients
+      .where("product_id")
+      .equals(product.product_id)
+      .count(count => { if (count === 0) addProduct({product: product}); });
   });
 }
 

@@ -65,7 +65,7 @@ export class Database extends Dexie {
       super('Database', {addons: [observable]});
 
       this.version(1).stores({
-        ingredients: '[recipe_id+product_id+index], markup, magnitude, units',
+        ingredients: '[recipe_id+product_id+index], product_id, markup, magnitude, units',
         products: 'id, category, singular, plural',
         directions: '[recipe_id+index], markup',
         recipes: 'id, title, image_url, time, servings, rating, domain, dst',
