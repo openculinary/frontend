@@ -1,5 +1,3 @@
-import 'jquery';
-
 import { getRecipe } from '../common';
 import { db } from '../database';
 import { updateStarState } from '../views/components/recipe-list';
