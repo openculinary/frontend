@@ -14,7 +14,7 @@ function renderProduct(product, ingredients) {
     var tail = `${quantity.magnitude || ''} ${quantity.units || ''}`.trim();
     if (tail.length) text += text.length ? ` + ${tail}` : tail;
   });
-  text += ' ' + product.singular;
+  text += ' ' + product.product;
   return text;
 }
 
