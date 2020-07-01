@@ -139,7 +139,6 @@ function renderIngredients(recipe, servings) {
     'data-i18n': i18nAttr('search:result-tab-ingredients')
   }));
 
-  var container = $('#recipe');
   scaleRecipe(recipe, servings);
 
   $.each(recipe.ingredients, function() {
