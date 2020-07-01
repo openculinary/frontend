@@ -11,9 +11,9 @@ function addProduct(ingredient, recipeId, index) {
     plural: product.plural,
   });
   db.ingredients.add({
-    recipe_id: recipeId || '',
+    recipe_id: recipeId,
     product_id: product.product_id,
-    index: index || 0,
+    index: index,
     magnitude: ingredient.quantity && ingredient.quantity.magnitude,
     units: ingredient.quantity && ingredient.quantity.units,
   });
