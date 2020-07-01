@@ -78,11 +78,12 @@ function renderRecipes() {
   db.recipes.each(recipe => {
     container.append(recipeElement(recipe));
   });
+
+  populateNotifications();
+  updateHints();
 }
 
 function renderMeals() {
-  updateHints();
-
   var idxDate = defaultDate();
   var endDate = defaultDate().add(1, 'week');
 
