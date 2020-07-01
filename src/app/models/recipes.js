@@ -13,7 +13,7 @@ function addRecipe() {
     var state = getState();
     if (state.servings) scaleRecipe(recipe, Number(state.servings));
 
-    db.transaction('rw', db.recipes, db.ingredients, db.products, () => {
+    db.transaction('rw', db.recipes, db.products, db.ingredients, () => {
       db.recipes.add(recipe).then(() => {
         for (var index in recipe.ingredients) {
           addProduct(recipe.ingredients[index], recipe.id, Number(index));
