@@ -6,15 +6,13 @@ function addProduct(ingredient, recipeId, index) {
   var product = ingredient.product;
   db.products.put({
     id: product.product_id,
-    category: product.category,
-    singular: product.singular,
-    plural: product.plural,
+    ...product
   });
   db.ingredients.add({
     recipe_id: recipeId,
     product_id: product.product_id,
     index: index,
-    quantity: ingredient.quantity,
+    ...ingredient
   });
 }
 
