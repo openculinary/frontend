@@ -118,7 +118,7 @@ async function getProductsByCategory(servingsByRecipe) {
   };
 }
 
-async function getRecipeServings() {
+async function getServingsByRecipe() {
   var servingsByRecipe = new Map();
   await db.transaction('r!', db.recipes, db.meals, () => {
     db.recipes.each(recipe => {
@@ -132,7 +132,7 @@ async function getRecipeServings() {
 }
 
 function renderShoppingList() {
-  getRecipeServings().then(servingsByRecipe => {
+  getServingsByRecipe().then(servingsByRecipe => {
     getProductsByCategory(servingsByRecipe).then(results => {
       var shoppingList = $('#shopping-list .products').empty();
       $.each(results.productsByCategory, (category, products) => {
