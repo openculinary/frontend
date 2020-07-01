@@ -7,51 +7,21 @@ import { localize } from '../i18n';
 import { storage } from '../storage';
 import { addProduct, removeProduct } from '../models/products';
 
-export { aggregateUnitQuantities };
-
-function aggregateUnitQuantities(product, recipeServings) {
-  var unitQuantities = {};
-  var recipes = storage.recipes.load();
-  $.each(product.recipes, function(recipeId) {
-    var defaultServings = recipes[recipeId] ? recipes[recipeId].servings : 1;
-    var requestedServings = recipeServings[recipeId] || defaultServings;
-    product.recipes[recipeId].quantities.forEach(function (quantity) {
-      quantity.units = quantity.units || '';
-      unitQuantities[quantity.units] = unitQuantities[quantity.units] || 0;
-      unitQuantities[quantity.units] += (quantity.magnitude * requestedServings) / defaultServings;
-    });
+function renderProduct(product, ingredients) {
+  var text = '';
+  $.each(ingredients, (index, ingredient) => {
+    if (text) text += ' + ';
+    var quantity = renderQuantity({magnitude: ingredient.magnitude, units: ingredient.units});
+    text += `${quantity.magnitude || ''} ${quantity.units || ''}`.trim();
   });
-  $.each(unitQuantities, function(unit) {
-    if (unitQuantities[unit] === 0) delete unitQuantities[unit];
-  });
-  return unitQuantities;
+  text += ' ' + product.singular;
+  return text;
 }
 
-function renderProductText(product, servingsByRecipe) {
-  var unitQuantities = aggregateUnitQuantities(product, servingsByRecipe);
-  var productText = '';
-  $.each(unitQuantities, function(unit) {
-    if (productText) productText += ' + ';
-    var quantity = renderQuantity({
-      magnitude: unitQuantities[unit],
-      units: unit
-    });
-    productText += `${quantity.magnitude || ''} ${quantity.units || ''}`.trim();
-  });
-  productText += ' ' + product.product;
-  return productText;
-}
-
-function renderCategory(category, products, servingsByRecipe) {
+function renderCategory(category) {
   var fieldset = $('<fieldset />', {'class': category});
-
   var legend = $('<legend />', {'data-i18n': `[html]categories:${category}`});
   fieldset.append(legend);
-
-  products.forEach(function(product) {
-    fieldset.append(productElement(product, servingsByRecipe))
-  });
-
   return fieldset;
 }
 
@@ -71,27 +41,27 @@ function toggleProductState() {
   });
 }
 
-function productElement(product, servingsByRecipe) {
+function productElement(product, ingredients) {
   var checkbox = $('<input />', {
     'type': 'checkbox',
     'name': 'products[]',
-    'value': product.product_id
+    'value': product.id
   });
-  db.basket.get(product.product_id, item => {
+  db.basket.get(product.id, item => {
     checkbox.attr('checked', !!item);
   });
   var label = $('<label />', {
     'class': 'product',
-    'data-id': product.product_id,
+    'data-id': product.id,
     'click': toggleProductState
   });
   label.append(checkbox);
 
-  var productText = renderProductText(product, servingsByRecipe);
-  var productContainer = $('<span />', {'html': productText});
-  label.append(productContainer);
+  var text = renderProduct(product, ingredients);
+  var textContainer = $('<span />', {'html': text});
+  label.append(textContainer);
 
-  if (Object.keys(product.recipes || {}).length === 0) {
+  if (!ingredients.find(ingredient => ingredient.recipe_id)) {
     var removeButton = $('<span />', {
       'data-role': 'remove',
       'click': function() {
@@ -149,17 +119,56 @@ function getServingsByRecipe() {
 }
 
 function renderShoppingList() {
-  var shoppingList = $('#shopping-list .products').empty();
-  var servingsByRecipe = getServingsByRecipe();
-  var productsByCategory = getProductsByCategory();
-  $.each(productsByCategory, function(category) {
-    if (category === 'null') category = null;
-    var products = productsByCategory[category];
-    shoppingList.append(renderCategory(category, products, servingsByRecipe));
-  });
+  var servingsByRecipe = new Map();
+  db.transaction('r!', db.recipes, db.meals, () => {
+    db.recipes.each(recipe => {
+      servingsByRecipe[recipe.id] = {recipe: recipe.servings, scheduled: 0};
+    });
+    db.meals.each(meal => {
+      servingsByRecipe[meal.recipe_id].scheduled += meal.servings;
+    });
+  }).then(() => {
+    var ingredientsByProduct = new Map();
+    var productsByCategory = new Map();
+    db.transaction('r!', db.ingredients, db.products, () => {
+      db.ingredients.each(ingredient => {
+        var servings = servingsByRecipe[ingredient.recipe_id];
+        if (ingredient.magnitude && servings.scheduled) {
+          ingredient.magnitude *= servings.scheduled;
+          ingredient.magnitude /= servings.recipe;
+        }
 
-  localize(shoppingList);
-  populateNotifications();
+        db.products.get(ingredient.product_id, product => {
+          if (!product) return;
+          ingredientsByProduct[product.id] = ingredientsByProduct[product.id] || [];
+          ingredientsByProduct[product.id].push(ingredient);
+          productsByCategory[product.category] = productsByCategory[product.category] || {};
+          productsByCategory[product.category][product.id] = product;
+        });
+      });
+    }).then(() => {
+      // Move the null category to the end of the map
+      if (Object.hasOwnProperty.call(productsByCategory, null)) {
+        var product = productsByCategory[null];
+        delete productsByCategory[null];
+        productsByCategory[null] = product;
+      }
+
+      var shoppingList = $('#shopping-list .products').empty();
+      $.each(productsByCategory, category => {
+        if (category === 'null') category = null;
+        var categoryElement = renderCategory(category);
+        $.each(productsByCategory[category], (productId, product) => {
+          var ingredients = ingredientsByProduct[productId];
+          categoryElement.append(productElement(product, ingredients));
+        });
+        shoppingList.append(categoryElement);
+      });
+
+      localize(shoppingList);
+      populateNotifications();
+    });
+  });
 }
 
 function bindShoppingListInput(element, placeholder) {

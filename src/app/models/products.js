@@ -33,6 +33,8 @@ function addProduct(ingredient, recipeId, index) {
     recipe_id: recipeId || '',
     product_id: product.product_id,
     index: index || 0,
+    magnitude: ingredient.quantity && ingredient.quantity.magnitude,
+    units: ingredient.quantity && ingredient.quantity.units,
   });
 }
 
