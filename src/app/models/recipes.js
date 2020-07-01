@@ -31,10 +31,12 @@ function removeRecipe() {
       db.recipes
         .delete(recipe.id);
       db.meals
-        .where({recipe_id: recipe.id})
+        .where("recipe_id")
+        .equals(recipe.id)
         .delete();
       db.ingredients
-        .where({recipe_id: recipe.id})
+        .where("recipe_id")
+        .equals(recipe.id)
         .delete();
     }).then(() => {
       updateRecipeState(recipe.id);
