@@ -62,16 +62,8 @@ function getProductId(el) {
 
 function toggleProductState() {
   var productId = getProductId(this);
-  var products = storage.products.load();
-  var product = products[productId];
-
   db.basket.get(productId, item => {
-    var wasInBasket = !!item;
-    product.state = wasInBasket ? 'required' : 'purchased';
-
-    storage.products.remove({'hashCode': product.product_id});
-    storage.products.add({'hashCode': product.product_id, 'value': product});
-    if (wasInBasket) {
+    if (item) {
       db.basket.delete(productId);
     } else {
       db.basket.put({product_id: productId});
@@ -83,8 +75,10 @@ function productElement(product, servingsByRecipe) {
   var checkbox = $('<input />', {
     'type': 'checkbox',
     'name': 'products[]',
-    'value': product.product_id,
-    'checked': ['available', 'purchased'].includes(product.state)
+    'value': product.product_id
+  });
+  db.basket.get(product.product_id, item => {
+    checkbox.attr('checked', !!item);
   });
   var label = $('<label />', {
     'class': 'product',
