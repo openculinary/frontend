@@ -169,7 +169,6 @@ function bindShoppingListInput(element, placeholder) {
 $(function() {
   bindShoppingListInput('#shopping-list-entry', 'e.g. rice');
 
-  db.on('changes', changes => { changes.find(c => c.table === 'recipes') && renderShoppingList() });
   db.on('changes', changes => { changes.find(c => c.table === 'meals') && renderShoppingList() });
   db.on('changes', changes => { changes.find(c => c.table === 'ingredients') && renderShoppingList() });
 
