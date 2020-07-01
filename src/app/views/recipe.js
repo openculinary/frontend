@@ -1,6 +1,6 @@
 import * as moment from 'moment';
 
-import { getRecipeById } from '../common';
+import { getRecipe, getRecipeById } from '../common';
 import { db } from '../database';
 import { i18nAttr, localize } from '../i18n';
 import { addRecipe, scaleRecipe } from '../models/recipes';
@@ -68,66 +68,68 @@ function updateServings() {
   });
 }
 
-function renderRecipe(recipe) {
+function renderRecipe() {
   var state = getState();
   var container = $('#recipe');
   container.data('id', state.id);
 
-  var duration = moment.duration(recipe.time, 'minutes');
+  getRecipe(container).then(recipe => {
+    var duration = moment.duration(recipe.time, 'minutes');
 
-  var title = $('#recipe div.title').empty();
-  var corner = $('#recipe div.corner').empty();
-  var image = $('#recipe div.image').empty();
-  var metadata = $('#recipe div.metadata').empty();
-  var directions = $('#recipe div.directions').empty();
+    var title = $('#recipe div.title').empty();
+    var corner = $('#recipe div.corner').empty();
+    var image = $('#recipe div.image').empty();
+    var metadata = $('#recipe div.metadata').empty();
+    var directions = $('#recipe div.directions').empty();
 
-  var link = $('<a />', {'href': recipe.dst});
-  var img = $('<img />', {'src': recipe.image_url, 'alt': recipe.title});
-  link.append(img);
+    var link = $('<a />', {'href': recipe.dst});
+    var img = $('<img />', {'src': recipe.image_url, 'alt': recipe.title});
+    link.append(img);
 
-  container.data('id', recipe.id);
-  title.text(recipe.title);
-  corner.append(starFormatter());
-  image.append(link);
+    container.data('id', recipe.id);
+    title.text(recipe.title);
+    corner.append(starFormatter());
+    image.append(link);
 
-  var targetServings = Number(state.servings) || recipe.servings;
-  var servingsInput = $('<input>', {
-    'class': 'servings',
-    'min': 1,
-    'max': 50,
-    'type': 'number',
+    var targetServings = Number(state.servings) || recipe.servings;
+    var servingsInput = $('<input>', {
+        'class': 'servings',
+        'min': 1,
+        'max': 50,
+        'type': 'number',
+    });
+    servingsInput.attr('aria-label', 'Serving count selection');
+    servingsInput.val(targetServings);
+    servingsInput.on('change', updateServings);
+
+    metadata.append($('<div />', {'class': 'property', 'text': 'servings'}));
+    metadata.append($('<div />', {'class': 'value'}).append(servingsInput));
+    metadata.append($('<div />', {'class': 'property', 'text': 'time'}));
+    metadata.append($('<div />', {'class': 'value', 'text': duration.as('minutes') + ' mins'}));
+
+    renderIngredients(recipe, targetServings);
+
+    directions.append($('<div />', {
+        'class': 'section-title',
+        'data-i18n': i18nAttr('search:result-tab-directions')
+    }));
+
+    var directionList  = $('<ol />');
+    $.each(recipe.directions, function() {
+        var directionHTML = renderDirectionHTML(this);
+        var direction = $(directionHTML);
+        direction.hover(hoverDirection, unhoverDirection);
+        direction.click(markDirection);
+        directionList.append(direction);
+    });
+    directions.append(directionList);
+
+    localize('#recipe');
+    loadPage('recipe');
+
+    updateRecipeState();
+    updateStarState();
   });
-  servingsInput.attr('aria-label', 'Serving count selection');
-  servingsInput.val(targetServings);
-  servingsInput.on('change', updateServings);
-
-  metadata.append($('<div />', {'class': 'property', 'text': 'servings'}));
-  metadata.append($('<div />', {'class': 'value'}).append(servingsInput));
-  metadata.append($('<div />', {'class': 'property', 'text': 'time'}));
-  metadata.append($('<div />', {'class': 'value', 'text': duration.as('minutes') + ' mins'}));
-
-  renderIngredients(recipe, targetServings);
-
-  directions.append($('<div />', {
-    'class': 'section-title',
-    'data-i18n': i18nAttr('search:result-tab-directions')
-  }));
-
-  var directionList  = $('<ol />');
-  $.each(recipe.directions, function() {
-    var directionHTML = renderDirectionHTML(this);
-    var direction = $(directionHTML);
-    direction.hover(hoverDirection, unhoverDirection);
-    direction.click(markDirection);
-    directionList.append(direction);
-  });
-  directions.append(directionList);
-
-  localize('#recipe');
-  loadPage('recipe');
-
-  updateRecipeState();
-  updateStarState();
 }
 
 function renderIngredients(recipe, servings) {

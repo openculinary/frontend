@@ -80,7 +80,7 @@ function loadState() {
   if (!activeTab) {
     switch (state.action) {
       case 'search': renderSearch(); break;
-      case 'view': getRecipeById(state.id).then(renderRecipe); break;
+      case 'view': renderRecipe(); break;
     }
   }
 }
