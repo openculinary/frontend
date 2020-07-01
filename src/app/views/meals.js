@@ -6,7 +6,6 @@ import i18next from 'i18next';
 import { getRecipe } from '../common';
 import { db } from '../database';
 import { i18nAttr, localize } from '../i18n';
-import { storage } from '../storage';
 import { removeMeal } from '../models/meals';
 import { removeRecipe } from '../models/recipes';
 
@@ -140,24 +139,9 @@ function dragMeal(evt) {
 }
 
 function scheduleMeal(evt) {
-  var meals = storage.meals.load();
   var recipe = getRecipe(evt.item);
-
-  var fromRow = $(evt.from).parents('tr');
-  if (fromRow.length) {
-    var date = fromRow.data('date');
-    var index = meals[date].map(meal => meal.id).indexOf(recipe.id)
-
-    if (index >= 0) meals[date].splice(index, 1);
-    if (!meals[date].length) delete meals[date];
-
-    storage.meals.remove({'hashCode': date});
-    if (date in meals) storage.meals.add({'hashCode': date, 'value': meals[date]});
-  }
-
   var toRow = $(evt.to).parents('tr');
   if (toRow.length) {
-    // eslint-disable-next-line no-redeclare
     var date = toRow.data('date');
     db.meals.put({
       id: recipe.mealId,
@@ -165,13 +149,7 @@ function scheduleMeal(evt) {
       datetime: date,
       servings: recipe.servings,
     }).then(id => {
-      recipe.mealId = id;
-
-      meals[date] = meals[date] || [];
-      meals[date].push(recipe);
-
-      storage.meals.remove({'hashCode': date});
-      storage.meals.add({'hashCode': date, 'value': meals[date]});
+      $(evt.item).data('meal-id', id);
     });
   }
 }
