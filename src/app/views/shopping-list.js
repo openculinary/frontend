@@ -4,7 +4,7 @@ import 'select2';
 import { renderQuantity } from '../conversion';
 import { db } from '../database';
 import { localize } from '../i18n';
-import { addProduct, removeProduct } from '../models/products';
+import { addStandaloneIngredient, removeStandaloneIngredient } from '../models/products';
 
 function renderProduct(product, ingredients) {
   var text = '';
@@ -64,7 +64,7 @@ function productElement(product, ingredients) {
     var removeButton = $('<span />', {
       'data-role': 'remove',
       'click': function() {
-        removeProduct(product);
+        removeStandaloneIngredient(product);
       }
     });
     label.append(removeButton);
@@ -165,7 +165,7 @@ function bindShoppingListInput(element, placeholder) {
     db.ingredients
       .where("product_id")
       .equals(product.product_id)
-      .count(count => { if (count === 0) addProduct({product: product}); });
+      .count(count => { if (count === 0) addStandaloneIngredient(product); });
   });
 }
 

@@ -1,8 +1,8 @@
 import { db } from '../database';
 
-export { addProduct, addStandaloneIngredient, removeStandaloneIngredient };
+export { addStandaloneIngredient, removeStandaloneIngredients };
 
-function addProduct(ingredient, recipeId, index) {
+function addStandaloneIngredient(ingredient, recipeId, index) {
   var product = ingredient.product;
   db.products.put({
     id: product.product_id,
@@ -19,16 +19,12 @@ function addProduct(ingredient, recipeId, index) {
   });
 }
 
-function addStandaloneIngredient(product) {
-  addProduct({product: product}, '', 0);
-}
-
-function removeStandaloneIngredient(product) {
+function removeStandaloneIngredients(product, recipeId) {
   db.ingredients
     .where("[recipe_id+product_id+index]")
     .between(
-      ['', product.id, db.minKey()],
-      ['', product.id, db.maxKey()]
+      [recipeId || '', product.id, db.minKey()],
+      [recipeId || '', product.id, db.maxKey()]
     )
     .delete();
 }
