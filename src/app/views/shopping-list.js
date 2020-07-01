@@ -32,11 +32,8 @@ function getProductId(el) {
 function toggleProductState() {
   var productId = getProductId(this);
   db.basket.get(productId, item => {
-    if (item) {
-      db.basket.delete(productId);
-    } else {
-      db.basket.put({product_id: productId});
-    }
+    if (item) db.basket.delete(productId);
+    else db.basket.put({product_id: productId});
   });
 }
 
