@@ -10,9 +10,9 @@ function renderProduct(product, ingredients) {
   var text = '';
   $.each(ingredients, (index, ingredient) => {
     if (!ingredient.quantity) return;
-    if (text) text += ' + ';
     var quantity = renderQuantity(ingredient.quantity);
-    text += `${quantity.magnitude || ''} ${quantity.units || ''}`.trim();
+    var tail = `${quantity.magnitude || ''} ${quantity.units || ''}`.trim();
+    if (tail.length) text += text.length ? ` + ${tail}` : tail;
   });
   text += ' ' + product.singular;
   return text;
