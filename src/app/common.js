@@ -7,8 +7,9 @@ export { float2rat, getRecipe, getRecipeById };
 async function getRecipeById(recipeId) {
   return await db.recipes.get(recipeId, async (recipe) => {
     if (recipe) return recipe;
-    recipe = await $.ajax({url: `api/recipes/${recipeId}/view`});
-    if (recipe.total === 1) return recipe.results[0];
+    return await $.ajax({url: `api/recipes/${recipeId}/view`}).then(hits => {
+      return hits.total === 1 && hits.results[0];
+    });
   });
 }
 
