@@ -139,9 +139,9 @@ function dragMeal(evt) {
 }
 
 function scheduleMeal(evt) {
-  var recipe = getRecipe(evt.item);
-  var toRow = $(evt.to).parents('tr');
-  if (toRow.length) {
+  getRecipe(evt.item).then(recipe => {
+    var toRow = $(evt.to).parents('tr');
+    if (!toRow.length) return;
     var date = toRow.data('date');
     db.meals.put({
       id: recipe.mealId,
@@ -151,7 +151,7 @@ function scheduleMeal(evt) {
     }).then(id => {
       $(evt.item).data('meal-id', id);
     });
-  }
+  });
 }
 
 function populateNotifications() {
