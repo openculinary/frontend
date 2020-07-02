@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 import { renderQuantity } from './conversion';
 
 export { renderIngredientHTML, renderDirectionHTML };

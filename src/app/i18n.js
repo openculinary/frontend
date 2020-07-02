@@ -1,4 +1,4 @@
-import 'jquery';
+import $ from 'jquery';
 import jqueryi18next from 'jquery-i18next';
 
 import i18next from 'i18next';

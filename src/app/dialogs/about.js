@@ -1,6 +1,6 @@
-import 'bootstrap';
-import 'jquery';
+import $ from 'jquery';
 import * as d3 from 'd3';
+import 'bootstrap';
 import { sankey as sankeyInstance, sankeyVertical } from 'd3-sankey';
 
 import data from './about-diagram.json';

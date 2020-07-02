@@ -1,4 +1,4 @@
-import 'jquery';
+import $ from 'jquery';
 import 'select2';
 
 function bindEquipmentInput(element, label, placeholder) {
