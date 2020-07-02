@@ -103,7 +103,7 @@ function renderMeals() {
     scheduler.append(row);
   }
 
-  db.transaction('r!', db.meals, db.recipes, () => {
+  db.transaction('r', db.meals, db.recipes, () => {
     db.meals.each(meal => {
       db.recipes.get(meal.recipe_id, recipe => {
         var cell = $(`#meal-planner table tr[data-date="${meal.datetime}"] td`);

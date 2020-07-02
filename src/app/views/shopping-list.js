@@ -89,7 +89,7 @@ function populateNotifications() {
 async function getProductsByCategory(servingsByRecipe) {
   var ingredientsByProduct = new Map();
   var productsByCategory = new Map();
-  await db.transaction('r!', db.ingredients, db.products, () => {
+  await db.transaction('r', db.ingredients, db.products, () => {
     db.ingredients.each(ingredient => {
       var servings = servingsByRecipe[ingredient.recipe_id];
       if (ingredient.quantity && ingredient.quantity.magnitude && servings.scheduled) {
@@ -120,7 +120,7 @@ async function getProductsByCategory(servingsByRecipe) {
 
 async function getServingsByRecipe() {
   var servingsByRecipe = new Map();
-  await db.transaction('r!', db.recipes, db.meals, () => {
+  await db.transaction('r', db.recipes, db.meals, () => {
     db.recipes.each(recipe => {
       servingsByRecipe[recipe.id] = {recipe: recipe.servings, scheduled: 0};
     });
