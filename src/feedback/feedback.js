@@ -134,6 +134,8 @@ i18n.ru_RU = {
 };
 i18n.ru = i18n.ru_RU;
 
+import $ from 'jquery';
+
 var loader = function() {
     var div = $('<div />', {'class': 'feedback-loader'});
     [1, 2, 3].forEach(function() { $('<span />').appendTo(div); });

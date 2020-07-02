@@ -1,4 +1,4 @@
-import 'jquery';
+import $ from 'jquery';
 
 import { Feedback } from './feedback';
 import './feedback.css';
