@@ -4,12 +4,11 @@ import { getRecipe } from '../common';
 import { db } from '../database';
 import { getState } from '../state';
 import { addProduct } from '../models/products';
-import { updateRecipeState } from '../views/components/recipe-list';
 
 export { addRecipe, removeRecipe, scaleRecipe };
 
-function addRecipe() {
-  getRecipe(this).then(recipe => {
+function addRecipe(element, callback) {
+  getRecipe(element).then(recipe => {
     var state = getState();
     if (state.servings) scaleRecipe(recipe, Number(state.servings));
 
@@ -20,13 +19,13 @@ function addRecipe() {
         });
       });
     }).then(() => {
-      updateRecipeState(recipe.id);
+      callback && callback(recipe.id);
     });
   });
 }
 
-function removeRecipe() {
-  getRecipe(this).then(recipe => {
+function removeRecipe(element, callback) {
+  getRecipe(element).then(recipe => {
     db.transaction('rw', db.recipes, db.meals, db.ingredients, () => {
       db.recipes
         .delete(recipe.id);
@@ -39,7 +38,7 @@ function removeRecipe() {
         .equals(recipe.id)
         .delete();
     }).then(() => {
-      updateRecipeState(recipe.id);
+      callback && callback(recipe.id);
     });
   });
 }

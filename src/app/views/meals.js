@@ -47,7 +47,7 @@ function recipeElement(recipe, meal) {
     'class': 'remove fa fa-trash-alt',
     'style': 'float: right; margin-left: 8px; margin-top: 3px;'
   });
-  remove.on('click', removeRecipe);
+  remove.on('click', () => { removeRecipe(remove); });
 
   // TODO: only include 'servings' parameter when the value overrides the recipe default
   // This may require some data model refactoring
@@ -130,7 +130,7 @@ function dragMeal(evt) {
   elements.forEach(function (element) {
     var recipeRemove = $(element).find('a.remove');
     recipeRemove.off('click');
-    recipeRemove.on('click', removeRecipe);
+    recipeRemove.on('click', () => { removeRecipe(recipeRemove); });
 
     var mealRemove = $(element).find('span[data-role="remove"]');
     mealRemove.off('click');

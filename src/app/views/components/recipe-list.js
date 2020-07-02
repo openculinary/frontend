@@ -14,7 +14,6 @@ export {
     bindLoadEvent,
     recipeFormatter,
     rowAttributes,
-    updateRecipeState,
     updateStarState,
 };
 
@@ -170,7 +169,9 @@ function bindPostBody(selector) {
       updateStarState(row.id);
     });
 
-    $(this).find('.sidebar button.add-recipe').on('click', addRecipe);
+    $(this).find('.sidebar button.add-recipe').each((_, button) => {
+      $(button).on('click', () => { addRecipe(button, updateRecipeState); })
+    });
     $(this).parents('div.recipe-list').show();
 
     // If the user is on the page containing this table, scroll it into view

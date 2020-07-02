@@ -27,8 +27,7 @@ function starFormatter() {
   return $('<div />', {'class': 'star far fa-star'});
 }
 
-function updateRecipeState() {
-  var recipeId = $('#recipe').data('id');
+function updateRecipeState(recipeId) {
   db.recipes.get(recipeId, recipe => {
     var isInRecipes = !!recipe;
 
@@ -39,8 +38,7 @@ function updateRecipeState() {
   });
 }
 
-function updateStarState() {
-  var recipeId = $('#recipe').data('id');
+function updateStarState(recipeId) {
   db.starred.get(recipeId, starred => {
     var isStarred = !!starred;
 
@@ -125,8 +123,8 @@ function renderRecipe() {
     localize('#recipe');
     loadPage('recipe');
 
-    updateRecipeState();
-    updateStarState();
+    updateRecipeState(recipe.id);
+    updateStarState(recipe.id);
   });
 }
 
@@ -150,8 +148,7 @@ function renderIngredients(recipe, servings) {
     'class': 'headline btn btn-outline-primary add-recipe',
     'text': 'Add to shopping list'
   });
-  addButton.on('click', addRecipe);
-  addButton.on('click', updateRecipeState);
+  addButton.on('click', () => { addRecipe(addButton, updateRecipeState); });
 
   ingredients.append(addButton);
 
