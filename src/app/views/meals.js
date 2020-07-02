@@ -129,6 +129,10 @@ function renderMeals() {
 function dragMeal(evt) {
   var elements = [evt.item, evt.clone];
   elements.forEach(function (element) {
+    var recipeRemove = $(element).find('a.remove');
+    recipeRemove.off('click');
+    recipeRemove.on('click', () => { getRecipe(recipeRemove).then(removeRecipe).then(updateRecipeState) });
+
     var mealRemove = $(element).find('span[data-role="remove"]');
     mealRemove.off('click');
     mealRemove.on('click', removeMeal);
