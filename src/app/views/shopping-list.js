@@ -2,55 +2,42 @@ import 'jquery';
 import 'select2';
 
 import { renderQuantity } from '../conversion';
+import { db } from '../database';
 import { localize } from '../i18n';
-import { storage } from '../storage';
-import { addProduct, removeProduct } from '../models/products';
+import { addStandaloneIngredient, removeStandaloneIngredient } from '../models/ingredients';
 
-export { aggregateUnitQuantities };
+export { aggregateQuantities };
 
-function aggregateUnitQuantities(product, recipeServings) {
-  var unitQuantities = {};
-  var recipes = storage.recipes.load();
-  $.each(product.recipes, function(recipeId) {
-    var defaultServings = recipes[recipeId] ? recipes[recipeId].servings : 1;
-    var requestedServings = recipeServings[recipeId] || defaultServings;
-    product.recipes[recipeId].quantities.forEach(function (quantity) {
-      quantity.units = quantity.units || '';
-      unitQuantities[quantity.units] = unitQuantities[quantity.units] || 0;
-      unitQuantities[quantity.units] += (quantity.magnitude * requestedServings) / defaultServings;
-    });
+function aggregateQuantities(ingredients) {
+  var quantities = new Map();
+  $.each(ingredients, (_, ingredient) => {
+    if (!ingredient.quantity) return;
+    var units = ingredient.quantity.units || '';
+    quantities[units] = quantities[units] || 0;
+    quantities[units] += ingredient.quantity.magnitude;
   });
-  $.each(unitQuantities, function(unit) {
-    if (unitQuantities[unit] === 0) delete unitQuantities[unit];
+  $.each(quantities, units => {
+    if (quantities[units] === 0) delete quantities[units];
   });
-  return unitQuantities;
+  return quantities;
 }
 
-function renderProductText(product, servingsByRecipe) {
-  var unitQuantities = aggregateUnitQuantities(product, servingsByRecipe);
-  var productText = '';
-  $.each(unitQuantities, function(unit) {
-    if (productText) productText += ' + ';
-    var quantity = renderQuantity({
-      magnitude: unitQuantities[unit],
-      units: unit
-    });
-    productText += `${quantity.magnitude || ''} ${quantity.units || ''}`.trim();
+function renderProduct(product, ingredients) {
+  var quantities = aggregateQuantities(ingredients);
+  var text = '';
+  $.each(quantities, (units, magnitude) => {
+    var quantity = renderQuantity({units: units, magnitude: magnitude});
+    var tail = `${quantity.magnitude || ''} ${quantity.units || ''}`.trim();
+    if (tail.length) text += text.length ? ` + ${tail}` : tail;
   });
-  productText += ' ' + product.product;
-  return productText;
+  text += ' ' + product.product;
+  return text;
 }
 
-function renderCategory(category, products, servingsByRecipe) {
+function renderCategory(category) {
   var fieldset = $('<fieldset />', {'class': category});
-
   var legend = $('<legend />', {'data-i18n': `[html]categories:${category}`});
   fieldset.append(legend);
-
-  products.forEach(function(product) {
-    fieldset.append(productElement(product, servingsByRecipe))
-  });
-
   return fieldset;
 }
 
@@ -61,44 +48,37 @@ function getProductId(el) {
 
 function toggleProductState() {
   var productId = getProductId(this);
-  var products = storage.products.load();
-  var product = products[productId];
-
-  var transitions = {
-    undefined: 'purchased',
-    'available': 'required',
-    'required': 'purchased',
-    'purchased': 'required'
-  };
-  product.state = transitions[product.state];
-
-  storage.products.remove({'hashCode': product.product_id});
-  storage.products.add({'hashCode': product.product_id, 'value': product});
+  db.basket.get(productId, item => {
+    if (item) db.basket.delete(productId);
+    else db.basket.put({product_id: productId});
+  });
 }
 
-function productElement(product, servingsByRecipe) {
+function productElement(product, ingredients) {
   var checkbox = $('<input />', {
     'type': 'checkbox',
     'name': 'products[]',
-    'value': product.product_id,
-    'checked': ['available', 'purchased'].includes(product.state)
+    'value': product.id
+  });
+  db.basket.get(product.id, item => {
+    checkbox.attr('checked', !!item);
   });
   var label = $('<label />', {
     'class': 'product',
-    'data-id': product.product_id,
+    'data-id': product.id,
     'click': toggleProductState
   });
   label.append(checkbox);
 
-  var productText = renderProductText(product, servingsByRecipe);
-  var productContainer = $('<span />', {'html': productText});
-  label.append(productContainer);
+  var text = renderProduct(product, ingredients);
+  var textContainer = $('<span />', {'html': text});
+  label.append(textContainer);
 
-  if (Object.keys(product.recipes || {}).length === 0) {
+  if (!ingredients.find(ingredient => ingredient.recipe_id)) {
     var removeButton = $('<span />', {
       'data-role': 'remove',
       'click': function() {
-        removeProduct(product);
+        removeStandaloneIngredient(product);
       }
     });
     label.append(removeButton);
@@ -107,61 +87,84 @@ function productElement(product, servingsByRecipe) {
 }
 
 function populateNotifications() {
-  var products = storage.products.load();
-  var empty = Object.keys(products).length == 0;
-  $('header span.notification.shopping-list').toggle(!empty);
-  if (empty) return;
+  var requiredProducts = new Set();
+  db.ingredients.each(ingredient => {
+    requiredProducts.add(ingredient.product_id);
+  }).then(() => {
+    var total = requiredProducts.size;
+    var empty = total === 0;
+    $('header span.notification.shopping-list').toggle(!empty);
+    if (empty) return;
 
-  var total = 0, found = 0;
-  $.each(products, function(productId) {
-    var product = products[productId];
-    total += 1;
-    found += product.state === 'required' ? 0 : 1;
+    db.basket.count(found => {
+      $('header span.notification.shopping-list').text(found + '/' + total);
+    });
   });
-  $('header span.notification.shopping-list').text(found + '/' + total);
 }
 
-function getProductsByCategory() {
-  var products = storage.products.load();
+async function getProductsByCategory(servingsByRecipe) {
+  var ingredientsByProduct = new Map();
   var productsByCategory = new Map();
-  $.each(products, function(productId) {
-    var product = products[productId];
-    productsByCategory[product.category] = productsByCategory[product.category] || [];
-    productsByCategory[product.category].push(product);
-  });
+  await db.transaction('r', db.ingredients, db.products, () => {
+    db.ingredients.each(ingredient => {
+      var servings = servingsByRecipe[ingredient.recipe_id];
+      if (ingredient.quantity && ingredient.quantity.magnitude && servings.scheduled) {
+        ingredient.quantity.magnitude *= servings.scheduled;
+        ingredient.quantity.magnitude /= servings.recipe;
+      }
+
+      db.products.get(ingredient.product_id, product => {
+        if (!product) return;
+        ingredientsByProduct[product.id] = ingredientsByProduct[product.id] || [];
+        ingredientsByProduct[product.id].push(ingredient);
+        productsByCategory[product.category] = productsByCategory[product.category] || {};
+        productsByCategory[product.category][product.id] = product;
+      });
+    });
+  })
   // Move the null category to the end of the map
   if (Object.hasOwnProperty.call(productsByCategory, null)) {
     var product = productsByCategory[null];
     delete productsByCategory[null];
     productsByCategory[null] = product;
   }
-  return productsByCategory;
+  return {
+    ingredientsByProduct: ingredientsByProduct,
+    productsByCategory: productsByCategory,
+  };
 }
 
-function getServingsByRecipe() {
-  var meals = storage.meals.load();
-  var servingsByRecipe = {};
-  $.each(meals, function(date) {
-    meals[date].forEach(function (recipe) {
-      servingsByRecipe[recipe.id] = servingsByRecipe[recipe.id] || 0;
-      servingsByRecipe[recipe.id] += recipe.servings;
+async function getServingsByRecipe() {
+  var servingsByRecipe = new Map();
+  await db.transaction('r', db.recipes, db.meals, () => {
+    db.recipes.each(recipe => {
+      servingsByRecipe[recipe.id] = {recipe: recipe.servings, scheduled: 0};
+    });
+    db.meals.each(meal => {
+      servingsByRecipe[meal.recipe_id].scheduled += meal.servings;
     });
   });
   return servingsByRecipe;
 }
 
 function renderShoppingList() {
-  var shoppingList = $('#shopping-list .products').empty();
-  var servingsByRecipe = getServingsByRecipe();
-  var productsByCategory = getProductsByCategory();
-  $.each(productsByCategory, function(category) {
-    if (category === 'null') category = null;
-    var products = productsByCategory[category];
-    shoppingList.append(renderCategory(category, products, servingsByRecipe));
-  });
+  getServingsByRecipe().then(servingsByRecipe => {
+    getProductsByCategory(servingsByRecipe).then(results => {
+      var shoppingList = $('#shopping-list .products').empty();
+      $.each(results.productsByCategory, (category, products) => {
+        if (category === 'null') category = null;
+        var categoryElement = renderCategory(category);
+        $.each(products, (productId, product) => {
+          var ingredients = results.ingredientsByProduct[productId];
+          categoryElement.append(productElement(product, ingredients));
+        });
+        shoppingList.append(categoryElement);
+      });
 
-  localize(shoppingList);
-  populateNotifications();
+      localize(shoppingList);
+      populateNotifications();
+    });
+  });
 }
 
 function bindShoppingListInput(element, placeholder) {
@@ -184,18 +187,19 @@ function bindShoppingListInput(element, placeholder) {
   $(element).on('select2:select', function(event) {
     $(this).val(null).trigger('change');
 
-    var products = storage.products.load();
     var product = event.params.data.product;
-    if (product.product_id in products) return;
-
-    var ingredient = {product: product};
-    addProduct(ingredient);
+    db.ingredients
+      .where("product_id")
+      .equals(product.product_id)
+      .count(count => { if (count === 0) addStandaloneIngredient(product); });
   });
 }
 
 $(function() {
   bindShoppingListInput('#shopping-list-entry', 'e.g. rice');
 
-  storage.meals.on('state changed', renderShoppingList);
-  storage.products.on('state changed', renderShoppingList);
+  db.on('changes', changes => { changes.find(c => c.table === 'meals') && renderShoppingList() });
+  db.on('changes', changes => { changes.find(c => c.table === 'ingredients') && renderShoppingList() });
+
+  renderShoppingList();
 })

@@ -1,21 +1,11 @@
-import 'jquery';
-
-import { getRecipe } from '../common';
-import { storage } from '../storage';
-import { updateStarState } from '../views/components/recipe-list';
+import { db } from '../database';
 
 export { starRecipe, unstarRecipe };
 
-function starRecipe() {
-  var recipe = getRecipe(this);
-
-  storage.starred.add({'hashCode': recipe.id, 'value': recipe});
-  updateStarState(recipe.id);
+async function starRecipe(recipe) {
+  return db.starred.add({recipe_id: recipe.id}).then(() => recipe.id);
 }
 
-function unstarRecipe() {
-  var recipe = getRecipe(this);
-
-  storage.starred.remove({'hashCode': recipe.id});
-  updateStarState(recipe.id);
+async function unstarRecipe(recipe) {
+  return db.starred.delete(recipe.id).then(() => recipe.id);
 }

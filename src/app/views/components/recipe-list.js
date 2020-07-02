@@ -2,10 +2,11 @@ import 'jquery';
 import * as moment from 'moment';
 import 'tablesaw/dist/stackonly/tablesaw.stackonly.jquery.js';
 
+import { getRecipe } from '../../common';
+import { db } from '../../database';
 import { i18nAttr, localize } from '../../i18n';
 import { renderIngredientHTML } from '../../recipeml';
 import { getState, pushState, renderStateHash } from '../../state';
-import { storage } from '../../storage';
 import { addRecipe } from '../../models/recipes';
 import { starRecipe, unstarRecipe } from '../../models/starred';
 
@@ -15,7 +16,6 @@ export {
     recipeFormatter,
     rowAttributes,
     updateRecipeState,
-    updateStarState,
 };
 
 function titleFormatter(recipe) {
@@ -140,35 +140,42 @@ function bindPageChange(selector) {
 }
 
 function updateRecipeState(recipeId) {
-  var recipes = storage.recipes.load();
-  var isInRecipes = recipeId in recipes;
+  db.recipes.get(recipeId, recipe => {
+    var isInRecipes = !!recipe;
 
-  var addButton = $(`div.recipe-list .recipe[data-id="${recipeId}"] button.add-recipe`);
-  addButton.prop('disabled', isInRecipes);
-  addButton.toggleClass('btn-outline-primary', !isInRecipes);
-  addButton.toggleClass('btn-outline-secondary', isInRecipes);
+    var addButton = $(`div.recipe-list .recipe[data-id="${recipeId}"] button.add-recipe`);
+    addButton.prop('disabled', isInRecipes);
+    addButton.toggleClass('btn-outline-primary', !isInRecipes);
+    addButton.toggleClass('btn-outline-secondary', isInRecipes);
+  });
 }
 
-function updateStarState(recipeId) {
-  var starred = storage.starred.load();
-  var isStarred = recipeId in starred;
+function updateStarState(selector, recipeId) {
+  db.starred.get(recipeId, starred => {
+    var isStarred = !!starred;
 
-  var star = $(`div.recipe-list .recipe[data-id="${recipeId}"] .star`);
-  star.toggleClass('fas', isStarred);
-  star.toggleClass('far', !isStarred);
-  star.css('color', isStarred ? 'gold' : 'dimgray');
-  star.off('click');
-  star.on('click', isStarred ? unstarRecipe : starRecipe);
+    var star = $(`${selector} div.recipe-list .recipe[data-id="${recipeId}"] .star`);
+    star.toggleClass('fas', isStarred);
+    star.toggleClass('far', !isStarred);
+    star.css('color', isStarred ? 'gold' : 'dimgray');
+    star.off('click');
+    star.on('click', () => {
+      var toggleStarred = isStarred ? unstarRecipe : starRecipe;
+      getRecipe(star).then(toggleStarred).then(recipeId => { updateStarState(selector, recipeId) });
+    });
+  });
 }
 
 function bindPostBody(selector) {
   $(`${selector} table[data-row-attributes]`).on('post-body.bs.table', function(e, data) {
     data.forEach(function (row) {
       updateRecipeState(row.id);
-      updateStarState(row.id);
+      updateStarState(selector, row.id);
     });
 
-    $(this).find('.sidebar button.add-recipe').on('click', addRecipe);
+    $(this).find('.sidebar button.add-recipe').each((_, button) => {
+      $(button).on('click', () => { getRecipe(button).then(addRecipe).then(updateRecipeState); });
+    });
     $(this).parents('div.recipe-list').show();
 
     // If the user is on the page containing this table, scroll it into view

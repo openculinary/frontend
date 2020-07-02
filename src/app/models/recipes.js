@@ -1,40 +1,33 @@
 import 'jquery';
 
-import { getRecipe } from '../common';
-import { getState } from '../state';
-import { storage } from '../storage';
-import { addProduct, removeProduct } from '../models/products';
-import { updateRecipeState } from '../views/components/recipe-list';
+import { db } from '../database';
+import { addProduct } from '../models/products';
 
 export { addRecipe, removeRecipe, scaleRecipe };
 
-function addRecipe() {
-  var recipe = getRecipe(this);
-
-  var state = getState();
-  if (state.servings) scaleRecipe(recipe, Number(state.servings));
-
-  storage.recipes.add({'hashCode': recipe.id, 'value': recipe});
-  updateRecipeState(recipe.id);
-
-  recipe.ingredients.forEach(function (ingredient) {
-    addProduct(ingredient, recipe.id);
-  });
+async function addRecipe(recipe) {
+  return db.transaction('rw', db.recipes, db.products, db.ingredients, () => {
+    db.recipes.add(recipe).then(() => {
+      $.each(recipe.ingredients, (index, ingredient) => {
+        addProduct(ingredient, recipe.id, index);
+      });
+    });
+  }).then(() => recipe.id);
 }
 
-function removeRecipe() {
-  var recipe = getRecipe(this);
-
-  var products = storage.products.load();
-  $.each(products, function(productId) {
-    var product = products[productId];
-    if (recipe.id in product.recipes) {
-      removeProduct(product, recipe.id);
-    }
-  });
-
-  storage.recipes.remove({'hashCode': recipe.id});
-  updateRecipeState(recipe.id);
+async function removeRecipe(recipe) {
+  return db.transaction('rw', db.recipes, db.meals, db.ingredients, () => {
+    db.recipes
+      .delete(recipe.id);
+    db.meals
+      .where("recipe_id")
+      .equals(recipe.id)
+      .delete();
+    db.ingredients
+      .where("recipe_id")
+      .equals(recipe.id)
+      .delete();
+  }).then(() => recipe.id);
 }
 
 function scaleRecipe(recipe, targetServings) {

@@ -4,30 +4,20 @@ import { Sortable } from 'sortablejs';
 import i18next from 'i18next';
 
 import { getRecipe } from '../common';
+import { db } from '../database';
 import { i18nAttr, localize } from '../i18n';
-import { storage } from '../storage';
 import { removeMeal } from '../models/meals';
 import { removeRecipe } from '../models/recipes';
+import { updateRecipeState } from './components/recipe-list';
 
 function defaultDate() {
   return moment().locale(i18next.language).startOf('day');
 }
 
-function filterMeals(meals) {
-  var startDate = defaultDate();
-  var recipes = storage.recipes.load();
-  $.each(meals, function(date) {
-    if (date === 'undefined') delete meals[date];
-    if (moment(date).isBefore(startDate, 'day')) delete meals[date];
-    if (meals[date]) meals[date] = meals[date].filter(meal => meal.id in recipes);
-  });
-  return meals;
-}
-
 function updateHints() {
-    var recipes = storage.recipes.load();
+  db.recipes.count(count => {
     var hints = [];
-    if (Object.keys(recipes).length) {
+    if (count) {
         hints.push($('<p />', {'data-i18n': i18nAttr('meal-planner:hint-drag')}));
     } else {
         hints.push($('<p />', {'data-i18n': i18nAttr('meal-planner:empty-meal-planner')}));
@@ -35,9 +25,10 @@ function updateHints() {
     }
     $('#meal-planner div.hints').empty().append(hints);
     localize('#meal-planner div.hints');
+  });
 }
 
-function recipeElement(recipe) {
+function recipeElement(recipe, meal) {
   var cloneRemove = $('<span />', {
     'click': removeMeal,
     'data-role': 'remove'
@@ -57,7 +48,7 @@ function recipeElement(recipe) {
     'class': 'remove fa fa-trash-alt',
     'style': 'float: right; margin-left: 8px; margin-top: 3px;'
   });
-  remove.on('click', removeRecipe);
+  remove.on('click', () => { getRecipe(remove).then(removeRecipe).then(updateRecipeState) });
 
   // TODO: only include 'servings' parameter when the value overrides the recipe default
   // This may require some data model refactoring
@@ -72,7 +63,8 @@ function recipeElement(recipe) {
   var container = $('<div />', {
     'class': 'recipe',
     'style': 'clear: both',
-    'data-id': recipe.id
+    'data-id': recipe.id,
+    'data-meal-id': meal && meal.id
   });
   container.append(item);
   container.append(servings);
@@ -83,17 +75,15 @@ function recipeElement(recipe) {
 
 function renderRecipes() {
   var container = $('#meal-planner .recipes').empty();
-  var recipes = storage.recipes.load();
-  $.each(recipes, function(recipeId) {
-    var recipe = recipes[recipeId];
+  db.recipes.each(recipe => {
     container.append(recipeElement(recipe));
   });
+
+  populateNotifications();
+  updateHints();
 }
 
 function renderMeals() {
-  updateHints();
-
-  var meals = filterMeals(storage.meals.load());
   var idxDate = defaultDate();
   var endDate = defaultDate().add(1, 'week');
 
@@ -109,16 +99,19 @@ function renderMeals() {
     var header = $('<th />', {'text': day});
     var cell = $('<td />');
 
-    if (date in meals) {
-      $.each(meals[date], function (index, recipe) {
-        cell.append(recipeElement(recipe));
-      });
-    }
-
     row.append(header);
     row.append(cell);
     scheduler.append(row);
   }
+
+  db.transaction('r', db.meals, db.recipes, () => {
+    db.meals.each(meal => {
+      db.recipes.get(meal.recipe_id, recipe => {
+        var cell = $(`#meal-planner table tr[data-date="${meal.datetime}"] td`);
+        cell.append(recipeElement(recipe, meal));
+      });
+    });
+  });
 
   $('#meal-planner td').each(function(index, element) {
     Sortable.create(element, {
@@ -130,16 +123,12 @@ function renderMeals() {
     });
   });
 
-  populateNotifications(meals);
+  populateNotifications();
 }
 
 function dragMeal(evt) {
   var elements = [evt.item, evt.clone];
   elements.forEach(function (element) {
-    var recipeRemove = $(element).find('a.remove');
-    recipeRemove.off('click');
-    recipeRemove.on('click', removeRecipe);
-
     var mealRemove = $(element).find('span[data-role="remove"]');
     mealRemove.off('click');
     mealRemove.on('click', removeMeal);
@@ -147,42 +136,31 @@ function dragMeal(evt) {
 }
 
 function scheduleMeal(evt) {
-  var meals = storage.meals.load();
-  var recipe = getRecipe(evt.item);
-
-  var fromRow = $(evt.from).parents('tr');
-  if (fromRow.length) {
-    var date = fromRow.data('date');
-    var index = meals[date].map(meal => meal.id).indexOf(recipe.id)
-
-    if (index >= 0) meals[date].splice(index, 1);
-    if (!meals[date].length) delete meals[date];
-
-    storage.meals.remove({'hashCode': date});
-    if (date in meals) storage.meals.add({'hashCode': date, 'value': meals[date]});
-  }
-
-  var toRow = $(evt.to).parents('tr');
-  if (toRow.length) {
-    // eslint-disable-next-line no-redeclare
+  getRecipe(evt.item).then(recipe => {
+    var toRow = $(evt.to).parents('tr');
+    if (!toRow.length) return;
     var date = toRow.data('date');
-
-    meals[date] = meals[date] || [];
-    meals[date].push(recipe);
-
-    storage.meals.remove({'hashCode': date});
-    storage.meals.add({'hashCode': date, 'value': meals[date]});
-  }
+    db.meals.put({
+      id: recipe.mealId,
+      recipe_id: recipe.id,
+      datetime: date,
+      servings: recipe.servings,
+    }).then(id => {
+      $(evt.item).data('meal-id', id);
+    });
+  });
 }
 
-function populateNotifications(meals) {
-  var recipes = storage.recipes.load();
-  var empty = Object.keys(recipes).length == 0;
-  $('header span.notification.meal-planner').toggle(!empty);
-  if (empty) return;
+function populateNotifications() {
+  db.recipes.count(count => {
+    var empty = count === 0;
+    $('header span.notification.meal-planner').toggle(!empty);
+    if (empty) return;
 
-  var total = Object.keys(meals).length;
-  $('header span.notification.meal-planner').text(total);
+    db.meals.count(total => {
+      $('header span.notification.meal-planner').text(total);
+    });
+  });
 }
 
 $(function() {
@@ -200,7 +178,9 @@ $(function() {
     });
   });
 
-  storage.meals.on('state changed', renderMeals);
-  storage.recipes.on('state changed', renderRecipes);
-  storage.recipes.on('state changed', renderMeals);
+  db.on('changes', changes => { changes.find(c => c.table === 'meals') && renderMeals() });
+  db.on('changes', changes => { changes.find(c => c.table === 'recipes') && renderRecipes() });
+
+  renderMeals();
+  renderRecipes();
 });

@@ -6,6 +6,7 @@
         "jquery": "true"
     },
     "parserOptions": {
+        "ecmaVersion": 9,
         "sourceType": "module"
     }
 }
