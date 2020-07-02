@@ -6,11 +6,27 @@ import { db } from '../database';
 import { localize } from '../i18n';
 import { addStandaloneIngredient, removeStandaloneIngredient } from '../models/ingredients';
 
-function renderProduct(product, ingredients) {
-  var text = '';
-  $.each(ingredients, (index, ingredient) => {
+export { aggregateQuantities };
+
+function aggregateQuantities(ingredients) {
+  var quantities = new Map();
+  $.each(ingredients, (_, ingredient) => {
     if (!ingredient.quantity) return;
-    var quantity = renderQuantity(ingredient.quantity);
+    var units = ingredient.quantity.units || '';
+    quantities[units] = quantities[units] || 0;
+    quantities[units] += ingredient.quantity.magnitude;
+  });
+  $.each(quantities, units => {
+    if (quantities[units] === 0) delete quantities[units];
+  });
+  return quantities;
+}
+
+function renderProduct(product, ingredients) {
+  var quantities = aggregateQuantities(ingredients);
+  var text = '';
+  $.each(quantities, (units, magnitude) => {
+    var quantity = renderQuantity({units: units, magnitude: magnitude});
     var tail = `${quantity.magnitude || ''} ${quantity.units || ''}`.trim();
     if (tail.length) text += text.length ? ` + ${tail}` : tail;
   });
