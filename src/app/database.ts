@@ -67,7 +67,7 @@ export class Database extends Dexie {
     constructor() {
       super('RecipeRadar', {addons: [observable]});
 
-      this.version(1).stores({
+      this.version(20200702).stores({
         ingredients: '[recipe_id+product_id+index], recipe_id, product_id',
         products: 'id',
         directions: '[recipe_id+index]',
