@@ -2,6 +2,7 @@ import 'jquery';
 import * as moment from 'moment';
 import 'tablesaw/dist/stackonly/tablesaw.stackonly.jquery.js';
 
+import { getRecipe } from '../../common';
 import { db } from '../../database';
 import { i18nAttr, localize } from '../../i18n';
 import { renderIngredientHTML } from '../../recipeml';
@@ -14,7 +15,6 @@ export {
     bindLoadEvent,
     recipeFormatter,
     rowAttributes,
-    updateStarState,
 };
 
 function titleFormatter(recipe) {
@@ -149,16 +149,19 @@ function updateRecipeState(recipeId) {
   });
 }
 
-function updateStarState(recipeId) {
+function updateStarState(selector, recipeId) {
   db.starred.get(recipeId, starred => {
     var isStarred = !!starred;
 
-    var star = $(`div.recipe-list .recipe[data-id="${recipeId}"] .star`);
+    var star = $(`${selector} div.recipe-list .recipe[data-id="${recipeId}"] .star`);
     star.toggleClass('fas', isStarred);
     star.toggleClass('far', !isStarred);
     star.css('color', isStarred ? 'gold' : 'dimgray');
     star.off('click');
-    star.on('click', isStarred ? unstarRecipe : starRecipe);
+    star.on('click', () => {
+      var toggleStarred = isStarred ? unstarRecipe : starRecipe;
+      getRecipe(star).then(toggleStarred).then(recipeId => { updateStarState(selector, recipeId) });
+    });
   });
 }
 
@@ -166,7 +169,7 @@ function bindPostBody(selector) {
   $(`${selector} table[data-row-attributes]`).on('post-body.bs.table', function(e, data) {
     data.forEach(function (row) {
       updateRecipeState(row.id);
-      updateStarState(row.id);
+      updateStarState(selector, row.id);
     });
 
     $(this).find('.sidebar button.add-recipe').each((_, button) => {

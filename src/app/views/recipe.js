@@ -47,8 +47,10 @@ function updateStarState(recipeId) {
     star.toggleClass('far', !isStarred);
     star.css('color', isStarred ? 'gold' : 'dimgray');
     star.off('click');
-    star.on('click', isStarred ? unstarRecipe : starRecipe);
-    star.on('click', updateStarState);
+    star.on('click', () => {
+      var toggleStarred = isStarred ? unstarRecipe : starRecipe;
+      getRecipe(star).then(toggleStarred).then(updateStarState);
+    });
   });
 }
 
