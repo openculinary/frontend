@@ -76,7 +76,6 @@ function renderRecipe() {
     var corner = $('#recipe div.corner').empty();
     var image = $('#recipe div.image').empty();
     var metadata = $('#recipe div.metadata').empty();
-    var directions = $('#recipe div.directions').empty();
 
     var link = $('<a />', {'href': recipe.dst});
     var img = $('<img />', {'src': recipe.image_url, 'alt': recipe.title});
@@ -104,21 +103,7 @@ function renderRecipe() {
     metadata.append($('<div />', {'class': 'value', 'text': duration.as('minutes') + ' mins'}));
 
     renderIngredients(recipe);
-
-    directions.append($('<div />', {
-        'class': 'section-title',
-        'data-i18n': i18nAttr('search:result-tab-directions')
-    }));
-
-    var directionList  = $('<ol />');
-    $.each(recipe.directions, function() {
-        var directionHTML = renderDirectionHTML(this);
-        var direction = $(directionHTML);
-        direction.hover(hoverDirection, unhoverDirection);
-        direction.click(markDirection);
-        directionList.append(direction);
-    });
-    directions.append(directionList);
+    renderDirections(recipe);
 
     localize('#recipe');
     loadPage('recipe');
@@ -129,8 +114,6 @@ function renderRecipe() {
 }
 
 function renderIngredients(recipe) {
-  var existingIngredients = $('#recipe div.ingredients');
-
   var ingredients = $('<div />', {'class': 'ingredients'});
   ingredients.append($('<div />', {
     'class': 'headline section-title',
@@ -153,7 +136,31 @@ function renderIngredients(recipe) {
 
   ingredients.append(addButton);
 
+  var existingIngredients = $('#recipe div.ingredients');
   existingIngredients.replaceWith(ingredients);
 
   localize('#recipe .ingredients');
+}
+
+function renderDirections(recipe) {
+  var directions = $('<div />', {'class': 'directions'});
+  directions.append($('<div />', {
+    'class': 'section-title',
+    'data-i18n': i18nAttr('search:result-tab-directions')
+  }));
+
+  var directionList  = $('<ol />');
+  $.each(recipe.directions, function() {
+    var directionHTML = renderDirectionHTML(this);
+    var direction = $(directionHTML);
+    direction.hover(hoverDirection, unhoverDirection);
+    direction.click(markDirection);
+    directionList.append(direction);
+  });
+  directions.append(directionList);
+
+  var existingDirections = $('#recipe div.directions').empty();
+  existingDirections.replaceWith(directions);
+
+  localize('#recipe .directions');
 }
