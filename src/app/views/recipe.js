@@ -55,15 +55,13 @@ function updateStarState(recipeId) {
 }
 
 function updateServings() {
-  var targetServings = $('#recipe div.metadata input.servings').val();
-
   var state = getState();
-  state.servings = targetServings;
+  state.servings = $('#recipe div.metadata input.servings').val();
 
   var stateHash = renderStateHash(state);
   pushState(state, stateHash);
 
-  getRecipeById(state.id).then(recipe => { renderIngredients(recipe, targetServings); });
+  getRecipeById(state.id).then(renderIngredients);
 }
 
 function renderRecipe() {
@@ -105,7 +103,7 @@ function renderRecipe() {
     metadata.append($('<div />', {'class': 'property', 'text': 'time'}));
     metadata.append($('<div />', {'class': 'value', 'text': duration.as('minutes') + ' mins'}));
 
-    renderIngredients(recipe, targetServings);
+    renderIngredients(recipe);
 
     directions.append($('<div />', {
         'class': 'section-title',
@@ -130,7 +128,7 @@ function renderRecipe() {
   });
 }
 
-function renderIngredients(recipe, servings) {
+function renderIngredients(recipe) {
   var existingIngredients = $('#recipe div.ingredients');
 
   var ingredients = $('<div />', {'class': 'ingredients'});
@@ -139,6 +137,7 @@ function renderIngredients(recipe, servings) {
     'data-i18n': i18nAttr('search:result-tab-ingredients')
   }));
 
+  var servings = getState().servings || recipe.servings;
   scaleRecipe(recipe, servings);
 
   $.each(recipe.ingredients, function() {
