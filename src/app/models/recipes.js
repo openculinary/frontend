@@ -1,8 +1,6 @@
 import 'jquery';
 
-import { getRecipe } from '../common';
 import { db } from '../database';
-import { getState } from '../state';
 import { addProduct } from '../models/products';
 
 export { addRecipe, removeRecipe, scaleRecipe };
