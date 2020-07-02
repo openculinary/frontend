@@ -15,6 +15,7 @@ export {
     bindLoadEvent,
     recipeFormatter,
     rowAttributes,
+    updateRecipeState,
 };
 
 function titleFormatter(recipe) {

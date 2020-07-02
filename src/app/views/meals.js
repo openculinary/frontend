@@ -8,6 +8,7 @@ import { db } from '../database';
 import { i18nAttr, localize } from '../i18n';
 import { removeMeal } from '../models/meals';
 import { removeRecipe } from '../models/recipes';
+import { updateRecipeState } from './components/recipe-list';
 
 function defaultDate() {
   return moment().locale(i18next.language).startOf('day');
@@ -47,7 +48,7 @@ function recipeElement(recipe, meal) {
     'class': 'remove fa fa-trash-alt',
     'style': 'float: right; margin-left: 8px; margin-top: 3px;'
   });
-  remove.on('click', () => { getRecipe(remove).then(removeRecipe); });
+  remove.on('click', () => { getRecipe(remove).then(removeRecipe).then(updateRecipeState) });
 
   // TODO: only include 'servings' parameter when the value overrides the recipe default
   // This may require some data model refactoring
