@@ -1,4 +1,4 @@
-import 'jquery';
+import $ from 'jquery';
 
 import { getRecipeById } from '../common';
 import { db } from '../database';

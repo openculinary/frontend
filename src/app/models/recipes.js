@@ -1,4 +1,4 @@
-import 'jquery';
+import $ from 'jquery';
 
 import { db } from '../database';
 import { addProduct } from '../models/products';

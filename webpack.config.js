@@ -73,11 +73,6 @@ module.exports = (_, env) => {
         filename: '[name].[chunkhash].css'
       }),
       new OptimizeCSSAssetsPlugin(),
-      new webpack.ProvidePlugin({
-        '$': 'jquery',
-        'jQuery': 'jquery',
-        'window.jQuery': 'jquery'
-      }),
       new InjectManifest({
         dontCacheBustURLsMatching: /.*/,
         exclude: ['vendors'],
