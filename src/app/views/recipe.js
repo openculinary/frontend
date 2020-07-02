@@ -149,7 +149,7 @@ function renderIngredients(recipe) {
     'class': 'headline btn btn-outline-primary add-recipe',
     'text': 'Add to shopping list'
   });
-  addButton.on('click', () => { getRecipe(addButton).then(addRecipe).then(updateRecipeState); });
+  addButton.on('click', () => { Promise.resolve(recipe).then(addRecipe).then(updateRecipeState); });
 
   ingredients.append(addButton);
 
