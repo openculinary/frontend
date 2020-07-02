@@ -63,7 +63,6 @@ export class Database extends Dexie {
     starred: Dexie.Table<Starred, string>;
     meals: Dexie.Table<Meal, string>;
     basket: Dexie.Table<Stock, string>;
-    kitchen: Dexie.Table<Stock, string>;
 
     constructor() {
       super('RecipeRadar', {addons: [observable]});
@@ -76,7 +75,6 @@ export class Database extends Dexie {
         starred: 'recipe_id',
         meals: '$$id, recipe_id',
         basket: 'product_id',
-        kitchen: 'product_id',
       });
 
       this.ingredients = this.table('ingredients');
@@ -86,7 +84,6 @@ export class Database extends Dexie {
       this.starred = this.table('starred');
       this.meals = this.table('meals');
       this.basket = this.table('basket');
-      this.kitchen = this.table('kitchen');
     }
 
     minKey() { return Dexie.minKey; }
