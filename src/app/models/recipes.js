@@ -7,40 +7,29 @@ import { addProduct } from '../models/products';
 
 export { addRecipe, removeRecipe, scaleRecipe };
 
-function addRecipe(element, callback) {
-  getRecipe(element).then(recipe => {
-    var state = getState();
-    if (state.servings) scaleRecipe(recipe, Number(state.servings));
-
-    db.transaction('rw', db.recipes, db.products, db.ingredients, () => {
-      db.recipes.add(recipe).then(() => {
-        $.each(recipe.ingredients, (index, ingredient) => {
-          addProduct(ingredient, recipe.id, index);
-        });
+async function addRecipe(recipe) {
+  return db.transaction('rw', db.recipes, db.products, db.ingredients, () => {
+    db.recipes.add(recipe).then(() => {
+      $.each(recipe.ingredients, (index, ingredient) => {
+        addProduct(ingredient, recipe.id, index);
       });
-    }).then(() => {
-      callback && callback(recipe.id);
     });
-  });
+  }).then(() => recipe.id);
 }
 
-function removeRecipe(element, callback) {
-  getRecipe(element).then(recipe => {
-    db.transaction('rw', db.recipes, db.meals, db.ingredients, () => {
-      db.recipes
-        .delete(recipe.id);
-      db.meals
-        .where("recipe_id")
-        .equals(recipe.id)
-        .delete();
-      db.ingredients
-        .where("recipe_id")
-        .equals(recipe.id)
-        .delete();
-    }).then(() => {
-      callback && callback(recipe.id);
-    });
-  });
+async function removeRecipe(recipe) {
+  return db.transaction('rw', db.recipes, db.meals, db.ingredients, () => {
+    db.recipes
+      .delete(recipe.id);
+    db.meals
+      .where("recipe_id")
+      .equals(recipe.id)
+      .delete();
+    db.ingredients
+      .where("recipe_id")
+      .equals(recipe.id)
+      .delete();
+  }).then(() => recipe.id);
 }
 
 function scaleRecipe(recipe, targetServings) {

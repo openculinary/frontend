@@ -47,7 +47,7 @@ function recipeElement(recipe, meal) {
     'class': 'remove fa fa-trash-alt',
     'style': 'float: right; margin-left: 8px; margin-top: 3px;'
   });
-  remove.on('click', () => { removeRecipe(remove); });
+  remove.on('click', () => { getRecipe(remove).then(removeRecipe); });
 
   // TODO: only include 'servings' parameter when the value overrides the recipe default
   // This may require some data model refactoring

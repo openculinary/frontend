@@ -173,7 +173,7 @@ function bindPostBody(selector) {
     });
 
     $(this).find('.sidebar button.add-recipe').each((_, button) => {
-      $(button).on('click', () => { addRecipe(button, updateRecipeState); })
+      $(button).on('click', () => { getRecipe(button).then(addRecipe).then(updateRecipeState); });
     });
     $(this).parents('div.recipe-list').show();
 
