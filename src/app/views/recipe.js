@@ -121,7 +121,7 @@ function renderIngredients(recipe) {
     'data-i18n': i18nAttr('search:result-tab-ingredients')
   }));
 
-  var servings = getState().servings || recipe.servings;
+  var servings = Number(getState().servings) || recipe.servings;
   scaleRecipe(recipe, servings);
 
   $.each(recipe.ingredients, function() {
