@@ -31,7 +31,7 @@
     "eslint": "^7.4.0",
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.3.0",
-    "i18next-conv": "^9.2.0",
+    "i18next-conv": "^10.0.2",
     "i18next-gettext-loader": "^1.0.0",
     "i18next-scanner": "^2.10.3",
     "jsdom": "^16.2.0",
