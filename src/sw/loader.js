@@ -1,6 +1,8 @@
+import $ from 'jquery';
+
 import { Workbox } from 'workbox-window';
 
-window.addEventListener('DOMContentLoaded', () => {
+$(function() {
   if ('serviceWorker' in navigator) {
     const wb = new Workbox('sw.js');
     wb.addEventListener('waiting', () => {
