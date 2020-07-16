@@ -170,7 +170,7 @@ function renderShoppingList() {
 function bindShoppingListInput(element, placeholder) {
   $(element).select2({
     ajax: {
-      url: 'api/autosuggest/ingredients',
+      url: '/api/autosuggest/ingredients',
       data: params => ({pre: params.term}),
       processResults: data => ({
         results: data.map(item => ({
