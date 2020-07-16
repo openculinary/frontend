@@ -4,7 +4,7 @@ import 'select2';
 function bindEquipmentInput(element, label, placeholder) {
   $(element).select2({
     ajax: {
-      url: 'api/equipment',
+      url: 'api/autosuggest/equipment',
       data: params => ({pre: params.term}),
       processResults: data => ({
         results: data.map(item => ({
@@ -26,7 +26,7 @@ function bindEquipmentInput(element, label, placeholder) {
 function bindIngredientInput(element, label, placeholder) {
   $(element).select2({
     ajax: {
-      url: 'api/ingredients',
+      url: 'api/autosuggest/ingredients',
       data: params => ({pre: params.term}),
       processResults: data => ({
         results: data.map(item => ({
