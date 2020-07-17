@@ -16,7 +16,7 @@ module.exports = (_, env) => {
   return {
     entry: {
       'app': path.resolve(__dirname, 'src/app/main.ts'),
-      'diagnostics': path.resolve(__dirname, 'src/diagnostics/main.ts'),
+      'diagnostics': path.resolve(__dirname, 'src/diagnostics/main.js'),
       'feedback': path.resolve(__dirname, 'src/feedback/loader.js'),
       'html2canvas': path.resolve(__dirname, `node_modules/html2canvas/dist/${html2canvas}`),
       'locales': glob.sync('./i18n/locales/*/*.po', {ignore: ['./i18n/locales/templates/*.po']}),
