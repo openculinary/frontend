@@ -89,7 +89,7 @@ function renderRecipe() {
 
     title.on('click', evt => {
       if (evt.detail < 3) return;
-      window.open(`/diagnostics/#id=${recipe.id}`);
+      window.open(`/diagnostics/#recipe&id=${recipe.id}`);
     });
 
     var targetServings = Number(state.servings) || recipe.servings;
