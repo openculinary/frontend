@@ -86,6 +86,7 @@ module.exports = (_, env) => {
       }),
       new HtmlWebpackPlugin({
         chunks: ['diagnostics'],
+        filename: 'diagnostics/index.html',
         template: path.resolve(__dirname, 'src/diagnostics/index.html'),
         inject: false
       })
