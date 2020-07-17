@@ -87,6 +87,11 @@ function renderRecipe() {
     corner.append(starFormatter());
     image.append(link);
 
+    title.on('click', evt => {
+      if (evt.detail < 3) return;
+      window.open(`/diagnostics/#id=${recipe.id}`);
+    });
+
     var targetServings = Number(state.servings) || recipe.servings;
     var servingsInput = $('<input>', {
         'class': 'servings',
