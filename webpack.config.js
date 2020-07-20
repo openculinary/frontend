@@ -16,6 +16,7 @@ module.exports = (_, env) => {
   return {
     entry: {
       'app': path.resolve(__dirname, 'src/app/main.ts'),
+      'diagnostics': path.resolve(__dirname, 'src/diagnostics/main.js'),
       'feedback': path.resolve(__dirname, 'src/feedback/loader.js'),
       'html2canvas': path.resolve(__dirname, `node_modules/html2canvas/dist/${html2canvas}`),
       'locales': glob.sync('./i18n/locales/*/*.po', {ignore: ['./i18n/locales/templates/*.po']}),
@@ -79,8 +80,14 @@ module.exports = (_, env) => {
         swSrc: path.resolve(__dirname, 'src/sw/sw.js')
       }),
       new HtmlWebpackPlugin({
-        excludeChunks: ['locales'],
+        excludeChunks: ['diagnostics', 'locales'],
         template: path.resolve(__dirname, 'src/index.html'),
+        inject: false
+      }),
+      new HtmlWebpackPlugin({
+        chunks: ['diagnostics'],
+        filename: 'diagnostics/index.html',
+        template: path.resolve(__dirname, 'src/diagnostics/index.html'),
         inject: false
       })
     ],

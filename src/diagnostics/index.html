@@ -1,0 +1,44 @@
+<!--
+    RecipeRadar - recipe search and meal planning software
+    Copyright (C) 2019 OpenCulinary C.I.C.
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="description" content="RecipeRadar Diagnostics" />
+    <meta name="theme-color" content="#07f" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <% /* TODO: Awaiting https://caniuse.com/#feat=link-rel-preload coverage */ %>
+    <%= htmlWebpackPlugin.files.css.map(href => `<link rel="preload" href="${href}" as="style" crossorigin>`).join('\n    ') %>
+    <%= htmlWebpackPlugin.files.css.map(href => `<link rel="stylesheet" href="${href}">`).join('\n    ') %>
+    <title>RecipeRadar Diagnostics</title>
+  </head>
+  <body>
+    
+    <div id="diff"></div>
+
+    <footer>
+      <div class="text-center py-2">
+        <small>© 2019 <a href="https://beta.companieshouse.gov.uk/company/SC647817">OpenCulinary C.I.C.</a></small>
+        <div></div>
+        <small data-i18n="[html]footer:source-code"></small>
+      </div>
+    </footer>
+
+    <%= htmlWebpackPlugin.files.js.map(src => `<script type="text/javascript" src="${src}"></script>`).join('\n    ') %>
+  </body>
+</html>
