@@ -4,9 +4,10 @@ The RecipeRadar Frontend is a user-facing, [local-first](https://www.inkandswitc
 
 It's distributed as a [Progressive Web Application](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps) built using [webpack](https://webpack.js.org).
 
-Source code for the application is divided into three JavaScript components:
+Source code for the application is divided into four JavaScript components:
 
 * `src/app` - RecipeRadar application functionality
+* `src/diagnostics` - service status and data investigation tools
 * `src/feedback` - in-application feedback form based on [feedback.js](https://experiments.hertzen.com/jsfeedback)
 * `src/sw` - application [service worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
 
