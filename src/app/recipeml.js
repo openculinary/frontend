@@ -23,7 +23,8 @@ function renderDirectionHTML(direction) {
     const xml = $.parseXML(`<xml>${direction.markup}</xml>`).firstChild;
     const container = $('<div />');
 
-    $(xml).find('mark').replaceWith((idx, text) => $('<span />', {'class': 'equipment tag badge', 'text': text}));
+    $(xml).find('mark[class*=equipment]').replaceWith((idx, text) => $('<span />', {'class': 'equipment tag badge', 'text': text}));
+    $(xml).find('mark[class*=action]').replaceWith((idx, text) => $('<span />', {'class': 'action', 'text': text}));
     const directionHTML = $('<li />', {'class': 'direction', 'html': xml.childNodes});
 
     container.append(directionHTML);
