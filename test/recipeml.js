@@ -82,8 +82,18 @@ describe('html rendering', function() {
   });
 
   it('renders simple direction', function() {
-    var recipeML = 'place the <mark>casserole dish</mark> in the <mark>oven</mark>';
+    var recipeML = 'place the <mark class="equipment vessel">casserole dish</mark> in the <mark class="equipment appliance">oven</mark>';
     var expected = '<li class="direction">place the <span class="equipment tag badge">casserole dish</span> in the <span class="equipment tag badge">oven</span></li>';
+
+    var direction = directionHelper(recipeML);
+    var rendered = renderDirectionHTML(direction);
+
+    assert.equal(expected, rendered);
+  });
+
+  it('renders directions with actions and equipment', function() {
+    var recipeML = '<mark class="action">heat</mark> the <mark class="equipment appliance">oven</mark> to 200 F';
+    var expected = '<li class="direction"><span class="action">heat</span> the <span class="equipment tag badge">oven</span> to 200 F</li>';
 
     var direction = directionHelper(recipeML);
     var rendered = renderDirectionHTML(direction);
