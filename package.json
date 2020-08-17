@@ -11,7 +11,7 @@
     "d3-sankey": "git+https://github.com/jayaddison/d3-sankey.git#66afca1be8b3d8e0bd4a04e9a0fb42cb72d7037d",
     "dexie": "^3.0.1",
     "dexie-observable": "^1.0.0-beta.7",
-    "html2canvas": "git+https://github.com/jayaddison/html2canvas.git#1add9b06b3c7eb44a0ea3ab55d1afeb3fcc5f681",
+    "html2canvas": "1.0.0-rc.7",
     "i18next": "^19.6.3",
     "i18next-browser-languagedetector": "^4.3.1",
     "i18next-xhr-backend": "^3.2.2",
