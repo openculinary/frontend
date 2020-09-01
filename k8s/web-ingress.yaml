@@ -10,4 +10,5 @@ spec:
       - backend:
           service:
             name: frontend-service
-            port: 80
+            port:
+              number: 80
