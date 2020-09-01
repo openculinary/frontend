@@ -7,7 +7,9 @@ spec:
   - host: frontend
     http:
       paths:
-      - backend:
+      - pathType: Prefix
+        path: /
+        backend:
           service:
             name: frontend-service
             port:
