@@ -11,7 +11,7 @@ $(function() {
         wb.addEventListener('controlling', () => {
           window.location.reload();
         });
-        wb.messageSW({type: 'skipWaiting'});
+        wb.messageSW({type: 'SKIP_WAITING'});
       }
     });
     wb.register();
