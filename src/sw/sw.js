@@ -3,7 +3,8 @@ import { registerRoute } from 'workbox-routing';
 import { NetworkFirst } from 'workbox-strategies';
 
 addEventListener('message', (event) => {
-  if (event.data && event.data.type == 'skipWaiting') {
+  const skipWaitingTypes = {'skipWaiting': null, 'SKIP_WAITING': null};
+  if (event.data && event.data.type in skipWaitingTypes) {
     self.skipWaiting();
   }
 });
