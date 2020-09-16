@@ -21,6 +21,7 @@ import './views/components/recipe-list';
 import './views/components/recipe-list.css';
 import './main.css';
 
+import './collaboration';
 import './database';
 
 import { recipeFormatter, rowAttributes } from './views/components/recipe-list';
