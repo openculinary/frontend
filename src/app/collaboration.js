@@ -8,7 +8,7 @@ const wsProvider = new WebsocketProvider('ws://localhost/collaboration', session
 const dbProvider = new IndexeddbPersistence(sessionId, doc);
 
 wsProvider.on('status', event => {
-  console.log(event.status);
+  console.log(`y-websocket ${event.status}`);
 });
 dbProvider.on('synced', () => {
   console.log('y-indexeddb synced');
