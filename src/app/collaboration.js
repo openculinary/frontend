@@ -9,7 +9,7 @@ const dbProvider = new IndexeddbPersistence(sessionId, doc);
 
 wsProvider.on('status', event => {
   console.log(event.status);
-})
+});
 dbProvider.on('synced', () => {
   console.log('y-indexeddb synced');
-})
+});
