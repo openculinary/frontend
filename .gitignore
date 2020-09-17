@@ -1,5 +1,4 @@
 *.swp
-.lighthouseci
 node_modules
 public
 static/.well-known
