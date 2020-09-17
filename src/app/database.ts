@@ -1,68 +1,15 @@
 import Dexie from 'dexie';
 import observable from 'dexie-observable';
-
-export interface Quantity {
-    magnitude: number,
-    units: string,
-}
-
-export interface Ingredient {
-    recipe_id: string,
-    product_id: string,
-    index: number,
-    markup: string,
-    quantity: Quantity,
-}
-
-export interface Product {
-    id: string,
-    category: string,
-    singular: string,
-    plural: string,
-}
-
-export interface Direction {
-   recipe_id: string,
-   index: number,
-   markup: string,
-}
-
-export interface Recipe {
-    id: string,
-    title: string,
-    image_url: string,
-    time: number,
-    servings: number,
-    rating: number,
-    domain: string,
-    dst: string,
-}
-
-export interface Starred {
-    recipe_id: string,
-}
-
-export interface Meal {
-    id?: string,
-    recipe_id: string,
-    datetime: string,
-    servings: number,
-}
-
-export interface Stock {
-    product_id: string,
-    magnitude: number,
-    units: string,
-}
+import * as doc from 'document-20200917';
 
 export class Database extends Dexie {
-    ingredients: Dexie.Table<Ingredient, [string, string, number]>;  // recipe_id, product_id, index
-    products: Dexie.Table<Product, string>;
-    directions: Dexie.Table<Direction, [string, number]>;  // recipe_id, index
-    recipes: Dexie.Table<Recipe, string>;
-    starred: Dexie.Table<Starred, string>;
-    meals: Dexie.Table<Meal, string>;
-    basket: Dexie.Table<Stock, string>;
+    ingredients: Dexie.Table<doc.Ingredient, [string, string, number]>;  // recipe_id, product_id, index
+    products: Dexie.Table<doc.Product, string>;
+    directions: Dexie.Table<doc.Direction, [string, number]>;  // recipe_id, index
+    recipes: Dexie.Table<doc.Recipe, string>;
+    starred: Dexie.Table<doc.Starred, string>;
+    meals: Dexie.Table<doc.Meal, string>;
+    basket: Dexie.Table<doc.Stock, string>;
 
     constructor() {
       super('RecipeRadar', {addons: [observable]});
