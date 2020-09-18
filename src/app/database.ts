@@ -3,13 +3,13 @@ import observable from 'dexie-observable';
 import * as doc from 'document-20200917';
 
 export class Database extends Dexie {
-    ingredients: Dexie.Table<doc.Ingredient, [string, string, number]>;  // recipe_id, product_id, index
-    products: Dexie.Table<doc.Product, string>;
-    directions: Dexie.Table<doc.Direction, [string, number]>;  // recipe_id, index
-    recipes: Dexie.Table<doc.Recipe, string>;
-    starred: Dexie.Table<doc.Starred, string>;
-    meals: Dexie.Table<doc.Meal, string>;
-    basket: Dexie.Table<doc.Stock, string>;
+    ingredients: Dexie.Table<doc.types.Ingredient, [string, string, number]>;  // recipe_id, product_id, index
+    products: Dexie.Table<doc.types.Product, string>;
+    directions: Dexie.Table<doc.types.Direction, [string, number]>;  // recipe_id, index
+    recipes: Dexie.Table<doc.types.Recipe, string>;
+    starred: Dexie.Table<doc.types.Starred, string>;
+    meals: Dexie.Table<doc.types.Meal, string>;
+    basket: Dexie.Table<doc.types.Stock, string>;
 
     constructor() {
       super('RecipeRadar', {addons: [observable]});
