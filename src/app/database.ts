@@ -1,6 +1,6 @@
 import Dexie from 'dexie';
 import observable from 'dexie-observable';
-import { types } from 'document-20200917';
+import { types } from 'document';
 
 export class Database extends Dexie {
     ingredients: Dexie.Table<types.Ingredient, [string, string, number]>;  // recipe_id, product_id, index
