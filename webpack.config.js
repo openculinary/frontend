@@ -118,7 +118,9 @@ module.exports = (_, env) => {
         },
         {
           test: /\.ts$/,
-          loader: 'ts-loader'
+          loader: 'ts-loader', options: {
+            allowTsInNodeModules: true
+          }
         },
       ]
     }

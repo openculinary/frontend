@@ -1,6 +1,7 @@
 import Dexie from 'dexie';
 import observable from 'dexie-observable';
 import { types } from 'document';
+import * as semver from 'semver';
 
 export class Database extends Dexie {
     ingredients: Dexie.Table<types.Ingredient, [string, string, number]>;  // recipe_id, product_id, index
@@ -35,6 +36,19 @@ export class Database extends Dexie {
 
     minKey() { return Dexie.minKey; }
     maxKey() { return Dexie.maxKey; }
+
+    loadFromDocument(document: string, documentVersion: semver.SemVer) {
+      this.tables.forEach(table => {
+        db.transaction('rw', table, () => {
+          table.clear();
+        });
+      });
+
+      const starred = new types.Starred(document, documentVersion);
+      db.transaction('rw', db.starred, () => {
+        db.starred.add(starred);
+      });
+    }
 }
 
 export var db = new Database();
