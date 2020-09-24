@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "@types/jquery": "^3.5.1",
+    "@types/mocha": "^8.0.3",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^6.1.0",
     "css-loader": "^3.6.0",
