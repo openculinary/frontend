@@ -5,6 +5,6 @@ import { packageVersion } from 'document';
 
 describe('test', () => {
     it('load database state from document', async () => {
-        // await db.starred.count();
+        await db.starred.count();
     });
 });
