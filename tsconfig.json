@@ -6,9 +6,9 @@
   },
   "include": [
     "src/**/*.ts",
-    "node_modules/document-*/**/*.ts"
+    "node_modules/document/**/*.ts"
   ],
   "exclude": [
-    "node_modules/document-*/**/*.spec.ts"
+    "node_modules/document/**/*.spec.ts"
   ]
 }
