@@ -86,8 +86,8 @@ function refinementHandler(data) {
 
 function createSortPrompt() {
   var sortOptions = [
-    {val: 'ingredients', i18n: i18nAttr('search:sort-ingredients')},
     {val: 'relevance', i18n: i18nAttr('search:sort-relevance')},
+    {val: 'ingredients', i18n: i18nAttr('search:sort-ingredients')},
     {val: 'duration', i18n: i18nAttr('search:sort-duration')},
   ];
 
