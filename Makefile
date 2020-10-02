@@ -32,7 +32,7 @@ lint:
 	npx eslint src
 
 tests:
-	npx mochapack --mode ${MODE} --require setup.js
+	npx mochapack --mode ${MODE} --require setup.js --include db-hooks.ts
 
 webpack:
 	npx webpack --mode ${MODE} --optimize-minimize
