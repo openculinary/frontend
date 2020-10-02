@@ -12,3 +12,8 @@ setGlobalVars(global.window, {checkOrigin: false, memoryDatabase: ":memory:"});
 
 const jquery = require('jquery');
 window.$ = jquery;
+
+process.on('unhandledRejection', (reason, promise) => {
+  if (reason.name === 'DatabaseClosedError') return;
+  throw promise;
+});
