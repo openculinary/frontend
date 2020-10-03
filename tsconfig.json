@@ -1,11 +1,9 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "lib": [ "es5", "es2015.promise" ],
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "target": "es5",
-    "types": ["jquery", "mocha"]
+    "target": "es6"
   },
   "include": [
     "src/**/*.ts",
