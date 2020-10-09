@@ -39,15 +39,13 @@ class Database extends Dexie {
 
     loadFromDocument(document: string, documentVersion: semver.SemVer) {
       this.tables.forEach(table => {
-        db.transaction('rw', table, () => {
+        this.transaction('rw', table, () => {
           table.clear();
         });
       });
 
       const starred = new types.Starred(document, documentVersion);
-      db.transaction('rw', db.starred, () => {
-        db.starred.add(starred);
-      });
+      this.starred.add(starred);
     }
 }
 

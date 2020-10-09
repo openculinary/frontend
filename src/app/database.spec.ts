@@ -3,10 +3,12 @@ import * as assert from 'assert';
 import { db } from './database';
 import { packageVersion, types } from 'document';
 
-describe('test', () => {
-    it('load database state from document', async () => {
-        db.starred.add(new types.Starred('example', packageVersion));
+describe('database load and store', () => {
+
+    it('load database from document', async () => {
+        db.loadFromDocument('test', packageVersion);
         const result = await db.starred.count();
         assert.equal(result, 1);
     });
+
 });
