@@ -55,7 +55,7 @@ export interface Stock {
     units: string,
 }
 
-export class Database extends Dexie {
+class Database extends Dexie {
     ingredients: Dexie.Table<Ingredient, [string, string, number]>;  // recipe_id, product_id, index
     products: Dexie.Table<Product, string>;
     directions: Dexie.Table<Direction, [string, number]>;  // recipe_id, index
