@@ -32,7 +32,7 @@ lint:
 	npx eslint src
 
 tests:
-	npx mochapack --mode ${MODE} --require setup.js "src/**/*.spec.ts" "test/**/*.js"
+	npx mochapack --mode ${MODE} --require setup.js "test/**/*.js" "src/**/*.spec.ts"
 
 webpack:
 	npx webpack --mode ${MODE} --optimize-minimize
