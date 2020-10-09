@@ -5,10 +5,18 @@ import { packageVersion, types } from 'document';
 
 describe('database load and store', () => {
 
+    beforeEach(async () => {
+        await db.open();
+    });
+
+    afterEach(async () => {
+        await db.delete();
+    });
+
     it('load database from document', async () => {
-        db.loadFromDocument('test', packageVersion);
-        const result = await db.starred.count();
-        assert.equal(result, 1);
+        await db.loadFromDocument('document', packageVersion);
+        const total = await db.starred.count();
+        assert.equal(total, 1);
     });
 
 });

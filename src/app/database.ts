@@ -37,15 +37,17 @@ class Database extends Dexie {
     minKey() { return Dexie.minKey; }
     maxKey() { return Dexie.maxKey; }
 
-    loadFromDocument(document: string, documentVersion: semver.SemVer) {
+    async loadFromDocument(document: string, documentVersion: semver.SemVer) {
+      var tableClearances = [];
       this.tables.forEach(table => {
-        this.transaction('rw', table, () => {
-          table.clear();
-        });
+        tableClearances.push(this.transaction('rw', table, () => table.clear()));
       });
+      await Promise.all(tableClearances);
 
       const starred = new types.Starred(document, documentVersion);
-      this.starred.add(starred);
+      return this.transaction('rw', 'starred', () => {
+        this.starred.add(starred);
+      });
     }
 }
 
