@@ -3,7 +3,7 @@ import observable from 'dexie-observable';
 import { types } from 'document';
 import * as semver from 'semver';
 
-export class Database extends Dexie {
+class Database extends Dexie {
     ingredients: Dexie.Table<types.Ingredient, [string, string, number]>;  // recipe_id, product_id, index
     products: Dexie.Table<types.Product, string>;
     directions: Dexie.Table<types.Direction, [string, number]>;  // recipe_id, index
