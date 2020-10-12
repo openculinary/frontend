@@ -46,7 +46,7 @@
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12",
     "webpack-license-plugin": "^4.1.1",
-    "workbox-webpack-plugin": "^6.0.0-alpha.3",
+    "workbox-webpack-plugin": "6.0.0-alpha.2",
     "xmlhttprequest": "^1.8.0"
   }
 }
