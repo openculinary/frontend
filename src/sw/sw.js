@@ -25,5 +25,4 @@ function searchHandler(event) {
 registerRoute(new RegExp('/api/recipes/search'), searchHandler);
 registerRoute(new RegExp('/(#.*)?'), new StaleWhileRevalidate());
 
-precacheAndRoute(['/']);
 precacheAndRoute(self.__WB_MANIFEST);
