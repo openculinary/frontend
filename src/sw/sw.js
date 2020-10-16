@@ -1,6 +1,6 @@
 import { precacheAndRoute } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
-import { NetworkFirst } from 'workbox-strategies';
+import { StaleWhileRevalidate } from 'workbox-strategies';
 
 addEventListener('message', (event) => {
   const skipWaitingTypes = {'skipWaiting': null, 'SKIP_WAITING': null};
@@ -23,6 +23,6 @@ function searchHandler(event) {
 }
 
 registerRoute(new RegExp('/api/recipes/search'), searchHandler);
-registerRoute(new RegExp('/(#.*)?'), new NetworkFirst());
+registerRoute(new RegExp('/(#.*)?'), new StaleWhileRevalidate());
 
 precacheAndRoute(self.__WB_MANIFEST);
