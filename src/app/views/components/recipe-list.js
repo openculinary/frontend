@@ -3,6 +3,7 @@ import * as moment from 'moment';
 import 'tablesaw/dist/stackonly/tablesaw.stackonly.jquery.js';
 
 import { getRecipe } from '../../common';
+import { renderQuantity } from '../../conversion';
 import { db } from '../../database';
 import { i18nAttr, localize } from '../../i18n';
 import { renderIngredientHTML } from '../../recipeml';
@@ -47,11 +48,22 @@ function sidebarFormatter(recipe) {
   var sidebar = $('<td />', {'class': 'sidebar align-top'});
   sidebar.append(link);
 
-  sidebar.append($('<span />', {'html': '<strong>serves</strong>'}));
+  sidebar.append($('<span />', {'html': '<strong>serves</strong>', 'class': 'field'}));
   sidebar.append($('<span />', {'text': recipe.servings}));
   sidebar.append($('<br />'));
-  sidebar.append($('<span />', {'html': '<strong>time</strong>'}));
+  sidebar.append($('<span />', {'html': '<strong>time</strong>', 'class': 'field'}));
   sidebar.append($('<span />', {'text': duration.as('minutes') + ' mins'}));
+
+  if (recipe.nutrition) {
+    var nutritionFields = ['energy', 'fat', 'carbohydrates', 'fibre', 'protein'];
+    nutritionFields.forEach(field => {
+      if (!recipe.nutrition[field].magnitude) return;
+      sidebar.append($('<br />'));
+      sidebar.append($('<span />', {'html': `<strong>${field}</strong>`, 'class': 'field'}));
+      var quantity = renderQuantity(recipe.nutrition[field]);
+      sidebar.append($('<span />', {'html': `${quantity.magnitude || ''} ${quantity.units || ''}`.trim()}));
+    });
+  }
 
   // TODO: i18n
   var destination = $('<a />', {

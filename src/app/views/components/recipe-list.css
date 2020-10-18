@@ -76,6 +76,11 @@ div.recipe-list .sidebar img {
   box-shadow: 2px 2px 2px 1px #ccc;
 }
 
+div.recipe-list .sidebar span.field {
+  width: 90px;
+  text-align: right;
+}
+
 div.recipe-list .sidebar span {
   display: inline-block;
   margin-left: 1rem;
