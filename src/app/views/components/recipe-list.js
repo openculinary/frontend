@@ -55,13 +55,15 @@ function sidebarFormatter(recipe) {
   sidebar.append($('<span />', {'text': duration.as('minutes') + ' mins'}));
 
   if (recipe.nutrition) {
+    sidebar.append($('<div />', {'html': '<strong>nutrition per serving</strong>', 'class': 'heading'}));
+
     var nutritionFields = ['energy', 'fat', 'carbohydrates', 'fibre', 'protein'];
     nutritionFields.forEach(field => {
       if (!recipe.nutrition[field].magnitude) return;
-      sidebar.append($('<br />'));
       sidebar.append($('<span />', {'html': `<strong>${field}</strong>`, 'class': 'field'}));
       var quantity = renderQuantity(recipe.nutrition[field], false);
       sidebar.append($('<span />', {'html': `${quantity.magnitude || ''} ${quantity.units || ''}`.trim()}));
+      sidebar.append($('<br />'));
     });
   }
 
