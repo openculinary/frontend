@@ -60,7 +60,7 @@ function sidebarFormatter(recipe) {
       if (!recipe.nutrition[field].magnitude) return;
       sidebar.append($('<br />'));
       sidebar.append($('<span />', {'html': `<strong>${field}</strong>`, 'class': 'field'}));
-      var quantity = renderQuantity(recipe.nutrition[field]);
+      var quantity = renderQuantity(recipe.nutrition[field], false);
       sidebar.append($('<span />', {'html': `${quantity.magnitude || ''} ${quantity.units || ''}`.trim()}));
     });
   }
