@@ -91,12 +91,13 @@ div.recipe-list .sidebar span.field {
 div.recipe-list .sidebar span {
   display: inline-block;
   margin-left: 1rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
 }
 
 div.recipe-list .sidebar button {
   width: 192px;
+  margin-top: 1px;
   margin-bottom: 4px;
 }
 
