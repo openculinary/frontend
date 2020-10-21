@@ -7,6 +7,15 @@
   padding-left: 2em;
 }
 
+#recipe div.attribution {
+  font-style: italic;
+  font-size: 14px;
+  color: #006;
+
+  padding-top: 1em;
+  padding-left: 2em;
+}
+
 #recipe .star {
   float: right;
 
