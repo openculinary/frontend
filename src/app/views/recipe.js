@@ -84,8 +84,7 @@ function renderRecipe() {
     link.append(img);
 
     if (recipe.author) {
-      var author = document.createTextNode(recipe.author);
-      if (recipe.author_url) author = $('<a />', {'href': recipe.author_url}).append(author);
+      var author = $('<a />', {'href': recipe.author_url || recipe.dst, 'text': recipe.author});
       attribution.append(document.createTextNode('by '));
       attribution.append(author);
     }
