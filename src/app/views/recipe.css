@@ -3,8 +3,17 @@
   font-size: 24px;
   color: #006;
 
-  padding-top: 1em;
-  padding-left: 2em;
+  padding-top: 20px;
+  padding-left: 50px;
+}
+
+#recipe div.attribution {
+  font-style: italic;
+  font-size: 14px;
+  color: #006;
+
+  padding-top: 20px;
+  padding-left: 50px;
 }
 
 #recipe .star {
@@ -13,9 +22,9 @@
   font-size: 24px;
   line-height: inherit;
 
-  padding-top: 1em;
-  padding-left: 1em;
-  padding-right: 2em;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 50px;
 }
 
 #recipe div.contents {
