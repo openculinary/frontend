@@ -74,6 +74,7 @@ function renderRecipe() {
     var duration = moment.duration(recipe.time, 'minutes');
 
     var title = $('#recipe div.title').empty();
+    var attribution = $('#recipe div.attribution').empty();
     var corner = $('#recipe div.corner').empty();
     var image = $('#recipe div.image').empty();
     var metadata = $('#recipe div.metadata').empty();
@@ -81,6 +82,12 @@ function renderRecipe() {
     var link = $('<a />', {'href': recipe.dst});
     var img = $('<img />', {'src': recipe.image_url, 'alt': recipe.title});
     link.append(img);
+
+    if (recipe.author) {
+      var author = $('<a />', {'href': recipe.author_url || recipe.dst, 'text': recipe.author});
+      attribution.append(document.createTextNode('by '));
+      attribution.append(author);
+    }
 
     container.data('id', recipe.id);
     title.text(recipe.title);
