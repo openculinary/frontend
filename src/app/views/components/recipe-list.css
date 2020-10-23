@@ -83,6 +83,11 @@ div.recipe-list .sidebar img.dietary-property {
   margin-bottom: 0.5rem;
 }
 
+div.recipe-list .sidebar img.dietary-property.is-dairy-free { color: blue; }
+div.recipe-list .sidebar img.dietary-property.is-gluten-free { color: orange; }
+div.recipe-list .sidebar img.dietary-property.is-vegan { color: lightgreen; }
+div.recipe-list .sidebar img.dietary-property.is-vegetarian { color: green; }
+
 div.recipe-list .sidebar span {
   display: inline-block;
   margin-left: 1rem;
