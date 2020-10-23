@@ -60,7 +60,7 @@ function sidebarFormatter(recipe) {
   properties.forEach(property => {
     if (!recipe[property]) return;
     sidebar.append($('<img />', {
-      'class': 'dietary-property',
+      'class': `dietary-property ${property.replace('_', '-')}`,
       'src': `images/symbols/${property}.svg`,
     }));
   });
