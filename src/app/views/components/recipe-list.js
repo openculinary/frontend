@@ -47,6 +47,17 @@ function sidebarFormatter(recipe) {
   var sidebar = $('<td />', {'class': 'sidebar align-top'});
   sidebar.append(link);
 
+  var properties = [
+    'is_dairy_free',
+    'is_gluten_free',
+    'is_vegan',
+    'is_vegetarian',
+  ];
+  properties.forEach(property => {
+    if (!recipe[property]) return;
+    sidebar.append($('<img />', {'src': `images/symbols/${property}.svg`}));
+  });
+
   sidebar.append($('<span />', {'html': '<strong>serves</strong>'}));
   sidebar.append($('<span />', {'text': recipe.servings}));
   sidebar.append($('<br />'));
