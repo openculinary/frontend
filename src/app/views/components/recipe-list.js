@@ -65,6 +65,7 @@ function sidebarFormatter(recipe) {
     }));
   });
 
+  sidebar.append($('<br />'));
   sidebar.append($('<span />', {'html': '<strong>serves</strong>'}));
   sidebar.append($('<span />', {'text': recipe.servings}));
   sidebar.append($('<br />'));
