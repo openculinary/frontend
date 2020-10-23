@@ -71,9 +71,15 @@ div.recipe-list .recipe table {
   clear: both;
 }
 
-div.recipe-list .sidebar img {
+div.recipe-list .sidebar img.thumbnail {
   max-width: 192px;
   box-shadow: 2px 2px 2px 1px #ccc;
+}
+
+div.recipe-list .sidebar img.dietary-property {
+  width: 24px;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 div.recipe-list .sidebar span {

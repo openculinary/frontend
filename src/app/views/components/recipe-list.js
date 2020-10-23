@@ -41,7 +41,11 @@ function sidebarFormatter(recipe) {
   var duration = moment.duration(recipe.time, 'minutes');
 
   var link = $('<a />', {'href': `#search&action=view&id=${recipe.id}`});
-  var img = $('<img />', {'src': recipe.image_url, 'alt': recipe.title});
+  var img = $('<img />', {
+    'class': 'thumbnail',
+    'src': recipe.image_url,
+    'alt': recipe.title,
+  });
   link.append(img);
 
   var sidebar = $('<td />', {'class': 'sidebar align-top'});
@@ -55,7 +59,10 @@ function sidebarFormatter(recipe) {
   ];
   properties.forEach(property => {
     if (!recipe[property]) return;
-    sidebar.append($('<img />', {'src': `images/symbols/${property}.svg`}));
+    sidebar.append($('<img />', {
+      'class': 'dietary-property',
+      'src': `images/symbols/${property}.svg`,
+    }));
   });
 
   sidebar.append($('<span />', {'html': '<strong>serves</strong>'}));
