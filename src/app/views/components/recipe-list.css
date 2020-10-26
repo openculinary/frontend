@@ -82,7 +82,6 @@ div.recipe-list .sidebar img.dietary-property {
   margin-top: 0.5rem;
   margin-right: 0.5rem;
   margin-bottom: 0.5rem;
-  mask-size: cover;
 }
 
 div.recipe-list .sidebar img.dietary-property.is-dairy-free { background-color: blue; }
