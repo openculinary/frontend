@@ -62,6 +62,7 @@ function sidebarFormatter(recipe) {
     sidebar.append($('<img />', {
       'class': `dietary-property ${property.split('_').join('-')}`,
       'style': `-webkit-mask: url(images/symbols/${property}.svg)`,
+      'data-i18n': `[title]dietary-properties:${property}`,
     }));
   });
 
