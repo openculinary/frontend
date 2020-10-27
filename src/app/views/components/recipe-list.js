@@ -41,12 +41,32 @@ function sidebarFormatter(recipe) {
   var duration = moment.duration(recipe.time, 'minutes');
 
   var link = $('<a />', {'href': `#search&action=view&id=${recipe.id}`});
-  var img = $('<img />', {'src': recipe.image_url, 'alt': recipe.title});
+  var img = $('<img />', {
+    'class': 'thumbnail',
+    'src': recipe.image_url,
+    'alt': recipe.title,
+  });
   link.append(img);
 
   var sidebar = $('<td />', {'class': 'sidebar align-top'});
   sidebar.append(link);
 
+  var properties = [
+    'is_dairy_free',
+    'is_gluten_free',
+    'is_vegan',
+    'is_vegetarian',
+  ];
+  properties.forEach(property => {
+    if (!recipe[property]) return;
+    sidebar.append($('<img />', {
+      'class': `dietary-property ${property.split('_').join('-')}`,
+      'style': `-webkit-mask: url(images/symbols/${property}.svg)`,
+      'data-i18n': `[title]dietary-properties:${property}`,
+    }));
+  });
+
+  sidebar.append($('<br />'));
   sidebar.append($('<span />', {'html': '<strong>serves</strong>'}));
   sidebar.append($('<span />', {'text': recipe.servings}));
   sidebar.append($('<br />'));
