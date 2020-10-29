@@ -3,7 +3,7 @@ import { WebsocketProvider } from 'y-websocket';
 import { IndexeddbPersistence } from 'y-indexeddb';
 
 const doc = new Y.Doc();
-const docText = doc.get('doc.reciperadar.org', Y.Text);
+const docText = doc.getText('doc.reciperadar.org');
 
 const sessionId = 'example-session-id';
 const wsProvider = new WebsocketProvider('ws://localhost/collaboration', sessionId, doc);
