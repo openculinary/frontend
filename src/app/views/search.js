@@ -61,9 +61,10 @@ function renderRefinement(refinement) {
   }
 }
 
-function renderDomainFacet(domain) {
+function renderDomainFacet(domain, state) {
+  var domainState = state === undefined ? true : state;
   var chip = $('<label />', {'class': 'badge badge-light badge-pill'});
-  var checkbox = $('<input />', {'type': 'checkbox', 'checked': true, 'value': domain});
+  var checkbox = $('<input />', {'type': 'checkbox', 'checked': domainState, 'value': domain});
   var icon = $('<img />', {'src': 'images/domains/' + domain + '.ico', 'alt':''});
 
   checkbox.on('change', () => {
@@ -107,9 +108,16 @@ function refinementHandler(data) {
 }
 
 function domainFacetsHandler(data) {
+  var state = getState();
+  var domainStates = {};
+  state.domains.split(',').forEach(domain => {
+    var excluded = domain.startsWith('-');
+    domain = excluded ? domain.replace('-', '') : domain;
+    domainStates[domain] = !excluded;
+  });
   var domainFacets = $('#search .domain-facets').empty();
   for (var domain in data.facets.domains) {
-    domainFacets.append(renderDomainFacet(domain));
+    domainFacets.append(renderDomainFacet(domain, domainStates[domain]));
   }
   domainFacets.toggleClass('collapse', Object.keys(data.facets.domains).length == 0);
 }
