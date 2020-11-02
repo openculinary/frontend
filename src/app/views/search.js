@@ -62,8 +62,19 @@ function renderRefinement(refinement) {
 
 function renderDomainFacet(domain) {
   var chip = $('<label />', {'class': 'badge badge-light badge-pill'});
-  var checkbox = $('<input />', {'type': 'checkbox', 'checked': true});
+  var checkbox = $('<input />', {'type': 'checkbox', 'checked': true, 'value': domain});
   var icon = $('<img />', {'src': 'images/domains/' + domain + '.ico', 'alt':''});
+
+  checkbox.on('change', () => {
+    var excludedDomains = $('#search .domain-facets input:not(:checked)').map((idx, item) => item.value);
+    var state = getState();
+    state.domains = '-' + excludedDomains.join(',-');
+    if (state.domains.length === 1) delete state.domains;
+    var stateHash = renderStateHash(state);
+    pushState(state, stateHash);
+    $(window).trigger('popstate');
+  });
+
   chip.append(checkbox);
   chip.append(icon);
   chip.append(document.createTextNode(domain));
