@@ -62,7 +62,7 @@ function renderRefinement(refinement) {
 
 function renderDomainFacet(domain) {
   var chip = $('<label />', {'class': 'badge badge-light badge-pill'});
-  var checkbox = $('<input />', {'type': 'checkbox'});
+  var checkbox = $('<input />', {'type': 'checkbox', 'checked': true});
   var icon = $('<img />', {'src': 'images/domains/' + domain + '.ico', 'alt':''});
   chip.append(checkbox);
   chip.append(icon);
