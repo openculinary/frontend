@@ -64,7 +64,7 @@ function renderDomainFacet(domain) {
   var chip = $('<div />', {'class': 'badge badge-light badge-pill'});
   var icon = $('<img />', {'src': 'images/domains/' + domain + '.ico', 'alt':''});
   chip.append(icon);
-  chip.append(document.createTextNode(domain));
+  chip.append(document.createTextNode(` ${domain}`));
   return chip;
 }
 
