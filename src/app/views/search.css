@@ -40,6 +40,10 @@
   margin-left: 2rem;
 }
 
+#search .domain-facets {
+  margin-bottom: 1rem;
+}
+
 #search .domain-facets .badge img {
   height: 16px;
 }
