@@ -60,6 +60,14 @@ function renderRefinement(refinement) {
   }
 }
 
+function renderDomainFacet(domain) {
+  var chip = $('<div />', {'class': 'badge badge-light badge-pill'});
+  var icon = $('<img />', {'src': 'images/domains/' + domain + '.ico', 'alt':''});
+  chip.append(icon);
+  chip.append(document.createTextNode(domain));
+  return chip;
+}
+
 function emptyResultHandler(data) {
   if (data.total !== 0) return;
   var message = `Didn't find any recipes matching your search.  Send us a link via the feedback form if you know of any!`;
@@ -82,6 +90,14 @@ function refinementHandler(data) {
 
   // Show or hide the refinement list
   refinements.toggleClass('collapse', data.refinements.length == 0);
+}
+
+function domainFacetsHandler(data) {
+  var domainFacets = $('#search .domain-facets').empty();
+  for (var domain in data.facets.domains) {
+    domainFacets.append(renderDomainFacet(domain));
+  }
+  domainFacets.toggleClass('collapse', Object.keys(data.facets.domains).length == 0);
 }
 
 function createSortPrompt() {
@@ -139,5 +155,6 @@ $(function() {
   initTable('#search');
   bindLoadEvent('#search', emptyResultHandler);
   bindLoadEvent('#search', refinementHandler);
+  bindLoadEvent('#search', domainFacetsHandler);
   bindLoadEvent('#search', addSorting);
 });
