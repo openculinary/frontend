@@ -68,7 +68,7 @@ function renderDomainFacet(domain) {
   checkbox.on('change', () => {
     var excludedDomains = $('#search .domain-facets input:not(:checked)').map((idx, item) => item.value);
     var state = getState();
-    state.domains = '-' + excludedDomains.join(',-');
+    state.domains = '-' + $.makeArray(excludedDomains).join(',-');
     if (state.domains.length === 1) delete state.domains;
     var stateHash = renderStateHash(state);
     pushState(state, stateHash);
