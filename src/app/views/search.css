@@ -44,6 +44,11 @@
   margin-bottom: 1rem;
 }
 
+#search .domain-facets .badge input {
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
 #search .domain-facets .badge img {
   height: 16px;
 }
