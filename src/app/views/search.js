@@ -107,14 +107,20 @@ function refinementHandler(data) {
   refinements.toggleClass('collapse', data.refinements.length == 0);
 }
 
-function domainFacetsHandler(data) {
-  var state = getState();
+function getDomainStates() {
   var domainStates = {};
+  var state = getState();
+  if (!state.domains) return domainStates;
   state.domains.split(',').forEach(domain => {
     var excluded = domain.startsWith('-');
     domain = excluded ? domain.replace('-', '') : domain;
     domainStates[domain] = !excluded;
   });
+  return domainStates;
+}
+
+function domainFacetsHandler(data) {
+  var domainStates = getDomainStates();
   var domainFacets = $('#search .domain-facets').empty();
   for (var domain in data.facets.domains) {
     domainFacets.append(renderDomainFacet(domain, domainStates[domain]));
