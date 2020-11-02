@@ -39,3 +39,7 @@
   margin: 0.5rem;
   margin-left: 2rem;
 }
+
+#search .domain-facets .badge img {
+  height: 16px;
+}
