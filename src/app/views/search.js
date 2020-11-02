@@ -40,6 +40,7 @@ function renderSearch() {
 
   var state = getState();
   if (state.sort) params['sort'] = state.sort;
+  if (state.domains) params['domains'] = state.domains.split(',');
 
   $('#search table[data-row-attributes]').bootstrapTable('refresh', {
     url: '/api/recipes/search?' + $.param(params),
