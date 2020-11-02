@@ -50,5 +50,6 @@
 }
 
 #search .domain-facets .badge img {
+  margin-right: 4px;
   height: 16px;
 }

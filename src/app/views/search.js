@@ -66,7 +66,7 @@ function renderDomainFacet(domain) {
   var icon = $('<img />', {'src': 'images/domains/' + domain + '.ico', 'alt':''});
   chip.append(checkbox);
   chip.append(icon);
-  chip.append(document.createTextNode(` ${domain}`));
+  chip.append(document.createTextNode(domain));
   return chip;
 }
 
