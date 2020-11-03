@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import 'bootstrap-table';
+import { debounce } from 'debounce';
 
 import '../autosuggest';
 import { i18nAttr, localize } from '../i18n';
@@ -61,21 +62,30 @@ function renderRefinement(refinement) {
   }
 }
 
-function renderDomainFacet(domain, state) {
-  var domainState = state === undefined ? true : state;
-  var chip = $('<label />', {'class': 'badge badge-light badge-pill'});
-  var checkbox = $('<input />', {'type': 'checkbox', 'checked': domainState, 'value': domain});
-  var icon = $('<img />', {'src': 'images/domains/' + domain + '.ico', 'alt':''});
+function triggerSearch() {
+    $(window).trigger('popstate');
+}
+var debouncedSearchTrigger = debounce(triggerSearch, 1000);
 
-  checkbox.on('change', () => {
+function updateStateDomains() {
     var excludedDomains = $('#search .domain-facets input:not(:checked)').map((idx, item) => item.value);
     var state = getState();
     state.domains = '-' + $.makeArray(excludedDomains).join(',-');
     if (state.domains.length === 1) delete state.domains;
     var stateHash = renderStateHash(state);
     pushState(state, stateHash);
-    $(window).trigger('popstate');
-  });
+
+    debouncedSearchTrigger.clear();
+    debouncedSearchTrigger();
+}
+
+function renderDomainFacet(domain, state) {
+  var domainState = state === undefined ? true : state;
+  var chip = $('<label />', {'class': 'badge badge-light badge-pill'});
+  var checkbox = $('<input />', {'type': 'checkbox', 'checked': domainState, 'value': domain});
+  var icon = $('<img />', {'src': 'images/domains/' + domain + '.ico', 'alt':''});
+
+  checkbox.on('change', updateStateDomains);
 
   chip.append(checkbox);
   chip.append(icon);
