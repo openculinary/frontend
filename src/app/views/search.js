@@ -28,7 +28,7 @@ function pushSearch() {
     $('#search table[data-row-attributes]').trigger('page-change.bs.table');
   }
   pushState(state, stateHash);
-  $(window).trigger('popstate');
+  triggerSearch();
 }
 $('#search form button').on('click', pushSearch);
 
@@ -166,7 +166,7 @@ function createSortPrompt() {
 
     var stateHash = renderStateHash(state);
     pushState(state, stateHash);
-    $(window).trigger('popstate');
+    triggerSearch();
   });
 
   var sortMessage = $('<span>', {
