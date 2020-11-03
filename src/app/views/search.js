@@ -135,7 +135,7 @@ function domainFacetsHandler(data) {
   for (var domain in data.facets.domains) {
     domainFacets.append(renderDomainFacet(domain, domainStates[domain]));
   }
-  domainFacets.toggleClass('collapse', Object.keys(data.facets.domains).length == 0);
+  domainFacets.toggleClass('collapse', $.isEmptyObject(data.facets.domains));
 }
 
 function createSortPrompt() {
