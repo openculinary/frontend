@@ -198,12 +198,6 @@ function bindPostBody(selector) {
     });
     $(this).parents('div.recipe-list').show();
 
-    // If the user is on the page containing this table, scroll it into view
-    var state = getState();
-    if (selector.substring(1) in state) {
-      scrollToResults(selector);
-    }
-
     // Localize search result elements
     localize(selector);
   });
