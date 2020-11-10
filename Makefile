@@ -22,6 +22,7 @@ deploy:
 image-create:
 	$(eval container=$(shell buildah from docker.io/library/nginx:alpine))
 	buildah copy $(container) 'etc/nginx/conf.d' '/etc/nginx/conf.d'
+	buildah run $(container) -- rm -rf '/usr/share/nginx/html' --
 
 image-finalize:
 	buildah copy $(container) 'public' '/usr/share/nginx/html'
