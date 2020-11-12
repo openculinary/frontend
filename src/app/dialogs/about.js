@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import * as d3 from 'd3';
 import 'bootstrap';
-import { sankey as sankeyInstance, sankeyVertical } from 'd3-sankey';
+import { sankeyTop } from 'd3-sankey';
 
 import data from './about-diagram.json';
 
@@ -27,10 +27,9 @@ function renderDiagram() {
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-  const sankey = sankeyInstance()
+  const sankey = sankeyTop()
       .size([width, height])
       .nodeId(d => d.name)
-      .nodeOrientation(sankeyVertical)
       .nodeWidth(20)
       .nodePadding(10)
       .extent([
