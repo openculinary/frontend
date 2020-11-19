@@ -175,7 +175,7 @@ function bindShoppingListInput(element, placeholder) {
       processResults: data => ({
         results: data.map(item => ({
           id: item.id,
-          text: item.product,
+          text: item.name,
           product: item
         }))
       })
