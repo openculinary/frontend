@@ -31,7 +31,7 @@ function bindIngredientInput(element, label, placeholder) {
       processResults: data => ({
         results: data.map(item => ({
           id: item.singular,
-          text: item.product,
+          text: item.name,
           product: item
         }))
       })

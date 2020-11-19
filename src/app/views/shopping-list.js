@@ -30,7 +30,7 @@ function renderProduct(product, ingredients) {
     var tail = `${quantity.magnitude || ''} ${quantity.units || ''}`.trim();
     if (tail.length) text += text.length ? ` + ${tail}` : tail;
   });
-  text += ' ' + product.product;
+  text += ' ' + product.name;
   return text;
 }
 
@@ -174,8 +174,8 @@ function bindShoppingListInput(element, placeholder) {
       data: params => ({pre: params.term}),
       processResults: data => ({
         results: data.map(item => ({
-          id: item.product_id,
-          text: item.product,
+          id: item.id,
+          text: item.name,
           product: item
         }))
       })
@@ -190,7 +190,7 @@ function bindShoppingListInput(element, placeholder) {
     var product = event.params.data.product;
     db.ingredients
       .where("product_id")
-      .equals(product.product_id)
+      .equals(product.id)
       .count(count => { if (count === 0) addStandaloneIngredient(product); });
   });
 }
