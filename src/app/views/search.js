@@ -82,14 +82,14 @@ function updateStateDomains() {
 function renderDomainFacet(domain, state) {
   var domainState = state === undefined ? true : state;
   var chip = $('<label />', {'class': 'badge badge-light badge-pill'});
-  var checkbox = $('<input />', {'type': 'checkbox', 'checked': domainState, 'value': domain});
-  var icon = $('<img />', {'src': 'images/domains/' + domain + '.ico', 'alt':''});
+  var checkbox = $('<input />', {'type': 'checkbox', 'checked': domainState, 'value': domain.key});
+  var icon = $('<img />', {'src': 'images/domains/' + domain.key + '.ico', 'alt':''});
 
   checkbox.on('change', updateStateDomains);
 
   chip.append(checkbox);
   chip.append(icon);
-  chip.append(document.createTextNode(domain));
+  chip.append(document.createTextNode(domain.key));
   return chip;
 }
 
@@ -121,10 +121,10 @@ function getDomainStates() {
   var domainStates = {};
   var state = getState();
   if (!state.domains) return domainStates;
-  state.domains.split(',').forEach(domain => {
-    var excluded = domain.startsWith('-');
-    domain = excluded ? domain.replace('-', '') : domain;
-    domainStates[domain] = !excluded;
+  state.domains.split(',').forEach(domainKey => {
+    var excluded = domainKey.startsWith('-');
+    domainKey = excluded ? domainKey.replace('-', '') : domainKey;
+    domainStates[domainKey] = !excluded;
   });
   return domainStates;
 }
@@ -132,9 +132,9 @@ function getDomainStates() {
 function domainFacetsHandler(data) {
   var domainStates = getDomainStates();
   var domainFacets = $('#search .domain-facets').empty();
-  for (var domain in data.facets.domains) {
-    domainFacets.append(renderDomainFacet(domain, domainStates[domain]));
-  }
+  $.each(data.facets.domains, function() {
+    domainFacets.append(renderDomainFacet(this, domainStates[this.key]));
+  });
   domainFacets.toggleClass('collapse', $.isEmptyObject(data.facets.domains));
 }
 
