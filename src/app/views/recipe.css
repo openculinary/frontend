@@ -16,15 +16,22 @@
   padding-left: 50px;
 }
 
-#recipe .star {
+#recipe div.corner {
   float: right;
 
   font-size: 24px;
-  line-height: inherit;
 
   padding-top: 20px;
-  padding-left: 20px;
   padding-right: 50px;
+}
+
+#recipe div.corner .link,
+#recipe div.corner .star {
+  margin-left: 8px;
+}
+
+#recipe div.corner a.link:hover {
+  text-decoration: none;
 }
 
 #recipe div.contents {
