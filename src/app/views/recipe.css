@@ -30,6 +30,9 @@
   margin-left: 8px;
 }
 
+#recipe div.corner a.link {
+  color: gray;
+}
 #recipe div.corner a.link:hover {
   text-decoration: none;
 }
