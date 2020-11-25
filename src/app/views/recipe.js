@@ -24,6 +24,13 @@ function markDirection() {
   $(this).addClass('mark');
 }
 
+function linkFormatter(recipe) {
+  return $('<a />', {
+    'class': 'link fa fa-link',
+    'href': `#search&action=view&id=${recipe.id}`
+  });
+}
+
 function starFormatter() {
   return $('<div />', {'class': 'star far fa-star'});
 }
@@ -91,6 +98,7 @@ function renderRecipe() {
 
     container.data('id', recipe.id);
     title.text(recipe.title);
+    corner.append(linkFormatter(recipe));
     corner.append(starFormatter());
     image.append(link);
 
