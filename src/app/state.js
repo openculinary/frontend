@@ -1,5 +1,6 @@
 import $ from 'jquery';
 
+import { renderContent } from './views/content';
 import { renderRecipe } from './views/recipe';
 import { renderSearch } from './views/search';
 import { renderExplore } from './views/explore';
@@ -85,6 +86,7 @@ function loadState() {
 
   if (!activeTab) {
     switch (state.action) {
+      case 'content': renderContent(); break;
       case 'search': renderSearch(); break;
       case 'explore': renderExplore(); break;
       case 'view': renderRecipe(); break;
