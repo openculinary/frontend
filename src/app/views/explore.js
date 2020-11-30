@@ -19,7 +19,7 @@ function explore() {
       choices[idx] = this.key;
       var choice = $('<li />', {
         'data-index': idx,
-        'text': this.key,
+        'html': `<span>${this.key}</span>`,
       });
       choiceList.append(choice);
     });

@@ -16,4 +16,11 @@
 #explore-choices li {
   text-align: center;
   user-select: none;
+  padding: 0.25rem;
+}
+
+#explore-choices li span {
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  background-color: #f0f0f0;
 }
