@@ -1,3 +1,7 @@
+#explore-choices {
+  list-style-type: none;
+}
+
 #explore-choices li {
   text-align: center;
   user-select: none;
