@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import Swipe from 'swipejs';
 
-var current;
+var choices = [];
 var include = [];
 var exclude = [];
 
@@ -10,28 +10,37 @@ function explore() {
   var url = '/api/recipes/explore';
   if (include.length || exclude.length) url += '?' + $.param(params);
 
-  $.ajax({url: url}).then(hits => {
-    console.log(hits);
-  });
-}
+  var card = $('#explore div.card-body').empty();
+  $.ajax({url: url}).then(data => {
+    $.each(data.facets.products, function(idx) {
+      var wrapper = $('<div />', {class: 'swipe-wrap'});
+      wrapper.append($('<div />', {class: 'choice'})); // empty left-swipe placeholder
+      wrapper.append($('<div />', {class: 'choice', text: this.key}));
+      wrapper.append($('<div />', {class: 'choice'})); // empty right-swipe placeholder
 
-function swipeSetup() {
-  explore();
-  current = 'tomato';
+      var container = $('<div />', {
+        'class': 'swipe-container',
+        'data-index': idx
+      });
+      container.append(wrapper);
+      card.append(container);
+
+      choices[idx] = this.key;
+      new Swipe(container[0], {
+        draggable: true,
+        callback: swipeHandler
+      });
+    });
+  });
 }
 
 function swipeHandler(index, element, direction) {
+  var idx = $(element).parents('div.swipe-container').data('index');
   var target = (direction > 0) ? include : exclude;
-  target.push(current);
-  var params = {include, exclude};
-  console.log(params);
-  current = $(element).text();
+  target.push(choices[idx]);
+  explore();
 }
 
 $(function() {
-  window.explore = new Swipe(document.getElementById('explore-swipe'), {
-    draggable: true,
-    callback: swipeHandler,
-  });
-  swipeSetup();
+  explore();
 });
