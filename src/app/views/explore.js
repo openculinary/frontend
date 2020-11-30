@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import Swipe from 'swipejs';
+import Slip from 'slipjs';
 
 import { localize } from '../i18n';
 import { initTable } from './components/recipe-list';
@@ -13,26 +13,15 @@ function explore() {
   var url = '/api/recipes/explore';
   if (include.length || exclude.length) url += '?' + $.param(params);
 
-  var card = $('#explore div.card-body').empty();
+  var choiceList = $('#explore-choices').empty();
   $.ajax({url: url}).then(data => {
     $.each(data.facets.products, function(idx) {
-      var wrapper = $('<div />', {class: 'swipe-wrap'});
-      wrapper.append($('<div />', {class: 'choice'})); // empty left-swipe placeholder
-      wrapper.append($('<div />', {class: 'choice', text: this.key}));
-      wrapper.append($('<div />', {class: 'choice'})); // empty right-swipe placeholder
-
-      var container = $('<div />', {
-        'class': 'swipe-container',
-        'data-index': idx
-      });
-      container.append(wrapper);
-      card.append(container);
-
       choices[idx] = this.key;
-      new Swipe(container[0], {
-        draggable: true,
-        callback: swipeHandler
+      var choice = $('<li />', {
+        'data-index': idx,
+        'text': this.key,
       });
+      choiceList.append(choice);
     });
 
     if (data.results.length) {
@@ -43,15 +32,23 @@ function explore() {
   });
 }
 
-function swipeHandler(index, element, direction) {
-  var idx = $(element).parents('div.swipe-container').data('index');
-  var target = (direction > 0) ? include : exclude;
+function preventReorder(e) {
+  e.preventDefault();
+}
+
+function swipeHandler(e) {
+  var idx = $(e.target).data('index');
+  var target = (e.detail.x > 0) ? include : exclude;
   target.push(choices[idx]);
   explore();
 }
 
 $(function() {
   initTable('#explore');
+
+  new Slip('#explore-choices');
+  $('#explore-choices').on('slip:beforereorder', preventReorder);
+  $('#explore-choices').on('slip:swipe', swipeHandler);
 
   explore();
 });
