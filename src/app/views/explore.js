@@ -5,7 +5,6 @@ import { localize } from '../i18n';
 import { initTable } from './components/recipe-list';
 
 var stack = [];
-var choices = [];
 var include = [];
 var exclude = [];
 
@@ -22,9 +21,8 @@ function explore() {
   });
   $.ajax({url: url}).then(data => {
     $.each(data.facets.products, function(idx) {
-      choices[idx] = this.key;
       var choice = $('<li />', {
-        'data-index': idx,
+        'data-value': this.key,
         'html': `<span>${this.key}</span>`,
       });
       choiceList.append(choice);
@@ -43,10 +41,10 @@ function preventReorder(e) {
 }
 
 function swipeHandler(e) {
-  var idx = $(e.target).data('index');
+  var choice = $(e.target).data('value');
   var target = e.detail.direction === 'left' ? exclude : include;
-  stack.push({choice: choices[idx], target: target});
-  target.push(choices[idx]);
+  stack.push({choice: choice, target: target});
+  target.push(choice);
   explore();
 }
 
