@@ -24,3 +24,11 @@
   border-radius: 0.25rem;
   background-color: #f0f0f0;
 }
+
+#explore-choices li span.include {
+  background-color: #b0ffb0;
+}
+
+#explore-choices li span.exclude {
+  background-color: #ffb0b0;
+}
