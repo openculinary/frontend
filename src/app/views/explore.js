@@ -23,7 +23,7 @@ function explore() {
     $.each(data.facets.products, function(idx) {
       var choice = $('<li />', {
         'data-value': this.key,
-        'html': `<span>${this.key}</span>`,
+        'html': `<span>${this.key}</span>` + (this.count <= 10 ? ` (${this.count} results)` : ''),
       });
       choiceList.append(choice);
     });
