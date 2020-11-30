@@ -38,7 +38,7 @@ function preventReorder(e) {
 
 function swipeHandler(e) {
   var idx = $(e.target).data('index');
-  var target = (e.detail.x > 0) ? include : exclude;
+  var target = e.detail.direction === 'left' ? exclude : include;
   target.push(choices[idx]);
   explore();
 }
