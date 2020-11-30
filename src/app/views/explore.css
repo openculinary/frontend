@@ -1,3 +1,7 @@
+#explore div.card-body {
+  padding-top: 0;
+}
+
 #explore .prompt {
   display: block;
   margin-top: 1rem;
