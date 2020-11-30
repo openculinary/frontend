@@ -9,6 +9,7 @@
 
 #explore-choices {
   list-style-type: none;
+  overflow: hidden;
 }
 
 #explore-choices li {
