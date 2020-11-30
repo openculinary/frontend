@@ -1,3 +1,8 @@
+#explore .prompt {
+  display: block;
+  margin-top: 1rem;
+}
+
 #explore-choices {
   list-style-type: none;
 }
