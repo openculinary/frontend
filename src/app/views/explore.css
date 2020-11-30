@@ -10,6 +10,7 @@
 #explore-choices {
   list-style-type: none;
   overflow: hidden;
+  margin-top: 1rem;
 }
 
 #explore-choices li {
