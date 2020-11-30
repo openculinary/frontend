@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import Swipe from 'swipejs';
 
+import { localize } from '../i18n';
 import { initTable } from './components/recipe-list';
 
 var choices = [];
