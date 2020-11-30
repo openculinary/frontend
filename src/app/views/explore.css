@@ -15,3 +15,7 @@
   position: relative;
   overflow: hidden;
 }
+
+#explore div.choice {
+  text-align: center;
+}
