@@ -18,7 +18,7 @@ function explore() {
     choiceList.append(choice);
   });
   $.ajax({url: url}).then(data => {
-    $.each(data.facets.products, function(idx) {
+    $.each(data.facets.products, function() {
       var choice = $('<li />', {
         'data-value': this.key,
         'html': `<span>${this.key}</span>` + (this.count <= 10 ? ` (${this.count} results)` : ''),
