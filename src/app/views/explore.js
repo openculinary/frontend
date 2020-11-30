@@ -1,6 +1,8 @@
 import $ from 'jquery';
 import Swipe from 'swipejs';
 
+import { initTable } from './components/recipe-list';
+
 var choices = [];
 var include = [];
 var exclude = [];
@@ -31,6 +33,12 @@ function explore() {
         callback: swipeHandler
       });
     });
+
+    if (data.results.length) {
+      var recipeList = $('#explore table[data-row-attributes]');
+      recipeList.bootstrapTable('load', data.results);
+      localize(recipeList);
+    }
   });
 }
 
@@ -42,5 +50,7 @@ function swipeHandler(index, element, direction) {
 }
 
 $(function() {
+  initTable('#explore');
+
   explore();
 });

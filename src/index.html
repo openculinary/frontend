@@ -96,6 +96,27 @@
           </div>
         </div>
       </div>
+      <div class="recipe-list collapse">
+        <table
+          class="tablesaw tablesaw-stack"
+          data-tablesaw-mode="stack"
+          data-classes="table"
+          data-data-field="results"
+          data-total-field="total"
+          data-pagination="true"
+          data-pagination-loop="false"
+          data-pagination-v-align="both"
+          data-row-attributes="app.rowAttributes"
+          data-smart-display="true"
+          data-side-pagination="server"
+          data-toggle="table">
+          <thead hidden>
+            <tr>
+              <th class="align-top" data-formatter="app.recipeFormatter"></th>
+            </tr>
+          </thead>
+        </table>
+      </div>
     </div>
 
     <div id="search" class="container collapse">
