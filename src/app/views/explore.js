@@ -4,19 +4,17 @@ import Slip from 'slipjs';
 import { localize } from '../i18n';
 import { initTable } from './components/recipe-list';
 
-var stack = [];
-var include = [];
-var exclude = [];
+var path = [];
 
 function explore() {
-  var params = {include, exclude};
   var url = '/api/recipes/explore';
-  if (include.length || exclude.length) url += '?' + $.param(params);
+  if (path.length) url += '?' + $.param({ingredients: path});
 
   var choiceList = $('#explore-choices').empty();
-  $.each(stack, function() {
-    var cls = this.target === include ? 'include' : 'exclude';
-    var choice = $('<li />', {'html': `<span class="${cls}">${this.choice}</span>`});
+  $.each(path, function() {
+    var cls = this.startsWith('-') ? 'exclude' : 'include';
+    var product = this.replace('-', '');
+    var choice = $('<li />', {'html': `<span class="${cls}">${product}</span>`});
     choiceList.append(choice);
   });
   $.ajax({url: url}).then(data => {
@@ -42,9 +40,8 @@ function preventReorder(e) {
 
 function swipeHandler(e) {
   var choice = $(e.target).data('value');
-  var target = e.detail.direction === 'left' ? exclude : include;
-  stack.push({choice: choice, target: target});
-  target.push(choice);
+  var prefix = e.detail.direction === 'left' ? '-' : '';
+  path.push(prefix + choice);
   explore();
 }
 
