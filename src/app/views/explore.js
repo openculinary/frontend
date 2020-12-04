@@ -4,9 +4,11 @@ import Slip from 'slipjs';
 import { localize } from '../i18n';
 import { initTable } from './components/recipe-list';
 
+export { renderExplore };
+
 var path = [];
 
-function explore() {
+function renderExplore() {
   var url = '/api/recipes/explore';
   if (path.length) url += '?' + $.param({ingredients: path});
 
