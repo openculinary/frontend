@@ -132,12 +132,15 @@
 
     <div id="explore" class="container collapse">
       <div class="card-deck mb-4 pt-3">
-        <div class="card">
+        <form class="card" onsubmit="return false">
           <div class="card-body">
             <div class="prompt" data-i18n="[html]explore:prompt-get-started">Swipe right to add ingredients you'd like to use, and swipe left to exclude ingredients.</div>
             <ul id="explore-choices"></ul>
           </div>
-        </div>
+          <div class="card-footer">
+            <button class="btn btn-primary" data-i18n="[html]explore:prompt-explore-button">Ok, let's get started</button>
+          </div>
+        </form>
       </div>
       <div class="recipe-list collapse">
         <table

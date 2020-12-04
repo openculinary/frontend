@@ -2,19 +2,34 @@ import $ from 'jquery';
 import Slip from 'slipjs';
 
 import { localize } from '../i18n';
+import { getState, pushState, renderStateHash } from '../state';
 import { initTable } from './components/recipe-list';
 
 export { renderExplore };
 
-var path = [];
+function pushExplore() {
+  var state = {'explore': null, 'action': 'explore'};
+
+  // If the requested search is a repeat of the current state, perform a results refresh
+  // This is done to ensure that the results are scrolled into view
+  var stateHash = renderStateHash(state);
+  if (`#${window.location.hash}` === stateHash) {
+    $('#explore table[data-row-attributes]').trigger('page-change.bs.table');
+  }
+  pushState(state, stateHash);
+  $(window).trigger('popstate');
+}
+$('#explore form button').on('click', pushExplore);
 
 function renderExplore() {
-  var url = '/api/recipes/explore';
-  if (path.length) url += '?' + $.param({ingredients: path});
+  var state = getState();
+  var params = {
+    ingredients: state.ingredients ? state.ingredients.split(',') : [],
+  };
 
-  $.ajax({url: url}).then(data => {
+  $.ajax({url: '/api/recipes/explore?' + $.param(params)}).then(data => {
     var choiceList = $('#explore-choices').empty();
-    $.each(path, function() {
+    $.each(params.ingredients, function() {
       var cls = this.startsWith('-') ? 'exclude' : 'include';
       var product = this.replace('-', '');
       var choice = $('<li />', {'html': `<span class="${cls}">${product}</span>`});
@@ -43,8 +58,16 @@ function preventReorder(e) {
 function swipeHandler(e) {
   var choice = $(e.target).data('value');
   var prefix = e.detail.direction === 'left' ? '-' : '';
-  path.push(prefix + choice);
-  explore();
+  var ingredient = prefix + choice;
+
+  var state = getState();
+  var ingredients = state.ingredients ? state.ingredients.split(',') : [];
+  ingredients.push(ingredient);
+  state.ingredients = ingredients.join(',');
+
+  var stateHash = renderStateHash(state);
+  pushState(state, stateHash);
+  $(window).trigger('popstate');
 }
 
 $(function() {
