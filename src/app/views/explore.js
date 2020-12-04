@@ -77,7 +77,7 @@ function swipeHandler(e) {
 $(function() {
   initTable('#explore');
 
-  new Slip('#explore-choices .next', {keepSwipingPercent: 25});
+  new Slip('#explore-choices .next', {keepSwipingPercent: 10});
   $('#explore-choices .next').on('slip:beforereorder', preventReorder);
   $('#explore-choices .next').on('slip:swipe', swipeHandler);
 });
