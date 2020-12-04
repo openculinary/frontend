@@ -27,6 +27,10 @@ function renderStateHash(state) {
     return `#${stateHash}`;
 }
 
+function resetChoices(selector, data) {
+  if (!data) $(selector).find('ul').empty();
+}
+
 function loadTags(element, data) {
   var tags = $(element).val();
   var terms = data ? data.split(',') : [];
@@ -58,6 +62,8 @@ function loadAboutTab(tabId) {
 function loadState() {
   // If we encounter an empty state, display the homepage
   var state = getState();
+
+  resetChoices('#explore', state.ingredients);
 
   loadTags('#include', state.include);
   loadTags('#exclude', state.exclude);
