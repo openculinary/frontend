@@ -35,6 +35,10 @@ header span.notification {
 }
 
 header span.notification.meal-planner {
+  background-color: #0000af;
+}
+
+header span.notification.meal-planner {
   background-color: #00af00;
 }
 
