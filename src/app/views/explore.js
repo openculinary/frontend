@@ -28,19 +28,20 @@ function renderExplore() {
   };
 
   $.ajax({url: '/api/recipes/explore?' + $.param(params)}).then(data => {
-    var choiceList = $('#explore-choices').empty();
+    var previousList = $('#explore-choices .previous').empty();
     $.each(params.ingredients, function() {
       var cls = this.startsWith('-') ? 'exclude' : 'include';
       var product = this.replace('-', '');
       var choice = $('<li />', {'html': `<span class="${cls}">${product}</span>`});
-      choiceList.append(choice);
+      previousList.append(choice);
     });
+    var nextList = $('#explore-choices .next').empty();
     $.each(data.facets.products, function() {
       var choice = $('<li />', {
         'data-value': this.key,
         'html': `<span>${this.key}</span>` + (this.count <= 10 ? ` (${this.count} results)` : ''),
       });
-      choiceList.append(choice);
+      nextList.append(choice);
     });
 
     if (data.results.length) {
@@ -73,7 +74,7 @@ function swipeHandler(e) {
 $(function() {
   initTable('#explore');
 
-  new Slip('#explore-choices', {keepSwipingPercent: 25});
-  $('#explore-choices').on('slip:beforereorder', preventReorder);
-  $('#explore-choices').on('slip:swipe', swipeHandler);
+  new Slip('#explore-choices .next', {keepSwipingPercent: 25});
+  $('#explore-choices .next').on('slip:beforereorder', preventReorder);
+  $('#explore-choices .next').on('slip:swipe', swipeHandler);
 });

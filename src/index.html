@@ -135,7 +135,10 @@
         <form class="card" onsubmit="return false">
           <div class="card-body">
             <div class="prompt" data-i18n="[html]explore:prompt-get-started">Swipe right to add ingredients you'd like to use, and swipe left to exclude ingredients.</div>
-            <ul id="explore-choices"></ul>
+            <div id="explore-choices">
+              <ul class="previous"></ul>
+              <ul class="next"></ul>
+            </div>
           </div>
           <div class="card-footer">
             <button class="btn btn-primary" data-i18n="[html]explore:prompt-explore-button">Ok, let's get started</button>
