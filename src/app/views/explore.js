@@ -57,6 +57,8 @@ function preventReorder(e) {
 }
 
 function swipeHandler(e) {
+  $(e.target).hide();
+
   var choice = $(e.target).data('value');
   var prefix = e.detail.direction === 'left' ? '-' : '';
   var ingredient = prefix + choice;
