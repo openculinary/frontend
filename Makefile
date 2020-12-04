@@ -11,7 +11,7 @@ IMAGE_TAG := $(strip $(if $(shell git status --porcelain --untracked-files=no), 
 MODE = 'development'
 build : MODE = 'production'
 
-build-dev: image-create webpack-dev image-finalize
+build-dev: image-create webpack image-finalize
 
 build: lint tests image-create webpack image-finalize
 
@@ -22,6 +22,7 @@ deploy:
 image-create:
 	$(eval container=$(shell buildah from docker.io/library/nginx:alpine))
 	buildah copy $(container) 'etc/nginx/conf.d' '/etc/nginx/conf.d'
+	buildah run $(container) -- rm -rf '/usr/share/nginx/html' --
 
 image-finalize:
 	buildah copy $(container) 'public' '/usr/share/nginx/html'
@@ -35,7 +36,4 @@ tests:
 	npx mochapack --mode ${MODE} --require setup.js
 
 webpack:
-	npx webpack --mode ${MODE} --optimize-minimize
-
-webpack-dev:
 	npx webpack --mode ${MODE}

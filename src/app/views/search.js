@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import 'bootstrap-table';
+import { debounce } from 'debounce';
 
 import '../autosuggest';
 import { i18nAttr, localize } from '../i18n';
@@ -27,7 +28,7 @@ function pushSearch() {
     $('#search table[data-row-attributes]').trigger('page-change.bs.table');
   }
   pushState(state, stateHash);
-  $(window).trigger('popstate');
+  triggerSearch();
 }
 $('#search form button').on('click', pushSearch);
 
@@ -40,6 +41,7 @@ function renderSearch() {
 
   var state = getState();
   if (state.sort) params['sort'] = state.sort;
+  if (state.domains) params['domains'] = state.domains.split(',');
 
   $('#search table[data-row-attributes]').bootstrapTable('refresh', {
     url: '/api/recipes/search?' + $.param(params),
@@ -58,6 +60,37 @@ function renderRefinement(refinement) {
       'data-i18n': i18nAttr('search:refinement-partial-results')
     });
   }
+}
+
+function triggerSearch() {
+    $(window).trigger('popstate');
+}
+var debouncedSearchTrigger = debounce(triggerSearch, 1000);
+
+function updateStateDomains() {
+    var excludedDomains = $('#search .domain-facets input:not(:checked)').map((idx, item) => item.value);
+    var state = getState();
+    state.domains = '-' + $.makeArray(excludedDomains).join(',-');
+    if (state.domains.length === 1) delete state.domains;
+    var stateHash = renderStateHash(state);
+    pushState(state, stateHash);
+
+    debouncedSearchTrigger.clear();
+    debouncedSearchTrigger();
+}
+
+function renderDomainFacet(domain, state) {
+  var domainState = state === undefined ? true : state;
+  var chip = $('<label />', {'class': 'badge badge-light badge-pill'});
+  var checkbox = $('<input />', {'type': 'checkbox', 'checked': domainState, 'value': domain.key});
+  var icon = $('<img />', {'src': 'images/domains/' + domain.key + '.ico', 'alt':''});
+
+  checkbox.on('change', updateStateDomains);
+
+  chip.append(checkbox);
+  chip.append(icon);
+  chip.append(document.createTextNode(domain.key));
+  return chip;
 }
 
 function emptyResultHandler(data) {
@@ -82,6 +115,27 @@ function refinementHandler(data) {
 
   // Show or hide the refinement list
   refinements.toggleClass('collapse', data.refinements.length == 0);
+}
+
+function getDomainStates() {
+  var domainStates = {};
+  var state = getState();
+  if (!state.domains) return domainStates;
+  state.domains.split(',').forEach(domainKey => {
+    var excluded = domainKey.startsWith('-');
+    domainKey = excluded ? domainKey.replace('-', '') : domainKey;
+    domainStates[domainKey] = !excluded;
+  });
+  return domainStates;
+}
+
+function domainFacetsHandler(data) {
+  var domainStates = getDomainStates();
+  var domainFacets = $('#search .domain-facets').empty();
+  $.each(data.facets.domains, function() {
+    domainFacets.append(renderDomainFacet(this, domainStates[this.key]));
+  });
+  domainFacets.toggleClass('collapse', $.isEmptyObject(data.facets.domains));
 }
 
 function createSortPrompt() {
@@ -112,7 +166,7 @@ function createSortPrompt() {
 
     var stateHash = renderStateHash(state);
     pushState(state, stateHash);
-    $(window).trigger('popstate');
+    triggerSearch();
   });
 
   var sortMessage = $('<span>', {
@@ -139,5 +193,6 @@ $(function() {
   initTable('#search');
   bindLoadEvent('#search', emptyResultHandler);
   bindLoadEvent('#search', refinementHandler);
+  bindLoadEvent('#search', domainFacetsHandler);
   bindLoadEvent('#search', addSorting);
 });

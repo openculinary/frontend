@@ -71,7 +71,7 @@ div.recipe-list .recipe table {
   clear: both;
 }
 
-div.recipe-list .sidebar img {
+div.recipe-list .sidebar img.thumbnail {
   max-width: 192px;
   box-shadow: 2px 2px 2px 1px #ccc;
 }
@@ -87,6 +87,19 @@ div.recipe-list .sidebar span.field {
   width: 90px;
   text-align: right;
 }
+
+div.recipe-list .sidebar img.dietary-property {
+  width: 24px;
+  height: 24px;
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+div.recipe-list .sidebar img.dietary-property.is-dairy-free { background-color: blue; }
+div.recipe-list .sidebar img.dietary-property.is-gluten-free { background-color: orange; }
+div.recipe-list .sidebar img.dietary-property.is-vegan { background-color: lightgreen; }
+div.recipe-list .sidebar img.dietary-property.is-vegetarian { background-color: green; }
 
 div.recipe-list .sidebar span {
   display: inline-block;
