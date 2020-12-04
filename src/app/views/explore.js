@@ -57,7 +57,8 @@ function preventReorder(e) {
 }
 
 function swipeHandler(e) {
-  $(e.target).hide();
+  // NB: Use CSS visibility rather than jQuery 'hide' to avoid page layout jumping
+  $(e.target).css('visibility', 'hidden');
 
   var choice = $(e.target).data('value');
   var prefix = e.detail.direction === 'left' ? '-' : '';
