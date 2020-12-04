@@ -51,6 +51,4 @@ $(function() {
   new Slip('#explore-choices', {keepSwipingPercent: 25});
   $('#explore-choices').on('slip:beforereorder', preventReorder);
   $('#explore-choices').on('slip:swipe', swipeHandler);
-
-  explore();
 });
