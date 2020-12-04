@@ -68,7 +68,7 @@ function sidebarFormatter(recipe) {
   });
 
   sidebar.append($('<br />'));
-  sidebar.append($('<span />', {'html': '<strong>serves</strong>', 'class': 'field'}}));
+  sidebar.append($('<span />', {'html': '<strong>serves</strong>', 'class': 'field'}));
   sidebar.append($('<span />', {'text': recipe.servings}));
   sidebar.append($('<br />'));
   sidebar.append($('<span />', {'html': '<strong>time</strong>', 'class': 'field'}));
