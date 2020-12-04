@@ -11,13 +11,13 @@ function explore() {
   if (path.length) url += '?' + $.param({ingredients: path});
 
   var choiceList = $('#explore-choices').empty();
-  $.each(path, function() {
-    var cls = this.startsWith('-') ? 'exclude' : 'include';
-    var product = this.replace('-', '');
-    var choice = $('<li />', {'html': `<span class="${cls}">${product}</span>`});
-    choiceList.append(choice);
-  });
   $.ajax({url: url}).then(data => {
+    $.each(path, function() {
+      var cls = this.startsWith('-') ? 'exclude' : 'include';
+      var product = this.replace('-', '');
+      var choice = $('<li />', {'html': `<span class="${cls}">${product}</span>`});
+      choiceList.append(choice);
+    });
     $.each(data.facets.products, function() {
       var choice = $('<li />', {
         'data-value': this.key,
