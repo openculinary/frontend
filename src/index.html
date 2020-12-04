@@ -48,10 +48,10 @@
       <div class="container-fluid menu">
         <ul class="navbar-nav m-auto">
           <li class="nav-item">
-            <a class="nav-link active" href="#explore" data-i18n="[html]navigation:explore">Recipe Explorer</a>
+            <a class="nav-link active" href="#search" data-i18n="[html]navigation:search"></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#search" data-i18n="[html]navigation:search"></a>
+            <a class="nav-link" href="#explore" data-i18n="[html]navigation:explore">Recipe Explorer</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#starred-recipes" data-i18n="[html]navigation:starred"></a>
@@ -86,15 +86,27 @@
       </div>
     </div>
 
-    <div id="explore" class="container">
+    <div id="search" class="container">
       <div class="card-deck mb-4 pt-3">
-        <div class="card">
+        <form class="card" onsubmit="return false">
           <div class="card-body">
-            <div class="prompt" data-i18n="[html]explore:prompt-get-started">Swipe right to add ingredients you'd like to use, and swipe left to exclude ingredients.</div>
-            <ul id="explore-choices"></ul>
+            <div class="prompt include" data-i18n="[html]search:prompt-get-started"></div>
+            <span class="fa fa-chevron-circle-right"></span>
+            <select id="include" multiple></select>
+            <div class="prompt exclude" data-i18n="[html]search:prompt-exclude"></div>
+            <span class="fa fa-minus-circle"></span>
+            <select id="exclude" multiple></select>
+            <div class="prompt equipment" data-i18n="[html]search:prompt-equipment"></div>
+            <span class="fa fa-cog"></span>
+            <select id="equipment" multiple></select>
           </div>
-        </div>
+          <div class="card-footer">
+            <button class="btn btn-primary" data-i18n="[html]search:prompt-search-button"></button>
+          </div>
+        </form>
       </div>
+      <div class="refinements collapse"></div>
+      <div class="domain-facets collapse"></div>
       <div class="recipe-list collapse">
         <table
           class="tablesaw tablesaw-stack"
@@ -118,27 +130,15 @@
       </div>
     </div>
 
-    <div id="search" class="container collapse">
+    <div id="explore" class="container collapse">
       <div class="card-deck mb-4 pt-3">
-        <form class="card" onsubmit="return false">
+        <div class="card">
           <div class="card-body">
-            <div class="prompt include" data-i18n="[html]search:prompt-get-started"></div>
-            <span class="fa fa-chevron-circle-right"></span>
-            <select id="include" multiple></select>
-            <div class="prompt exclude" data-i18n="[html]search:prompt-exclude"></div>
-            <span class="fa fa-minus-circle"></span>
-            <select id="exclude" multiple></select>
-            <div class="prompt equipment" data-i18n="[html]search:prompt-equipment"></div>
-            <span class="fa fa-cog"></span>
-            <select id="equipment" multiple></select>
+            <div class="prompt" data-i18n="[html]explore:prompt-get-started">Swipe right to add ingredients you'd like to use, and swipe left to exclude ingredients.</div>
+            <ul id="explore-choices"></ul>
           </div>
-          <div class="card-footer">
-            <button class="btn btn-primary" data-i18n="[html]search:prompt-search-button"></button>
-          </div>
-        </form>
+        </div>
       </div>
-      <div class="refinements collapse"></div>
-      <div class="domain-facets collapse"></div>
       <div class="recipe-list collapse">
         <table
           class="tablesaw tablesaw-stack"
