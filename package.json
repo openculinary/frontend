@@ -7,7 +7,7 @@
     "bootstrap": "^4.5.3",
     "bootstrap-table": "^1.18.0",
     "convert-units": "^2.3.4",
-    "d3": "^6.2.0",
+    "d3": "^6.3.0",
     "d3-sankey": "git+https://github.com/jayaddison/d3-sankey.git#44dfaafbbd3340f434bbc8b84f02acc66c1be0d9",
     "debounce": "^1.2.0",
     "dexie": "^3.0.3",
@@ -39,7 +39,7 @@
     "i18next-scanner": "^3.0.0",
     "indexeddbshim": "^7.0.0",
     "jsdom": "^16.4.0",
-    "mini-css-extract-plugin": "^1.3.1",
+    "mini-css-extract-plugin": "^1.3.2",
     "mocha": "^8.2.1",
     "mochapack": "^2.0.6",
     "optimize-css-assets-webpack-plugin": "^5.0.4",
@@ -48,7 +48,7 @@
     "webpack": "^4.44.2",
     "webpack-cli": "^4.2.0",
     "webpack-license-plugin": "^4.1.1",
-    "workbox-webpack-plugin": "^6.0.0",
+    "workbox-webpack-plugin": "^6.0.2",
     "xmlhttprequest": "^1.8.0"
   }
 }
