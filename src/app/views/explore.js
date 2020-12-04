@@ -10,8 +10,8 @@ function explore() {
   var url = '/api/recipes/explore';
   if (path.length) url += '?' + $.param({ingredients: path});
 
-  var choiceList = $('#explore-choices').empty();
   $.ajax({url: url}).then(data => {
+    var choiceList = $('#explore-choices').empty();
     $.each(path, function() {
       var cls = this.startsWith('-') ? 'exclude' : 'include';
       var product = this.replace('-', '');
