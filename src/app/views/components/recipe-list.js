@@ -3,6 +3,7 @@ import * as moment from 'moment';
 import 'tablesaw/dist/stackonly/tablesaw.stackonly.jquery.js';
 
 import { getRecipe } from '../../common';
+import { renderQuantity } from '../../conversion';
 import { db } from '../../database';
 import { i18nAttr, localize } from '../../i18n';
 import { renderIngredientHTML } from '../../recipeml';
@@ -67,11 +68,24 @@ function sidebarFormatter(recipe) {
   });
 
   sidebar.append($('<br />'));
-  sidebar.append($('<span />', {'html': '<strong>serves</strong>'}));
+  sidebar.append($('<span />', {'html': '<strong>serves</strong>', 'class': 'field'}));
   sidebar.append($('<span />', {'text': recipe.servings}));
   sidebar.append($('<br />'));
-  sidebar.append($('<span />', {'html': '<strong>time</strong>'}));
+  sidebar.append($('<span />', {'html': '<strong>time</strong>', 'class': 'field'}));
   sidebar.append($('<span />', {'text': duration.as('minutes') + ' mins'}));
+
+  if (recipe.nutrition) {
+    sidebar.append($('<div />', {'html': '<strong>nutrition (per serving)</strong>', 'class': 'heading'}));
+
+    var nutritionFields = ['energy', 'fat', 'carbohydrates', 'fibre', 'protein'];
+    nutritionFields.forEach(field => {
+      if (!recipe.nutrition[field].magnitude) return;
+      sidebar.append($('<span />', {'html': `<strong>${field}</strong>`, 'class': 'field'}));
+      var quantity = renderQuantity(recipe.nutrition[field], false);
+      sidebar.append($('<span />', {'html': `${quantity.magnitude || ''} ${quantity.units || ''}`.trim()}));
+      sidebar.append($('<br />'));
+    });
+  }
 
   // TODO: i18n
   var destination = $('<a />', {
@@ -80,13 +94,13 @@ function sidebarFormatter(recipe) {
     'rel': 'noreferrer'
   });
   destination.append($('<button />', {
-    'class': 'btn btn-outline-primary',
+    'class': 'view btn btn-outline-primary',
     'text': `View on ${recipe.domain}`
   }));
   sidebar.append(destination);
 
   sidebar.append($('<button />', {
-    'class': 'btn btn-outline-primary add-recipe',
+    'class': 'add btn btn-outline-primary add-recipe',
     'data-i18n': i18nAttr('search:result-add-recipe')
   }));
 

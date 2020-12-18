@@ -76,6 +76,18 @@ div.recipe-list .sidebar img.thumbnail {
   box-shadow: 2px 2px 2px 1px #ccc;
 }
 
+div.recipe-list .sidebar div.heading {
+  width: 100%;
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+div.recipe-list .sidebar span.field {
+  width: 90px;
+  text-align: right;
+}
+
 div.recipe-list .sidebar img.dietary-property {
   width: 24px;
   height: 24px;
@@ -92,13 +104,18 @@ div.recipe-list .sidebar img.dietary-property.is-vegetarian { background-color: 
 div.recipe-list .sidebar span {
   display: inline-block;
   margin-left: 1rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
 }
 
 div.recipe-list .sidebar button {
   width: 192px;
+  margin-top: 1px;
   margin-bottom: 4px;
+}
+
+div.recipe-list .sidebar button.view {
+  margin-top: 8px;
 }
 
 div.recipe-list .content span.tag.badge {
