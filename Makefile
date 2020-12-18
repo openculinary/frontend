@@ -26,8 +26,8 @@ image-create:
 
 image-finalize:
 	buildah copy $(container) 'public' '/usr/share/nginx/html'
-	buildah config --port 80 --entrypoint '/usr/sbin/nginx -g "daemon off;"' $(container)
-	buildah commit --squash --rm $(container) ${IMAGE_NAME}:${IMAGE_TAG}
+	buildah config --cmd '/usr/sbin/nginx -g "daemon off;"' --port 80 $(container)
+	buildah commit --quiet --rm --squash $(container) ${IMAGE_NAME}:${IMAGE_TAG}
 
 lint:
 	npx eslint src
