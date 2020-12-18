@@ -94,13 +94,13 @@ function sidebarFormatter(recipe) {
     'rel': 'noreferrer'
   });
   destination.append($('<button />', {
-    'class': 'btn btn-outline-primary',
+    'class': 'view btn btn-outline-primary',
     'text': `View on ${recipe.domain}`
   }));
   sidebar.append(destination);
 
   sidebar.append($('<button />', {
-    'class': 'btn btn-outline-primary add-recipe',
+    'class': 'add btn btn-outline-primary add-recipe',
     'data-i18n': i18nAttr('search:result-add-recipe')
   }));
 
