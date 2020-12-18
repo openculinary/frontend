@@ -75,7 +75,7 @@ function sidebarFormatter(recipe) {
   sidebar.append($('<span />', {'text': duration.as('minutes') + ' mins'}));
 
   if (recipe.nutrition) {
-    sidebar.append($('<div />', {'html': '<strong>nutrition per serving</strong>', 'class': 'heading'}));
+    sidebar.append($('<div />', {'html': '<strong>nutrition (per serving)</strong>', 'class': 'heading'}));
 
     var nutritionFields = ['energy', 'fat', 'carbohydrates', 'fibre', 'protein'];
     nutritionFields.forEach(field => {
