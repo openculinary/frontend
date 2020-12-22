@@ -6,8 +6,8 @@ function fraction(nominator, denominator) {
   return `<sup>${nominator}</sup>&frasl;<sub>${denominator}</sub>`;
 }
 
-function renderQuantityHelper(quantity) {
-  var rendered = renderQuantity(quantity);
+function renderQuantityHelper(quantity, fractions = true) {
+  var rendered = renderQuantity(quantity, fractions);
   return `${rendered.magnitude || ''} ${rendered.units || ''}`.trim();
 }
 
@@ -76,6 +76,12 @@ describe('unit conversion', function() {
       var rendered = renderQuantityHelper({magnitude: 0.5, units: null});
       var expectedFraction = fraction(1, 2);
       assert.equal(expectedFraction, rendered);
+    });
+
+    it('can disable fractional rendering', function() {
+      var rendered = renderQuantityHelper({magnitude: 0.75, units: null}, false);
+      var expected = '0.75';
+      assert.equal(expected, rendered);
     });
 
   });

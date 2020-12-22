@@ -39,7 +39,7 @@ function targetUnits(quantity) {
   }
 }
 
-function renderMagnitude(units, magnitude) {
+function renderMagnitude(units, magnitude, fractions = true) {
   if (!magnitude) return magnitude;
   if (magnitude >= 50) {
     magnitude = magnitude / 5;
@@ -50,6 +50,9 @@ function renderMagnitude(units, magnitude) {
   }
   if (units && decimalMeasures.indexOf(units) >= 0) {
     return magnitude.toFixed(2) / 1;
+  }
+  if (!fractions) {
+    return magnitude;
   }
   var result = float2rat(magnitude);
   if (result.indexOf('/') == -1) {
@@ -72,7 +75,7 @@ function renderUnits(units, magnitude) {
   return description.plural.toLowerCase();
 }
 
-function renderQuantity(quantity) {
+function renderQuantity(quantity, fractions = true) {
 
   // Special case handling for 'pinch'
   if (quantity.units === 'ml' && quantity.magnitude <= 0.25) {
@@ -87,7 +90,7 @@ function renderQuantity(quantity) {
     fromQuantity = convert(quantity.magnitude).from(quantity.units);
   } catch (e) {
     return {
-      'magnitude': renderMagnitude(quantity.units, quantity.magnitude),
+      'magnitude': renderMagnitude(quantity.units, quantity.magnitude, fractions),
       'units': quantity.units
     };
   }
@@ -98,7 +101,7 @@ function renderQuantity(quantity) {
   var units = targetUnits(fromQuantity);
   var magnitude = fromQuantity.to(units);
 
-  var renderedMagnitude = renderMagnitude(units, magnitude);
+  var renderedMagnitude = renderMagnitude(units, magnitude, fractions);
   var renderedUnits = renderUnits(units, magnitude);
   return {
     'magnitude': renderedMagnitude,
