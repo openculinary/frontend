@@ -1,4 +1,4 @@
-.PHONY: build-dev build lint tests
+.PHONY: build-dev build deploy image image-create webpack image-finalize lint tests
 
 SERVICE=$(shell basename $(shell git rev-parse --show-toplevel))
 REGISTRY=registry.openculinary.org
@@ -11,18 +11,22 @@ IMAGE_TAG := $(strip $(if $(shell git status --porcelain --untracked-files=no), 
 MODE = 'development'
 build : MODE = 'production'
 
-build-dev: image-create webpack image-finalize
-
-build: lint tests image-create webpack image-finalize
+build-dev: image
+build: image
 
 deploy:
 	kubectl apply -f k8s
 	kubectl set image deployments -l app=${SERVICE} ${SERVICE}=${IMAGE_NAME}:${IMAGE_TAG}
 
+image: image-create webpack image-finalize
+
 image-create:
 	$(eval container=$(shell buildah from docker.io/library/nginx:alpine))
 	buildah copy $(container) 'etc/nginx/conf.d' '/etc/nginx/conf.d'
 	buildah run $(container) -- rm -rf '/usr/share/nginx/html' --
+
+webpack:
+	npx webpack --mode ${MODE}
 
 image-finalize:
 	buildah copy $(container) 'public' '/usr/share/nginx/html'
@@ -34,6 +38,3 @@ lint:
 
 tests:
 	npx mochapack --mode ${MODE} --require setup.js
-
-webpack:
-	npx webpack --mode ${MODE}
