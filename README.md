@@ -1,8 +1,10 @@
 # RecipeRadar Frontend
 
-The RecipeRadar Frontend is a user-facing, [local-first](https://www.inkandswitch.com/local-first.html) recipe search and meal planning application.
+The RecipeRadar Frontend is a recipe search and meal planning application.
 
 It's distributed as a [Progressive Web Application](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps) built using [webpack](https://webpack.js.org).
+
+The application is intended to follow [local-first](https://www.inkandswitch.com/local-first.html) principles, but we have some work to do before we fully achieve that.
 
 Source code for the application is divided into four JavaScript components:
 

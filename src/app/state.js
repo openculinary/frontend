@@ -2,6 +2,7 @@ import $ from 'jquery';
 
 import { renderRecipe } from './views/recipe';
 import { renderSearch } from './views/search';
+import { renderExplore } from './views/explore';
 
 export { getState, loadPage, pushState, renderStateHash };
 
@@ -24,6 +25,10 @@ function renderStateHash(state) {
     var stateHash = decodeURIComponent($.param(state));
     stateHash = stateHash.split('&').map(item => item.replace(RegExp('=$'), '')).join('&');
     return `#${stateHash}`;
+}
+
+function resetChoices(selector, data) {
+  if (!data) $(selector).find('ul').empty();
 }
 
 function loadTags(element, data) {
@@ -58,6 +63,8 @@ function loadState() {
   // If we encounter an empty state, display the homepage
   var state = getState();
 
+  resetChoices('#explore', state.ingredients);
+
   loadTags('#include', state.include);
   loadTags('#exclude', state.exclude);
   loadTags('#equipment', state.equipment);
@@ -79,6 +86,7 @@ function loadState() {
   if (!activeTab) {
     switch (state.action) {
       case 'search': renderSearch(); break;
+      case 'explore': renderExplore(); break;
       case 'view': renderRecipe(); break;
     }
   }
