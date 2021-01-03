@@ -34,6 +34,10 @@ header span.notification {
   right: -0.2rem;
 }
 
+header span.notification.explore {
+  background-color: #0000af;
+}
+
 header span.notification.meal-planner {
   background-color: #00af00;
 }
