@@ -81,6 +81,14 @@ module.exports = (_, env) => {
       new HtmlWebpackPlugin({
         excludeChunks: ['diagnostics', 'locales'],
         template: path.resolve(__dirname, 'src/index.html'),
+        minify: {
+          collapseWhitespace: false,
+          removeComments: true,
+          removeRedundantAttributes: true,
+          removeScriptTypeAttributes: true,
+          removeStyleLinkTypeAttributes: true,
+          useShortDoctype: true
+        },
         inject: false
       }),
       new HtmlWebpackPlugin({
