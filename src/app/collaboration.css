@@ -1,0 +1,11 @@
+#collaboration {
+  position: fixed;
+  right: 10px;
+  top: 100px;
+  width: 160px;
+  height: 140px;
+
+  background-color: #f0f0f0;
+  border: solid 1px #f0f0f0;
+  border-radius: 8px;
+}
