@@ -16,7 +16,7 @@ function bindShoppingList(doc, provider) {
 function joinSession(sessionId: string) {
   const doc = new Y.Doc();
   const awareness = new Awareness(doc);
-  const wsProvider = new WebsocketProvider('ws://localhost/collaboration', sessionId, doc, { awareness });
+  const wsProvider = new WebsocketProvider(`ws://${window.location.host}/collaboration`, sessionId, doc, { awareness });
   const dbProvider = new IndexeddbPersistence(sessionId, doc);
 
   wsProvider.on('status', event => {
