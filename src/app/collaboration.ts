@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import * as Y from 'yjs';
 import { CodemirrorBinding } from 'y-codemirror';
 import { Awareness } from "y-protocols/awareness";
@@ -13,6 +14,33 @@ function bindShoppingList(doc, provider) {
   text.observe(observeNoteUpdates);
 }
 
+function handleAwarenessUpdates(awareness) {
+  const collaboration = $('#collaboration').empty();
+  if (collaboration.find(`div[data-client-id="${awareness.clientID}"]`).length === 0) {
+    collaboration.append($('<div />', {
+      'data-client-id': awareness.clientID,
+      'text': awareness.clientID,
+    }));
+  }
+  awareness.on('change', change => {
+    const {added, updated, removed} = change;
+    updated.forEach(clientId => {
+      if (collaboration.find(`div[data-client-id="${clientId}"]`).length) return;
+      added.push(clientId);
+    })
+    removed.forEach(clientId => {
+      collaboration.find(`div[data-client-id="${clientId}"]`).remove();
+    });
+    added.forEach(clientId => {
+      if (collaboration.find(`div[data-client-id="${clientId}"]`).length) return;
+      collaboration.append($('<div />', {
+        'data-client-id': clientId,
+        'text': clientId,
+      }));
+    });
+  });
+}
+
 function joinSession(sessionId: string) {
   const doc = new Y.Doc();
   const awareness = new Awareness(doc);
@@ -25,6 +53,7 @@ function joinSession(sessionId: string) {
   dbProvider.on('synced', () => {
     console.log('y-indexeddb synced');
     bindShoppingList(doc, wsProvider);
+    handleAwarenessUpdates(awareness);
   });
 }
 
