@@ -53,3 +53,8 @@
 }
 
 #shopping-list select { width: 200px; }
+
+#shopping-list div.notes textarea {
+  width: 100%;
+  height: 8em;
+}

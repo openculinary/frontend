@@ -1,13 +1,23 @@
 import * as Y from 'yjs';
+import { CodemirrorBinding } from 'y-codemirror';
+import { Awareness } from "y-protocols/awareness";
 import { WebsocketProvider } from 'y-websocket';
 import { IndexeddbPersistence } from 'y-indexeddb';
 
-var doc: Y.Doc;
-var docText: Y.Text;
+import { getNoteEditor, observeNoteUpdates } from './views/shopping-list';
+
+function bindShoppingList(doc, provider) {
+  const text = doc.getText('doc.reciperadar.com/v1/shopping-list/notes');
+  const editor = getNoteEditor();
+  const binding = new CodemirrorBinding(text, editor, provider.awareness);
+  text.observe(observeNoteUpdates);
+  text.insert(0, 'example-text');
+}
 
 function joinSession(sessionId: string) {
-  doc = new Y.Doc();
-  const wsProvider = new WebsocketProvider('ws://localhost/collaboration', sessionId, doc);
+  const doc = new Y.Doc();
+  const awareness = new Awareness(doc);
+  const wsProvider = new WebsocketProvider('ws://localhost/collaboration', sessionId, doc, { awareness });
   const dbProvider = new IndexeddbPersistence(sessionId, doc);
 
   wsProvider.on('status', event => {
@@ -15,11 +25,7 @@ function joinSession(sessionId: string) {
   });
   dbProvider.on('synced', () => {
     console.log('y-indexeddb synced');
-    docText = doc.getText('doc.reciperadar.org');
-    docText.observe(() => {
-      console.log(`y-doc-text: ${docText.toString()}`);
-    });
-    docText.insert(0, 'example-text');
+    bindShoppingList(doc, wsProvider);
   });
 }
 

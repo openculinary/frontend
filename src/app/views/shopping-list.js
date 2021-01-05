@@ -1,3 +1,4 @@
+import CodeMirror from 'codemirror';
 import $ from 'jquery';
 import 'select2';
 
@@ -6,7 +7,7 @@ import { db } from '../database';
 import { localize } from '../i18n';
 import { addStandaloneIngredient, removeStandaloneIngredient } from '../models/ingredients';
 
-export { aggregateQuantities };
+export { aggregateQuantities, getNoteEditor, observeNoteUpdates };
 
 function aggregateQuantities(ingredients) {
   var quantities = new Map();
@@ -20,6 +21,18 @@ function aggregateQuantities(ingredients) {
     if (quantities[units] === 0) delete quantities[units];
   });
   return quantities;
+}
+
+var noteEditor = null;
+function getNoteEditor() {
+  if (!noteEditor) {
+    var notes = document.querySelector('#shopping-list div[class="notes"]');
+    noteEditor = CodeMirror(notes);
+  }
+  return noteEditor;
+}
+
+function observeNoteUpdates(e) {
 }
 
 function renderProduct(product, ingredients) {
