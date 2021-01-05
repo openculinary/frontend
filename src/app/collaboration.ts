@@ -11,7 +11,6 @@ function bindShoppingList(doc, provider) {
   const editor = getNoteEditor();
   const binding = new CodemirrorBinding(text, editor, provider.awareness);
   text.observe(observeNoteUpdates);
-  text.insert(0, 'example-text');
 }
 
 function joinSession(sessionId: string) {
