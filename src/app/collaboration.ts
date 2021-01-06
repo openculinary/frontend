@@ -34,11 +34,7 @@ function joinSession(sessionId: string) {
   const wsProvider = new WebsocketProvider(`${window.location.protocol === 'https:' ? 'wss': 'ws'}://${window.location.host}/collaboration`, sessionId, doc, { awareness });
   const dbProvider = new IndexeddbPersistence(sessionId, doc);
 
-  wsProvider.on('status', event => {
-    console.log(`y-websocket ${event.status}`);
-  });
   dbProvider.on('synced', () => {
-    console.log('y-indexeddb synced');
     bindShoppingList(doc, wsProvider);
     handleAwarenessUpdates(awareness);
   });
