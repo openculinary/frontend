@@ -117,7 +117,7 @@ async function getProductsByCategory(servingsByRecipe) {
         if (!product) return;
         ingredientsByProduct[product.id] = ingredientsByProduct[product.id] || [];
         ingredientsByProduct[product.id].push(ingredient);
-        productsByCategory[product.category] = productsByCategory[product.category] || Object.create(null);
+        productsByCategory[product.category] = productsByCategory[product.category] || new Map();
         productsByCategory[product.category][product.id] = product;
       });
     });
