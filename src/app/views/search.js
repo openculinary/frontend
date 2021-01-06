@@ -118,7 +118,7 @@ function refinementHandler(data) {
 }
 
 function getDomainStates() {
-  var domainStates = Object.create(null);
+  var domainStates = new Map();
   var state = getState();
   if (!state.domains) return domainStates;
   state.domains.split(',').forEach(domainKey => {
