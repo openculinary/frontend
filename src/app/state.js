@@ -9,7 +9,7 @@ export { getState, loadPage, pushState, renderStateHash };
 function getState() {
   if (!history.state && !location.hash) return {'search': null};
   if (!history.state && location.hash) {
-    var state = {};
+    var state = Object.create(null);
     var urlParams = new URLSearchParams(window.location.hash.slice(1));
     urlParams.forEach((value, key) => { state[key] = value });
     return state;
