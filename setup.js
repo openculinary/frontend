@@ -7,6 +7,7 @@ global.XMLHttpRequest = xmlhttprequest.XMLHttpRequest;
 global.document = dom.window.document;
 global.window = dom.window;
 global.self = dom.window;
+global.navigator = dom.window.navigator;
 
 setGlobalVars(global.window, {checkOrigin: false, memoryDatabase: ":memory:"});
 
