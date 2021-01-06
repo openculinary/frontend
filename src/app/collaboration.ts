@@ -31,7 +31,7 @@ function handleAwarenessUpdates(awareness) {
 function joinSession(sessionId: string) {
   const doc = new Y.Doc();
   const awareness = new Awareness(doc);
-  const wsProvider = new WebsocketProvider(`ws://${window.location.host}/collaboration`, sessionId, doc, { awareness });
+  const wsProvider = new WebsocketProvider(`${window.location.protocol === 'https:' ? 'wss': 'ws'}://${window.location.host}/collaboration`, sessionId, doc, { awareness });
   const dbProvider = new IndexeddbPersistence(sessionId, doc);
 
   wsProvider.on('status', event => {
