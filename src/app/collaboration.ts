@@ -14,31 +14,18 @@ function bindShoppingList(doc, provider) {
   text.observe(observeNoteUpdates);
 }
 
-function handleAwarenessUpdates(awareness) {
+function renderPeers(peerStates) {
   const collaboration = $('#collaboration').empty();
-  if (collaboration.find(`div[data-client-id="${awareness.clientID}"]`).length === 0) {
+  peerStates.forEach((state, clientId) => {
     collaboration.append($('<div />', {
-      'data-client-id': awareness.clientID,
-      'text': awareness.clientID,
+      'data-client-id': clientId,
+      'text': clientId,
     }));
-  }
-  awareness.on('change', change => {
-    const {added, updated, removed} = change;
-    updated.forEach(clientId => {
-      if (collaboration.find(`div[data-client-id="${clientId}"]`).length) return;
-      added.push(clientId);
-    })
-    removed.forEach(clientId => {
-      collaboration.find(`div[data-client-id="${clientId}"]`).remove();
-    });
-    added.forEach(clientId => {
-      if (collaboration.find(`div[data-client-id="${clientId}"]`).length) return;
-      collaboration.append($('<div />', {
-        'data-client-id': clientId,
-        'text': clientId,
-      }));
-    });
-  });
+  })
+}
+
+function handleAwarenessUpdates(awareness) {
+  awareness.on('change', () => renderPeers(awareness.getStates()));
 }
 
 function joinSession(sessionId: string) {
