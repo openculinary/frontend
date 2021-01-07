@@ -18,7 +18,7 @@ function renderPeers(peerStates) {
   peerStates.forEach((state, clientId) => {
     peers.append($('<div />', {
       'data-client-id': clientId,
-      'text': clientId,
+      'text': state.username || clientId,
     }));
   })
 }
@@ -42,21 +42,25 @@ function clearConnectionStatus() {
   const connect = $('<button />', {'text': 'Connect'});
   connect.on('click', () => {
     const sessionId = $('#collaboration .connection input.session-id').val();
-    joinSession(sessionId);
+    const username = $('#collaboration .connection input.username').val();
+    joinSession(sessionId, username);
   });
 
   const connection = $('#collaboration .connection').empty();
+  connection.append($('<input />', {'class': 'username', 'type': 'text', 'placeholder': 'anonymous'}));
   connection.append($('<input />', {'class': 'session-id', 'type': 'text', 'placeholder': 'example-session-id'}));
   connection.append(connect);
 }
 
-function joinSession(sessionId: string) {
+function joinSession(sessionId: string, username: string) {
   const doc = new Y.Doc();
   const shoppingListNotes = doc.getText('doc.reciperadar.com/v1/shopping-list/notes');
 
   const dbProvider = new IndexeddbPersistence(sessionId, doc);
   dbProvider.on('synced', () => {
     const awareness = new Awareness(doc);
+
+    awareness.setLocalStateField('username', username);
     bindShoppingList(shoppingListNotes, awareness);
     handleAwarenessUpdates(awareness);
 
