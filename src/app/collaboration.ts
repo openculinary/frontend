@@ -7,11 +7,10 @@ import { IndexeddbPersistence } from 'y-indexeddb';
 
 import { getNoteEditor, observeNoteUpdates } from './views/shopping-list';
 
-function bindShoppingList(doc, provider) {
-  const text = doc.getText('doc.reciperadar.com/v1/shopping-list/notes');
+function bindShoppingList(shoppingListNotes, awareness) {
   const editor = getNoteEditor();
-  const binding = new CodemirrorBinding(text, editor, provider.awareness);
-  text.observe(observeNoteUpdates);
+  const binding = new CodemirrorBinding(shoppingListNotes, editor, awareness);
+  shoppingListNotes.observe(observeNoteUpdates);
 }
 
 function renderPeers(peerStates) {
@@ -30,12 +29,14 @@ function handleAwarenessUpdates(awareness) {
 
 function joinSession(sessionId: string) {
   const doc = new Y.Doc();
+  const shoppingListNotes = doc.getText('doc.reciperadar.com/v1/shopping-list/notes');
+
   const awareness = new Awareness(doc);
-  const wsProvider = new WebsocketProvider(`${window.location.protocol === 'https:' ? 'wss': 'ws'}://${window.location.host}/collaboration`, sessionId, doc, { awareness });
   const dbProvider = new IndexeddbPersistence(sessionId, doc);
+  const wsProvider = new WebsocketProvider(`${window.location.protocol === 'https:' ? 'wss': 'ws'}://${window.location.host}/collaboration`, sessionId, doc, { awareness });
 
   dbProvider.on('synced', () => {
-    bindShoppingList(doc, wsProvider);
+    bindShoppingList(shoppingListNotes, awareness);
     handleAwarenessUpdates(awareness);
   });
 }
