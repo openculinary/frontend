@@ -53,3 +53,8 @@
 }
 
 #shopping-list select { width: 200px; }
+
+/* Ensure ingredient suggestion pop-up displays over the top of CodeMirror editor */
+#shopping-list .CodeMirror pre {
+  z-index: 1;
+}
