@@ -60,10 +60,7 @@ function joinSession(sessionId: string) {
     bindShoppingList(shoppingListNotes, awareness);
     handleAwarenessUpdates(awareness);
 
-    // Once the local state is synced, open a websocket connection
     const wsProvider = new WebsocketProvider(`${window.location.protocol === 'https:' ? 'wss': 'ws'}://${window.location.host}/collaboration`, sessionId, doc, { awareness });
-
-    // Configure connection event handling
     wsProvider.on('status', event => {
       switch (event.status) {
         case 'connected':
