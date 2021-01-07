@@ -216,4 +216,5 @@ $(function() {
   db.on('changes', changes => { changes.find(c => c.table === 'ingredients') && renderShoppingList() });
 
   renderShoppingList();
+  getNoteEditor();
 })
