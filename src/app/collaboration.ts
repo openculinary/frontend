@@ -33,7 +33,7 @@ function displayConnectionStatus(wsProvider) {
   disconnect.on('click', () => wsProvider.disconnect());
 
   const connection = $('#collaboration .connection').empty();
-  connection.append($('<div />', {'text': `Connected to ${wsProvider.roomname}`}));
+  connection.append($('<div />', {'html': `Connected to <strong>${wsProvider.roomname}</strong>`}));
   connection.append(disconnect);
 }
 
