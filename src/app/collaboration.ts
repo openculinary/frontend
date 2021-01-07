@@ -14,7 +14,7 @@ function bindShoppingList(shoppingListNotes, awareness) {
 }
 
 function renderPeers(peerStates) {
-  const peers = $('#collaboration peers').empty();
+  const peers = $('#collaboration .peers').empty();
   peerStates.forEach((state, clientId) => {
     peers.append($('<div />', {
       'data-client-id': clientId,
