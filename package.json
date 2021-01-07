@@ -33,7 +33,7 @@
     "yjs": "^13.4.9"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.19",
+    "@types/jest": "^26.0.20",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^6.4.1",
     "css-loader": "^5.0.1",
