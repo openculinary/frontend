@@ -8,7 +8,7 @@ import { db } from '../database';
 import { localize } from '../i18n';
 import { addStandaloneIngredient, removeStandaloneIngredient } from '../models/ingredients';
 
-export { aggregateQuantities, getNoteEditor, observeNoteUpdates };
+export { aggregateQuantities, getNoteEditor, observeNoteUpdates, resetNoteEditor };
 
 function aggregateQuantities(ingredients) {
   var quantities = new Map();
@@ -34,6 +34,12 @@ function getNoteEditor() {
 }
 
 function observeNoteUpdates(e) {
+}
+
+function resetNoteEditor() {
+  const editor = getNoteEditor();
+  const emptyDoc = CodeMirror.Doc(String());
+  editor.swapDoc(emptyDoc);
 }
 
 function renderProduct(product, ingredients) {
