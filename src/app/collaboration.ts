@@ -5,13 +5,12 @@ import { Awareness } from "y-protocols/awareness";
 import { WebsocketProvider } from 'y-websocket';
 import { IndexeddbPersistence } from 'y-indexeddb';
 
-import { getNoteEditor, observeNoteUpdates, resetNoteEditor } from './views/shopping-list';
+import { getNoteEditor, resetNoteEditor } from './views/shopping-list';
 
 function bindShoppingList(shoppingListNotes, awareness) {
   resetNoteEditor();
   const editor = getNoteEditor();
   const binding = new CodemirrorBinding(shoppingListNotes, editor, awareness);
-  shoppingListNotes.observe(observeNoteUpdates);
 }
 
 function renderPeers(peerStates) {
