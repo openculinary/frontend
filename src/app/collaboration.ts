@@ -19,7 +19,7 @@ function renderPeers(peerStates) {
   peerStates.forEach((state, clientId) => {
     peers.append($('<div />', {
       'data-client-id': clientId,
-      'text': state.username || clientId,
+      'text': state.user.name,
     }));
   })
 }
@@ -61,7 +61,10 @@ function joinSession(sessionId: string, username: string) {
   dbProvider.on('synced', () => {
     const awareness = new Awareness(doc);
 
-    awareness.setLocalStateField('username', username);
+    const user = new Map();
+    user['name'] = username;
+
+    awareness.setLocalStateField('user', user);
     bindShoppingList(shoppingListNotes, awareness);
     handleAwarenessUpdates(awareness);
 
