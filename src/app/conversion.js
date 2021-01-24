@@ -1,6 +1,5 @@
 import * as convert from 'convert-units';
-
-import { float2rat } from './common';
+import * as Fraction from 'fraction.js';
 
 export { renderQuantity };
 
@@ -54,7 +53,7 @@ function renderMagnitude(units, magnitude, fractions = true) {
   if (!fractions) {
     return magnitude;
   }
-  var result = float2rat(magnitude);
+  var result = new Fraction(magnitude).simplify(0.1).toFraction(true);
   if (result.indexOf('/') == -1) {
     return result;
   }
