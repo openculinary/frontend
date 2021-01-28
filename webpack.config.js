@@ -113,7 +113,7 @@ module.exports = (_, env) => {
                 name: 'locales/[1]/[2].json'
               }
             },
-            {loader: 'i18next-gettext-loader'}
+            {loader: '@openculinary/i18next-gettext-loader'}
           ]
         },
         {
