@@ -1,5 +1,6 @@
 import CodeMirror from 'codemirror';
 import 'codemirror/addon/display/autorefresh';
+import 'codemirror/mode/gfm/gfm';
 import $ from 'jquery';
 import 'select2';
 
@@ -28,7 +29,10 @@ var noteEditor = null;
 function getNoteEditor() {
   if (!noteEditor) {
     var notes = document.querySelector('#shopping-list div[class="notes"]');
-    noteEditor = CodeMirror(notes, {autoRefresh: true});
+    noteEditor = CodeMirror(notes, {
+      autoRefresh: true,
+      mode: 'gfm'
+    });
   }
   return noteEditor;
 }
