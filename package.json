@@ -6,6 +6,7 @@
     "@fortawesome/fontawesome-free": "^5.15.2",
     "bootstrap": "^4.6.0",
     "bootstrap-table": "^1.18.2",
+    "codemirror": "^5.59.2",
     "convert-units": "^2.3.4",
     "d3": "^6.5.0",
     "d3-sankey": "git://github.com/jayaddison/d3-sankey.git#44dfaafbbd3340f434bbc8b84f02acc66c1be0d9",
