@@ -110,12 +110,8 @@ div.recipe-list .sidebar span {
 
 div.recipe-list .sidebar button {
   width: 192px;
-  margin-top: 1px;
+  margin-top: 4px;
   margin-bottom: 4px;
-}
-
-div.recipe-list .sidebar button.view {
-  margin-top: 8px;
 }
 
 div.recipe-list .content span.tag.badge {
