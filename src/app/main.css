@@ -90,6 +90,10 @@ span.tag.servings {
   background-color: #b0b0ff;
 }
 
+footer div {
+  font-size: small;
+}
+
 /* disable pull-down-to-refresh in chrome */
 body {
   overscroll-behavior: contain;
