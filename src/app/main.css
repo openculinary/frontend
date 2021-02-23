@@ -92,6 +92,7 @@ span.tag.servings {
 
 footer div {
   font-size: small;
+  padding: 4px;
 }
 
 /* disable pull-down-to-refresh in chrome */
