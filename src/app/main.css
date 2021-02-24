@@ -90,6 +90,10 @@ span.tag.servings {
   background-color: #b0b0ff;
 }
 
+footer {
+  background-color: whitesmoke;
+}
+
 footer div {
   font-size: small;
   padding: 4px;
