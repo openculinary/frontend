@@ -95,9 +95,15 @@ footer div {
   padding: 4px;
 }
 
-/* disable pull-down-to-refresh in chrome */
 body {
+  /* disable pull-down-to-refresh in chrome */
   overscroll-behavior: contain;
+
+  /* sticky footer */
+  /* ref: https://developer.mozilla.org/en-US/docs/Web/CSS/Layout_cookbook/Sticky_footers */
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
 }
 
 /* accessibility overrides: contrast workarounds for Bootstrap */
