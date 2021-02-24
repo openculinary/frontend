@@ -90,9 +90,24 @@ span.tag.servings {
   background-color: #b0b0ff;
 }
 
-/* disable pull-down-to-refresh in chrome */
+footer {
+  background-color: whitesmoke;
+}
+
+footer div {
+  font-size: small;
+  padding: 4px;
+}
+
 body {
+  /* disable pull-down-to-refresh in chrome */
   overscroll-behavior: contain;
+
+  /* sticky footer */
+  /* ref: https://developer.mozilla.org/en-US/docs/Web/CSS/Layout_cookbook/Sticky_footers */
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
 }
 
 /* accessibility overrides: contrast workarounds for Bootstrap */
