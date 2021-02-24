@@ -17,8 +17,11 @@ header a:hover {
   text-decoration: none;
 }
 
-header div.menu {
+header div.row {
   max-width: 90vw;
+}
+
+header div.menu {
   overflow: auto;
   background-color: #006;
 }
