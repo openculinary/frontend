@@ -83,7 +83,7 @@ module.exports = (_, env) => {
         template: path.resolve(__dirname, 'src/index.html'),
         minify: {
           collapseWhitespace: false,
-          removeComments: true,
+          removeComments: false,
           removeRedundantAttributes: true,
           removeScriptTypeAttributes: true,
           removeStyleLinkTypeAttributes: true,
