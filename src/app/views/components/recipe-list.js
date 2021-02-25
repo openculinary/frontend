@@ -88,6 +88,19 @@ function sidebarFormatter(recipe) {
   }
 
   // TODO: i18n
+  var details = $('<a />', {'href': `#search&action=view&id=${recipe.id}`});
+  details.append($('<button />', {
+    'class': 'view btn btn-primary',
+    'text': `View recipe directions`
+  }));
+  sidebar.append(details);
+
+  sidebar.append($('<button />', {
+    'class': 'add btn btn-outline-primary add-recipe',
+    'data-i18n': i18nAttr('search:result-add-recipe')
+  }));
+
+  // TODO: i18n
   var destination = $('<a />', {
     'href': recipe.dst,
     'target': '_blank',
@@ -98,11 +111,6 @@ function sidebarFormatter(recipe) {
     'text': `View on ${recipe.domain}`
   }));
   sidebar.append(destination);
-
-  sidebar.append($('<button />', {
-    'class': 'add btn btn-outline-primary add-recipe',
-    'data-i18n': i18nAttr('search:result-add-recipe')
-  }));
 
   return sidebar;
 }

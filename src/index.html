@@ -31,21 +31,16 @@
   </head>
   <body>
 
-    <header class="navbar navbar-expand navbar-dark flex-column flex-md-row flex-wrap sticky-top">
-      <div class="container-fluid ml-auto">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a href="/"><img class="logo" src="images/icons/manifest-icon-192.png" alt="RecipeRadar logo (plate and utensils)" /></a>
-          <a href="/"><h1>RecipeRadar</h1></a>
-        </li>
-      </ul>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a href="#about-application" aria-label="About RecipeRadar" class="nav-link float-left fa fa-info"></a>
-        </li>
-      </ul>
+    <header class="navbar navbar-expand navbar-dark flex-column sticky-top">
+      <div class="container-fluid row">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a href="/"><img class="logo" src="images/icons/manifest-icon-192.png" alt="RecipeRadar logo (plate and utensils)" /></a>
+            <a href="/"><h1>RecipeRadar</h1></a>
+          </li>
+        </ul>
       </div>
-      <div class="container-fluid menu">
+      <div class="container-fluid row menu">
         <ul class="navbar-nav m-auto">
           <li class="nav-item">
             <a class="nav-link active" href="#search" data-i18n="[html]navigation:search"></a>
@@ -318,7 +313,7 @@
                 <li><a href="https://github.com/i18next/i18next">i18next</a> as an internationalization and localization framework</li>
                 <li><a href="https://github.com/googlechrome/workbox">workbox</a> to streamline delivery of the frontend application</li>
                 <li><a href="https://github.com/select2/select2">select2</a> to render input selection autosuggest fields</li>
-                <li><a href="https://github.com/niklasvh/feedback.js">feedback.js</a> (and the <a href="https://github.com/niklasvh/html2canvas">html2canvas</a> library that it depends on) to gather user feedback</li>
+                <li><a href="https://github.com/onanimationstudios/feedback.js">feedback.js</a> (including <a href="https://github.com/simevo/feedback.js">multiple</a> <a href="https://github.com/dkopitsa/feedback.js">developments</a> since <a href="https://github.com/niklasvh/feedback.js">origination</a>, and the <a href="https://github.com/niklasvh/html2canvas">html2canvas</a> library that it depends on) to gather user feedback</li>
               </ul>
               <h5>Formats</h5>
               <ul>
@@ -344,10 +339,15 @@
     </div>
 
     <footer>
-      <div class="text-center py-2">
-        <small>© 2019 <a href="https://beta.companieshouse.gov.uk/company/SC647817">OpenCulinary C.I.C.</a></small>
-        <div></div>
-        <small data-i18n="[html]footer:source-code"></small>
+      <div class="container">
+        <div class="row justify-content-evenly">
+          <div class="col-md-2 text-center"><a href="#about-application">About</a></div>
+          <div class="col-md-2 text-center"><a href="#about-vision">Our goals</a></div>
+          <div class="col-md-2 text-center"><a href="https://blog.reciperadar.com/">Blog</a></div>
+          <div class="col-md-2 text-center"><a href="#about-credits">Credits</a></div>
+          <div class="col-md-2 text-center">© 2019 <a href="https://beta.companieshouse.gov.uk/company/SC647817">OpenCulinary C.I.C.</a></div>
+          <div class="col-md-2 text-center" data-i18n="[html]footer:source-code"></div>
+        </div>
       </div>
     </footer>
 
