@@ -165,23 +165,10 @@ function renderIngredients(recipe) {
 
 function renderDirections(recipe) {
   var directions = $('<div />', {'class': 'directions'});
-  directions.append($('<div />', {
-    'class': 'section-title',
-    'data-i18n': i18nAttr('search:result-tab-directions')
-  }));
 
-  var directionList  = $('<ol />');
-  $.each(recipe.directions, function() {
-    var directionHTML = renderDirectionHTML(this);
-    var direction = $(directionHTML);
-    direction.hover(hoverDirection, unhoverDirection);
-    direction.click(markDirection);
-    directionList.append(direction);
+  directions.append($('<p />', {
+    'html': `Please visit the <a href="${recipe.dst}">original source</a> to read the directions for this recipe.`
   });
-  directions.append(directionList);
-
-  var existingDirections = $('#recipe div.directions').empty();
-  existingDirections.replaceWith(directions);
 
   localize('#recipe .directions');
 }
