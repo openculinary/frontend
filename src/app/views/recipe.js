@@ -170,5 +170,8 @@ function renderDirections(recipe) {
     'html': `Please visit the <a href="${recipe.dst}">original source</a> to read the directions for this recipe.`
   }));
 
+  var existingDirections = $('#recipe div.directions').empty();
+  existingDirections.replaceWith(directions);
+
   localize('#recipe .directions');
 }
