@@ -22,13 +22,11 @@ export {
 function titleFormatter(recipe) {
   var container = $('<div />', {'class': 'title'});
 
-  var icon = $('<img />', {'src': 'images/domains/' + recipe.domain + '.ico', 'alt':''});
   var title = $('<a />', {
     'href': `#search&action=view&id=${recipe.id}`,
     'text': recipe.title,
   });
 
-  container.append(icon);
   container.append(title);
 
   return container;
@@ -41,16 +39,7 @@ function starFormatter() {
 function sidebarFormatter(recipe) {
   var duration = moment.duration(recipe.time, 'minutes');
 
-  var link = $('<a />', {'href': `#search&action=view&id=${recipe.id}`});
-  var img = $('<img />', {
-    'class': 'thumbnail',
-    'src': recipe.image_url,
-    'alt': recipe.title,
-  });
-  link.append(img);
-
   var sidebar = $('<td />', {'class': 'sidebar align-top'});
-  sidebar.append(link);
 
   var properties = [
     'is_dairy_free',
