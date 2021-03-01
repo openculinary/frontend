@@ -87,8 +87,6 @@ function renderRecipe() {
     var metadata = $('#recipe div.metadata').empty();
 
     var link = $('<a />', {'href': recipe.dst});
-    var img = $('<img />', {'src': recipe.image_url, 'alt': recipe.title});
-    link.append(img);
 
     if (recipe.author) {
       var author = $('<a />', {'href': recipe.author_url || recipe.dst, 'text': recipe.author});
