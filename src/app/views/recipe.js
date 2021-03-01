@@ -168,7 +168,7 @@ function renderDirections(recipe) {
 
   directions.append($('<p />', {
     'html': `Please visit the <a href="${recipe.dst}">original source</a> to read the directions for this recipe.`
-  });
+  }));
 
   localize('#recipe .directions');
 }
