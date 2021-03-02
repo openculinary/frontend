@@ -96,6 +96,10 @@ function populateNotifications() {
     $('header span.notification.shopping-list').toggle(!empty);
     if (empty) return;
 
+    // TODO: Figure out why display:block is being applied incorrectly, and
+    // then remove this workaround
+    $('header span.notification.shopping-list').css({'display': 'inline'});
+
     db.basket.count(found => {
       $('header span.notification.shopping-list').text(found + '/' + total);
     });
