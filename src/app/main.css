@@ -29,7 +29,7 @@ header div.menu {
 header span.notification {
   border-radius: 2px;
   color: white;
-  display: inline;
+  display: inline !important;
 
   padding: 1px 3px;
   font-size: 10px;
