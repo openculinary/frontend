@@ -1,0 +1,3 @@
+Canonical: https://www.reciperadar.com/.well-known/security.txt
+Contact: mailto:security@reciperadar.com
+Preferred-Languages: en
