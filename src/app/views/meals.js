@@ -161,6 +161,10 @@ function populateNotifications() {
     $('header span.notification.meal-planner').toggle(!empty);
     if (empty) return;
 
+    // TODO: Figure out why display:block is being applied incorrectly, and
+    // then remove this workaround
+    $('header span.notification.meal-planner').css({'display': 'inline'});
+
     db.meals.count(total => {
       $('header span.notification.meal-planner').text(total);
     });
