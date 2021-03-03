@@ -2,17 +2,17 @@ import $ from 'jquery';
 import 'select2';
 
 import { renderQuantity } from '../conversion';
-import { db } from '../database';
+import { Ingredient, Product, db } from '../database';
 import { localize } from '../i18n';
 import { addStandaloneIngredient, removeStandaloneIngredient } from '../models/ingredients';
 
 export { aggregateQuantities };
 
-function aggregateQuantities(ingredients) {
-  var quantities = new Map();
+function aggregateQuantities(ingredients: Ingredient[]) : Record<string, number> {
+  const quantities = Object.create(null);
   $.each(ingredients, (_, ingredient) => {
     if (!ingredient.quantity) return;
-    var units = ingredient.quantity.units || '';
+    const units: string = ingredient.quantity.units || '';
     quantities[units] = quantities[units] || 0;
     quantities[units] += ingredient.quantity.magnitude;
   });
@@ -23,11 +23,11 @@ function aggregateQuantities(ingredients) {
 }
 
 function renderProduct(product, ingredients) {
-  var quantities = aggregateQuantities(ingredients);
-  var text = '';
+  const quantities = aggregateQuantities(ingredients);
+  let text = '';
   $.each(quantities, (units, magnitude) => {
-    var quantity = renderQuantity({units: units, magnitude: magnitude});
-    var tail = `${quantity.magnitude || ''} ${quantity.units || ''}`.trim();
+    const quantity = renderQuantity({units: units, magnitude: magnitude});
+    const tail = `${quantity.magnitude || ''} ${quantity.units || ''}`.trim();
     if (tail.length) text += text.length ? ` + ${tail}` : tail;
   });
   text += ' ' + product.name;
@@ -35,27 +35,27 @@ function renderProduct(product, ingredients) {
 }
 
 function renderCategory(category) {
-  var fieldset = $('<fieldset />', {'class': category});
-  var legend = $('<legend />', {'data-i18n': `[html]categories:${category}`});
+  const fieldset = $('<fieldset />', {'class': category});
+  const legend = $('<legend />', {'data-i18n': `[html]categories:${category}`});
   fieldset.append(legend);
   return fieldset;
 }
 
 function getProductId(el) {
-  var target = $(el).hasClass('product') ? $(el) : $(el).parents('.product');
+  const target = $(el).hasClass('product') ? $(el) : $(el).parents('.product');
   return target.data('id');
 }
 
 function toggleProductState() {
-  var productId = getProductId(this);
+  const productId: string = getProductId(this);
   db.basket.get(productId, item => {
     if (item) db.basket.delete(productId);
-    else db.basket.put({product_id: productId});
+    else db.basket.put({product_id: productId, magnitude: null, units: null});
   });
 }
 
 function productElement(product, ingredients) {
-  var checkbox = $('<input />', {
+  const checkbox = $('<input />', {
     'type': 'checkbox',
     'name': 'products[]',
     'value': product.id
@@ -63,19 +63,19 @@ function productElement(product, ingredients) {
   db.basket.get(product.id, item => {
     checkbox.attr('checked', !!item);
   });
-  var label = $('<label />', {
+  const label = $('<label />', {
     'class': 'product',
     'data-id': product.id,
     'click': toggleProductState
   });
   label.append(checkbox);
 
-  var text = renderProduct(product, ingredients);
-  var textContainer = $('<span />', {'html': text});
+  const text: string = renderProduct(product, ingredients);
+  const textContainer = $('<span />', {'html': text});
   label.append(textContainer);
 
   if (!ingredients.find(ingredient => ingredient.recipe_id)) {
-    var removeButton = $('<span />', {
+    const removeButton = $('<span />', {
       'data-role': 'remove',
       'click': function() {
         removeStandaloneIngredient(product);
@@ -87,12 +87,12 @@ function productElement(product, ingredients) {
 }
 
 function populateNotifications() {
-  var requiredProducts = new Set();
+  const requiredProducts: Set<string> = new Set();
   db.ingredients.each(ingredient => {
     requiredProducts.add(ingredient.product_id);
   }).then(() => {
-    var total = requiredProducts.size;
-    var empty = total === 0;
+    const total: number = requiredProducts.size;
+    const empty: boolean = total === 0;
     $('header span.notification.shopping-list').toggle(!empty);
     if (empty) return;
 
@@ -107,11 +107,11 @@ function populateNotifications() {
 }
 
 async function getProductsByCategory(servingsByRecipe) {
-  var ingredientsByProduct = new Map();
-  var productsByCategory = new Map();
+  const ingredientsByProduct: Map<string, Ingredient[]> = new Map();
+  const productsByCategory: Map<string, Map<string, Product>> = new Map();
   await db.transaction('r', db.ingredients, db.products, () => {
     db.ingredients.each(ingredient => {
-      var servings = servingsByRecipe[ingredient.recipe_id];
+      const servings = servingsByRecipe[ingredient.recipe_id];
       if (ingredient.quantity && ingredient.quantity.magnitude && servings.scheduled) {
         ingredient.quantity.magnitude *= servings.scheduled;
         ingredient.quantity.magnitude /= servings.recipe;
@@ -119,27 +119,21 @@ async function getProductsByCategory(servingsByRecipe) {
 
       db.products.get(ingredient.product_id, product => {
         if (!product) return;
-        ingredientsByProduct[product.id] = ingredientsByProduct[product.id] || [];
-        ingredientsByProduct[product.id].push(ingredient);
-        productsByCategory[product.category] = productsByCategory[product.category] || Object.create(null);
-        productsByCategory[product.category][product.id] = product;
+        if (!ingredientsByProduct.has(product.id)) ingredientsByProduct.set(product.id, []);
+        if (!productsByCategory.has(product.category)) productsByCategory.set(product.category, new Map());
+        ingredientsByProduct.get(product.id).push(ingredient);
+        productsByCategory.get(product.category).set(product.id, product);
       });
     });
   })
-  // Move the null category to the end of the map
-  if (Object.hasOwnProperty.call(productsByCategory, null)) {
-    var product = productsByCategory[null];
-    delete productsByCategory[null];
-    productsByCategory[null] = product;
-  }
   return {
     ingredientsByProduct: ingredientsByProduct,
     productsByCategory: productsByCategory,
   };
 }
 
-async function getServingsByRecipe() {
-  var servingsByRecipe = new Map();
+async function getServingsByRecipe() : Promise<Record<string, Record<string, number>>> {
+  const servingsByRecipe: Record<string, Record<string, number>> = Object.create(null);
   await db.transaction('r', db.recipes, db.meals, () => {
     db.recipes.each(recipe => {
       servingsByRecipe[recipe.id] = {recipe: recipe.servings, scheduled: 0};
@@ -154,14 +148,16 @@ async function getServingsByRecipe() {
 function renderShoppingList() {
   getServingsByRecipe().then(servingsByRecipe => {
     getProductsByCategory(servingsByRecipe).then(results => {
-      var shoppingList = $('#shopping-list .products').empty();
-      $.each(results.productsByCategory, (category, products) => {
-        if (category === 'null') category = null;
-        var categoryElement = renderCategory(category);
-        $.each(products, (productId, product) => {
-          var ingredients = results.ingredientsByProduct[productId];
+      const shoppingList = $('#shopping-list .products').empty();
+      const sortedCategories: string[] = Array.from(results.productsByCategory.keys()).sort();
+      $.each(sortedCategories, (_, category: string) => {
+        const products = results.productsByCategory.get(category);
+        const categoryElement = renderCategory(category);
+        for (const productId of products.keys()) {
+          const product: Product = products.get(productId);
+          const ingredients: Ingredient[] = results.ingredientsByProduct.get(productId);
           categoryElement.append(productElement(product, ingredients));
-        });
+        }
         shoppingList.append(categoryElement);
       });
 
@@ -191,7 +187,7 @@ function bindShoppingListInput(element, placeholder) {
   $(element).on('select2:select', function(event) {
     $(this).val(null).trigger('change');
 
-    var product = event.params.data.product;
+    const product: Product = event.params.data.product;
     db.ingredients
       .where("product_id")
       .equals(product.id)

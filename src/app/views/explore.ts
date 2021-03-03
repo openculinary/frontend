@@ -8,11 +8,11 @@ import { initTable } from './components/recipe-list';
 export { renderExplore };
 
 function pushExplore() {
-  var state = {'explore': null, 'action': 'explore'};
+  const state = {'explore': null, 'action': 'explore'};
 
   // If the requested search is a repeat of the current state, perform a results refresh
   // This is done to ensure that the results are scrolled into view
-  var stateHash = renderStateHash(state);
+  const stateHash: string = renderStateHash(state);
   if (`#${window.location.hash}` === stateHash) {
     $('#explore table[data-row-attributes]').trigger('page-change.bs.table');
   }
@@ -21,23 +21,23 @@ function pushExplore() {
 }
 $('#explore form button').on('click', pushExplore);
 
-function renderExplore() {
-  var state = getState();
-  var params = {
+function renderExplore() : void {
+  const state = getState();
+  const params = {
     ingredients: state.ingredients ? state.ingredients.split(',') : [],
   };
 
   $.ajax({url: '/api/recipes/explore?' + $.param(params)}).then(data => {
-    var previousList = $('#explore-choices .previous').empty();
+    const previousList = $('#explore-choices .previous').empty();
     $.each(params.ingredients, function() {
-      var cls = this.startsWith('-') ? 'exclude' : 'include';
-      var product = this.replace('-', '');
-      var choice = $('<li />', {'html': `<span class="${cls}">${product}</span>`});
+      const cls: string = this.startsWith('-') ? 'exclude' : 'include';
+      const product = this.replace('-', '');
+      const choice = $('<li />', {'html': `<span class="${cls}">${product}</span>`});
       previousList.append(choice);
     });
-    var nextList = $('#explore-choices .next').empty();
+    const nextList = $('#explore-choices .next').empty();
     $.each(data.facets.products, function() {
-      var choice = $('<li />', {
+      const choice = $('<li />', {
         'data-value': this.key,
         'html': `<span>${this.key}</span>` + (this.count <= 10 ? ` (${this.count} results)` : ''),
       });
@@ -45,7 +45,7 @@ function renderExplore() {
     });
 
     if (data.results.length) {
-      var recipeList = $('#explore table[data-row-attributes]');
+      const recipeList = $('#explore table[data-row-attributes]');
       recipeList.bootstrapTable('load', data.results);
       localize(recipeList);
     }
@@ -60,16 +60,16 @@ function swipeHandler(e) {
   // NB: Use CSS visibility rather than jQuery 'hide' to avoid page layout jumping
   $(e.target).css('visibility', 'hidden');
 
-  var choice = $(e.target).data('value');
-  var prefix = e.detail.direction === 'left' ? '-' : '';
-  var ingredient = prefix + choice;
+  const choice: string = $(e.target).data('value');
+  const prefix: string = e.detail.direction === 'left' ? '-' : '';
+  const ingredient: string = prefix + choice;
 
-  var state = getState();
-  var ingredients = state.ingredients ? state.ingredients.split(',') : [];
+  const state = getState();
+  const ingredients: string[] = state.ingredients ? state.ingredients.split(',') : [];
   ingredients.push(ingredient);
   state.ingredients = ingredients.join(',');
 
-  var stateHash = renderStateHash(state);
+  const stateHash: string = renderStateHash(state);
   pushState(state, stateHash);
   $(window).trigger('popstate');
 }

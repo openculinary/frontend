@@ -7,6 +7,8 @@ export interface Quantity {
 }
 
 export interface Ingredient {
+    product: Product,
+
     recipe_id: string,
     product_id: string,
     index: number,
@@ -19,6 +21,7 @@ export interface Product {
     category: string,
     singular: string,
     plural: string,
+    state: string,
 }
 
 export interface Direction {
@@ -29,6 +32,11 @@ export interface Direction {
 
 export interface Recipe {
     id: string,
+
+    ingredients: Ingredient[],
+
+    author: string,
+    author_url: string,
     title: string,
     image_url: string,
     time: number,
@@ -82,4 +90,4 @@ class Database extends Dexie {
     maxKey() { return Dexie.maxKey; }
 }
 
-export var db = new Database();
+export const db = new Database();

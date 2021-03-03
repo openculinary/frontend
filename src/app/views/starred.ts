@@ -7,9 +7,9 @@ import { initTable } from './components/recipe-list';
 
 function renderStarred() {
   db.starred.toCollection().keys(keys => {
-    var promises = keys.map(key => getRecipeById(key));
+    const promises = keys.map((key: string) => getRecipeById(key));
     Promise.all(promises).then(recipes => {
-      var recipeList = $('#starred-recipes table[data-row-attributes]');
+      const recipeList = $('#starred-recipes table[data-row-attributes]');
       recipeList.bootstrapTable('load', recipes);
       recipeList.bootstrapTable('refreshOptions', {
         formatNoMatches: function() {
