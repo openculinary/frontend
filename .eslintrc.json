@@ -8,5 +8,8 @@
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended"
     ],
+    "ignorePatterns": [
+        "src/feedback/*.js"
+    ],
     "parser": "@typescript-eslint/parser"
 }
