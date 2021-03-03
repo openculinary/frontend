@@ -1,0 +1,3 @@
+# ads.txt for reciperadar.com
+# reciperadar is not currently published in any advertising systems
+placeholder.example.com, placeholder, DIRECT, placeholder

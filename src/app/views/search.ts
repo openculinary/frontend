@@ -9,21 +9,21 @@ import { initTable, bindLoadEvent } from './components/recipe-list';
 
 export { renderSearch };
 
-function pushSearch() {
-  var state = {'search': null, 'action': 'search'};
+function pushSearch() : void {
+  const state = {'search': null, 'action': 'search'};
   ['#include', '#exclude', '#equipment'].forEach(function (element) {
-    var fragment = element.replace('#', '');
-    var data = $(element).val();
+    const fragment = element.replace('#', '');
+    const data = $(element).val();
     if (data.length > 0) {
       state[fragment] = data.join(',');
     }
   })
-  var sortChoice = getState().sort;
+  const sortChoice = getState().sort;
   if (sortChoice) state['sort'] = sortChoice;
 
   // If the requested search is a repeat of the current state, perform a results refresh
   // This is done to ensure that the results are scrolled into view
-  var stateHash = renderStateHash(state);
+  const stateHash = renderStateHash(state);
   if (`#${window.location.hash}` === stateHash) {
     $('#search table[data-row-attributes]').trigger('page-change.bs.table');
   }
@@ -32,14 +32,14 @@ function pushSearch() {
 }
 $('#search form button').on('click', pushSearch);
 
-function renderSearch() {
-  var params = {
+function renderSearch() : void {
+  const params = {
     include: $('#include').val(),
     exclude: $('#exclude').val(),
     equipment: $('#equipment').val(),
   };
 
-  var state = getState();
+  const state = getState();
   if (state.sort) params['sort'] = state.sort;
   if (state.domains) params['domains'] = state.domains.split(',');
 
@@ -49,7 +49,7 @@ function renderSearch() {
   });
 }
 
-function renderRefinement(refinement) {
+function renderRefinement(refinement: string) : JQuery {
   if (refinement == 'empty_query') {
     return $('<div />', {
       'data-i18n': i18nAttr('search:refinement-empty-query')
@@ -62,28 +62,28 @@ function renderRefinement(refinement) {
   }
 }
 
-function triggerSearch() {
+function triggerSearch() : void {
     $(window).trigger('popstate');
 }
-var debouncedSearchTrigger = debounce(triggerSearch, 1000);
+const debouncedSearchTrigger = debounce(triggerSearch, 1000);
 
-function updateStateDomains() {
-    var excludedDomains = $('#search .domain-facets input:not(:checked)').map((idx, item) => item.value);
-    var state = getState();
+function updateStateDomains() : void {
+    const excludedDomains = $('#search .domain-facets input:not(:checked)').map((idx, item) => item.value);
+    const state = getState();
     state.domains = '-' + $.makeArray(excludedDomains).join(',-');
     if (state.domains.length === 1) delete state.domains;
-    var stateHash = renderStateHash(state);
+    const stateHash = renderStateHash(state);
     pushState(state, stateHash);
 
     debouncedSearchTrigger.clear();
     debouncedSearchTrigger();
 }
 
-function renderDomainFacet(domain, state) {
-  var domainState = state === undefined ? true : state;
-  var chip = $('<label />', {'class': 'badge badge-light badge-pill'});
-  var checkbox = $('<input />', {'type': 'checkbox', 'checked': domainState, 'value': domain.key});
-  var icon = $('<img />', {'src': 'images/domains/' + domain.key + '.ico', 'alt':''});
+function renderDomainFacet(domain: Record<string, string>, state?: boolean) : JQuery {
+  const domainState = state === undefined ? true : state;
+  const chip = $('<label />', {'class': 'badge badge-light badge-pill'});
+  const checkbox = $('<input />', {'type': 'checkbox', 'checked': domainState, 'value': domain.key});
+  const icon = $('<img />', {'src': 'images/domains/' + domain.key + '.ico', 'alt':''});
 
   checkbox.on('change', updateStateDomains);
 
@@ -93,23 +93,23 @@ function renderDomainFacet(domain, state) {
   return chip;
 }
 
-function emptyResultHandler(data) {
+function emptyResultHandler(data) : void {
   if (data.total !== 0) return;
-  var message = `Didn't find any recipes matching your search.  Send us a link via the feedback form if you know of any!`;
+  let message = `Didn't find any recipes matching your search.  Send us a link via the feedback form if you know of any!`;
   if (data.authority === 'local') {
     message = `Couldn't reach the recipe search service.  This could be due to a connection problem on your device, or our service could be experiencing problems.`;
   }
   $('#search table[data-row-attributes]').bootstrapTable('updateFormatText', 'formatNoMatches', message);
 }
 
-function refinementHandler(data) {
+function refinementHandler(data) : void {
   // Produce an array containing refinements that can be rendered
   data.refinements = data.refinements || [];
   data.refinements = data.refinements.map(renderRefinement);
   data.refinements = data.refinements.filter(refinement => refinement);
 
   // Fill and localize the refinement list element
-  var refinements = $('#search .refinements').empty();
+  const refinements = $('#search .refinements').empty();
   data.refinements.map(refinement => refinements.append(refinement));
   localize(refinements);
 
@@ -117,40 +117,40 @@ function refinementHandler(data) {
   refinements.toggleClass('collapse', data.refinements.length == 0);
 }
 
-function getDomainStates() {
-  var domainStates = Object.create(null);
-  var state = getState();
+function getDomainStates() : void {
+  const domainStates = Object.create(null);
+  const state = getState();
   if (!state.domains) return domainStates;
   state.domains.split(',').forEach(domainKey => {
-    var excluded = domainKey.startsWith('-');
+    const excluded = domainKey.startsWith('-');
     domainKey = excluded ? domainKey.replace('-', '') : domainKey;
     domainStates[domainKey] = !excluded;
   });
   return domainStates;
 }
 
-function domainFacetsHandler(data) {
-  var domainStates = getDomainStates();
-  var domainFacets = $('#search .domain-facets').empty();
+function domainFacetsHandler(data) : void {
+  const domainStates = getDomainStates();
+  const domainFacets = $('#search .domain-facets').empty();
   $.each(data.facets.domains, function() {
     domainFacets.append(renderDomainFacet(this, domainStates[this.key]));
   });
   domainFacets.toggleClass('collapse', $.isEmptyObject(data.facets.domains));
 }
 
-function createSortPrompt() {
-  var sortOptions = [
+function createSortPrompt() : void {
+  const sortOptions = [
     {val: 'relevance', i18n: i18nAttr('search:sort-relevance')},
     {val: 'ingredients', i18n: i18nAttr('search:sort-ingredients')},
     {val: 'duration', i18n: i18nAttr('search:sort-duration')},
   ];
 
-  var state = getState();
-  var sortChoice = state.sort || sortOptions[0].val;
+  const state = getState();
+  const sortChoice = state.sort || sortOptions[0].val;
 
-  var sortSelect = $('<select>', {'class': 'sort'}).attr('aria-label', 'Recipe sort selection');
+  const sortSelect = $('<select>', {'class': 'sort'}).attr('aria-label', 'Recipe sort selection');
   $(sortOptions).each(function() {
-    var sortOption = $('<option>', {
+    const sortOption = $('<option>', {
       'data-i18n': this.i18n,
       'value': this.val
     });
@@ -158,32 +158,32 @@ function createSortPrompt() {
     sortSelect.append(sortOption);
   });
   sortSelect.on('change', function() {
-    var state = getState();
+    const state = getState();
 
     // Write the new sort selection, and reset to the first page
     state.sort = this.value;
     delete state.page;
 
-    var stateHash = renderStateHash(state);
+    const stateHash = renderStateHash(state);
     pushState(state, stateHash);
     triggerSearch();
   });
 
-  var sortMessage = $('<span>', {
+  const sortMessage = $('<span>', {
     'class': 'sort-prompt',
     'data-i18n': i18nAttr('search:sort-selection-prompt')}
   );
 
-  var sortPrompt = $('<span>');
+  const sortPrompt = $('<span>');
   sortPrompt.append(sortMessage);
   sortPrompt.append(sortSelect);
   return sortPrompt;
 }
 
-function addSorting() {
-  var paginationDetail = '#search div.recipe-list div.pagination-detail';
+function addSorting() : void {
+  const paginationDetail = '#search div.recipe-list div.pagination-detail';
   if ($(paginationDetail).find('select.sort').length === 0) {
-    var sortPrompt = createSortPrompt();
+    const sortPrompt = createSortPrompt();
     $(paginationDetail).append(sortPrompt);
   }
   localize(paginationDetail);

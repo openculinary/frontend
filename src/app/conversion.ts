@@ -1,5 +1,7 @@
-import * as convert from 'convert-units';
-import * as Fraction from 'fraction.js';
+import convert from 'convert-units';
+import Fraction from 'fraction.js';
+
+import { Quantity } from './database';
 
 export { renderQuantity };
 
@@ -13,7 +15,7 @@ const expandMeasures = [
     'tsp',
 ];
 
-function volumeUnits(quantity) {
+function volumeUnits(quantity) : string {
   if (quantity.val >= 1000) return 'l';
   if (235 <= quantity.val && quantity.val <= 250) return 'cup';
   if (quantity.val <= 15) return 'tsp';
@@ -21,13 +23,13 @@ function volumeUnits(quantity) {
   return 'ml';
 }
 
-function weightUnits(quantity) {
+function weightUnits(quantity) : string {
   if (quantity.val >= 1000) return 'kg';
   return 'g';
 }
 
-function targetUnits(quantity) {
-  var measure = quantity.origin.measure;
+function targetUnits(quantity) : string {
+  const measure = quantity.origin.measure;
   if (expandMeasures.indexOf(measure) >= 0) {
     return measure;
   }
@@ -38,8 +40,8 @@ function targetUnits(quantity) {
   }
 }
 
-function renderMagnitude(units, magnitude, fractions = true) {
-  if (!magnitude) return magnitude;
+function renderMagnitude(units: string, magnitude: number, fractions = true) : string {
+  if (!magnitude) return null;
   if (magnitude >= 50) {
     magnitude = magnitude / 5;
     magnitude = Math.round(magnitude) * 5;
@@ -48,25 +50,24 @@ function renderMagnitude(units, magnitude, fractions = true) {
     return magnitude.toFixed();
   }
   if (units && decimalMeasures.indexOf(units) >= 0) {
-    return magnitude.toFixed(2) / 1;
+    return Number(magnitude.toFixed(2)).toString();
   }
   if (!fractions) {
-    return magnitude;
+    return magnitude.toString();
   }
-  var result = new Fraction(magnitude).simplify(0.1).toFraction(true);
+  const result: string = new Fraction(magnitude).simplify(0.1).toFraction(true);
   if (result.indexOf('/') == -1) {
     return result;
   }
-  result = result.split(' ');
-  var last = result.length - 1;
-  result[last] = result[last].replace('/', '</sup>&frasl;<sub>');
-  result[last] = `<sup>${result[last]}</sub>`;
-  result = result.join(' ');
-  return result;
+  const tokens = result.split(' ');
+  const last: number = tokens.length - 1;
+  tokens[last] = tokens[last].replace('/', '</sup>&frasl;<sub>');
+  tokens[last] = `<sup>${tokens[last]}</sub>`;
+  return tokens.join(' ');
 }
 
-function renderUnits(units, magnitude) {
-  var description = convert().describe(units);
+function renderUnits(units: string, magnitude: number) : string {
+  const description = convert().describe(units);
   if (expandMeasures.indexOf(units) == -1) {
     return description.abbr;
   }
@@ -74,7 +75,7 @@ function renderUnits(units, magnitude) {
   return description.plural.toLowerCase();
 }
 
-function renderQuantity(quantity, fractions = true) {
+function renderQuantity(quantity: Quantity, fractions = true) : Record<string, number | string> {
 
   // Special case handling for 'pinch'
   if (quantity.units === 'ml' && quantity.magnitude <= 0.25) {
@@ -84,7 +85,7 @@ function renderQuantity(quantity, fractions = true) {
     };
   }
 
-  var fromQuantity;
+  let fromQuantity;
   try {
     fromQuantity = convert(quantity.magnitude).from(quantity.units);
   } catch (e) {
@@ -97,11 +98,11 @@ function renderQuantity(quantity, fractions = true) {
   // TODO: Consider retrieving 'native units' (named units as retrieved from
   // the original recipe) and using these as a first-preference for rendering
   // purposes
-  var units = targetUnits(fromQuantity);
-  var magnitude = fromQuantity.to(units);
+  const units = targetUnits(fromQuantity);
+  const magnitude = fromQuantity.to(units);
 
-  var renderedMagnitude = renderMagnitude(units, magnitude, fractions);
-  var renderedUnits = renderUnits(units, magnitude);
+  const renderedMagnitude = renderMagnitude(units, magnitude, fractions);
+  const renderedUnits = renderUnits(units, magnitude);
   return {
     'magnitude': renderedMagnitude,
     'units': renderedUnits
