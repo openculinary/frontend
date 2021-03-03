@@ -92,7 +92,7 @@ function loadState() : void {
   }
 }
 
-$(() => {
+$(function() {
   $('#about-modal a').on('shown.bs.tab', function (e) {
     pushState(getState(), e.target.hash);
   });

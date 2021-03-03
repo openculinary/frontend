@@ -189,7 +189,7 @@ function addSorting() : void {
   localize(paginationDetail);
 }
 
-$(() => {
+$(function() {
   initTable('#search');
   bindLoadEvent('#search', emptyResultHandler);
   bindLoadEvent('#search', refinementHandler);

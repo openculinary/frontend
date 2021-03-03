@@ -45,12 +45,12 @@ function bindIngredientInput(element: string, label: string, placeholder: string
   $(element).next('.select2').find('input[type=search]').attr('aria-label', label);
 }
 
-$(() => {
+$(function() {
   bindIngredientInput('#include', 'Ingredients to include', 'e.g. tomatoes');
   bindIngredientInput('#exclude', 'Ingredients to exclude', 'e.g. mushrooms');
   bindEquipmentInput('#equipment', 'Kitchen equipment to use', 'e.g. slow cooker');
 
-  $(document).on('keyup', '.select2-search__field', event => {
+  $(document).on('keyup', '.select2-search__field', function (event) {
     if (event.which == 13) {
       const selectElement = $(event.target).parents('span.select2').prev('select');
       if (!selectElement.length) return;
