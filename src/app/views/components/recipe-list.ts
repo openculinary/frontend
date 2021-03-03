@@ -191,7 +191,7 @@ function updateStarState(selector: string, recipeId: string) : void {
 
 function bindPostBody(selector: string) : void {
   $(`${selector} table[data-row-attributes]`).on('post-body.bs.table', function(e, data) {
-    data.forEach(row => {
+    data.forEach(function (row) {
       updateRecipeState(row.id);
       updateStarState(selector, row.id);
     });
