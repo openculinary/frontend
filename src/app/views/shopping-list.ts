@@ -8,8 +8,8 @@ import { addStandaloneIngredient, removeStandaloneIngredient } from '../models/i
 
 export { aggregateQuantities };
 
-function aggregateQuantities(ingredients) {
-  const quantities = new Map();
+function aggregateQuantities(ingredients: Ingredient[]) : Record<string, number> {
+  const quantities = Object.create(null);
   $.each(ingredients, (_, ingredient) => {
     if (!ingredient.quantity) return;
     const units: string = ingredient.quantity.units || '';
@@ -132,8 +132,8 @@ async function getProductsByCategory(servingsByRecipe) {
   };
 }
 
-async function getServingsByRecipe() {
-  const servingsByRecipe: Map<string, any> = new Map();
+async function getServingsByRecipe() : Promise<Record<string, Record<string, number>>> {
+  const servingsByRecipe: Record<string, Record<string, number>> = Object.create(null);
   await db.transaction('r', db.recipes, db.meals, () => {
     db.recipes.each(recipe => {
       servingsByRecipe[recipe.id] = {recipe: recipe.servings, scheduled: 0};

@@ -19,7 +19,7 @@ export {
     updateRecipeState,
 };
 
-function titleFormatter(recipe: Recipe) {
+function titleFormatter(recipe: Recipe) : JQuery {
   const container = $('<div />', {'class': 'title'});
 
   const title = $('<a />', {
@@ -36,7 +36,7 @@ function starFormatter() {
   return $('<div />', {'class': 'star far fa-star'});
 }
 
-function sidebarFormatter(recipe) {
+function sidebarFormatter(recipe) : JQuery {
   const duration = moment.duration(recipe.time, 'minutes');
 
   const sidebar = $('<td />', {'class': 'sidebar align-top'});
@@ -109,7 +109,7 @@ function contentFormatter(recipe) {
   return content;
 }
 
-function recipeFormatter(value, recipe) {
+function recipeFormatter(value: unknown, recipe: Recipe) : HTMLElement {
   const container = $('<div />');
 
   const title = titleFormatter(recipe);
@@ -132,19 +132,19 @@ function recipeFormatter(value, recipe) {
   return container.html();
 }
 
-function rowAttributes(row) {
+function rowAttributes(row: HTMLElement) : Record<string, string> {
   return {
     'class': 'recipe',
     'data-id': row.id
   }
 }
 
-function scrollToResults(selector, delay) {
+function scrollToResults(selector: string, delay?: number) : void {
   const scrollTop = $(`${selector} table[data-row-attributes]`).offset().top - $('header').height() - 80;
   $('html, body').animate({scrollTop: scrollTop}, delay || 500);
 }
 
-function bindPageChange(selector) {
+function bindPageChange(selector: string) : void {
   $(`${selector} table[data-row-attributes]`).on('page-change.bs.table', function(e, number) {
     // Write the new page number into the application's state
     const state = getState();
@@ -162,7 +162,7 @@ function bindPageChange(selector) {
   });
 }
 
-function updateRecipeState(recipeId) {
+function updateRecipeState(recipeId: string) : void {
   db.recipes.get(recipeId, (recipe?: Recipe) => {
     const isInRecipes = !!recipe;
 
@@ -173,7 +173,7 @@ function updateRecipeState(recipeId) {
   });
 }
 
-function updateStarState(selector, recipeId) {
+function updateStarState(selector: string, recipeId: string) : void {
   db.starred.get(recipeId, (starred?: Starred) => {
     const isStarred = !!starred;
 
@@ -189,9 +189,9 @@ function updateStarState(selector, recipeId) {
   });
 }
 
-function bindPostBody(selector) {
+function bindPostBody(selector: string) : void {
   $(`${selector} table[data-row-attributes]`).on('post-body.bs.table', function(e, data) {
-    data.forEach(function (row) {
+    data.forEach(row => {
       updateRecipeState(row.id);
       updateStarState(selector, row.id);
     });
@@ -206,13 +206,13 @@ function bindPostBody(selector) {
   });
 }
 
-function bindLoadEvent(selector, callback) {
+function bindLoadEvent(selector: string, callback: (data) => void) : void {
   $(`${selector} table[data-row-attributes]`).on('load-success.bs.table', function(e, data) {
     callback(data);
   });
 }
 
-function initTable(selector) {
+function initTable(selector: string) : void {
   bindPageChange(selector);
   bindPostBody(selector);
 }

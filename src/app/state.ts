@@ -6,7 +6,7 @@ import { renderExplore } from './views/explore';
 
 export { getState, loadPage, pushState, renderStateHash };
 
-function getState() {
+function getState() : Record<string, string> {
   if (!history.state && !location.hash) return {'search': null};
   if (!history.state && location.hash) {
     const state = Object.create(null);
@@ -17,34 +17,34 @@ function getState() {
   return history.state;
 }
 
-function pushState(state: Object, hash: string) {
+function pushState(state: Record<string, string>, hash: string) : void {
   history.pushState(state, '', hash);
 }
 
-function renderStateHash(state: Object) {
+function renderStateHash(state: Record<string, string>) : string {
     let stateHash = decodeURIComponent($.param(state));
     stateHash = stateHash.split('&').map(item => item.replace(RegExp('=$'), '')).join('&');
     return `#${stateHash}`;
 }
 
-function resetChoices(selector: string, data: any) {
+function resetChoices(selector: string, data?) : void {
   if (!data) $(selector).find('ul').empty();
 }
 
-function loadTags(element, data) {
-  const tags = $(element).val();
+function loadTags(selector: string, data?: string) : void {
+  const tags = $(selector).val();
   const terms = data ? data.split(',') : [];
   tags.forEach(function(tag) {
     if (terms.indexOf(tag) >= 0) return;
-    $(element).find(`option[value='${tag}']`).remove();
+    $(selector).find(`option[value='${tag}']`).remove();
   });
   terms.forEach(function(term) {
     if (tags.indexOf(term) >= 0) return;
-    $(element).append(new Option(term, term, true, true));
+    $(selector).append(new Option(term, term, true, true));
   });
 }
 
-function loadPage(pageId) {
+function loadPage(pageId: string) : void {
   $('body > div.container[id]').hide();
   $(`body > div.container[id="${pageId}"]`).show();
 
@@ -54,12 +54,12 @@ function loadPage(pageId) {
   $(window).animate({scrollTop: 0}, 50);
 }
 
-function loadAboutTab(tabId) {
+function loadAboutTab(tabId: string) : void {
   $('#about-modal').modal('show');
   $('#about-modal a[href="#' + tabId + '"]').tab('show');
 }
 
-function loadState() {
+function loadState() : void {
   // If we encounter an empty state, display the homepage
   const state = getState();
 
@@ -92,7 +92,7 @@ function loadState() {
   }
 }
 
-$(function() {
+$(() => {
   $('#about-modal a').on('shown.bs.tab', function (e) {
     pushState(getState(), e.target.hash);
   });

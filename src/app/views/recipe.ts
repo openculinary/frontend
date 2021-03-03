@@ -6,36 +6,23 @@ import { Recipe, Starred, db } from '../database';
 import { i18nAttr, localize } from '../i18n';
 import { addRecipe, scaleRecipe } from '../models/recipes';
 import { starRecipe, unstarRecipe } from '../models/starred';
-import { renderIngredientHTML, renderDirectionHTML } from '../recipeml';
+import { renderIngredientHTML } from '../recipeml';
 import { getState, loadPage, pushState, renderStateHash } from '../state';
 
 export { renderRecipe };
 
-function hoverDirection() {
-  $(this).addClass('hover');
-}
-
-function unhoverDirection() {
-  $(this).removeClass('hover');
-}
-
-function markDirection() {
-  $('#recipe div.directions li.direction').removeClass('mark');
-  $(this).addClass('mark');
-}
-
-function linkFormatter(recipe: Recipe) {
+function linkFormatter(recipe: Recipe) : JQuery {
   return $('<a />', {
     'class': 'link fa fa-link',
     'href': `#search&action=view&id=${recipe.id}`
   });
 }
 
-function starFormatter() {
+function starFormatter() : JQuery {
   return $('<div />', {'class': 'star far fa-star'});
 }
 
-function updateRecipeState(recipeId: string) {
+function updateRecipeState(recipeId: string) : void {
   db.recipes.get(recipeId, (recipe?: Recipe) => {
     const isInRecipes = !!recipe;
 
@@ -46,7 +33,7 @@ function updateRecipeState(recipeId: string) {
   });
 }
 
-function updateStarState(recipeId: string) {
+function updateStarState(recipeId: string) : void {
   db.starred.get(recipeId, (starred?: Starred) => {
     const isStarred = !!starred;
 
@@ -62,7 +49,7 @@ function updateStarState(recipeId: string) {
   });
 }
 
-function updateServings() {
+function updateServings() : void {
   const state = getState();
   state.servings = $('#recipe div.metadata input.servings').val();
 
@@ -72,7 +59,7 @@ function updateServings() {
   getRecipeById(state.id).then(renderIngredients);
 }
 
-function renderRecipe() {
+function renderRecipe() : void {
   const state = getState();
   const container = $('#recipe');
   container.data('id', state.id);
@@ -132,7 +119,7 @@ function renderRecipe() {
   });
 }
 
-function renderIngredients(recipe) {
+function renderIngredients(recipe) : void {
   const ingredients = $('<div />', {'class': 'ingredients'});
   ingredients.append($('<div />', {
     'class': 'headline section-title',
@@ -161,7 +148,7 @@ function renderIngredients(recipe) {
   localize('#recipe .ingredients');
 }
 
-function renderDirections(recipe) {
+function renderDirections(recipe) : void {
   const directions = $('<div />', {'class': 'directions'});
 
   directions.append($('<p />', {

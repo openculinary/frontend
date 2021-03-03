@@ -4,12 +4,12 @@ import { Recipe, db } from './database';
 
 export { getMealId, getRecipe, getRecipeById };
 
-async function getMealId(el: any) {
+async function getMealId(el: HTMLElement) : Promise<string> {
   const target = $(el).hasClass('recipe') ? $(el) : $(el).parents('.recipe');
   return target.data('meal-id');
 }
 
-async function getRecipeById(recipeId: string) {
+async function getRecipeById(recipeId: string) : Promise<Recipe> {
   return await db.recipes.get(recipeId, async (recipe: Recipe) => {
     if (recipe) return recipe;
     return await $.ajax({url: `/api/recipes/${recipeId}/view`}).then(hits => {
@@ -18,7 +18,7 @@ async function getRecipeById(recipeId: string) {
   });
 }
 
-async function getRecipe(el: any) {
+async function getRecipe(el: HTMLElement) : Promise<Recipe> {
   let recipe: Recipe = null;
   const target = $(el).hasClass('recipe') ? $(el) : $(el).parents('.recipe');
   const recipeList = $(target).parents('table[data-row-attributes]');

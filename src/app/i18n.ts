@@ -7,13 +7,13 @@ import BrowserLanguage from 'i18next-browser-languagedetector';
 
 export { i18nAttr, localize };
 
-function i18nAttr(key: string) {
+function i18nAttr(key: string) : string {
     return `[html]${key}`;
 }
 
 const pendingSelectors: string[] = [];
 
-function localize(selector?: string) {
+function localize(selector?: string) : void {
   if (!selector) selector = 'body [data-i18n]';
   if (!$.fn.localize) {
     pendingSelectors.push(selector);

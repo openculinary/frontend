@@ -3,6 +3,6 @@ import { db } from '../database';
 
 export { removeMeal };
 
-function removeMeal() {
+function removeMeal() : void {
   getMealId(this).then(mealId => { db.meals.delete(mealId); });
 }

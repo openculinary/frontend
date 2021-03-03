@@ -21,7 +21,7 @@ function pushExplore() {
 }
 $('#explore form button').on('click', pushExplore);
 
-function renderExplore() {
+function renderExplore() : void {
   const state = getState();
   const params = {
     ingredients: state.ingredients ? state.ingredients.split(',') : [],

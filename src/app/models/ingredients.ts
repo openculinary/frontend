@@ -3,7 +3,7 @@ import { addProduct } from './products';
 
 export { addStandaloneIngredient, removeStandaloneIngredient };
 
-function addStandaloneIngredient(product: Product) {
+function addStandaloneIngredient(product: Product) : void {
   const ingredient: Ingredient = {
     recipe_id: '',
     product_id: product.id,
@@ -15,7 +15,7 @@ function addStandaloneIngredient(product: Product) {
   addProduct(ingredient, ingredient.recipe_id, ingredient.index);
 }
 
-function removeStandaloneIngredient(product: Product) {
+function removeStandaloneIngredient(product: Product) : void {
   db.ingredients
     .where("[recipe_id+product_id+index]")
     .between(

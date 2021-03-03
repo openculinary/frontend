@@ -9,7 +9,7 @@ import { initTable, bindLoadEvent } from './components/recipe-list';
 
 export { renderSearch };
 
-function pushSearch() {
+function pushSearch() : void {
   const state = {'search': null, 'action': 'search'};
   ['#include', '#exclude', '#equipment'].forEach(function (element) {
     const fragment = element.replace('#', '');
@@ -32,7 +32,7 @@ function pushSearch() {
 }
 $('#search form button').on('click', pushSearch);
 
-function renderSearch() {
+function renderSearch() : void {
   const params = {
     include: $('#include').val(),
     exclude: $('#exclude').val(),
@@ -49,7 +49,7 @@ function renderSearch() {
   });
 }
 
-function renderRefinement(refinement) {
+function renderRefinement(refinement: string) : JQuery {
   if (refinement == 'empty_query') {
     return $('<div />', {
       'data-i18n': i18nAttr('search:refinement-empty-query')
@@ -62,12 +62,12 @@ function renderRefinement(refinement) {
   }
 }
 
-function triggerSearch() {
+function triggerSearch() : void {
     $(window).trigger('popstate');
 }
 const debouncedSearchTrigger = debounce(triggerSearch, 1000);
 
-function updateStateDomains() {
+function updateStateDomains() : void {
     const excludedDomains = $('#search .domain-facets input:not(:checked)').map((idx, item) => item.value);
     const state = getState();
     state.domains = '-' + $.makeArray(excludedDomains).join(',-');
@@ -79,7 +79,7 @@ function updateStateDomains() {
     debouncedSearchTrigger();
 }
 
-function renderDomainFacet(domain, state) {
+function renderDomainFacet(domain: Record<string, string>, state?: boolean) : JQuery {
   const domainState = state === undefined ? true : state;
   const chip = $('<label />', {'class': 'badge badge-light badge-pill'});
   const checkbox = $('<input />', {'type': 'checkbox', 'checked': domainState, 'value': domain.key});
@@ -93,7 +93,7 @@ function renderDomainFacet(domain, state) {
   return chip;
 }
 
-function emptyResultHandler(data) {
+function emptyResultHandler(data) : void {
   if (data.total !== 0) return;
   let message = `Didn't find any recipes matching your search.  Send us a link via the feedback form if you know of any!`;
   if (data.authority === 'local') {
@@ -102,7 +102,7 @@ function emptyResultHandler(data) {
   $('#search table[data-row-attributes]').bootstrapTable('updateFormatText', 'formatNoMatches', message);
 }
 
-function refinementHandler(data) {
+function refinementHandler(data) : void {
   // Produce an array containing refinements that can be rendered
   data.refinements = data.refinements || [];
   data.refinements = data.refinements.map(renderRefinement);
@@ -117,7 +117,7 @@ function refinementHandler(data) {
   refinements.toggleClass('collapse', data.refinements.length == 0);
 }
 
-function getDomainStates() {
+function getDomainStates() : void {
   const domainStates = Object.create(null);
   const state = getState();
   if (!state.domains) return domainStates;
@@ -129,7 +129,7 @@ function getDomainStates() {
   return domainStates;
 }
 
-function domainFacetsHandler(data) {
+function domainFacetsHandler(data) : void {
   const domainStates = getDomainStates();
   const domainFacets = $('#search .domain-facets').empty();
   $.each(data.facets.domains, function() {
@@ -138,7 +138,7 @@ function domainFacetsHandler(data) {
   domainFacets.toggleClass('collapse', $.isEmptyObject(data.facets.domains));
 }
 
-function createSortPrompt() {
+function createSortPrompt() : void {
   const sortOptions = [
     {val: 'relevance', i18n: i18nAttr('search:sort-relevance')},
     {val: 'ingredients', i18n: i18nAttr('search:sort-ingredients')},
@@ -180,7 +180,7 @@ function createSortPrompt() {
   return sortPrompt;
 }
 
-function addSorting() {
+function addSorting() : void {
   const paginationDetail = '#search div.recipe-list div.pagination-detail';
   if ($(paginationDetail).find('select.sort').length === 0) {
     const sortPrompt = createSortPrompt();
@@ -189,7 +189,7 @@ function addSorting() {
   localize(paginationDetail);
 }
 
-$(function() {
+$(() => {
   initTable('#search');
   bindLoadEvent('#search', emptyResultHandler);
   bindLoadEvent('#search', refinementHandler);

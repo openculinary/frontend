@@ -15,7 +15,7 @@ const expandMeasures = [
     'tsp',
 ];
 
-function volumeUnits(quantity) {
+function volumeUnits(quantity) : string {
   if (quantity.val >= 1000) return 'l';
   if (235 <= quantity.val && quantity.val <= 250) return 'cup';
   if (quantity.val <= 15) return 'tsp';
@@ -23,12 +23,12 @@ function volumeUnits(quantity) {
   return 'ml';
 }
 
-function weightUnits(quantity) {
+function weightUnits(quantity) : string {
   if (quantity.val >= 1000) return 'kg';
   return 'g';
 }
 
-function targetUnits(quantity) {
+function targetUnits(quantity) : string {
   const measure = quantity.origin.measure;
   if (expandMeasures.indexOf(measure) >= 0) {
     return measure;
@@ -40,20 +40,20 @@ function targetUnits(quantity) {
   }
 }
 
-function renderMagnitude(units, magnitude, fractions = true) {
-  if (!magnitude) return magnitude;
+function renderMagnitude(units: string, magnitude: number, fractions = true) : string {
+  if (!magnitude) return null;
   if (magnitude >= 50) {
     magnitude = magnitude / 5;
     magnitude = Math.round(magnitude) * 5;
     magnitude = Number(magnitude.toPrecision(3));
     magnitude = Math.round(magnitude);
-    return magnitude.toFixed();
+    return magnitude.toString();
   }
   if (units && decimalMeasures.indexOf(units) >= 0) {
-    return magnitude.toFixed(2) / 1;
+    return Number(magnitude.toFixed(2)).toString();
   }
   if (!fractions) {
-    return magnitude;
+    return magnitude.toString();
   }
   const result: string = new Fraction(magnitude).simplify(0.1).toFraction(true);
   if (result.indexOf('/') == -1) {
@@ -66,7 +66,7 @@ function renderMagnitude(units, magnitude, fractions = true) {
   return tokens.join(' ');
 }
 
-function renderUnits(units, magnitude) {
+function renderUnits(units: string, magnitude: number) : string {
   const description = convert().describe(units);
   if (expandMeasures.indexOf(units) == -1) {
     return description.abbr;
@@ -75,7 +75,7 @@ function renderUnits(units, magnitude) {
   return description.plural.toLowerCase();
 }
 
-function renderQuantity(quantity, fractions = true) {
+function renderQuantity(quantity: Quantity, fractions = true) : Record<string, unknown> {
 
   // Special case handling for 'pinch'
   if (quantity.units === 'ml' && quantity.magnitude <= 0.25) {

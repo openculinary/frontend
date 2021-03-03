@@ -5,7 +5,7 @@ import { renderQuantity } from './conversion';
 
 export { renderIngredientHTML, renderDirectionHTML };
 
-function renderIngredientHTML(ingredient: Ingredient) {
+function renderIngredientHTML(ingredient: Ingredient) : HTMLElement {
     const xml = $.parseXML(`<xml>${ingredient.markup}</xml>`).firstChild;
     const container = $('<div />');
 
@@ -20,7 +20,7 @@ function renderIngredientHTML(ingredient: Ingredient) {
     return container.html();
 }
 
-function renderDirectionHTML(direction: Direction) {
+function renderDirectionHTML(direction: Direction) : HTMLElement {
     const xml = $.parseXML(`<xml>${direction.markup}</xml>`).firstChild;
     const container = $('<div />');
 

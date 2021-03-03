@@ -90,4 +90,4 @@ class Database extends Dexie {
     maxKey() { return Dexie.maxKey; }
 }
 
-export var db = new Database();
+export const db = new Database();
