@@ -1,7 +1,7 @@
 import CodeMirror from 'codemirror';
 import 'codemirror/addon/display/autorefresh';
 import 'codemirror/mode/gfm/gfm';
-import { types } from 'document';
+import { packageVersion, types } from 'document';
 import $ from 'jquery';
 import 'select2';
 
@@ -72,7 +72,10 @@ function toggleProductState() {
   const productId: string = getProductId(this);
   db.basket.get(productId, item => {
     if (item) db.basket.delete(productId);
-    else db.basket.put({product_id: productId, magnitude: null, units: null});
+    else {
+      const product = new types.Stock(productId, packageVersion);
+      db.basket.put(product);
+    }
   });
 }
 

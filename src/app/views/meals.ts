@@ -1,4 +1,4 @@
-import { types } from 'document';
+import { packageVersion, types } from 'document';
 import $ from 'jquery';
 import * as moment from 'moment';
 import { Sortable } from 'sortablejs';
@@ -146,15 +146,9 @@ function scheduleMeal(evt) {
     if (!toRow.length) return;
     const date = toRow.data('date');
     // TODO: Can we avoid duplicate work across getRecipe and getMealId calls here?
-    getMealId(evt.item).then(mealId => {
-      db.meals.put({
-        id: mealId,
-        recipe_id: recipe.id,
-        datetime: date,
-        servings: recipe.servings,
-      }).then(id => {
-        $(evt.item).data('meal-id', id);
-      });
+    getMealId(evt.item).then(() => {
+      const meal = new types.Meal(`${recipe.servings}x ${recipe.id} @ ${date}`, packageVersion);
+      db.meals.put(meal).then(id => {$(evt.item).data('meal-id', id)});
     });
   });
 }
