@@ -10,7 +10,7 @@ import { getNoteEditor, resetNoteEditor } from './views/shopping-list';
 function bindShoppingList(shoppingListNotes, awareness) {
   resetNoteEditor();
   const editor = getNoteEditor();
-  const binding = new CodemirrorBinding(shoppingListNotes, editor, awareness);
+  new CodemirrorBinding(shoppingListNotes, editor, awareness);
 }
 
 function renderPeers(peerStates) {

@@ -30,7 +30,7 @@ class Database extends Dexie {
     maxKey() { return Dexie.maxKey; }
 
     async loadFromDocument(document: string, documentVersion: semver.SemVer) {
-      var tableClearances = [];
+      const tableClearances = [];
       this.tables.forEach(table => {
         tableClearances.push(this.transaction('rw', table, () => table.clear()));
       });

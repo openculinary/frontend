@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 
 import { db } from './database';
-import { packageVersion, types } from 'document';
+import { packageVersion } from 'document';
 
 describe('database load and store', () => {
 

@@ -26,10 +26,10 @@ function aggregateQuantities(ingredients: types.Ingredient[]) : Record<string, n
   return quantities;
 }
 
-var noteEditor = null;
-function getNoteEditor() {
+let noteEditor = null;
+function getNoteEditor() : CodeMirror {
   if (!noteEditor) {
-    var notes = document.querySelector('#shopping-list div[class="notes"]');
+    const notes = document.querySelector('#shopping-list div[class="notes"]');
     noteEditor = CodeMirror(notes, {
       autoRefresh: true,
       mode: 'gfm'
@@ -38,7 +38,7 @@ function getNoteEditor() {
   return noteEditor;
 }
 
-function resetNoteEditor() {
+function resetNoteEditor() : void {
   const editor = getNoteEditor();
   const emptyDoc = CodeMirror.Doc(String());
   editor.swapDoc(emptyDoc);
