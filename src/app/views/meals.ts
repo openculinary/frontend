@@ -144,6 +144,7 @@ function scheduleMeal(evt) {
     const toRow = $(evt.to).parents('tr');
     if (!toRow.length) return;
     const date = toRow.data('date');
+    // TODO: Can we avoid duplicate work across getRecipe and getMealId calls here?
     getMealId(evt.item).then(mealId => {
       db.meals.put({
         id: mealId,
