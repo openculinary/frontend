@@ -129,8 +129,8 @@ function renderIngredients(recipe) : void {
   const servings: number = Number(getState().servings) || recipe.servings;
   scaleRecipe(recipe, servings);
 
-  $.each(recipe.ingredients, () => {
-    ingredients.append(renderIngredientHTML(this));
+  $.each(recipe.ingredients, (_, ingredient) => {
+    ingredients.append(renderIngredientHTML(ingredient));
   });
 
   // TODO: i18n
