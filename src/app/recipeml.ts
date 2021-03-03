@@ -1,10 +1,11 @@
+import { types } from 'document';
 import $ from 'jquery';
 
 import { renderQuantity } from './conversion';
 
 export { renderIngredientHTML, renderDirectionHTML };
 
-function renderIngredientHTML(ingredient) {
+function renderIngredientHTML(ingredient: types.Ingredient) : HTMLElement {
     const xml = $.parseXML(`<xml>${ingredient.markup}</xml>`).firstChild;
     const container = $('<div />');
 
@@ -19,7 +20,7 @@ function renderIngredientHTML(ingredient) {
     return container.html();
 }
 
-function renderDirectionHTML(direction) {
+function renderDirectionHTML(direction: types.Direction) : HTMLElement {
     const xml = $.parseXML(`<xml>${direction.markup}</xml>`).firstChild;
     const container = $('<div />');
 

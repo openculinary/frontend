@@ -1,3 +1,4 @@
+import { types } from 'document';
 import $ from 'jquery';
 
 import { db } from '../database';
@@ -5,7 +6,7 @@ import { addProduct } from '../models/products';
 
 export { addRecipe, removeRecipe, scaleRecipe };
 
-async function addRecipe(recipe) {
+async function addRecipe(recipe: types.Recipe) : Promise<string> {
   return db.transaction('rw', db.recipes, db.products, db.ingredients, () => {
     db.recipes.add(recipe).then(() => {
       $.each(recipe.ingredients, (index, ingredient) => {
@@ -15,7 +16,7 @@ async function addRecipe(recipe) {
   }).then(() => recipe.id);
 }
 
-async function removeRecipe(recipe) {
+async function removeRecipe(recipe: types.Recipe) : Promise<string> {
   return db.transaction('rw', db.recipes, db.meals, db.ingredients, () => {
     db.recipes
       .delete(recipe.id);
@@ -30,7 +31,7 @@ async function removeRecipe(recipe) {
   }).then(() => recipe.id);
 }
 
-function scaleRecipe(recipe, targetServings) {
+function scaleRecipe(recipe: types.Recipe, targetServings: number) : void {
   $.each(recipe.ingredients, function() {
     this.quantity.magnitude *= targetServings;
     this.quantity.magnitude /= recipe.servings;

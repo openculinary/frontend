@@ -43,4 +43,4 @@ class Database extends Dexie {
     }
 }
 
-export var db = new Database();
+export const db = new Database();

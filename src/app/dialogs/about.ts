@@ -3,9 +3,9 @@ import * as d3 from 'd3';
 import 'bootstrap';
 import { sankeyTop } from 'd3-sankey';
 
-import data from './about-diagram.json';
+import * as data from './about-diagram.json';
 
-var diagramRendered = false;
+let diagramRendered = false;
 $('#about-modal').on('shown.bs.modal', function() {
   if (!diagramRendered) {
     renderDiagram();

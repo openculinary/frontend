@@ -1,12 +1,15 @@
 {
-    "extends": "eslint:recommended",
     "env": {
         "browser": "true",
         "es6": "true",
         "jquery": "true"
     },
-    "parserOptions": {
-        "ecmaVersion": 9,
-        "sourceType": "module"
-    }
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "ignorePatterns": [
+        "src/feedback/*.js"
+    ],
+    "parser": "@typescript-eslint/parser"
 }
