@@ -67,7 +67,7 @@ function renderMagnitude(units, magnitude, fractions = true) {
 }
 
 function renderUnits(units, magnitude) {
-  var description = convert().describe(units);
+  const description = convert().describe(units);
   if (expandMeasures.indexOf(units) == -1) {
     return description.abbr;
   }
@@ -85,7 +85,7 @@ function renderQuantity(quantity, fractions = true) {
     };
   }
 
-  var fromQuantity;
+  let fromQuantity;
   try {
     fromQuantity = convert(quantity.magnitude).from(quantity.units);
   } catch (e) {
@@ -98,11 +98,11 @@ function renderQuantity(quantity, fractions = true) {
   // TODO: Consider retrieving 'native units' (named units as retrieved from
   // the original recipe) and using these as a first-preference for rendering
   // purposes
-  var units = targetUnits(fromQuantity);
-  var magnitude = fromQuantity.to(units);
+  const units = targetUnits(fromQuantity);
+  const magnitude = fromQuantity.to(units);
 
-  var renderedMagnitude = renderMagnitude(units, magnitude, fractions);
-  var renderedUnits = renderUnits(units, magnitude);
+  const renderedMagnitude = renderMagnitude(units, magnitude, fractions);
+  const renderedUnits = renderUnits(units, magnitude);
   return {
     'magnitude': renderedMagnitude,
     'units': renderedUnits

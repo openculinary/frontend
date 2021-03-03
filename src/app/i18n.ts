@@ -11,7 +11,7 @@ function i18nAttr(key: string) {
     return `[html]${key}`;
 }
 
-let pendingSelectors: string[] = [];
+const pendingSelectors: string[] = [];
 
 function localize(selector?: string) {
   if (!selector) selector = 'body [data-i18n]';

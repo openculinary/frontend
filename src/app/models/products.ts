@@ -3,7 +3,7 @@ import { Ingredient, db } from '../database';
 export { addProduct };
 
 function addProduct(ingredient: Ingredient, recipeId: string, index: number) {
-  var product = ingredient.product;
+  const product = ingredient.product;
   db.transaction('rw', db.products, db.ingredients, () => {
     db.products.put({
       id: product.id,

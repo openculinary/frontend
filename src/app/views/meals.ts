@@ -16,7 +16,7 @@ function defaultDate() {
 
 function updateHints() {
   db.recipes.count(count => {
-    let hints: string[] = [];
+    const hints: string[] = [];
     if (count) {
         hints.push($('<p />', {'data-i18n': i18nAttr('meal-planner:hint-drag')}));
     } else {

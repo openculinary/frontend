@@ -37,7 +37,7 @@ function starFormatter() {
 
 function updateRecipeState(recipeId: string) {
   db.recipes.get(recipeId, (recipe?: Recipe) => {
-    const isInRecipes: boolean = !!recipe;
+    const isInRecipes = !!recipe;
 
     const addButton = $('#recipe button.add-recipe');
     addButton.prop('disabled', isInRecipes);
@@ -48,7 +48,7 @@ function updateRecipeState(recipeId: string) {
 
 function updateStarState(recipeId: string) {
   db.starred.get(recipeId, (starred?: Starred) => {
-    const isStarred: boolean = !!starred;
+    const isStarred = !!starred;
 
     const star = $('#recipe .star');
     star.toggleClass('fas', isStarred);

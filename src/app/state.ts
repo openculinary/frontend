@@ -9,8 +9,8 @@ export { getState, loadPage, pushState, renderStateHash };
 function getState() {
   if (!history.state && !location.hash) return {'search': null};
   if (!history.state && location.hash) {
-    var state = Object.create(null);
-    var urlParams = new URLSearchParams(window.location.hash.slice(1));
+    const state = Object.create(null);
+    const urlParams = new URLSearchParams(window.location.hash.slice(1));
     urlParams.forEach((value, key) => { state[key] = value });
     return state;
   }
@@ -22,7 +22,7 @@ function pushState(state: Object, hash: string) {
 }
 
 function renderStateHash(state: Object) {
-    var stateHash = decodeURIComponent($.param(state));
+    let stateHash = decodeURIComponent($.param(state));
     stateHash = stateHash.split('&').map(item => item.replace(RegExp('=$'), '')).join('&');
     return `#${stateHash}`;
 }
@@ -32,8 +32,8 @@ function resetChoices(selector: string, data: any) {
 }
 
 function loadTags(element, data) {
-  var tags = $(element).val();
-  var terms = data ? data.split(',') : [];
+  const tags = $(element).val();
+  const terms = data ? data.split(',') : [];
   tags.forEach(function(tag) {
     if (terms.indexOf(tag) >= 0) return;
     $(element).find(`option[value='${tag}']`).remove();
@@ -61,7 +61,7 @@ function loadAboutTab(tabId) {
 
 function loadState() {
   // If we encounter an empty state, display the homepage
-  var state = getState();
+  const state = getState();
 
   resetChoices('#explore', state.ingredients);
 
@@ -77,7 +77,7 @@ function loadState() {
     if (this.id in state) loadAboutTab(this.id);
   });
 
-  var activeTab = $('.modal.show a.active').attr('href');
+  let activeTab = $('.modal.show a.active').attr('href');
   if (activeTab && !(activeTab.slice(1) in state)) {
     $('.modal.show').modal('hide');
     activeTab = null;

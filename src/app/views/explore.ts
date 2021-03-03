@@ -65,7 +65,7 @@ function swipeHandler(e) {
   const ingredient: string = prefix + choice;
 
   const state = getState();
-  let ingredients: string[] = state.ingredients ? state.ingredients.split(',') : [];
+  const ingredients: string[] = state.ingredients ? state.ingredients.split(',') : [];
   ingredients.push(ingredient);
   state.ingredients = ingredients.join(',');
 

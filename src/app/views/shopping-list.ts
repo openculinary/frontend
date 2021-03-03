@@ -157,7 +157,7 @@ function renderShoppingList() {
           const product: Product = products.get(productId);
           const ingredients: Ingredient[] = results.ingredientsByProduct.get(productId);
           categoryElement.append(productElement(product, ingredients));
-        };
+        }
         shoppingList.append(categoryElement);
       });
 

@@ -164,7 +164,7 @@ function bindPageChange(selector) {
 
 function updateRecipeState(recipeId) {
   db.recipes.get(recipeId, (recipe?: Recipe) => {
-    const isInRecipes: boolean = !!recipe;
+    const isInRecipes = !!recipe;
 
     const addButton = $(`div.recipe-list .recipe[data-id="${recipeId}"] button.add-recipe`);
     addButton.prop('disabled', isInRecipes);

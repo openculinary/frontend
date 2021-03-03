@@ -5,7 +5,7 @@ import { sankeyTop } from 'd3-sankey';
 
 import * as data from './about-diagram.json';
 
-let diagramRendered: boolean = false;
+let diagramRendered = false;
 $('#about-modal').on('shown.bs.modal', function() {
   if (!diagramRendered) {
     renderDiagram();
