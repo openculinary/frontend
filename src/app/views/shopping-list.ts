@@ -107,8 +107,8 @@ function populateNotifications() {
 }
 
 async function getProductsByCategory(servingsByRecipe) {
-  const ingredientsByProduct: Map<string, Ingredient> = new Map();
-  const productsByCategory: Map<string, Product> = new Map();
+  const ingredientsByProduct: Map<string, Ingredient[]> = new Map();
+  const productsByCategory: Map<string, Map<string, Product>> = new Map();
   await db.transaction('r', db.ingredients, db.products, () => {
     db.ingredients.each(ingredient => {
       const servings = servingsByRecipe[ingredient.recipe_id];
@@ -119,19 +119,13 @@ async function getProductsByCategory(servingsByRecipe) {
 
       db.products.get(ingredient.product_id, product => {
         if (!product) return;
-        ingredientsByProduct[product.id] = ingredientsByProduct[product.id] || [];
-        ingredientsByProduct[product.id].push(ingredient);
-        productsByCategory[product.category] = productsByCategory[product.category] || Object.create(null);
-        productsByCategory[product.category][product.id] = product;
+        if (!ingredientsByProduct.has(product.id)) ingredientsByProduct.set(product.id, []);
+        if (!productsByCategory.has(product.category)) productsByCategory.set(product.category, new Map());
+        ingredientsByProduct.get(product.id).push(ingredient);
+        productsByCategory.get(product.category).set(product.id, product);
       });
     });
   })
-  // Move the null category to the end of the map
-  if (Object.hasOwnProperty.call(productsByCategory, null)) {
-    const products  = productsByCategory.get(null);
-    productsByCategory.delete(null);
-    productsByCategory.set(null, products);
-  }
   return {
     ingredientsByProduct: ingredientsByProduct,
     productsByCategory: productsByCategory,
@@ -155,13 +149,15 @@ function renderShoppingList() {
   getServingsByRecipe().then(servingsByRecipe => {
     getProductsByCategory(servingsByRecipe).then(results => {
       const shoppingList = $('#shopping-list .products').empty();
-      $.each(results.productsByCategory, (category, products) => {
-        if (category === 'null') category = null;
+      const sortedCategories: string[] = Array.from(results.productsByCategory.keys()).sort();
+      $.each(sortedCategories, (_, category: string) => {
+        const products = results.productsByCategory.get(category);
         const categoryElement = renderCategory(category);
-        $.each(products, (productId, product) => {
-          const ingredients: Ingredient[] = results.ingredientsByProduct[productId];
+        for (const productId of products.keys()) {
+          const product: Product = products.get(productId);
+          const ingredients: Ingredient[] = results.ingredientsByProduct.get(productId);
           categoryElement.append(productElement(product, ingredients));
-        });
+        };
         shoppingList.append(categoryElement);
       });
 
