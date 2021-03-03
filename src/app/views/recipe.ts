@@ -2,7 +2,7 @@ import $ from 'jquery';
 import * as moment from 'moment';
 
 import { getRecipe, getRecipeById } from '../common';
-import { db } from '../database';
+import { Recipe, Starred, db } from '../database';
 import { i18nAttr, localize } from '../i18n';
 import { addRecipe, scaleRecipe } from '../models/recipes';
 import { starRecipe, unstarRecipe } from '../models/starred';
@@ -24,7 +24,7 @@ function markDirection() {
   $(this).addClass('mark');
 }
 
-function linkFormatter(recipe) {
+function linkFormatter(recipe: Recipe) {
   return $('<a />', {
     'class': 'link fa fa-link',
     'href': `#search&action=view&id=${recipe.id}`
@@ -35,61 +35,61 @@ function starFormatter() {
   return $('<div />', {'class': 'star far fa-star'});
 }
 
-function updateRecipeState(recipeId) {
-  db.recipes.get(recipeId, recipe => {
-    var isInRecipes = !!recipe;
+function updateRecipeState(recipeId: string) {
+  db.recipes.get(recipeId, (recipe?: Recipe) => {
+    const isInRecipes: boolean = !!recipe;
 
-    var addButton = $('#recipe button.add-recipe');
+    const addButton = $('#recipe button.add-recipe');
     addButton.prop('disabled', isInRecipes);
     addButton.toggleClass('btn-outline-primary', !isInRecipes);
     addButton.toggleClass('btn-outline-secondary', isInRecipes);
   });
 }
 
-function updateStarState(recipeId) {
-  db.starred.get(recipeId, starred => {
-    var isStarred = !!starred;
+function updateStarState(recipeId: string) {
+  db.starred.get(recipeId, (starred?: Starred) => {
+    const isStarred: boolean = !!starred;
 
-    var star = $('#recipe .star');
+    const star = $('#recipe .star');
     star.toggleClass('fas', isStarred);
     star.toggleClass('far', !isStarred);
     star.css('color', isStarred ? 'gold' : 'dimgray');
     star.off('click');
     star.on('click', () => {
-      var toggleStarred = isStarred ? unstarRecipe : starRecipe;
+      const toggleStarred = isStarred ? unstarRecipe : starRecipe;
       getRecipe(star).then(toggleStarred).then(updateStarState);
     });
   });
 }
 
 function updateServings() {
-  var state = getState();
+  const state = getState();
   state.servings = $('#recipe div.metadata input.servings').val();
 
-  var stateHash = renderStateHash(state);
+  const stateHash: string = renderStateHash(state);
   pushState(state, stateHash);
 
   getRecipeById(state.id).then(renderIngredients);
 }
 
 function renderRecipe() {
-  var state = getState();
-  var container = $('#recipe');
+  const state = getState();
+  const container = $('#recipe');
   container.data('id', state.id);
 
   getRecipe(container).then(recipe => {
-    var duration = moment.duration(recipe.time, 'minutes');
+    const duration = moment.duration(recipe.time, 'minutes');
 
-    var title = $('#recipe div.title').empty();
-    var attribution = $('#recipe div.attribution').empty();
-    var corner = $('#recipe div.corner').empty();
-    var image = $('#recipe div.image').empty();
-    var metadata = $('#recipe div.metadata').empty();
+    const title = $('#recipe div.title').empty();
+    const attribution = $('#recipe div.attribution').empty();
+    const corner = $('#recipe div.corner').empty();
+    const image = $('#recipe div.image').empty();
+    const metadata = $('#recipe div.metadata').empty();
 
-    var link = $('<a />', {'href': recipe.dst});
+    const link = $('<a />', {'href': recipe.dst});
 
     if (recipe.author) {
-      var author = $('<a />', {'href': recipe.author_url || recipe.dst, 'text': recipe.author});
+      const author = $('<a />', {'href': recipe.author_url || recipe.dst, 'text': recipe.author});
       attribution.append(document.createTextNode('by '));
       attribution.append(author);
     }
@@ -105,8 +105,8 @@ function renderRecipe() {
       window.open(`/diagnostics/#recipe&id=${recipe.id}`);
     });
 
-    var targetServings = Number(state.servings) || recipe.servings;
-    var servingsInput = $('<input>', {
+    const targetServings: number = Number(state.servings) || recipe.servings;
+    const servingsInput = $('<input>', {
         'class': 'servings',
         'min': 1,
         'max': 50,
@@ -133,21 +133,21 @@ function renderRecipe() {
 }
 
 function renderIngredients(recipe) {
-  var ingredients = $('<div />', {'class': 'ingredients'});
+  const ingredients = $('<div />', {'class': 'ingredients'});
   ingredients.append($('<div />', {
     'class': 'headline section-title',
     'data-i18n': i18nAttr('search:result-tab-ingredients')
   }));
 
-  var servings = Number(getState().servings) || recipe.servings;
+  const servings: number = Number(getState().servings) || recipe.servings;
   scaleRecipe(recipe, servings);
 
-  $.each(recipe.ingredients, function() {
+  $.each(recipe.ingredients, () => {
     ingredients.append(renderIngredientHTML(this));
   });
 
   // TODO: i18n
-  var addButton = $('<button />', {
+  const addButton = $('<button />', {
     'class': 'headline btn btn-outline-primary add-recipe',
     'text': 'Add to shopping list'
   });
@@ -155,20 +155,20 @@ function renderIngredients(recipe) {
 
   ingredients.append(addButton);
 
-  var existingIngredients = $('#recipe div.ingredients');
+  const existingIngredients = $('#recipe div.ingredients');
   existingIngredients.replaceWith(ingredients);
 
   localize('#recipe .ingredients');
 }
 
 function renderDirections(recipe) {
-  var directions = $('<div />', {'class': 'directions'});
+  const directions = $('<div />', {'class': 'directions'});
 
   directions.append($('<p />', {
     'html': `Please visit the <a href="${recipe.dst}">original source</a> to read the directions for this recipe.`
   }));
 
-  var existingDirections = $('#recipe div.directions').empty();
+  const existingDirections = $('#recipe div.directions').empty();
   existingDirections.replaceWith(directions);
 
   localize('#recipe .directions');

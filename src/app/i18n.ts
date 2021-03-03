@@ -7,13 +7,13 @@ import BrowserLanguage from 'i18next-browser-languagedetector';
 
 export { i18nAttr, localize };
 
-function i18nAttr(key) {
+function i18nAttr(key: string) {
     return `[html]${key}`;
 }
 
-var pendingSelectors = [];
+let pendingSelectors: string[] = [];
 
-function localize(selector) {
+function localize(selector?: string) {
   if (!selector) selector = 'body [data-i18n]';
   if (!$.fn.localize) {
     pendingSelectors.push(selector);
@@ -48,7 +48,7 @@ i18next.use(BrowserLanguage).use(XHR).init({
   jqueryi18next.init(i18next, $, {useOptionsAttr: true});
   localize();
 
-  var selector;
+  let selector: string;
   // eslint-disable-next-line no-cond-assign
   while (selector = pendingSelectors.pop()) {
     localize(selector);

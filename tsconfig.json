@@ -2,6 +2,7 @@
   "compilerOptions": {
     "allowJs": true,
     "moduleResolution": "node",
+    "resolveJsonModule": true,
     "target": "es6"
   },
   "include": [

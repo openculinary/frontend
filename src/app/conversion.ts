@@ -1,5 +1,7 @@
-import * as convert from 'convert-units';
-import * as Fraction from 'fraction.js';
+import convert from 'convert-units';
+import Fraction from 'fraction.js';
+
+import { Quantity } from './database';
 
 export { renderQuantity };
 
@@ -27,7 +29,7 @@ function weightUnits(quantity) {
 }
 
 function targetUnits(quantity) {
-  var measure = quantity.origin.measure;
+  const measure = quantity.origin.measure;
   if (expandMeasures.indexOf(measure) >= 0) {
     return measure;
   }
@@ -53,16 +55,15 @@ function renderMagnitude(units, magnitude, fractions = true) {
   if (!fractions) {
     return magnitude;
   }
-  var result = new Fraction(magnitude).simplify(0.1).toFraction(true);
+  const result: string = new Fraction(magnitude).simplify(0.1).toFraction(true);
   if (result.indexOf('/') == -1) {
     return result;
   }
-  result = result.split(' ');
-  var last = result.length - 1;
-  result[last] = result[last].replace('/', '</sup>&frasl;<sub>');
-  result[last] = `<sup>${result[last]}</sub>`;
-  result = result.join(' ');
-  return result;
+  const tokens = result.split(' ');
+  const last: number = tokens.length - 1;
+  tokens[last] = tokens[last].replace('/', '</sup>&frasl;<sub>');
+  tokens[last] = `<sup>${tokens[last]}</sub>`;
+  return tokens.join(' ');
 }
 
 function renderUnits(units, magnitude) {

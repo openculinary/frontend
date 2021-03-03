@@ -17,17 +17,17 @@ function getState() {
   return history.state;
 }
 
-function pushState(state, hash) {
+function pushState(state: Object, hash: string) {
   history.pushState(state, '', hash);
 }
 
-function renderStateHash(state) {
+function renderStateHash(state: Object) {
     var stateHash = decodeURIComponent($.param(state));
     stateHash = stateHash.split('&').map(item => item.replace(RegExp('=$'), '')).join('&');
     return `#${stateHash}`;
 }
 
-function resetChoices(selector, data) {
+function resetChoices(selector: string, data: any) {
   if (!data) $(selector).find('ul').empty();
 }
 

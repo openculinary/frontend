@@ -1,10 +1,11 @@
 import $ from 'jquery';
 
+import { Ingredient, Direction } from './database';
 import { renderQuantity } from './conversion';
 
 export { renderIngredientHTML, renderDirectionHTML };
 
-function renderIngredientHTML(ingredient) {
+function renderIngredientHTML(ingredient: Ingredient) {
     const xml = $.parseXML(`<xml>${ingredient.markup}</xml>`).firstChild;
     const container = $('<div />');
 
@@ -19,7 +20,7 @@ function renderIngredientHTML(ingredient) {
     return container.html();
 }
 
-function renderDirectionHTML(direction) {
+function renderDirectionHTML(direction: Direction) {
     const xml = $.parseXML(`<xml>${direction.markup}</xml>`).firstChild;
     const container = $('<div />');
 

@@ -1,13 +1,13 @@
 import $ from 'jquery';
 import 'select2';
 
-function bindEquipmentInput(element, label, placeholder) {
+function bindEquipmentInput(element: string, label: string, placeholder: string) {
   $(element).select2({
     ajax: {
       url: '/api/autosuggest/equipment',
-      data: params => ({pre: params.term}),
-      processResults: data => ({
-        results: data.map(item => ({
+      data: (params: any) => ({pre: params.term}),
+      processResults: (data: any) => ({
+        results: data.map((item: any) => ({
           id: item.equipment,
           text: item.equipment,
           product: item
@@ -23,13 +23,13 @@ function bindEquipmentInput(element, label, placeholder) {
   $(element).next('.select2').find('input[type=search]').attr('aria-label', label);
 }
 
-function bindIngredientInput(element, label, placeholder) {
+function bindIngredientInput(element: string, label: string, placeholder: string) {
   $(element).select2({
     ajax: {
       url: '/api/autosuggest/ingredients',
-      data: params => ({pre: params.term}),
-      processResults: data => ({
-        results: data.map(item => ({
+      data: (params: any) => ({pre: params.term}),
+      processResults: (data: any) => ({
+        results: data.map((item: any) => ({
           id: item.singular,
           text: item.name,
           product: item
@@ -45,20 +45,20 @@ function bindIngredientInput(element, label, placeholder) {
   $(element).next('.select2').find('input[type=search]').attr('aria-label', label);
 }
 
-$(function() {
+$(() => {
   bindIngredientInput('#include', 'Ingredients to include', 'e.g. tomatoes');
   bindIngredientInput('#exclude', 'Ingredients to exclude', 'e.g. mushrooms');
   bindEquipmentInput('#equipment', 'Kitchen equipment to use', 'e.g. slow cooker');
 
   $(document).on('keyup', '.select2-search__field', function (event) {
     if (event.which == 13) {
-      var selectElement = $(event.target).parents('span.select2').prev('select');
+      const selectElement = $(event.target).parents('span.select2').prev('select');
       if (!selectElement.length) return;
 
-      var searchForm = selectElement.parents('#search form');
+      const searchForm = selectElement.parents('#search form');
       if (!searchForm.length) return;
 
-      var suggestionsOpen = !selectElement.select2('isOpen');
+      const suggestionsOpen = !selectElement.select2('isOpen');
       if (suggestionsOpen) return;
 
       selectElement.select2('close');
