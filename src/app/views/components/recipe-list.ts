@@ -109,7 +109,7 @@ function contentFormatter(recipe) {
   return content;
 }
 
-function recipeFormatter(value: unknown, recipe: Recipe) : HTMLElement {
+function recipeFormatter(value: HTMLElement, recipe: Recipe) : HTMLElement {
   const container = $('<div />');
 
   const title = titleFormatter(recipe);

@@ -75,7 +75,7 @@ function renderUnits(units: string, magnitude: number) : string {
   return description.plural.toLowerCase();
 }
 
-function renderQuantity(quantity: Quantity, fractions = true) : Record<string, unknown> {
+function renderQuantity(quantity: Quantity, fractions = true) : Record<string, number | string> {
 
   // Special case handling for 'pinch'
   if (quantity.units === 'ml' && quantity.magnitude <= 0.25) {
