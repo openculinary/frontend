@@ -6,7 +6,7 @@ export { addStandaloneIngredient, removeStandaloneIngredient };
 function addStandaloneIngredient(product: Product) {
   const ingredient: Ingredient = {
     recipe_id: '',
-    product_id: null,
+    product_id: product.id,
     index: 0,
     markup: null,
     quantity: null,
