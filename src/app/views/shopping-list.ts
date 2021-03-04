@@ -1,5 +1,5 @@
 import * as $ from 'jquery';
-import * as select2 from 'select2';
+import select2 from 'select2';
 
 import { renderQuantity } from '../conversion';
 import { Ingredient, Product, db } from '../database';
@@ -168,8 +168,7 @@ function renderShoppingList() {
 }
 
 function bindShoppingListInput(element, placeholder) {
-  select2();
-  $(element).select2({
+  select2 && new select2($(element), {
     ajax: {
       url: '/api/autosuggest/ingredients',
       data: params => ({pre: params.term}),
