@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import * as $ from 'jquery';
 import { create as jsondiffpatch, formatters as diffformatters } from 'jsondiffpatch';
 import 'jsondiffpatch/dist/formatters-styles/html.css'
 

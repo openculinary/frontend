@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import * as $ from 'jquery';
 import jqueryi18next from 'jquery-i18next';
 
 import i18next from 'i18next';
@@ -22,7 +22,7 @@ function localize(selector?: string) : void {
   $(selector).localize();
 }
 
-i18next.use(BrowserLanguage).use(XHR).init({
+i18next && i18next.use(BrowserLanguage).use(XHR).init({
   ns: [
     'categories',
     'dietary-properties',

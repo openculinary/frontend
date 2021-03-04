@@ -1,4 +1,4 @@
-import convert from 'convert-units';
+import * as convert from 'convert-units';
 import Fraction from 'fraction.js';
 
 import { Quantity } from './database';

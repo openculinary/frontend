@@ -35,7 +35,9 @@ module.exports = (_, env) => {
     },
     plugins: [
       new CleanWebpackPlugin(),
+      /*
       new LicensePlugin(),
+      */
       new CopyWebpackPlugin({patterns: [
         {
           from: 'static/.well-known',
@@ -65,8 +67,7 @@ module.exports = (_, env) => {
       new CopyWebpackPlugin({patterns: [
         {
           from: `static/images/icons/${env && env.mode || 'development'}/*`,
-          to: 'images/icons',
-          flatten: true
+          to: 'images/icons/[name][ext]'
         }
       ]}),
       new MiniCssExtractPlugin({

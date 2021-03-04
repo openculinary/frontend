@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import * as $ from 'jquery';
 import * as d3 from 'd3';
 import 'bootstrap';
 import { sankeyTop } from 'd3-sankey';

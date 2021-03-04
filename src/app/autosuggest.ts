@@ -1,7 +1,8 @@
-import $ from 'jquery';
-import 'select2';
+import * as $ from 'jquery';
+import * as select2 from 'select2';
 
 function bindEquipmentInput(element: string, label: string, placeholder: string) : void {
+  select2();
   $(element).select2({
     ajax: {
       url: '/api/autosuggest/equipment',
