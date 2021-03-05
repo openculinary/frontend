@@ -3,7 +3,7 @@ const glob = require('glob');
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { InjectManifest } = require('workbox-webpack-plugin');
-const LicensePlugin = require('webpack-license-plugin')
+const LicenseWebpackPlugin = require('license-webpack-plugin').LicenseWebpackPlugin;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -35,7 +35,9 @@ module.exports = (_, env) => {
     },
     plugins: [
       new CleanWebpackPlugin(),
-      new LicensePlugin(),
+      new LicenseWebpackPlugin({
+        perChunkOutput: false
+      }),
       new CopyWebpackPlugin({patterns: [
         {
           from: 'static/.well-known',
@@ -65,8 +67,7 @@ module.exports = (_, env) => {
       new CopyWebpackPlugin({patterns: [
         {
           from: `static/images/icons/${env && env.mode || 'development'}/*`,
-          to: 'images/icons',
-          flatten: true
+          to: 'images/icons/[name][ext]'
         }
       ]}),
       new MiniCssExtractPlugin({

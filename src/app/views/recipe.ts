@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import * as $ from 'jquery';
 import * as moment from 'moment';
 
 import { getRecipe, getRecipeById } from '../common';
