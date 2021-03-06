@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import * as $ from 'jquery';
 import 'bootstrap-table';
 import { debounce } from 'debounce';
 

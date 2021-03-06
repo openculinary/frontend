@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import * as $ from 'jquery';
 
 import { Ingredient, Direction } from './database';
 import { renderQuantity } from './conversion';
