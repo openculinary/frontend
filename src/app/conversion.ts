@@ -1,4 +1,4 @@
-import convert from 'convert-units';
+import * as convert from 'convert-units';
 import { types } from 'document';
 import Fraction from 'fraction.js';
 

@@ -37,4 +37,4 @@ lint:
 	npx eslint src
 
 tests:
-	npx mochapack --mode ${MODE} --require setup.js "test/**/*.js" "src/**/*.spec.ts"
+	npx mocha --mode ${MODE} --require setup.js --require ts-node/register "test/**/*.js" "src/**/*.spec.ts"

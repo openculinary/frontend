@@ -1,5 +1,5 @@
 import { packageVersion, types } from 'document';
-import $ from 'jquery';
+import * as $ from 'jquery';
 import * as moment from 'moment';
 import { Sortable } from 'sortablejs';
 import i18next from 'i18next';

@@ -1,5 +1,5 @@
 import Dexie from 'dexie';
-import observable from 'dexie-observable';
+import 'dexie-observable';
 import { types } from 'document';
 import * as semver from 'semver';
 
@@ -13,7 +13,7 @@ class Database extends Dexie {
     basket: Dexie.Table<types.Stock, string>;
 
     constructor() {
-      super('RecipeRadar', {addons: [observable]});
+      super('RecipeRadar');
 
       this.version(20200702).stores({
         ingredients: '[recipe_id+product_id+index], recipe_id, product_id',

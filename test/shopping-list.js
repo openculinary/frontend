@@ -1,5 +1,6 @@
 import * as assert from 'assert';
 
+import { db } from '../src/app/database';
 import { aggregateQuantities } from '../src/app/views/shopping-list';
 
 var kgIngredients = [
@@ -15,6 +16,10 @@ var mixedIngredients = [
 ]
 
 describe('quantity aggregation', function() {
+
+  after(function() {
+    db.close();
+  });
 
   it('should sum quantities of same unit', function() {
     assert.deepEqual(aggregateQuantities(kgIngredients), {'kg': 6});

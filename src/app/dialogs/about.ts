@@ -1,8 +1,9 @@
-import $ from 'jquery';
+import * as $ from 'jquery';
 import * as d3 from 'd3';
 import 'bootstrap';
-import { sankeyTop } from 'd3-sankey';
 
+// TODO: import d3-sankey without referencing the node_modules directory
+import { sankeyTop } from '../../../node_modules/d3-sankey/src';
 import * as data from './about-diagram.json';
 
 let diagramRendered = false;

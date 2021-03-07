@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import * as $ from 'jquery';
 import Slip from 'slipjs';
 
 import { localize } from '../i18n';

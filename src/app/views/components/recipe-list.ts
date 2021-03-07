@@ -1,5 +1,5 @@
 import { types } from 'document';
-import $ from 'jquery';
+import * as $ from 'jquery';
 import * as moment from 'moment';
 import 'tablesaw/dist/stackonly/tablesaw.stackonly.jquery.js';
 

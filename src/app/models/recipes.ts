@@ -1,5 +1,5 @@
 import { types } from 'document';
-import $ from 'jquery';
+import * as $ from 'jquery';
 
 import { db } from '../database';
 import { addProduct } from '../models/products';

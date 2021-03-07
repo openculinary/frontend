@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import * as $ from 'jquery';
 
 import { renderRecipe } from './views/recipe';
 import { renderSearch } from './views/search';

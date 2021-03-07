@@ -2,8 +2,8 @@ import CodeMirror from 'codemirror';
 import 'codemirror/addon/display/autorefresh';
 import 'codemirror/mode/gfm/gfm';
 import { packageVersion, types } from 'document';
-import $ from 'jquery';
-import 'select2';
+import * as $ from 'jquery';
+import select2 from 'select2';
 
 import { renderQuantity } from '../conversion';
 import { db } from '../database';
@@ -193,7 +193,7 @@ function renderShoppingList() {
 }
 
 function bindShoppingListInput(element, placeholder) {
-  $(element).select2({
+  select2 && new select2($(element), {
     ajax: {
       url: '/api/autosuggest/ingredients',
       data: params => ({pre: params.term}),
