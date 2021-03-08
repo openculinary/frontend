@@ -30,7 +30,7 @@ let noteEditor = null;
 function getNoteEditor() : CodeMirror {
   if (!noteEditor) {
     const notes = document.querySelector('#shopping-list div[class="notes"]');
-    noteEditor = CodeMirror(notes, {
+    noteEditor = CodeMirror && CodeMirror(notes, {
       autoRefresh: true,
       mode: 'gfm'
     });
