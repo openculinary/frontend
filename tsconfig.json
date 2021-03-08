@@ -11,5 +11,8 @@
   ],
   "exclude": [
     "node_modules/document/**/*.spec.ts"
-  ]
+  ],
+  "ts-node": {
+    "ignore": []
+  }
 }
