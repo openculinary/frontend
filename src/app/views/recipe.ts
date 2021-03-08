@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 import { types } from 'document';
-import $ from 'jquery';
-=======
 import * as $ from 'jquery';
->>>>>>> main
 import * as moment from 'moment';
 
 import { getRecipe, getRecipeById } from '../common';
