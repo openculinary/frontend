@@ -5,7 +5,7 @@ const { InjectManifest } = require('workbox-webpack-plugin');
 const LicenseWebpackPlugin = require('license-webpack-plugin').LicenseWebpackPlugin;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 
@@ -71,7 +71,6 @@ module.exports = (_, env) => {
       new MiniCssExtractPlugin({
         filename: '[name].[chunkhash].css'
       }),
-      new OptimizeCSSAssetsPlugin(),
       new InjectManifest({
         dontCacheBustURLsMatching: /.*/,
         exclude: ['vendors'],
@@ -126,6 +125,12 @@ module.exports = (_, env) => {
           test: /\.ts$/,
           loader: 'ts-loader'
         },
+      ]
+    },
+    optimization: {
+      minimize: true,
+      minimizer: [
+        new CssMinimizerPlugin()
       ]
     }
 }};
