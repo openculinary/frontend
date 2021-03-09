@@ -99,11 +99,11 @@ function renderMeals() {
   for (; idxDate < endDate; idxDate.add(1, 'day')) {
     const date = idxDate.format('YYYY-MM-DD');
     const day = idxDate.format('dddd');
-    const today = idxDate == todaysDate;
+    const today = (idxDate === todaysDate);
 
     const row = $('<tr />', {
       'data-date': date,
-      'class': `weekday-${idxDate.day()}` + today ? ' today': ''
+      'class': `weekday-${idxDate.day()}` + (today ? ' today': '')
     });
     const header = $('<th />', {
       'html': `<div class="day">${day}</div><div class="date">${date}</div>`
