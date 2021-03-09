@@ -60,11 +60,11 @@
   visibility: hidden;
 }
 
-#meal-planner .scheduler-navigation a.prev {
+#meal-planner .scheduler-navigation a.backward {
   float: left;
 }
 
-#meal-planner .scheduler-navigation a.next {
+#meal-planner .scheduler-navigation a.forward {
   float: right;
 }
 

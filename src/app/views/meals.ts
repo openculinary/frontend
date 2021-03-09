@@ -100,11 +100,9 @@ function pushSchedulerNavigation() {
 function schedulerNavigationHyperlink(target, targetDate) {
   const date = targetDate.format('YYYY-MM-DD');
   return $('<a />', {
-    'class': target,
+    'class': `${target} fas fa-${target}`,
     'click': pushSchedulerNavigation,
-    'text': target,
     'data-date': date,
-    'data-i18n': i18nAttr(`meal-planner:navigate-${target}`),
     'href': `#meal-planner&start-date=${date}`
   });
 }
@@ -118,8 +116,8 @@ function renderMeals() {
   const nextDate = endDate.clone();
 
   const schedulerNavigation = $('#meal-planner div.scheduler-navigation').empty();
-  schedulerNavigation.append(schedulerNavigationHyperlink('prev', prevDate));
-  schedulerNavigation.append(schedulerNavigationHyperlink('next', nextDate));
+  schedulerNavigation.append(schedulerNavigationHyperlink('backward', prevDate));
+  schedulerNavigation.append(schedulerNavigationHyperlink('forward', nextDate));
 
   const scheduler = $('#meal-planner table').empty();
   for (; idxDate < endDate; idxDate.add(1, 'day')) {
