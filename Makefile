@@ -26,6 +26,7 @@ image-create:
 	buildah run $(container) -- rm -rf '/usr/share/nginx/html' --
 
 webpack:
+	(test -f public/reciperadar.webmanifest && rm -rf public) || true
 	npx webpack --mode ${MODE}
 
 image-finalize:

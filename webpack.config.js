@@ -1,12 +1,11 @@
 const path = require('path');
 const glob = require('glob');
 
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { InjectManifest } = require('workbox-webpack-plugin');
 const LicenseWebpackPlugin = require('license-webpack-plugin').LicenseWebpackPlugin;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 
@@ -34,7 +33,6 @@ module.exports = (_, env) => {
       library: '[name]'
     },
     plugins: [
-      new CleanWebpackPlugin(),
       new LicenseWebpackPlugin({
         perChunkOutput: false
       }),
@@ -73,7 +71,6 @@ module.exports = (_, env) => {
       new MiniCssExtractPlugin({
         filename: '[name].[chunkhash].css'
       }),
-      new OptimizeCSSAssetsPlugin(),
       new InjectManifest({
         dontCacheBustURLsMatching: /.*/,
         exclude: ['vendors'],
@@ -130,6 +127,12 @@ module.exports = (_, env) => {
             allowTsInNodeModules: true
           }
         },
+      ]
+    },
+    optimization: {
+      minimize: true,
+      minimizer: [
+        new CssMinimizerPlugin()
       ]
     }
 }};
