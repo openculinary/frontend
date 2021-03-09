@@ -96,7 +96,9 @@ function renderMeals() {
       'data-date': date,
       'class': `weekday-${idxDate.day()}`
     });
-    const header = $('<th />', {'text': day});
+    const header = $('<th />', {
+      'html': `<div class="day">${day}</div><div class="date">${date}</div>`
+    });
     const cell = $('<td />');
 
     row.append(header);

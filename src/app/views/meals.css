@@ -80,6 +80,14 @@
   font-weight: normal;
 }
 
+#meal-planner .scheduler th div.day {
+  font-weight: bold;
+}
+
+#meal-planner .scheduler th div.date {
+  color: gray;
+}
+
 #meal-planner .scheduler td {
   padding: 12px;
   border-top: solid 1px silver;
