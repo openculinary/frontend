@@ -103,7 +103,7 @@ function renderMeals() {
 
     const row = $('<tr />', {
       'data-date': date,
-      'class': `weekday-${idxDate.day()}` + today ? ' today': '';
+      'class': `weekday-${idxDate.day()}` + today ? ' today': ''
     });
     const header = $('<th />', {
       'html': `<div class="day">${day}</div><div class="date">${date}</div>`
