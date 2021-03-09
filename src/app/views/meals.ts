@@ -12,14 +12,12 @@ import { removeRecipe } from '../models/recipes';
 import { updateRecipeState } from './components/recipe-list';
 
 function defaultDate() {
-  const state = getState();
-  let date = null;
+  let date = undefined;
   try {
-    date = moment(state['start-date'])
+    date = getState()['start-date']
   } catch (e) {} /* eslint-disable-line no-empty */
-  if (!date) date = moment($('#meal-planner table tr[data-date]').data('date'));
-  if (!date) date = moment();
-  return date.locale(i18next.language).startOf('day');
+  if (!date) date = $('#meal-planner table tr[data-date]').data('date');
+  return moment(date).locale(i18next.language).startOf('day');
 }
 
 function updateHints() {
