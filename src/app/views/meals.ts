@@ -17,6 +17,7 @@ function defaultDate() {
   try {
     date = moment(state['start-date'])
   } catch (e) {} /* eslint-disable-line no-empty */
+  if (!date) date = moment($('#meal-planner table tr[data-date]').data('date'));
   if (!date) date = moment();
   return date.locale(i18next.language).startOf('day');
 }
