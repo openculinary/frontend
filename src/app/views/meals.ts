@@ -101,8 +101,8 @@ function renderMeals() {
   const endDate = defaultDate().add(1, 'week');
   const todaysDate = moment().locale(i18next.language).startOf('day');
 
-  const prevDate = idxDate.add(-1, 'week');
-  const nextDate = endDate;
+  const prevDate = idxDate.clone().add(-1, 'week');
+  const nextDate = endDate.clone();
 
   const schedulerNavigation = $('#meal-planner div.scheduler-navigation');
   schedulerNavigation.append(schedulerNavigationHyperlink('prev', prevDate));
