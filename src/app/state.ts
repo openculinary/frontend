@@ -47,6 +47,7 @@ function loadTags(selector: string, data?: string) : void {
 function loadPage(pageId: string) : void {
   $('body > div.container[id]').hide();
   $(`body > div.container[id="${pageId}"]`).show();
+  $(`body > div.container[id="${pageId}"]`).trigger('page:load');
 
   $('header a').removeClass('active');
   $('header a[href="#' + pageId + '"]').addClass('active');

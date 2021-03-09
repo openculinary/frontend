@@ -95,7 +95,6 @@ function pushSchedulerNavigation() {
   const stateHash: string = renderStateHash(state);
   pushState(state, stateHash);
   $(window).trigger('popstate');
-  renderMeals();
 }
 
 function schedulerNavigationHyperlink(target, targetDate) {
@@ -229,6 +228,11 @@ $(function() {
 
   db.on('changes', changes => { changes.find(c => c.table === 'meals') && renderMeals() });
   db.on('changes', changes => { changes.find(c => c.table === 'recipes') && renderRecipes() });
+
+  $('body > div.container[id="meal-planner"]').on('page:load', () => {
+    renderMeals();
+    renderRecipes();
+  });
 
   renderMeals();
   renderRecipes();
