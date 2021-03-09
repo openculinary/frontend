@@ -6,12 +6,19 @@ import i18next from 'i18next';
 import { getMealId, getRecipe } from '../common';
 import { Recipe, Meal, db } from '../database';
 import { i18nAttr, localize } from '../i18n';
+import { getState } from '../state';
 import { removeMeal } from '../models/meals';
 import { removeRecipe } from '../models/recipes';
 import { updateRecipeState } from './components/recipe-list';
 
 function defaultDate() {
-  return moment().locale(i18next.language).startOf('day');
+  const state = getState();
+  let date = null;
+  try {
+    date = moment(state['start-date'])
+  } catch (e) {} /* eslint-disable-line no-empty */
+  if (!date) date = moment();
+  return date.locale(i18next.language).startOf('day');
 }
 
 function updateHints() {
