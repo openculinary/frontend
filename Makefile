@@ -35,6 +35,7 @@ image-finalize:
 
 lint:
 	npx eslint src
+	npx eslint test
 
 tests:
 	npx mocha --mode ${MODE} --require setup.js --require ts-node/register
