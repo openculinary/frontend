@@ -6,7 +6,7 @@ import i18next from 'i18next';
 import { getMealId, getRecipe } from '../common';
 import { Recipe, Meal, db } from '../database';
 import { i18nAttr, localize } from '../i18n';
-import { getState } from '../state';
+import { getState, pushState, renderStateHash } from '../state';
 import { removeMeal } from '../models/meals';
 import { removeRecipe } from '../models/recipes';
 import { updateRecipeState } from './components/recipe-list';
@@ -89,13 +89,24 @@ function renderRecipes() {
   updateHints();
 }
 
+function pushSchedulerNavigation() {
+  const date = $(this).data('date');
+  const state = {'meal-planner': null, 'start-date': date};
+  const stateHash: string = renderStateHash(state);
+  pushState(state, stateHash);
+  $(window).trigger('popstate');
+  renderMeals();
+}
+
 function schedulerNavigationHyperlink(target, targetDate) {
+  const date = targetDate.format('YYYY-MM-DD');
   return $('<a />', {
     'class': target,
-    'click': renderMeals,
+    'click': pushSchedulerNavigation,
     'text': target,
+    'data-date': date,
     'data-i18n': i18nAttr(`meal-planner:navigate-${target}`),
-    'href': `#meal-planner&start-date=${targetDate.format('YYYY-MM-DD')}`
+    'href': `#meal-planner&start-date=${date}`
   });
 }
 
