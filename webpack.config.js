@@ -1,7 +1,6 @@
 const path = require('path');
 const glob = require('glob');
 
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { InjectManifest } = require('workbox-webpack-plugin');
 const LicenseWebpackPlugin = require('license-webpack-plugin').LicenseWebpackPlugin;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -34,7 +33,6 @@ module.exports = (_, env) => {
       library: '[name]'
     },
     plugins: [
-      new CleanWebpackPlugin(),
       new LicenseWebpackPlugin({
         perChunkOutput: false
       }),
