@@ -97,7 +97,7 @@
 }
 
 #meal-planner .scheduler tr.today {
-  background-color: lightblue !important;
+  background-color: aliceblue !important;
 }
 #meal-planner .scheduler tr.weekday-6,
 #meal-planner .scheduler tr.weekday-0 {
