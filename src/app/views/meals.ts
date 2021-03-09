@@ -89,9 +89,12 @@ function renderRecipes() {
   updateHints();
 }
 
-function schedulerNavigationHyperlink(text, targetDate) {
+function schedulerNavigationHyperlink(target, targetDate) {
   return $('<a />', {
-    'text': text,
+    'class': target,
+    'click': renderMeals,
+    'text': target,
+    'data-i18n': i18nAttr(`meal-planner:navigate-${target}`),
     'href': `#meal-planner&start-date=${targetDate.format('YYYY-MM-DD')}`
   });
 }
@@ -104,7 +107,7 @@ function renderMeals() {
   const prevDate = idxDate.clone().add(-1, 'week');
   const nextDate = endDate.clone();
 
-  const schedulerNavigation = $('#meal-planner div.scheduler-navigation');
+  const schedulerNavigation = $('#meal-planner div.scheduler-navigation').empty();
   schedulerNavigation.append(schedulerNavigationHyperlink('prev', prevDate));
   schedulerNavigation.append(schedulerNavigationHyperlink('next', nextDate));
 

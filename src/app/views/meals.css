@@ -60,6 +60,14 @@
   visibility: hidden;
 }
 
+#meal-planner .scheduler-navigation a.prev {
+  float: left;
+}
+
+#meal-planner .scheduler-navigation a.next {
+  float: right;
+}
+
 #meal-planner .scheduler {
   width: 100%;
   height: calc(80vh);
