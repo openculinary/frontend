@@ -13,7 +13,7 @@
     "debounce": "^1.2.1",
     "dexie": "^3.0.3",
     "dexie-observable": "^3.0.0-beta.10",
-    "document": "git+https://github.com/openculinary/document.git#2610ddd7a356e73045ed2c2284bf5c4d937b28b9",
+    "document": "git+https://github.com/openculinary/document.git#433ade8f0bcb4ca7c7b4d714cc53da264bf26638",
     "fraction.js": "^4.0.13",
     "html2canvas": "^1.0.0-rc.7",
     "i18next": "^19.9.2",
