@@ -6,12 +6,18 @@ import i18next from 'i18next';
 import { getMealId, getRecipe } from '../common';
 import { Recipe, Meal, db } from '../database';
 import { i18nAttr, localize } from '../i18n';
+import { getState, pushState, renderStateHash } from '../state';
 import { removeMeal } from '../models/meals';
 import { removeRecipe } from '../models/recipes';
 import { updateRecipeState } from './components/recipe-list';
 
 function defaultDate() {
-  return moment().locale(i18next.language).startOf('day');
+  let date = undefined;
+  try {
+    date = getState()['start-date']
+  } catch (e) {} /* eslint-disable-line no-empty */
+  if (!date) date = $('#meal-planner table tr[data-date]').data('date');
+  return moment(date).locale(i18next.language).startOf('day');
 }
 
 function updateHints() {
@@ -83,20 +89,49 @@ function renderRecipes() {
   updateHints();
 }
 
+function pushSchedulerNavigation() {
+  const date = $(this).data('date');
+  const state = {'meal-planner': null, 'start-date': date};
+  const stateHash: string = renderStateHash(state);
+  pushState(state, stateHash);
+  $(window).trigger('popstate');
+}
+
+function schedulerNavigationHyperlink(target, targetDate) {
+  const date = targetDate.format('YYYY-MM-DD');
+  return $('<a />', {
+    'class': `${target} fas fa-${target}`,
+    'click': pushSchedulerNavigation,
+    'data-date': date,
+    'href': `#meal-planner&start-date=${date}`
+  });
+}
+
 function renderMeals() {
   const idxDate = defaultDate();
   const endDate = defaultDate().add(1, 'week');
+  const todaysDate = moment().locale(i18next.language).startOf('day');
+
+  const prevDate = idxDate.clone().add(-1, 'week');
+  const nextDate = endDate.clone();
+
+  const schedulerNavigation = $('#meal-planner div.scheduler-navigation').empty();
+  schedulerNavigation.append(schedulerNavigationHyperlink('backward', prevDate));
+  schedulerNavigation.append(schedulerNavigationHyperlink('forward', nextDate));
 
   const scheduler = $('#meal-planner table').empty();
   for (; idxDate < endDate; idxDate.add(1, 'day')) {
     const date = idxDate.format('YYYY-MM-DD');
     const day = idxDate.format('dddd');
+    const dayIsToday = idxDate.isSame(todaysDate);
 
     const row = $('<tr />', {
       'data-date': date,
-      'class': `weekday-${idxDate.day()}`
+      'class': `weekday-${idxDate.day()}` + (dayIsToday ? ' today': '')
     });
-    const header = $('<th />', {'text': day});
+    const header = $('<th />', {
+      'html': `<div class="day">${day}</div><div class="date">${date}</div>`
+    });
     const cell = $('<td />');
 
     row.append(header);
@@ -191,6 +226,11 @@ $(function() {
 
   db.on('changes', changes => { changes.find(c => c.table === 'meals') && renderMeals() });
   db.on('changes', changes => { changes.find(c => c.table === 'recipes') && renderRecipes() });
+
+  $('body > div.container[id="meal-planner"]').on('page:load', () => {
+    renderMeals();
+    renderRecipes();
+  });
 
   renderMeals();
   renderRecipes();
