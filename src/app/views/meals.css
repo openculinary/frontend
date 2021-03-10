@@ -60,6 +60,14 @@
   visibility: hidden;
 }
 
+#meal-planner .scheduler-navigation a.backward {
+  float: left;
+}
+
+#meal-planner .scheduler-navigation a.forward {
+  float: right;
+}
+
 #meal-planner .scheduler {
   width: 100%;
   height: calc(80vh);
@@ -80,6 +88,14 @@
   font-weight: normal;
 }
 
+#meal-planner .scheduler th div.day {
+  font-weight: bold;
+}
+
+#meal-planner .scheduler th div.date {
+  color: gray;
+}
+
 #meal-planner .scheduler td {
   padding: 12px;
   border-top: solid 1px silver;
@@ -88,6 +104,9 @@
   text-align: left;
 }
 
+#meal-planner .scheduler tr.today {
+  background-color: aliceblue !important;
+}
 #meal-planner .scheduler tr.weekday-6,
 #meal-planner .scheduler tr.weekday-0 {
   background-color: beige;
