@@ -4,6 +4,7 @@ import 'codemirror/mode/gfm/gfm';
 import { packageVersion, types } from 'document';
 import * as $ from 'jquery';
 import select2 from 'select2';
+import showdown from 'showdown';
 
 import { renderQuantity } from '../conversion';
 import { db } from '../database';
@@ -26,6 +27,7 @@ function aggregateQuantities(ingredients: types.Ingredient[]) : Record<string, n
   return quantities;
 }
 
+const noteConverter = showdown && new showdown.Converter({tasklists: true});
 let noteEditor = null;
 function getNoteEditor() : CodeMirror {
   if (!noteEditor) {
@@ -33,6 +35,11 @@ function getNoteEditor() : CodeMirror {
     noteEditor = CodeMirror && CodeMirror(notes, {
       autoRefresh: true,
       mode: 'gfm'
+    });
+    const productsFromNotes = $('#shopping-list .products-from-notes').empty();
+    noteEditor.on('changes', () => {
+      const html = noteConverter.makeHtml(noteEditor.getValue());
+      productsFromNotes.html(html);
     });
   }
   return noteEditor;
