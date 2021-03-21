@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "frontend",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.2",
+    "@fortawesome/fontawesome-free": "^5.15.3",
     "bootstrap": "^4.6.0",
     "bootstrap-table": "^1.18.2",
     "convert-units": "^2.3.4",
@@ -49,7 +49,7 @@
     "ts-loader": "^8.0.18",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.3",
-    "webpack": "^5.26.0",
+    "webpack": "^5.27.1",
     "webpack-cli": "^4.5.0",
     "workbox-webpack-plugin": "^6.1.2",
     "xmlhttprequest": "^1.8.0"
