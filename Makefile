@@ -21,7 +21,7 @@ deploy:
 image: image-create webpack image-finalize
 
 image-create:
-	$(eval container=$(shell buildah from docker.io/library/nginx:alpine))
+	$(eval container=$(shell buildah from nginx:alpine))
 	buildah copy $(container) 'etc/nginx/conf.d' '/etc/nginx/conf.d'
 	buildah run $(container) -- rm -rf '/usr/share/nginx/html' --
 
