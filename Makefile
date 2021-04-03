@@ -21,7 +21,7 @@ deploy:
 image: image-create webpack image-finalize
 
 image-create:
-	$(eval container=$(shell buildah --storage-opt overlay.mount_program=/usr/bin/fuse-overlayfs from docker.io/library/nginx:alpine))
+	$(eval container=$(shell buildah from docker.io/library/nginx:alpine))
 	buildah copy $(container) 'etc/nginx/conf.d' '/etc/nginx/conf.d'
 	buildah run $(container) -- rm -rf '/usr/share/nginx/html' --
 
@@ -32,7 +32,7 @@ webpack:
 image-finalize:
 	buildah copy $(container) 'public' '/usr/share/nginx/html'
 	buildah config --cmd '/usr/sbin/nginx -g "daemon off;"' --port 80 $(container)
-	buildah commit --quiet --rm --squash --storage-opt overlay.mount_program=/usr/bin/fuse-overlayfs $(container) ${IMAGE_NAME}:${IMAGE_TAG}
+	buildah commit --quiet --rm --squash $(container) ${IMAGE_NAME}:${IMAGE_TAG}
 
 lint:
 	npx eslint src
