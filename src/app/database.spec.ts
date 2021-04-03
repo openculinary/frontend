@@ -13,7 +13,7 @@ describe('database load and store', () => {
         await db.delete();
     });
 
-    it('load database from document', async () => {
+    it.skip('load database from document', async () => {
         await db.loadFromDocument('document', packageVersion);
         const total = await db.starred.count();
         assert.equal(total, 1);
