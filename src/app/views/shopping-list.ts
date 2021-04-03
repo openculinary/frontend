@@ -30,9 +30,9 @@ function aggregateQuantities(ingredients: types.Ingredient[]) : Record<string, n
 const noteConverter = showdown && new showdown.Converter({tasklists: true});
 let noteEditor = null;
 function getNoteEditor() : CodeMirror {
-  if (!noteEditor) {
+  if (!noteEditor && CodeMirror) {
     const notes = document.querySelector('#shopping-list div[class="notes"]');
-    noteEditor = CodeMirror && CodeMirror(notes, {
+    noteEditor = CodeMirror(notes, {
       autoRefresh: true,
       mode: 'gfm'
     });
