@@ -4,7 +4,7 @@ div.recipe-list td {
   vertical-align: top;
 }
 
-div.recipe-list span.pagination-info {
+div.recipe-list div.pagination-info {
   display: none !important;
 }
 
@@ -13,7 +13,7 @@ div.recipe-list div.pagination-detail span.sort-prompt {
   margin-right: 0.5em;
 }
 
-div.recipe-list span.page-list {
+div.recipe-list div.page-list {
   display: none !important;
 }
 
