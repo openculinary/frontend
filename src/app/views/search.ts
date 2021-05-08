@@ -81,7 +81,7 @@ function updateStateDomains() : void {
 
 function renderDomainFacet(domain: Record<string, string>, state?: boolean) : JQuery {
   const domainState = state === undefined ? true : state;
-  const chip = $('<label />', {'class': 'badge badge-light badge-pill'});
+  const chip = $('<label />', {'class': 'badge bg-light rounded-pill text-dark'});
   const checkbox = $('<input />', {'type': 'checkbox', 'checked': domainState, 'value': domain.key});
   const icon = $('<img />', {'src': 'images/domains/' + domain.key + '.ico', 'alt':''});
 

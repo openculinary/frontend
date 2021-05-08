@@ -1,3 +1,4 @@
+import * as bootstrap from 'bootstrap';
 import * as $ from 'jquery';
 
 import { renderContent } from './views/content';
@@ -57,8 +58,11 @@ function loadPage(pageId: string) : void {
 }
 
 function loadAboutTab(tabId: string) : void {
-  $('#about-modal').modal('show');
-  $('#about-modal a[href="#' + tabId + '"]').tab('show');
+  const about = new bootstrap.Modal('#about-modal');
+  about.show();
+
+  const tab = new bootstrap.Tab('#about-modal a[href="#' + tabId + '"]');
+  tab.show();
 }
 
 function loadState() : void {
