@@ -32,7 +32,7 @@ var default_message_strings = {
   sendLabel: "Send",
   closeLabel: "Close",
   messageSuccess: "Your feedback was sent successfully.",
-  messageError: "There was an error sending your feedback to our server.  Please contact us by email at contact@reciperadar.com or by raising an issue on our GitHub project at https://github.com/openculinary/frontend/",
+  messageError: "There was an error sending your feedback to our server.",
   formDescription: "Please write your feedback message below, and then click 'Continue' when you're ready",
   highlightDescription: "Click to highlight any parts of the screen related to your message",
   highlight: "Highlight",
@@ -44,7 +44,7 @@ var i18n = Object.create({
   'lang': 'default',
   gettext: function(s) {
     var message_strings = this[this.lang] || this[this.lang.substring(0, 2)];
-    if (false /* message_strings && message_strings[s] */) {
+    if (message_strings && message_strings[s]) {
       return message_strings[s];
     } else if (this['default'][s]) {
       return this['default'][s];
