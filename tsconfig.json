@@ -13,6 +13,10 @@
     "node_modules/document/**/*.spec.ts"
   ],
   "ts-node": {
-    "ignore": []
+    "ignore": [],
+    "moduleTypes": {
+      "node_modules/document/**/*.ts": "cjs",
+      "node_modules/document-prev/**/*.ts": "cjs"
+    }
   }
 }
