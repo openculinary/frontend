@@ -2,10 +2,6 @@ header {
   background-color: #005;
 }
 
-header img.logo {
-  height: 28px;
-}
-
 header h1 {
   color: white;
   display: inline;
