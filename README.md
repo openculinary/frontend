@@ -27,7 +27,7 @@ Make sure to follow the RecipeRadar [infrastructure](https://www.github.com/open
 To install development tools and run linting and tests locally, execute the following commands:
 
 ```sh
-$ npm install --also=dev
+$ npm clean-install --also=dev
 $ make lint tests
 ```
 
