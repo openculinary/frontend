@@ -116,9 +116,9 @@ module.exports = (_, env) => {
         },
         {
           test: /\.(ttf|otf|eot|svg|woff|woff2)$/,
-          loader: 'file-loader',
-          options: {
-            outputPath: 'fonts'
+          type: 'asset/resource',
+          generator: {
+            filename: 'fonts/[hash][ext]'
           }
         },
         {
