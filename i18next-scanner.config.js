@@ -3,12 +3,12 @@ const Vinyl = require('vinyl');
 
 module.exports = {
   input: [
-    'src/**/*.{html,js}',
+    'src/**/*.{html,js,ts}',
   ],
   options: {
     func: {
       list: ['i18nAttr'],
-      extensions: ['.js'],
+      extensions: ['.js','.ts'],
     },
     contextSeparator: '|',
     pluralSeparator: '|',
