@@ -8,7 +8,7 @@ import 'bootstrap';
 // See: https://github.com/twbs/bootstrap/issues/35215
 declare global {
   interface Window {
-    jQuery: any;
+    jQuery: any; /* eslint-disable-line @typescript-eslint/no-explicit-any */
   }
 }
 window.jQuery = $;
