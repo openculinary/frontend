@@ -2,6 +2,17 @@ import * as $ from 'jquery';
 import * as d3 from 'd3';
 import 'bootstrap';
 
+// TODO: remove this workaround
+// jQuery detection in Bootstrap v5 checks for presence of window.jQuery
+// TypeScript type-checking prevents assignment to window.jQuery
+// See: https://github.com/twbs/bootstrap/issues/35215
+declare global {
+  interface Window {
+    jQuery: any;
+  }
+}
+window.jQuery = $;
+
 // TODO: import d3-sankey without referencing the node_modules directory
 import { sankeyTop } from '../../../node_modules/d3-sankey/src';
 import * as data from './about-diagram.json';
