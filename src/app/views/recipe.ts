@@ -1,5 +1,6 @@
+import * as dayjs from 'dayjs';
+import 'dayjs/plugin/duration';
 import * as $ from 'jquery';
-import * as moment from 'moment';
 
 import { getRecipe, getRecipeById } from '../common';
 import { Recipe, Starred, db } from '../database';
@@ -65,7 +66,7 @@ function renderRecipe() : void {
   container.data('id', state.id);
 
   getRecipe(container).then(recipe => {
-    const duration = moment.duration(recipe.time, 'minutes');
+    const duration = dayjs.duration(recipe.time, 'minutes');
 
     const title = $('#recipe div.title').empty();
     const attribution = $('#recipe div.attribution').empty();

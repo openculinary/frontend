@@ -1,5 +1,6 @@
+import * as dayjs from 'dayjs';
+import 'dayjs/plugin/duration';
 import * as $ from 'jquery';
-import * as moment from 'moment';
 import 'tablesaw/dist/stackonly/tablesaw.stackonly.jquery.js';
 
 import { getRecipe } from '../../common';
@@ -37,7 +38,7 @@ function starFormatter() {
 }
 
 function sidebarFormatter(recipe) : JQuery {
-  const duration = moment.duration(recipe.time, 'minutes');
+  const duration = dayjs.duration(recipe.time, 'minutes');
 
   const sidebar = $('<td />', {'class': 'sidebar align-top'});
 

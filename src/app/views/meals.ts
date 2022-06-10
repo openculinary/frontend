@@ -1,5 +1,5 @@
+import * as dayjs from 'dayjs';
 import * as $ from 'jquery';
-import * as moment from 'moment';
 import { Sortable } from 'sortablejs';
 import i18next from 'i18next';
 
@@ -17,7 +17,7 @@ function defaultDate() {
     date = getState()['start-date']
   } catch (e) {} /* eslint-disable-line no-empty */
   if (!date) date = $('#meal-planner table tr[data-date]').data('date');
-  return moment(date).locale(i18next.language).startOf('day');
+  return dayjs(date).locale(i18next.language).startOf('day');
 }
 
 function updateHints() {
@@ -108,19 +108,17 @@ function schedulerNavigationHyperlink(target, targetDate) {
 }
 
 function renderMeals() {
-  const idxDate = defaultDate();
-  const endDate = defaultDate().add(1, 'week');
-  const todaysDate = moment().locale(i18next.language).startOf('day');
-
-  const prevDate = idxDate.clone().add(-1, 'week');
-  const nextDate = endDate.clone();
+  let idxDate = defaultDate();
+  const prevDate = idxDate.add(-1, 'week');
+  const nextDate = defaultDate().add(1, 'week');
+  const todaysDate = dayjs().locale(i18next.language).startOf('day');
 
   const schedulerNavigation = $('#meal-planner div.scheduler-navigation').empty();
   schedulerNavigation.append(schedulerNavigationHyperlink('backward', prevDate));
   schedulerNavigation.append(schedulerNavigationHyperlink('forward', nextDate));
 
   const scheduler = $('#meal-planner table').empty();
-  for (; idxDate < endDate; idxDate.add(1, 'day')) {
+  for (; idxDate < nextDate; idxDate = idxDate.add(1, 'day')) {
     const date = idxDate.format('YYYY-MM-DD');
     const day = idxDate.format('dddd');
     const dayIsToday = idxDate.isSame(todaysDate);
