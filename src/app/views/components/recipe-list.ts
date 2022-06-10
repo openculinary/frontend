@@ -1,5 +1,5 @@
 import * as dayjs from 'dayjs';
-import 'dayjs/plugin/duration';
+import * as duration from 'dayjs/plugin/duration';
 import * as $ from 'jquery';
 import 'tablesaw/dist/stackonly/tablesaw.stackonly.jquery.js';
 
@@ -19,6 +19,8 @@ export {
     rowAttributes,
     updateRecipeState,
 };
+
+dayjs.extend(duration);
 
 function titleFormatter(recipe: Recipe) : JQuery {
   const container = $('<div />', {'class': 'title'});

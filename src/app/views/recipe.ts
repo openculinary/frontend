@@ -1,5 +1,5 @@
 import * as dayjs from 'dayjs';
-import 'dayjs/plugin/duration';
+import * as duration from 'dayjs/plugin/duration';
 import * as $ from 'jquery';
 
 import { getRecipe, getRecipeById } from '../common';
@@ -11,6 +11,8 @@ import { renderIngredientHTML } from '../recipeml';
 import { getState, loadPage, pushState, renderStateHash } from '../state';
 
 export { renderRecipe };
+
+dayjs.extend(duration);
 
 function linkFormatter(recipe: Recipe) : JQuery {
   return $('<a />', {
