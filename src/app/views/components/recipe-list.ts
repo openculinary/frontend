@@ -91,6 +91,7 @@ function contentFormatter(recipe) {
     ingredients.append($('<div  />', {'style': 'clear: both'}));
   });
   content.append(ingredients);
+  content.append($('<br />'));
 
   content.append($('<button />', {
     'class': 'add btn btn-outline-primary add-recipe',
