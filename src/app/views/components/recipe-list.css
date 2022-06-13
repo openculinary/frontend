@@ -114,10 +114,6 @@ div.recipe-list .sidebar button {
   margin-bottom: 4px;
 }
 
-div.recipe-list .sidebar button.view {
-  margin-top: 8px;
-}
-
 div.recipe-list .content span.tag.badge {
   display: inline;
   white-space: normal;

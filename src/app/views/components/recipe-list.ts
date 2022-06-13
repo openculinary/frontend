@@ -79,18 +79,6 @@ function sidebarFormatter(recipe) : JQuery {
     });
   }
 
-  // TODO: i18n
-  const destination = $('<a />', {
-    'href': recipe.dst,
-    'target': '_blank',
-    'rel': 'noreferrer'
-  });
-  destination.append($('<button />', {
-    'class': 'view btn btn-outline-primary',
-    'text': `View on ${recipe.domain}`
-  }));
-  sidebar.append(destination);
-
   sidebar.append($('<button />', {
     'class': 'add btn btn-outline-primary add-recipe',
     'data-i18n': i18nAttr('search:result-add-recipe')
