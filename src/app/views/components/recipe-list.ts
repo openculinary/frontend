@@ -44,6 +44,26 @@ function sidebarFormatter(recipe) : JQuery {
 
   const sidebar = $('<td />', {'class': 'sidebar align-top'});
 
+  sidebar.append($('<span />', {'html': '<strong>serves</strong>', 'class': 'field'}));
+  sidebar.append($('<span />', {'text': recipe.servings}));
+  sidebar.append($('<br />'));
+  sidebar.append($('<span />', {'html': '<strong>time</strong>', 'class': 'field'}));
+  sidebar.append($('<span />', {'text': duration.as('minutes') + ' mins'}));
+  sidebar.append($('<br />'));
+
+  if (recipe.nutrition) {
+    sidebar.append($('<div />', {'html': '<strong>nutrition (per serving)</strong>', 'class': 'heading'}));
+
+    const nutritionFields = ['energy', 'fat', 'carbohydrates', 'fibre', 'protein'];
+    nutritionFields.forEach(field => {
+      if (!recipe.nutrition[field].magnitude) return;
+      sidebar.append($('<span />', {'html': `<strong>${field}</strong>`, 'class': 'field'}));
+      const quantity = renderQuantity(recipe.nutrition[field], false);
+      sidebar.append($('<span />', {'html': `${quantity.magnitude || ''} ${quantity.units || ''}`.trim()}));
+      sidebar.append($('<br />'));
+    });
+  }
+
   const properties = [
     'is_dairy_free',
     'is_gluten_free',
@@ -58,26 +78,6 @@ function sidebarFormatter(recipe) : JQuery {
       'data-i18n': `[title]dietary-properties:${property}`,
     }));
   });
-
-  sidebar.append($('<br />'));
-  sidebar.append($('<span />', {'html': '<strong>serves</strong>', 'class': 'field'}));
-  sidebar.append($('<span />', {'text': recipe.servings}));
-  sidebar.append($('<br />'));
-  sidebar.append($('<span />', {'html': '<strong>time</strong>', 'class': 'field'}));
-  sidebar.append($('<span />', {'text': duration.as('minutes') + ' mins'}));
-
-  if (recipe.nutrition) {
-    sidebar.append($('<div />', {'html': '<strong>nutrition (per serving)</strong>', 'class': 'heading'}));
-
-    const nutritionFields = ['energy', 'fat', 'carbohydrates', 'fibre', 'protein'];
-    nutritionFields.forEach(field => {
-      if (!recipe.nutrition[field].magnitude) return;
-      sidebar.append($('<span />', {'html': `<strong>${field}</strong>`, 'class': 'field'}));
-      const quantity = renderQuantity(recipe.nutrition[field], false);
-      sidebar.append($('<span />', {'html': `${quantity.magnitude || ''} ${quantity.units || ''}`.trim()}));
-      sidebar.append($('<br />'));
-    });
-  }
 
   return sidebar;
 }
