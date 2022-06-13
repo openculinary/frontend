@@ -79,11 +79,6 @@ function sidebarFormatter(recipe) : JQuery {
     });
   }
 
-  sidebar.append($('<button />', {
-    'class': 'add btn btn-outline-primary add-recipe',
-    'data-i18n': i18nAttr('search:result-add-recipe')
-  }));
-
   return sidebar;
 }
 
@@ -96,6 +91,11 @@ function contentFormatter(recipe) {
     ingredients.append($('<div  />', {'style': 'clear: both'}));
   });
   content.append(ingredients);
+
+  content.append($('<button />', {
+    'class': 'add btn btn-outline-primary add-recipe',
+    'data-i18n': i18nAttr('search:result-add-recipe')
+  }));
 
   return content;
 }

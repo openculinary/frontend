@@ -108,12 +108,6 @@ div.recipe-list .sidebar span {
   padding-bottom: 0.3rem;
 }
 
-div.recipe-list .sidebar button {
-  width: 192px;
-  margin-top: 1px;
-  margin-bottom: 4px;
-}
-
 div.recipe-list .content span.tag.badge {
   display: inline;
   white-space: normal;
@@ -133,4 +127,10 @@ div.recipe-list .content .ingredients .quantity {
 
 div.recipe-list .content .ingredients .product {
   grid-column: 2;
+}
+
+div.recipe-list .content button {
+  width: 192px;
+  margin-top: 1px;
+  margin-bottom: 4px;
 }
