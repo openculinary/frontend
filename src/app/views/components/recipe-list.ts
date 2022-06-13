@@ -26,7 +26,7 @@ function titleFormatter(recipe: Recipe) : JQuery {
   const container = $('<div />', {'class': 'title'});
 
   const title = $('<a />', {
-    'href': `#search&action=view&id=${recipe.id}`,
+    'href': recipe.dst,
     'text': recipe.title,
   });
 
