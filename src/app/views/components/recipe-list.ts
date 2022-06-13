@@ -188,7 +188,7 @@ function bindPostBody(selector: string) : void {
       updateStarState(selector, row.id);
     });
 
-    $(this).find('.sidebar button.add-recipe').each((_, button) => {
+    $(this).find('.content button.add-recipe').each((_, button) => {
       $(button).on('click', () => { getRecipe(button).then(addRecipe).then(updateRecipeState); });
     });
     $(this).parents('div.recipe-list').show();
