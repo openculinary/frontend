@@ -109,8 +109,14 @@ div.recipe-list .sidebar span {
 }
 
 div.recipe-list .content span.tag.badge {
-  display: inline;
-  white-space: normal;
+  color: black;
+  font-weight: normal;
+  padding: 0;
+}
+
+div.recipe-list .content span.tag.badge.available {
+  color: green;
+  font-weight: bold; 
 }
 
 div.recipe-list .content .ingredients {
@@ -127,6 +133,7 @@ div.recipe-list .content .ingredients .quantity {
 
 div.recipe-list .content .ingredients .product {
   grid-column: 2;
+  color: gray;
 }
 
 div.recipe-list .content button {
