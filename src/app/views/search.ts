@@ -3,11 +3,13 @@ import 'bootstrap-table';
 import { debounce } from 'debounce';
 
 import '../autosuggest';
+import { getRecipeById } from '../common';
 import { i18nAttr, localize } from '../i18n';
 import { getState, pushState, renderStateHash } from '../state';
+import { scaleRecipe } from '../models/recipes';
 import { initTable, bindLoadEvent } from './components/recipe-list';
 
-export { renderSearch };
+export { renderRecipe, renderSearch };
 
 function pushSearch() : void {
   const state = {'search': null, 'action': 'search'};
@@ -31,6 +33,16 @@ function pushSearch() : void {
   triggerSearch();
 }
 $('#search form button').on('click', pushSearch);
+
+function renderRecipe() : void {
+  const state = getState();
+  getRecipeById(state.id).then(recipe => {
+    scaleRecipe(recipe, Number(state.servings) || recipe.servings);
+    const recipeList = $('#search table[data-row-attributes]');
+    recipeList.bootstrapTable('load', [recipe]);
+    recipeList.trigger('page-change.bs.table');
+  });
+}
 
 function renderSearch() : void {
   const params = {

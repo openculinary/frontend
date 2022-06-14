@@ -7,8 +7,6 @@ import 'tablesaw/dist/stackonly/tablesaw.stackonly.css';
 
 import './dialogs/about';
 import './dialogs/about.css';
-import './views/recipe';
-import './views/recipe.css';
 import './views/explore';
 import './views/explore.css';
 import './views/search';

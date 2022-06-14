@@ -170,7 +170,7 @@ function bindPageChange(selector: string) : void {
 
     // Special-case: perform a search action when returning to search results
     const page = selector.substring(1);
-    if (page === 'search') state['action'] = page;
+    if (page === 'search' && !state.action) state['action'] = page;
 
     const stateHash: string = renderStateHash(state);
     pushState(state, stateHash);
