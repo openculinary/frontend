@@ -9,7 +9,7 @@ import { Recipe, Starred, db } from '../../database';
 import { i18nAttr, localize } from '../../i18n';
 import { renderIngredientHTML } from '../../recipeml';
 import { getState, pushState, renderStateHash } from '../../state';
-import { addRecipe } from '../../models/recipes';
+import { addRecipe, scaleRecipe } from '../../models/recipes';
 import { starRecipe, unstarRecipe } from '../../models/starred';
 
 export {
@@ -44,8 +44,18 @@ function sidebarFormatter(recipe) : JQuery {
 
   const sidebar = $('<td />', {'class': 'sidebar align-top'});
 
+  const servingsInput = $('<input>', {
+      'class': 'servings',
+      'min': 1,
+      'max': 50,
+      'size': 2,
+      'type': 'number',
+      'value': recipe.servings,
+  });
+  servingsInput.attr('aria-label', 'Serving count selection');
+
   sidebar.append($('<span />', {'html': '<strong>serves</strong>', 'class': 'field'}));
-  sidebar.append($('<span />', {'text': recipe.servings}));
+  sidebar.append($('<span />').append(servingsInput));
   sidebar.append($('<br />'));
   sidebar.append($('<span />', {'html': '<strong>time</strong>', 'class': 'field'}));
   sidebar.append($('<span />', {'text': duration.as('minutes') + ' mins'}));
@@ -167,6 +177,16 @@ function updateRecipeState(recipeId: string) : void {
   });
 }
 
+function updateServings(recipe: Recipe) : void {
+  const recipeRow = $(`div.recipe-list .recipe[data-id="${recipe.id}"]`);
+
+  const servings: number = recipeRow.find('input.servings').val();
+  scaleRecipe(recipe, servings);
+
+  const updatedContent = contentFormatter(recipe);
+  recipeRow.find('.content').replaceWith(updatedContent);
+}
+
 function updateStarState(selector: string, recipeId: string) : void {
   db.starred.get(recipeId, (starred?: Starred) => {
     const isStarred = !!starred;
@@ -190,6 +210,9 @@ function bindPostBody(selector: string) : void {
       updateStarState(selector, row.id);
     });
 
+    $(this).find('input.servings').each((_, input) => {
+      $(input).on('change', () => { getRecipe(input).then(updateServings); });
+    });
     $(this).find('button.add-recipe').each((_, button) => {
       $(button).on('click', () => { getRecipe(button).then(addRecipe).then(updateRecipeState); });
     });

@@ -100,10 +100,11 @@ function renderRecipe() : void {
         'class': 'servings',
         'min': 1,
         'max': 50,
+        'size': 2,
         'type': 'number',
+        'value': recipe.servings,
     });
     servingsInput.attr('aria-label', 'Serving count selection');
-    servingsInput.val(targetServings);
     servingsInput.on('change', updateServings);
 
     metadata.append($('<div />', {'class': 'property', 'text': 'servings'}));
