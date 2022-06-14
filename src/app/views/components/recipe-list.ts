@@ -54,20 +54,21 @@ function sidebarFormatter(recipe) : JQuery {
   });
   servingsInput.attr('aria-label', 'Serving count selection');
 
-  sidebar.append($('<span />', {'html': '<strong>serves</strong>', 'class': 'field'}));
+  sidebar.append($('<span />', {'html': '<strong>Servings</strong>', 'class': 'field'}));
   sidebar.append($('<span />').append(servingsInput));
   sidebar.append($('<br />'));
-  sidebar.append($('<span />', {'html': '<strong>time</strong>', 'class': 'field'}));
+  sidebar.append($('<span />', {'html': '<strong>Time</strong>', 'class': 'field'}));
   sidebar.append($('<span />', {'text': duration.as('minutes') + ' mins'}));
   sidebar.append($('<br />'));
 
   if (recipe.nutrition) {
-    sidebar.append($('<div />', {'html': '<strong>nutrition (per serving)</strong>', 'class': 'heading'}));
+    sidebar.append($('<div />', {'html': '<strong>Nutrition (per serving)</strong>', 'class': 'heading'}));
 
     const nutritionFields = ['energy', 'fat', 'carbohydrates', 'fibre', 'protein'];
     nutritionFields.forEach(field => {
       if (!recipe.nutrition[field].magnitude) return;
-      sidebar.append($('<span />', {'html': `<strong>${field}</strong>`, 'class': 'field'}));
+      const fieldTitle = field.charAt(0).toUpperCase() + field.slice(1);
+      sidebar.append($('<span />', {'html': `<strong>${fieldTitle}</strong>`, 'class': 'field'}));
       const quantity = renderQuantity(recipe.nutrition[field], false);
       sidebar.append($('<span />', {'html': `${quantity.magnitude || ''} ${quantity.units || ''}`.trim()}));
       sidebar.append($('<br />'));
