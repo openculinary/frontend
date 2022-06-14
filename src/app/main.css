@@ -70,9 +70,6 @@ span.tag.badge span[data-role="remove"]::after {
   color: red;
   content: '\00D7';
 }
-span.tag.badge.fixed span[data-role="remove"]::after {
-  display: none;
-}
 
 span.tag.badge-info {
   background-color: #b0ffb0;
