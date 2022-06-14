@@ -136,7 +136,7 @@ div.recipe-list .content .ingredients .product {
   color: gray;
 }
 
-div.recipe-list .content button {
+div.recipe-list button.add-recipe {
   width: 192px;
   margin-top: 1px;
   margin-bottom: 4px;

@@ -95,11 +95,6 @@ function contentFormatter(recipe) {
   content.append(ingredients);
   content.append($('<br />'));
 
-  content.append($('<button />', {
-    'class': 'add btn btn-outline-primary add-recipe',
-    'data-i18n': i18nAttr('search:result-add-recipe')
-  }));
-
   return content;
 }
 
@@ -122,6 +117,11 @@ function recipeFormatter(value: HTMLElement, recipe: Recipe) : HTMLElement {
   container.append(title);
   container.append(star);
   container.append(table);
+
+  container.append($('<button />', {
+    'class': 'add btn btn-outline-primary add-recipe',
+    'data-i18n': i18nAttr('search:result-add-recipe')
+  }));
 
   return container.html();
 }
@@ -190,7 +190,7 @@ function bindPostBody(selector: string) : void {
       updateStarState(selector, row.id);
     });
 
-    $(this).find('.content button.add-recipe').each((_, button) => {
+    $(this).find('button.add-recipe').each((_, button) => {
       $(button).on('click', () => { getRecipe(button).then(addRecipe).then(updateRecipeState); });
     });
     $(this).parents('div.recipe-list').show();
