@@ -47,15 +47,15 @@ div.recipe-list td.sidebar {
   width: 200px;
 }
 
-div.recipe-list .title {
+div.recipe-list .attribution {
   float: left;
 }
 
-div.recipe-list .title a {
+div.recipe-list .attribution a.title {
   font-size: 1rem;
 }
 
-div.recipe-list .title img {
+div.recipe-list .attribution img {
   width: 24px;
   margin-right: 0.5rem;
   margin-bottom: 0.5rem;

@@ -22,15 +22,27 @@ export {
 
 dayjs.extend(duration);
 
-function titleFormatter(recipe: Recipe) : JQuery {
-  const container = $('<div />', {'class': 'title'});
+function attributionFormatter(recipe: Recipe) : JQuery {
+  const container = $('<div />', {'class': 'attribution'});
 
   const title = $('<a />', {
+    'class': 'title',
     'href': recipe.dst,
     'text': recipe.title,
   });
 
   container.append(title);
+
+  if (recipe.author) {
+    container.append($('<br />'));
+    container.append(document.createTextNode('by '));
+
+    const author = recipe.author_url ? $('<a />', {'href': recipe.author_url}) : $('<span />');
+    author.addClass('author');
+    author.text(recipe.author);
+
+    container.append(author);
+  }
 
   return container;
 }
@@ -112,7 +124,7 @@ function contentFormatter(recipe) {
 function recipeFormatter(value: HTMLElement, recipe: Recipe) : HTMLElement {
   const container = $('<div />');
 
-  const title = titleFormatter(recipe);
+  const attribution = attributionFormatter(recipe);
   const star = starFormatter();
 
   const row = $('<tr />');
@@ -125,7 +137,7 @@ function recipeFormatter(value: HTMLElement, recipe: Recipe) : HTMLElement {
   });
   table.append(row);
 
-  container.append(title);
+  container.append(attribution);
   container.append(star);
   container.append(table);
 
