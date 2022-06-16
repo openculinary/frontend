@@ -1,3 +1,7 @@
+#search form {
+  display: none;
+}
+
 #search div.card-body {
   padding-top: 0;
 }

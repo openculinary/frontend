@@ -65,4 +65,9 @@ $(function() {
       $('#search form button').trigger('click');
     }
   });
+
+  $('#search form').show();
+
+  // TODO: Remove after upgrading to select2 v4.1.0
+  $('#search select').trigger('change');
 })
