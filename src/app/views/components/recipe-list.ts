@@ -53,12 +53,14 @@ function starFormatter() {
 
 function thumbnailFormatter(recipe) : JQuery {
   const container = $('<td />', {'class': 'thumbnail align-top'});
+  const link = $('<a />', {'href': recipe.dst});
   const img = $('<img />', {
     'class': 'thumbnail',
     'src': recipe.image_url,
     'alt': recipe.title,
   });
-  container.append(img);
+  link.append(img);
+  container.append(link);
   return container;
 }
 
