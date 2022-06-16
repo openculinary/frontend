@@ -51,6 +51,17 @@ function starFormatter() {
   return $('<div />', {'class': 'star far fa-star'});
 }
 
+function thumbnailFormatter(recipe) : JQuery {
+  const container = $('<td />', {'class': 'thumbnail align-top'});
+  const img = $('<img />', {
+    'class': 'thumbnail',
+    'src': recipe.image_url,
+    'alt': recipe.title,
+  });
+  container.append(img);
+  return container;
+}
+
 function sidebarFormatter(recipe) : JQuery {
   const duration = dayjs.duration(recipe.time, 'minutes');
 
@@ -128,8 +139,9 @@ function recipeFormatter(value: HTMLElement, recipe: Recipe) : HTMLElement {
   const star = starFormatter();
 
   const row = $('<tr />');
-  row.append(sidebarFormatter(recipe));
+  row.append(thumbnailFormatter(recipe));
   row.append(contentFormatter(recipe));
+  row.append(sidebarFormatter(recipe));
 
   const table = $('<table />', {
     'class': 'tablesaw tablesaw-stack',
@@ -142,7 +154,7 @@ function recipeFormatter(value: HTMLElement, recipe: Recipe) : HTMLElement {
   container.append(table);
 
   container.append($('<button />', {
-    'class': 'add btn btn-outline-primary add-recipe',
+    'class': 'add btn btn-outline-primary add-recipe float-right',
     'data-i18n': i18nAttr('search:result-add-recipe')
   }));
 

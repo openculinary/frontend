@@ -43,6 +43,10 @@ div.recipe-list td {
   border: none;
 }
 
+div.recipe-list td.thumbnail {
+  width: 200px;
+}
+
 div.recipe-list td.sidebar {
   width: 200px;
 }
@@ -71,7 +75,13 @@ div.recipe-list .recipe table {
   clear: both;
 }
 
-div.recipe-list .sidebar img.thumbnail {
+div.recipe-list .thumbnail {
+  width: 240px;
+}
+
+div.recipe-list .thumbnail img {
+  margin-left: 16px;
+  margin-bottom: 16px;
   max-width: 192px;
   box-shadow: 2px 2px 2px 1px #ccc;
 }
@@ -120,6 +130,7 @@ div.recipe-list .content span.tag.badge.available {
 }
 
 div.recipe-list .content .ingredients {
+  margin-left: 1rem;
   display: grid;
   grid-row-gap: 0.25em;
   grid-column-gap: 0.5em;
@@ -127,6 +138,7 @@ div.recipe-list .content .ingredients {
 }
 
 div.recipe-list .content .ingredients .quantity {
+  width: 90px;
   grid-column: 1;
   text-align: right;
 }
