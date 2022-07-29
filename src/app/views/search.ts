@@ -45,10 +45,12 @@ function renderRecipe() : void {
 }
 
 function renderSearch() : void {
+  const ingredientsToInclude = $('#include').val();
+  const ingredientsToExclude = $('#exclude').val();
+  const equipmentToInclude = $('#equipment').val();
   const params = {
-    include: $('#include').val(),
-    exclude: $('#exclude').val(),
-    equipment: $('#equipment').val(),
+    ingredients: ingredientsToInclude.concat(ingredientsToExclude.map(name => `-${name}`)),
+    equipment: equipmentToInclude,
   };
 
   const state = getState();
