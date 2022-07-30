@@ -19,7 +19,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="description" content="RecipeRadar is a free recipe search engine and meal planner" />
+    <meta name="description" content="RecipeRadar - search recipes by ingredients" />
     <meta name="theme-color" content="#07f" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="apple-touch-icon" href="images/icons/manifest-icon-192.png">
@@ -27,7 +27,7 @@
     <% /* TODO: Awaiting https://caniuse.com/#feat=link-rel-preload coverage */ %>
     <%= htmlWebpackPlugin.files.css.map(href => `<link rel="preload" href="${href}" as="style" crossorigin>`).join('\n    ') %>
     <%= htmlWebpackPlugin.files.css.map(href => `<link rel="stylesheet" href="${href}">`).join('\n    ') %>
-    <title>RecipeRadar - recipe search engine and meal planner</title>
+    <title>RecipeRadar - search recipes by ingredients</title>
   </head>
   <body>
 
@@ -231,8 +231,9 @@
           </div>
           <div class="modal-body tab-content">
             <div class="tab-pane active" id="about-application" role="tabpanel">
-              <p>RecipeRadar is a free recipe search engine and meal planner that respects your time, privacy, and ability to contribute feedback and improvements.</p>
-              <p>RecipeRadar aims to help you:</p>
+              <p>RecipeRadar helps you to search for recipes by ingredients, plan your meals, and create food shopping lists.</p>
+              <p>The service aims to be distraction-free, privacy-respecting, and is provided as free and open source software so that you can inspect and modify the code - feedback and contributions are welcome.</p>
+              <p>We'd like to help you to:</p>
               <ul>
                 <li>Plan, cook and share meals</li>
                 <li>Discover healthy and economical eating habits</li>
