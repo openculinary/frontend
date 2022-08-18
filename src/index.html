@@ -76,16 +76,39 @@
     <div id="search" class="container">
       <div class="card-deck mb-4 pt-3">
         <form class="card" onsubmit="return false">
-          <div class="card-body">
-            <div class="prompt include" data-i18n="[html]search:prompt-get-started"></div>
-            <span class="fa fa-chevron-circle-right"></span>
-            <select id="include" multiple></select>
-            <div class="prompt exclude" data-i18n="[html]search:prompt-exclude"></div>
-            <span class="fa fa-minus-circle"></span>
-            <select id="exclude" multiple></select>
-            <div class="prompt equipment" data-i18n="[html]search:prompt-equipment"></div>
-            <span class="fa fa-cog"></span>
-            <select id="equipment" multiple></select>
+          <div class="card-body row">
+            <div class="col">
+              <div class="prompt include" data-i18n="[html]search:prompt-get-started"></div>
+              <span class="fa fa-chevron-circle-right"></span>
+              <select id="include" multiple></select>
+              <div class="prompt exclude" data-i18n="[html]search:prompt-exclude"></div>
+              <span class="fa fa-minus-circle"></span>
+              <select id="exclude" multiple></select>
+              <div class="prompt equipment" data-i18n="[html]search:prompt-equipment"></div>
+              <span class="fa fa-cog"></span>
+              <select id="equipment" multiple></select>
+            </div class="col">
+            <div class="col">
+              <span class="prompt dietary-properties" data-i18n="[html]search:prompt-dietary-properties"></span>
+              <ul>
+                <li>
+                  <input id="dairy-free" type="checkbox"></input>
+                  <label for="is_dairy_free" data-i18n="dietary-properties:is_dairy_free"></label>
+                </li>
+                <li>
+                  <input id="gluten-free" type="checkbox"></input>
+                  <label for="is_gluten_free" data-i18n="dietary-properties:is_gluten_free"></label>
+                </li>
+                <li>
+                  <input id="vegetarian" type="checkbox"></input>
+                  <label for="is_vegetarian" data-i18n="dietary-properties:is_vegetarian"></label>
+                </li>
+                <li>
+                  <input id="vegan" type="checkbox"></input>
+                  <label for="is_vegan" data-i18n="dietary-properties:is_vegan"></label>
+                </li>
+              </ul>
+            </div class="col">
           </div>
           <div class="card-footer">
             <button class="btn btn-primary" data-i18n="[html]search:prompt-search-button"></button>
