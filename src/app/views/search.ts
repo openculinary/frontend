@@ -20,6 +20,9 @@ function pushSearch() : void {
       state[fragment] = data.join(',');
     }
   })
+  $('#search span.dietary-properties + ul :checkbox:checked').each(function() {
+    state[this.id] = null;
+  });
   const sortChoice = getState().sort;
   if (sortChoice) state['sort'] = sortChoice;
 
