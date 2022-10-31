@@ -27,7 +27,7 @@ image-create:
 
 webpack:
 	(test -f public/reciperadar.webmanifest && rm -rf public) || true
-	npx webpack --mode ${MODE}
+	yarnpkg run webpack --mode ${MODE}
 
 image-finalize:
 	buildah copy $(container) 'public' '/usr/share/nginx/html'
@@ -35,8 +35,8 @@ image-finalize:
 	buildah commit --quiet --rm --squash $(container) ${IMAGE_NAME}:${IMAGE_TAG}
 
 lint:
-	npx eslint src
-	npx eslint test
+	yarnpkg run eslint src
+	yarnpkg run eslint test
 
 tests:
-	npx mocha --mode ${MODE} --require setup.js --require ts-node/register
+	yarnpkg run mocha --mode ${MODE} --require setup.js --require ts-node/register
