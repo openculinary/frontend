@@ -18,7 +18,7 @@
     "html2canvas": "^1.4.1",
     "i18next": "^21.9.0",
     "i18next-browser-languagedetector": "^6.1.5",
-    "i18next-xhr-backend": "^3.2.2",
+    "i18next-http-backend": "^2.0.0",
     "jquery": "^3.6.1",
     "jquery-i18next": "^1.2.1",
     "jsondiffpatch": "^0.4.1",
