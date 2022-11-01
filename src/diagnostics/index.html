@@ -21,10 +21,9 @@
     <meta charset="utf-8" />
     <meta name="description" content="RecipeRadar Diagnostics" />
     <meta name="theme-color" content="#07f" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <% /* TODO: Awaiting https://caniuse.com/#feat=link-rel-preload coverage */ %>
-    <%= htmlWebpackPlugin.files.css.map(href => `<link rel="preload" href="${href}" as="style" crossorigin>`).join('\n    ') %>
-    <%= htmlWebpackPlugin.files.css.map(href => `<link rel="stylesheet" href="${href}">`).join('\n    ') %>
+    <meta name="viewport" content="width=device-width, initial-scale=1" /><% for (index in htmlWebpackPlugin.files.css) { let integrity = htmlWebpackPlugin.files.cssIntegrity[index], href = htmlWebpackPlugin.files.css[index]; %>
+    <link integrity="<%= integrity %>" href="<%= href %>" rel="preload" as="style" crossorigin>
+    <link integrity="<%= integrity %>" href="<%= href %>" rel="stylesheet"><% } %>
     <title>RecipeRadar Diagnostics</title>
   </head>
   <body>
@@ -38,7 +37,7 @@
         <small data-i18n="[html]footer:source-code"></small>
       </div>
     </footer>
-
-    <%= htmlWebpackPlugin.files.js.map(src => `<script type="text/javascript" src="${src}"></script>`).join('\n    ') %>
+<% for (index in htmlWebpackPlugin.files.js) { let integrity = htmlWebpackPlugin.files.jsIntegrity[index], src = htmlWebpackPlugin.files.js[index]; %>
+    <script integrity="<%= integrity %>" src="<%= src %>" type="text/javascript"></script><% } %>
   </body>
 </html>
