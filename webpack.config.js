@@ -107,7 +107,7 @@ module.exports = (_, env) => {
           use: [
             {
               loader: 'file-loader', options: {
-                regExp: 'i18n\/locales\/translations/(.*)\/(.*).po$',
+                regExp: 'i18n\/locales\/translations\/(.*)\/(.*).po$',
                 name: 'locales/[1]/[2].json'
               }
             },
