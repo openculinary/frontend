@@ -44,6 +44,12 @@ function loadTags(selector: string, data?: string) : void {
   });
 }
 
+function loadDietaryProperties(state: Record<string, string>) : void {
+  $('#search span.dietary-properties + ul :checkbox').each(function() {
+    $(this).prop('checked', this.id in state)
+  });
+}
+
 function loadPage(pageId: string) : void {
   $('body > div.container[id]').hide();
   $(`body > div.container[id="${pageId}"]`).show();
@@ -72,6 +78,7 @@ function loadState() : void {
   loadTags('#include', state.include);
   loadTags('#exclude', state.exclude);
   loadTags('#equipment', state.equipment);
+  loadDietaryProperties(state);
 
   $('body > div.container[id]').each(function() {
     if (this.id in state) loadPage(this.id);

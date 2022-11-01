@@ -20,6 +20,9 @@ function pushSearch() : void {
       state[fragment] = data.join(',');
     }
   })
+  $('#search span.dietary-properties + ul :checkbox:checked').each(function() {
+    state[this.id] = null;
+  });
   const sortChoice = getState().sort;
   if (sortChoice) state['sort'] = sortChoice;
 
@@ -48,17 +51,23 @@ function renderSearch() : void {
   const ingredientsToInclude = $('#include').val();
   const ingredientsToExclude = $('#exclude').val();
   const equipmentToInclude = $('#equipment').val();
+  const dietaryProperties = $('#search span.dietary-properties + ul :checkbox:checked').map((_, property) => property.id).toArray();
+
   const params = {
     ingredients: ingredientsToInclude.concat(ingredientsToExclude.map(name => `-${name}`)),
     equipment: equipmentToInclude,
   };
+
+  let query = $.param(params);
+  if (query.length) query += "&";
+  query += dietaryProperties.join("&");
 
   const state = getState();
   if (state.sort) params['sort'] = state.sort;
   if (state.domains) params['domains'] = state.domains.split(',');
 
   $('#search table[data-row-attributes]').bootstrapTable('refresh', {
-    url: '/api/recipes/search?' + $.param(params),
+    url: '/api/recipes/search?' + query,
     pageNumber: Number(state.page || 1)
   });
 }

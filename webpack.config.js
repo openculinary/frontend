@@ -17,7 +17,7 @@ module.exports = (_, env) => {
       'diagnostics': path.resolve(__dirname, 'src/diagnostics/main.js'),
       'feedback': path.resolve(__dirname, 'src/feedback/loader.js'),
       'html2canvas': path.resolve(__dirname, `node_modules/html2canvas/dist/${html2canvas}`),
-      'locales': glob.sync('./i18n/locales/*/*.po', {ignore: ['./i18n/locales/templates/*.po']}),
+      'locales': glob.sync('./i18n/locales/translations/*/*.po'),
       'sw': path.resolve(__dirname, 'src/sw/loader.js')
     },
     resolve: {
@@ -107,7 +107,7 @@ module.exports = (_, env) => {
           use: [
             {
               loader: 'file-loader', options: {
-                regExp: 'i18n\/locales\/(.*)\/(.*).po$',
+                regExp: 'i18n\/locales\/translations/(.*)\/(.*).po$',
                 name: 'locales/[1]/[2].json'
               }
             },
