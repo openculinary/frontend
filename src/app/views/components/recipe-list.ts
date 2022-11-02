@@ -48,7 +48,7 @@ function attributionFormatter(recipe: Recipe) : JQuery {
 }
 
 function starFormatter() {
-  return $('<div />', {'class': 'star far fa-star'});
+  return $('<div />', {'class': 'star', 'html': '&#x2b50;'});
 }
 
 function thumbnailFormatter(recipe) : JQuery {

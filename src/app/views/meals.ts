@@ -51,16 +51,18 @@ function recipeElement(recipe: Recipe, meal?: Meal) {
   });
 
   const remove = $('<a />', {
-    'class': 'remove fa fa-trash-alt',
-    'style': 'float: right; margin-left: 8px; margin-top: 3px;'
+    'class': 'remove',
+    'style': 'float: right; margin-left: 8px; margin-top: 3px;',
+    'html': '&#x1f5d1',
   });
   remove.on('click', () => { getRecipe(remove).then(removeRecipe).then(updateRecipeState) });
 
   // TODO: only include 'servings' parameter when the value overrides the recipe default
   // This may require some data model refactoring
   const link = $('<a />', {
-    'class': 'link fa fa-link',
-    'href': `#search&action=view&id=${recipe.id}&servings=${recipe.servings}`
+    'class': 'link',
+    'href': `#search&action=view&id=${recipe.id}&servings=${recipe.servings}`,
+    'html': '&#x1f517;'
   });
   const item = $('<div />', {'style': 'float: left'});
   item.append(link);
@@ -98,12 +100,14 @@ function pushSchedulerNavigation() {
 }
 
 function schedulerNavigationHyperlink(target, targetDate) {
+  const arrow = target == 'forward' ? '&#x21d2;' : '&#x21d0';
   const date = targetDate.format('YYYY-MM-DD');
   return $('<a />', {
-    'class': `${target} fas fa-${target}`,
+    'class': target,
     'click': pushSchedulerNavigation,
     'data-date': date,
-    'href': `#meal-planner&start-date=${date}`
+    'href': `#meal-planner&start-date=${date}`,
+    'html': arrow
   });
 }
 
