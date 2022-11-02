@@ -58,13 +58,13 @@ function renderSearch() : void {
     equipment: equipmentToInclude,
   };
 
-  let query = $.param(params);
-  if (query.length) query += "&";
-  query += dietaryProperties.join("&");
-
   const state = getState();
   if (state.sort) params['sort'] = state.sort;
   if (state.domains) params['domains'] = state.domains.split(',');
+
+  let query = $.param(params);
+  if (query.length) query += "&";
+  query += dietaryProperties.join("&");
 
   $('#search table[data-row-attributes]').bootstrapTable('refresh', {
     url: '/api/recipes/search?' + query,
