@@ -219,8 +219,6 @@ function updateStarState(selector: string, recipeId: string) : void {
     const isStarred = !!starred;
 
     const star = $(`${selector} div.recipe-list .recipe[data-id="${recipeId}"] .star`);
-    star.toggleClass('fas', isStarred);
-    star.toggleClass('far', !isStarred);
     star.css('color', isStarred ? 'gold' : 'dimgray');
     star.off('click');
     star.on('click', () => {
