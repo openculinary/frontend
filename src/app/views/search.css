@@ -6,9 +6,8 @@
   padding-top: 0;
 }
 
-#search .prompt + span.fa {
-  vertical-align: top;
-  margin-top: 20px;
+#search .prompt + span {
+  vertical-align: middle;
   margin-left: 2rem;
 }
 
@@ -19,10 +18,10 @@
   clear: both;
 }
 
-#search .include + .fa { color: #70f070; }
-#search .exclude + .fa { color: #f07070; }
+#search .include + span { color: #70f070; }
+#search .exclude + span { color: #f07070; }
 #search .exclude span.tag.badge-info { background-color: #ff5050; }
-#search .equipment + .fa { color: #7070f0; }
+#search .equipment + span { color: #7070f0; }
 #search .equipment span.tag.badge-info { background-color: #b0b0ff; }
 
 #search .dietary-properties ~ ul {

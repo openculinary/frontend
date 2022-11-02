@@ -1,5 +1,3 @@
-import '@fortawesome/fontawesome-free/css/fontawesome.min.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-table/dist/bootstrap-table.css';
 import 'select2/dist/css/select2.css';

@@ -48,7 +48,7 @@ function attributionFormatter(recipe: Recipe) : JQuery {
 }
 
 function starFormatter() {
-  return $('<div />', {'class': 'star far fa-star'});
+  return $('<div />', {'class': 'star', 'html': '&#x269d;'});
 }
 
 function thumbnailFormatter(recipe) : JQuery {
@@ -219,9 +219,7 @@ function updateStarState(selector: string, recipeId: string) : void {
     const isStarred = !!starred;
 
     const star = $(`${selector} div.recipe-list .recipe[data-id="${recipeId}"] .star`);
-    star.toggleClass('fas', isStarred);
-    star.toggleClass('far', !isStarred);
-    star.css('color', isStarred ? 'gold' : 'dimgray');
+    star.html(isStarred ? '&#x2b50;' : '&#x269d;');
     star.off('click');
     star.on('click', () => {
       const toggleStarred = isStarred ? unstarRecipe : starRecipe;
