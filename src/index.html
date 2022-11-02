@@ -23,10 +23,9 @@
     <meta name="theme-color" content="#07f" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="apple-touch-icon" href="images/icons/manifest-icon-192.png">
-    <link rel="manifest" href="reciperadar.webmanifest">
-    <% /* TODO: Awaiting https://caniuse.com/#feat=link-rel-preload coverage */ %>
-    <%= htmlWebpackPlugin.files.css.map(href => `<link rel="preload" href="${href}" as="style" crossorigin>`).join('\n    ') %>
-    <%= htmlWebpackPlugin.files.css.map(href => `<link rel="stylesheet" href="${href}">`).join('\n    ') %>
+    <link rel="manifest" href="reciperadar.webmanifest"><% for (index in htmlWebpackPlugin.files.css) { let integrity = htmlWebpackPlugin.files.cssIntegrity[index], href = htmlWebpackPlugin.files.css[index]; %>
+    <link integrity="<%= integrity %>" crossorigin href="<%= href %>" rel="preload" as="style">
+    <link integrity="<%= integrity %>" crossorigin href="<%= href %>" rel="stylesheet"><% } %>
     <title>RecipeRadar - search recipes by ingredients</title>
   </head>
   <body>
@@ -385,7 +384,7 @@
         </div>
       </div>
     </footer>
-
-    <%= htmlWebpackPlugin.files.js.map(src => `<script type="text/javascript" src="${src}"${src.match(/^app\./) ? '' : ' async'}></script>`).join('\n    ') %>
+<% for (index in htmlWebpackPlugin.files.js) { let integrity = htmlWebpackPlugin.files.jsIntegrity[index], src = htmlWebpackPlugin.files.js[index]; %>
+    <script integrity="<%= integrity %>" crossorigin src="<%= src %>" type="text/javascript" <%- !src.match(/^app\./) && "async" %>></script><% } %>
   </body>
 </html>

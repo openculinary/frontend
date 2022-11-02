@@ -2,6 +2,7 @@ const path = require('path');
 const glob = require('glob');
 
 const { InjectManifest } = require('workbox-webpack-plugin');
+const { SubresourceIntegrityPlugin } = require('webpack-subresource-integrity');
 const LicenseWebpackPlugin = require('license-webpack-plugin').LicenseWebpackPlugin;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -24,6 +25,7 @@ module.exports = (_, env) => {
       extensions: ['.js', '.ts']
     },
     output: {
+      crossOriginLoading: 'anonymous',
       path: path.resolve(__dirname, 'public'),
       filename: (entry) => {
         if (entry.chunk.name === 'html2canvas') return 'html2canvas.js';
@@ -76,6 +78,7 @@ module.exports = (_, env) => {
         exclude: ['vendors'],
         swSrc: path.resolve(__dirname, 'src/sw/sw.js')
       }),
+      new SubresourceIntegrityPlugin({enabled: true}),
       new HtmlWebpackPlugin({
         excludeChunks: ['diagnostics', 'locales'],
         template: path.resolve(__dirname, 'src/index.html'),
