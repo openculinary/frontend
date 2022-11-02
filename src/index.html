@@ -22,8 +22,9 @@
     <meta name="description" content="RecipeRadar - search recipes by ingredients" />
     <meta name="theme-color" content="#07f" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="apple-touch-icon" href="images/icons/manifest-icon-192.png">
-    <link rel="manifest" href="reciperadar.webmanifest"><% for (index in htmlWebpackPlugin.files.css) { let integrity = htmlWebpackPlugin.files.cssIntegrity[index], href = htmlWebpackPlugin.files.css[index]; %>
+    <link integrity="sha384-Fb8WjReSfvxNEa3DZhO7TU4CytqcdNvjvRQWbIbVd/bIThlE8qZo1HF5Q+zaGpBY" crossorigin href="favicon.ico" rel="icon">
+    <link integrity="sha384-X/53WnHnhD+OqkIWhHYBy6mSKf+RiUc/glgwSOwn3qtceChyH1qDQA8abbjCGL5O sha384-Jq3wJ7+Cl+g/JebPM2YB3I1lAezhzhep30ylFyKlIFm8cAGRi+NM3pfDuJ+MZATE" crossorigin href="images/icons/manifest-icon-192.png" rel="apple-touch-icon">
+    <link integrity="sha384-SI82I5LaH0nucAtqIiJ+PPegc4sVm6uATIewSZJVwSd0d32aHSt+lJWnEMchnRP+" crossorigin href="reciperadar.webmanifest" rel="manifest"><% for (index in htmlWebpackPlugin.files.css) { let integrity = htmlWebpackPlugin.files.cssIntegrity[index], href = htmlWebpackPlugin.files.css[index]; %>
     <link integrity="<%= integrity %>" crossorigin href="<%= href %>" rel="preload" as="style">
     <link integrity="<%= integrity %>" crossorigin href="<%= href %>" rel="stylesheet"><% } %>
     <title>RecipeRadar - search recipes by ingredients</title>
