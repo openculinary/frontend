@@ -134,7 +134,6 @@ div.recipe-list .content .ingredients .quantity {
 
 div.recipe-list .content .ingredients .ingredient {
   grid-column: 2;
-  color: gray;
 }
 
 div.recipe-list .content .ingredients .ingredient .product {
