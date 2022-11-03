@@ -137,13 +137,13 @@ div.recipe-list .content .ingredients .ingredient {
   color: gray;
 }
 
-div.recipe-list .content span.tag.badge {
+div.recipe-list .content .ingredients .ingredient .product {
   color: black;
   font-weight: normal;
   padding: 0;
 }
 
-div.recipe-list .content span.tag.badge.available {
+div.recipe-list .content .ingredients .ingredient .product.available {
   color: green;
   font-weight: bold;
 }
