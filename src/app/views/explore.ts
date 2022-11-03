@@ -10,9 +10,15 @@ export { renderExplore };
 function pushExplore() {
   const state = {'explore': null, 'action': 'explore'};
 
+  // If the requested search is a repeat of the current state, perform a results refresh
+  // This is done to ensure that the results are scrolled into view
   const stateHash: string = renderStateHash(state);
-  pushState(state, stateHash);
-  $(window).trigger('popstate');
+  if (window.location.hash === stateHash) {
+    scrollToResults('#explore');
+  } else {
+    pushState(state, stateHash);
+    $(window).trigger('popstate');
+  }
 }
 $('#explore form button').on('click', pushExplore);
 
