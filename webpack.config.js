@@ -132,6 +132,7 @@ module.exports = (_, env) => {
       minimizer: [
         '...',
         new CssMinimizerPlugin()
-      ]
+      ],
+      realContentHash: true
     }
 }};
