@@ -138,14 +138,13 @@ div.recipe-list .content .ingredients .ingredient {
 }
 
 div.recipe-list .content .ingredients .ingredient .product {
-  color: black;
-  font-weight: normal;
-  padding: 0;
+  text-decoration-color: silver;
+  text-decoration-line: underline;
+  text-decoration-thickness: 2px;
 }
 
 div.recipe-list .content .ingredients .ingredient .product.available {
-  color: green;
-  font-weight: bold;
+  text-decoration-color: orange;
 }
 
 div.recipe-list button.add-recipe {
