@@ -118,13 +118,6 @@ module.exports = (_, env) => {
           ]
         },
         {
-          test: /\.(ttf|otf|eot|svg|woff|woff2)$/,
-          type: 'asset/resource',
-          generator: {
-            filename: 'fonts/[hash][ext]'
-          }
-        },
-        {
           test: /\.ts$/,
           loader: 'ts-loader'
         },
