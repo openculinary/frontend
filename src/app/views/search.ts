@@ -37,8 +37,13 @@ function renderRecipe() : void {
   getRecipeById(state.id).then(recipe => {
     scaleRecipe(recipe, Number(state.servings) || recipe.servings);
     const recipeList = $('#search table[data-row-attributes]');
-    recipeList.bootstrapTable('load', [recipe]);
-    recipeList.trigger('load-success.bs.table');
+    const searchResults = [recipe];
+    recipeList.bootstrapTable('load', searchResults);
+    recipeList.trigger('load-success.bs.table', {
+      authority: 'local',
+      results: searchResults,
+      total: searchResults.length
+    });
   });
 }
 
