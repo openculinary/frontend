@@ -213,5 +213,5 @@ $(function() {
   bindLoadEvent('#search', refinementHandler);
   bindLoadEvent('#search', domainFacetsHandler);
   bindLoadEvent('#search', addSorting);
-  bindLoadEvent('#search', scrollToResults);
+  bindLoadEvent('#search', () => scrollToResults('#search'));
 });
