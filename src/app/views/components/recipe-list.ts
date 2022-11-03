@@ -17,6 +17,7 @@ export {
     bindLoadEvent,
     recipeFormatter,
     rowAttributes,
+    scrollToResults,
     updateRecipeState,
 };
 
@@ -188,8 +189,6 @@ function bindPageChange(selector: string) : void {
 
     const stateHash: string = renderStateHash(state);
     pushState(state, stateHash);
-
-    scrollToResults(selector, 50);
   });
 }
 
