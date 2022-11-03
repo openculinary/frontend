@@ -73,7 +73,7 @@ function sidebarFormatter(recipe) : JQuery {
       'class': 'servings',
       'min': 1,
       'max': 50,
-      'size': 2,
+      'size': 3,
       'type': 'number',
       'value': recipe.servings,
   });
