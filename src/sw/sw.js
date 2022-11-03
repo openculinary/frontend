@@ -12,8 +12,10 @@ addEventListener('message', (event) => {
 function returnEmptyResults() {
   var response = {
     authority: 'local',
+    total: 0,
     results: [],
-    total: 0
+    facets: {},
+    refinements: []
   };
   return new Response(JSON.stringify(response), {'status': 200});
 }

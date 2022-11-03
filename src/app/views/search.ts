@@ -41,8 +41,10 @@ function renderRecipe() : void {
     recipeList.bootstrapTable('load', searchResults);
     recipeList.trigger('load-success.bs.table', {
       authority: 'local',
+      total: searchResults.length,
       results: searchResults,
-      total: searchResults.length
+      facets: {},
+      refinements: []
     });
   });
 }
