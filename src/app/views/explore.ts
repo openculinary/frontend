@@ -10,6 +10,7 @@ export { renderExplore };
 function pushExplore() {
   const state = {'explore': null, 'action': 'explore'};
 
+  const stateHash: string = renderStateHash(state);
   pushState(state, stateHash);
   $(window).trigger('popstate');
 }

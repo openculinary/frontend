@@ -26,6 +26,7 @@ function pushSearch() : void {
   const sortChoice = getState().sort;
   if (sortChoice) state['sort'] = sortChoice;
 
+  const stateHash: string = renderStateHash(state);
   pushState(state, stateHash);
   triggerSearch();
 }
