@@ -26,15 +26,9 @@ function pushSearch() : void {
   const sortChoice = getState().sort;
   if (sortChoice) state['sort'] = sortChoice;
 
-  // If the requested search is a repeat of the current state, perform a results refresh
-  // This is done to ensure that the results are scrolled into view
   const stateHash: string = renderStateHash(state);
-  if (window.location.hash === stateHash) {
-    scrollToResults('#search');
-  } else {
-    pushState(state, stateHash);
-    triggerSearch();
-  }
+  pushState(state, stateHash);
+  triggerSearch();
 }
 $('#search form button').on('click', pushSearch);
 
