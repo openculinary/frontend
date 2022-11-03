@@ -18,6 +18,7 @@ function getState() : Record<string, string> {
 }
 
 function pushState(state: Record<string, string>, hash: string) : void {
+  if (window.location.hash === hash) return;
   history.pushState(state, '', hash);
 }
 
