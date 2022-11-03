@@ -61,7 +61,7 @@ module.exports = (_, env) => {
         {
           from: 'static',
           globOptions: {
-            ignore: ['images/icons/**']
+            ignore: ['**/images/icons/**']
           }
         }
       ]}),
