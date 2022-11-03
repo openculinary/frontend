@@ -14,7 +14,7 @@ function renderIngredientHTML(ingredient: Ingredient) : HTMLElement {
     container.append($('<div />', {'class': 'quantity', 'html': quantityHTML}));
 
     $(xml.childNodes).remove('amt');
-    $(xml).find('ingredient').replaceWith((idx, text) => $('<span />', {'class': 'product', 'text': text}).addClass(ingredient.product && ingredient.product.state));
+    $(xml).find('ingredient').replaceWith((idx, text) => $('<span />', {'class': 'product', 'text': text}).addClass(ingredient.product.state));
     container.append($('<div />', {'class': 'ingredient', 'html': xml.childNodes}));
 
     return container.html();
