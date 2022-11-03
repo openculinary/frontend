@@ -13,7 +13,7 @@ function pushExplore() {
   // If the requested search is a repeat of the current state, perform a results refresh
   // This is done to ensure that the results are scrolled into view
   const stateHash: string = renderStateHash(state);
-  if (`#${window.location.hash}` === stateHash) {
+  if (window.location.hash === stateHash) {
     $('#explore table[data-row-attributes]').trigger('page-change.bs.table');
   }
   pushState(state, stateHash);
