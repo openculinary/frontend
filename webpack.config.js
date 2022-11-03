@@ -59,12 +59,6 @@ module.exports = (_, env) => {
       ]}),
       new CopyWebpackPlugin({patterns: [
         {
-          from: 'src/feedback/LICENSE',
-          to: 'LICENSE.feedback'
-        }
-      ]}),
-      new CopyWebpackPlugin({patterns: [
-        {
           from: 'static',
           globOptions: {
             ignore: ['images/icons/**']
