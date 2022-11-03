@@ -118,17 +118,6 @@ div.recipe-list .sidebar span {
   padding-bottom: 0.3rem;
 }
 
-div.recipe-list .content span.tag.badge {
-  color: black;
-  font-weight: normal;
-  padding: 0;
-}
-
-div.recipe-list .content span.tag.badge.available {
-  color: green;
-  font-weight: bold; 
-}
-
 div.recipe-list .content .ingredients {
   margin-left: 1rem;
   display: grid;
@@ -143,9 +132,18 @@ div.recipe-list .content .ingredients .quantity {
   text-align: right;
 }
 
-div.recipe-list .content .ingredients .product {
+div.recipe-list .content .ingredients .ingredient {
   grid-column: 2;
-  color: gray;
+}
+
+div.recipe-list .content .ingredients .ingredient .product {
+  text-decoration-color: silver;
+  text-decoration-line: underline;
+  text-decoration-thickness: 2px;
+}
+
+div.recipe-list .content .ingredients .ingredient .product.available {
+  text-decoration-color: orange;
 }
 
 div.recipe-list button.add-recipe {

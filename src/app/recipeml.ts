@@ -14,8 +14,8 @@ function renderIngredientHTML(ingredient: Ingredient) : HTMLElement {
     container.append($('<div />', {'class': 'quantity', 'html': quantityHTML}));
 
     $(xml.childNodes).remove('amt');
-    $(xml).find('ingredient').replaceWith((idx, text) => $('<span />', {'class': 'tag badge', 'text': text}).addClass(ingredient.product && ingredient.product.state));
-    container.append($('<div />', {'class': 'product', 'html': xml.childNodes}));
+    $(xml).find('ingredient').replaceWith((idx, text) => $('<span />', {'class': 'product', 'text': text}).addClass(ingredient.product.state));
+    container.append($('<div />', {'class': 'ingredient', 'html': xml.childNodes}));
 
     return container.html();
 }
@@ -24,7 +24,7 @@ function renderDirectionHTML(direction: Direction) : HTMLElement {
     const xml = $.parseXML(`<xml>${direction.markup}</xml>`).firstChild;
     const container = $('<div />');
 
-    $(xml).find('mark[class*=equipment]').replaceWith((idx, text) => $('<span />', {'class': 'equipment tag badge', 'text': text}));
+    $(xml).find('mark[class*=equipment]').replaceWith((idx, text) => $('<span />', {'class': 'equipment', 'text': text}));
     $(xml).find('mark[class*=action]').replaceWith((idx, text) => $('<span />', {'class': 'action', 'text': text}));
     const directionHTML = $('<li />', {'class': 'direction', 'html': xml.childNodes});
 
