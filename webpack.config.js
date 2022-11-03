@@ -29,7 +29,7 @@ module.exports = (_, env) => {
       path: path.resolve(__dirname, 'public'),
       filename: (entry) => {
         if (entry.chunk.name === 'html2canvas') return 'html2canvas.js';
-        return '[name].[chunkhash].js';
+        return '[name].[contenthash].js';
       },
       libraryTarget: 'var',
       library: '[name]'
@@ -71,7 +71,7 @@ module.exports = (_, env) => {
         }
       ]}),
       new MiniCssExtractPlugin({
-        filename: '[name].[chunkhash].css'
+        filename: '[name].[contenthash].css'
       }),
       new InjectManifest({
         dontCacheBustURLsMatching: /.*/,
