@@ -67,8 +67,8 @@ module.exports = (_, env) => {
       ]}),
       new CopyWebpackPlugin({patterns: [
         {
-          from: `static/images/icons/${env && env.mode || 'development'}/*`,
-          to: 'images/icons/[name][ext]'
+          from: `static/images/icons/${env && env.mode || 'development'}/`,
+          to: 'images/icons/'
         }
       ]}),
       new MiniCssExtractPlugin({
