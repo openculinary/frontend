@@ -3,7 +3,7 @@ import Slip from 'slipjs';
 
 import { localize } from '../i18n';
 import { getState, pushState, renderStateHash } from '../state';
-import { initTable } from './components/recipe-list';
+import { initTable, scrollToResults } from './components/recipe-list';
 
 export { renderExplore };
 
