@@ -7,7 +7,7 @@ import { getRecipeById } from '../common';
 import { i18nAttr, localize } from '../i18n';
 import { getState, pushState, renderStateHash } from '../state';
 import { scaleRecipe } from '../models/recipes';
-import { initTable, bindLoadEvent } from './components/recipe-list';
+import { initTable, bindLoadEvent, scrollToResults } from './components/recipe-list';
 
 export { renderRecipe, renderSearch };
 
@@ -26,12 +26,6 @@ function pushSearch() : void {
   const sortChoice = getState().sort;
   if (sortChoice) state['sort'] = sortChoice;
 
-  // If the requested search is a repeat of the current state, perform a results refresh
-  // This is done to ensure that the results are scrolled into view
-  const stateHash = renderStateHash(state);
-  if (window.location.hash === stateHash) {
-    $('#search table[data-row-attributes]').trigger('page-change.bs.table');
-  }
   pushState(state, stateHash);
   triggerSearch();
 }
@@ -218,4 +212,5 @@ $(function() {
   bindLoadEvent('#search', refinementHandler);
   bindLoadEvent('#search', domainFacetsHandler);
   bindLoadEvent('#search', addSorting);
+  bindLoadEvent('#search', scrollToResults);
 });
