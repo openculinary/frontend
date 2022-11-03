@@ -15,7 +15,7 @@ function renderIngredientHTML(ingredient: Ingredient) : HTMLElement {
 
     $(xml.childNodes).remove('amt');
     $(xml).find('ingredient').replaceWith((idx, text) => $('<span />', {'class': 'tag badge', 'text': text}).addClass(ingredient.product && ingredient.product.state));
-    container.append($('<div />', {'class': 'product', 'html': xml.childNodes}));
+    container.append($('<div />', {'class': 'ingredient', 'html': xml.childNodes}));
 
     return container.html();
 }
