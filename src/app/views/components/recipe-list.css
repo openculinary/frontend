@@ -145,7 +145,7 @@ div.recipe-list .content span.tag.badge {
 
 div.recipe-list .content span.tag.badge.available {
   color: green;
-  font-weight: bold; 
+  font-weight: bold;
 }
 
 div.recipe-list button.add-recipe {
