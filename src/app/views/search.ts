@@ -38,7 +38,7 @@ function renderRecipe() : void {
     scaleRecipe(recipe, Number(state.servings) || recipe.servings);
     const recipeList = $('#search table[data-row-attributes]');
     recipeList.bootstrapTable('load', [recipe]);
-    recipeList.trigger('page-change.bs.table');
+    recipeList.trigger('load-success.bs.table');
   });
 }
 
