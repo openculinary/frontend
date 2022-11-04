@@ -89,6 +89,7 @@ module.exports = (_, env) => {
         chunks: ['diagnostics'],
         filename: 'diagnostics/index.html',
         template: path.resolve(__dirname, 'src/diagnostics/index.html'),
+        minify: false,
         inject: false
       })
     ],
