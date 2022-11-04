@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "allowJs": true,
     "isolatedModules": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
