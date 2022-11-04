@@ -38,5 +38,5 @@ lint:
 	yarnpkg run eslint src
 	yarnpkg run eslint test
 
-tests:
-	yarnpkg run mocha --mode ${MODE} --require setup.js --require ts-node/register
+tests: build-dev
+	yarnpkg run mocha --mode ${MODE} --require setup.mjs --require ts-node/register
