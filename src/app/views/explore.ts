@@ -1,5 +1,5 @@
 import * as $ from 'jquery';
-import Slip from 'slipjs';
+import 'slipjs';
 
 import { localize } from '../i18n';
 import { getState, pushState, renderStateHash } from '../state';
@@ -72,7 +72,7 @@ function swipeHandler(e) {
 $(function() {
   initTable('#explore');
 
-  new Slip('#explore-choices .next', {keepSwipingPercent: 10});
+  window['Slip']('#explore-choices .next', {keepSwipingPercent: 10});
   $('#explore-choices .next').on('slip:beforereorder', preventReorder);
   $('#explore-choices .next').on('slip:swipe', swipeHandler);
 });
