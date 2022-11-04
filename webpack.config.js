@@ -39,9 +39,9 @@ module.exports = (_, env) => {
         ],
         handleMissingLicenseText: (package) => { throw Error(`Could not determine license for ${package}`) },
         licenseTypeOverrides: {
-            'dexie-observable': 'SEE LICENSE IN https://github.com/dexie/Dexie.js/blob/16eb2b5a369960fa5a9197b238ceccb12f49b22c/addons/Dexie.Observable/package.json#L33',
-            'jsondiffpatch': 'SEE LICENSE IN https://github.com/benjamine/jsondiffpatch/blob/a8cde4c666a8a25d09d8f216c7f19397f2e1b569/package.json#L81',
-            'slipjs': 'SEE LICENSE IN https://github.com/kornelski/slip/blob/91c24e460dbadb9e0dc40daf93fd01928bfac94d/package.json#L18'
+          'dexie-observable': 'SEE LICENSE IN https://github.com/dexie/Dexie.js/blob/16eb2b5a369960fa5a9197b238ceccb12f49b22c/addons/Dexie.Observable/package.json#L33',
+          'jsondiffpatch': 'SEE LICENSE IN https://github.com/benjamine/jsondiffpatch/blob/a8cde4c666a8a25d09d8f216c7f19397f2e1b569/package.json#L81',
+          'slipjs': 'SEE LICENSE IN https://github.com/kornelski/slip/blob/91c24e460dbadb9e0dc40daf93fd01928bfac94d/package.json#L18'
         },
         outputFilename: 'licenses.txt',
         perChunkOutput: false
