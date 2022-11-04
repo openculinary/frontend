@@ -16,7 +16,6 @@ module.exports = (_, env) => {
       'app': path.resolve(__dirname, 'src/app/main.ts'),
       'diagnostics': path.resolve(__dirname, 'src/diagnostics/main.js'),
       'feedback': path.resolve(__dirname, 'src/feedback/loader.js'),
-      'html2canvas': path.resolve(__dirname, `node_modules/html2canvas/dist/${html2canvas}`),
       'locales': glob.sync('./i18n/locales/translations/*/*.po'),
       'sw': path.resolve(__dirname, 'src/sw/loader.js')
     },
@@ -26,15 +25,18 @@ module.exports = (_, env) => {
     output: {
       crossOriginLoading: 'anonymous',
       path: path.resolve(__dirname, 'public'),
-      filename: (entry) => {
-        if (entry.chunk.name === 'html2canvas') return 'html2canvas.js';
-        return '[name].[contenthash].js';
-      },
+      filename: '[name].[contenthash].js',
       libraryTarget: 'var',
       library: '[name]'
     },
     plugins: [
       new LicenseWebpackPlugin({
+        additionalModules: [
+          {
+            name: 'html2canvas',
+            directory: path.join(__dirname, 'node_modules', 'html2canvas')
+          }
+        ],
         handleMissingLicenseText: (package) => { throw Error(`Could not determine license for ${package}`) },
         licenseTypeOverrides: {
             'dexie-observable': 'SEE LICENSE IN https://github.com/dexie/Dexie.js/blob/16eb2b5a369960fa5a9197b238ceccb12f49b22c/addons/Dexie.Observable/package.json#L33',
@@ -68,6 +70,12 @@ module.exports = (_, env) => {
         {
           from: `static/images/icons/${env && env.mode || 'development'}/`,
           to: 'images/icons/'
+        }
+      ]}),
+      new CopyWebpackPlugin({patterns: [
+        {
+          from: path.resolve(__dirname, `node_modules/html2canvas/dist/${html2canvas}`),
+          to: 'html2canvas.js'
         }
       ]}),
       new MiniCssExtractPlugin({
