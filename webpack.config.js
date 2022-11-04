@@ -51,28 +51,20 @@ module.exports = (_, env) => {
           from: 'static/.well-known',
           to: '.well-known',
           noErrorOnMissing: true
-        }
-      ]}),
-      new CopyWebpackPlugin({patterns: [
+        },
         {
           from: 'LICENSE'
-        }
-      ]}),
-      new CopyWebpackPlugin({patterns: [
+        },
         {
           from: 'static',
           globOptions: {
             ignore: ['**/images/icons/**']
           }
-        }
-      ]}),
-      new CopyWebpackPlugin({patterns: [
+        },
         {
           from: `static/images/icons/${env && env.mode || 'development'}/`,
           to: 'images/icons/'
-        }
-      ]}),
-      new CopyWebpackPlugin({patterns: [
+        },
         {
           from: path.resolve(__dirname, `node_modules/html2canvas/dist/${html2canvas}`),
           to: 'html2canvas.js'
