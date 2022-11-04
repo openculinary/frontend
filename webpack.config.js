@@ -81,6 +81,7 @@ module.exports = (_, env) => {
       new SubresourceIntegrityPlugin({enabled: true}),
       new HtmlWebpackPlugin({
         excludeChunks: ['diagnostics', 'locales'],
+        filename: 'index.html',
         template: path.resolve(__dirname, 'src/index.html'),
         minify: false,
         inject: false
