@@ -15,6 +15,7 @@ module.exports = {
     pluralSeparator: '|',
     ns: [
       'categories',
+      'dietary-properties',
       'explore',
       'footer',
       'meal-planner',
