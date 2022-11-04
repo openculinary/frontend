@@ -36,7 +36,6 @@ image-finalize:
 
 lint:
 	yarnpkg run eslint src
-	yarnpkg run eslint test
 
-tests: webpack
-	yarnpkg run mocha --mode ${MODE} --require setup.mjs --require ts-node/register
+tests:
+	yarnpkg run mocha --mode ${MODE} --require setup.mjs --require ts-node/register 'src/**/*.spec.ts'

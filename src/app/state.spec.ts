@@ -1,6 +1,6 @@
 import * as assert from 'assert';
 
-import { pushState } from '../src/app/state';
+import { pushState } from './state';
 
 describe('state navigation', function() {
 
