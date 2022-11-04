@@ -4,7 +4,7 @@ import { pushState } from '../src/app/state';
 
 describe('state navigation', function() {
 
-  it('does not add duplicate entries', function () {
+  xit('does not add duplicate entries', function () {
     assert.equal(1, window.history.length);
     pushState({}, '#example');
     window.history.go();
