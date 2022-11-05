@@ -49,10 +49,6 @@
   visibility: hidden;
 }
 
-#meal-planner .meal .title {
-  background-color: #b0ffb0;
-}
-
 #meal-planner .meal .servings {
   background-color: #b0b0ff;
 }
