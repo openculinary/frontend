@@ -45,12 +45,10 @@
 
 #meal-planner .recipe .title {
   background-color: #b0ffb0;
-  font-size: 13px;
 }
 
 #meal-planner .recipe .servings {
   background-color: #b0b0ff;
-  font-size: 13px;
 }
 
 #meal-planner .recipe span[data-role="remove"]::after {
