@@ -53,21 +53,25 @@ module.exports = (_, env) => {
       new CopyWebpackPlugin({patterns: [
         {
           from: 'LICENSE',
-          to: 'LICENSE'
+          to: 'LICENSE',
+          toType: 'file'
         },
         {
           from: `node_modules/html2canvas/dist/${html2canvas}`,
-          to: 'html2canvas.js'
+          to: 'html2canvas.js',
+          toType: 'file'
         },
         {
           from: `static/images/icons/${env && env.mode || 'development'}/`,
-          to: 'images/icons/'
+          to: 'images/icons/',
+          toType: 'dir'
         },
         {
           from: 'static',
           globOptions: {
             ignore: ['**/images/icons/**']
-          }
+          },
+          toType: 'dir'
         }
       ]}),
       new MiniCssExtractPlugin({
