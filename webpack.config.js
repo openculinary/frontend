@@ -54,7 +54,8 @@ module.exports = (_, env) => {
           to: '.well-known',
         },
         {
-          from: 'LICENSE'
+          from: 'LICENSE',
+          to: 'LICENSE'
         },
         {
           from: 'static',
