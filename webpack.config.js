@@ -54,7 +54,7 @@ module.exports = (_, env) => {
           to: 'LICENSE'
         },
         {
-          from: path.resolve(__dirname, `node_modules/html2canvas/dist/${html2canvas}`),
+          from: `node_modules/html2canvas/dist/${html2canvas}`,
           to: 'html2canvas.js'
         },
         {
