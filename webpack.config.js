@@ -52,7 +52,6 @@ module.exports = (_, env) => {
         {
           from: 'static/.well-known',
           to: '.well-known',
-          noErrorOnMissing: true
         },
         {
           from: 'LICENSE'
