@@ -31,12 +31,12 @@ module.exports = (_, env) => {
       new LicenseWebpackPlugin({
         additionalModules: [
           {
-            name: 'html2canvas',
-            directory: path.join(__dirname, 'node_modules', 'html2canvas')
-          },
-          {
             name: 'RecipeML',
             directory: path.join(__dirname, 'src', 'RecipeML')
+          },
+          {
+            name: 'html2canvas',
+            directory: path.join(__dirname, 'node_modules', 'html2canvas')
           }
         ],
         handleMissingLicenseText: (package) => { throw Error(`Could not determine license for ${package}`) },
@@ -58,18 +58,18 @@ module.exports = (_, env) => {
           to: 'LICENSE'
         },
         {
-          from: 'static',
-          globOptions: {
-            ignore: ['**/images/icons/**']
-          }
+          from: path.resolve(__dirname, `node_modules/html2canvas/dist/${html2canvas}`),
+          to: 'html2canvas.js'
         },
         {
           from: `static/images/icons/${env && env.mode || 'development'}/`,
           to: 'images/icons/'
         },
         {
-          from: path.resolve(__dirname, `node_modules/html2canvas/dist/${html2canvas}`),
-          to: 'html2canvas.js'
+          from: 'static',
+          globOptions: {
+            ignore: ['**/images/icons/**']
+          }
         }
       ]}),
       new MiniCssExtractPlugin({
