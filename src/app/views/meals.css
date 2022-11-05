@@ -43,21 +43,19 @@
   visibility: hidden;
 }
 
-#meal-planner span.tag.badge {
-  color: black;
-  font-size: 13px;
-}
-#meal-planner span.tag.badge span[data-role="remove"]::after {
+#meal-planner .title span[data-role="remove"]::after {
   color: red;
   content: '\00D7';
 }
 
-#meal-planner span.tag.badge-info {
+#meal-planner .title {
   background-color: #b0ffb0;
+  font-size: 13px;
 }
 
-#meal-planner span.tag.servings {
+#meal-planner .servings {
   background-color: #b0b0ff;
+  font-size: 13px;
 }
 
 #meal-planner .recipe span[data-role="remove"]::after {

@@ -40,13 +40,13 @@ function recipeElement(recipe: Recipe, meal?: Meal) {
     'data-role': 'remove'
   });
   const title = $('<span />', {
-    'class': 'tag badge badge-info',
+    'class': 'title',
     'text': recipe.title
   });
   title.append(cloneRemove);
 
   const servings = $('<span />', {
-    'class': 'tag badge servings',
+    'class': 'servings',
     'text': recipe.servings
   });
 
