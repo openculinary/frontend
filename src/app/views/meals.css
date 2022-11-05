@@ -51,6 +51,9 @@
 
 #meal-planner .meal .servings {
   background-color: #b0b0ff;
+  border-radius: 4px;
+  padding: 4px;
+  font-weight: bold;
 }
 
 #meal-planner .meal span[data-role="remove"]::after {
