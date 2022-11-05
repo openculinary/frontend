@@ -74,8 +74,8 @@ function recipeElement(recipe: Recipe, meal?: Meal) {
     'data-id': recipe.id,
     'data-meal-id': meal && meal.id
   });
-  container.append(servings);
   container.append(item);
+  container.append(servings);
   container.append(remove);
 
   return container;
