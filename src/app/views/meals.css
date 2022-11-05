@@ -43,11 +43,6 @@
   visibility: hidden;
 }
 
-#meal-planner .title span[data-role="remove"]::after {
-  color: red;
-  content: '\00D7';
-}
-
 #meal-planner .title {
   background-color: #b0ffb0;
   font-size: 13px;
