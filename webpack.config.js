@@ -50,10 +50,6 @@ module.exports = (_, env) => {
       }),
       new CopyWebpackPlugin({patterns: [
         {
-          from: 'static/.well-known',
-          to: '.well-known',
-        },
-        {
           from: 'LICENSE',
           to: 'LICENSE'
         },
