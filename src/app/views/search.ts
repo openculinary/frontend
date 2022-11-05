@@ -160,7 +160,7 @@ function domainFacetsHandler(data) : void {
   $.each(data.facets.domains, function() {
     domainFacets.append(renderDomainFacet(this, domainStates[this.key]));
   });
-  domainFacets.toggleClass('collapse', $.isEmptyObject(data.facets.domains));
+  domainFacets.toggleClass('collapse', $.isEmptyObject(data.facets.domains) || data.facets.domains.length > 10);
 }
 
 function createSortPrompt() : void {
