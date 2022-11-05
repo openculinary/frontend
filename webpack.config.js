@@ -33,6 +33,10 @@ module.exports = (_, env) => {
           {
             name: 'html2canvas',
             directory: path.join(__dirname, 'node_modules', 'html2canvas')
+          },
+          {
+            name: 'RecipeML',
+            directory: path.join(__dirname, 'src', 'RecipeML')
           }
         ],
         handleMissingLicenseText: (package) => { throw Error(`Could not determine license for ${package}`) },
