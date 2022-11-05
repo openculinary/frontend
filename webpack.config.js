@@ -25,9 +25,7 @@ module.exports = (_, env) => {
     output: {
       crossOriginLoading: 'anonymous',
       path: path.resolve(__dirname, 'public'),
-      filename: '[name].[contenthash].js',
-      libraryTarget: 'var',
-      library: '[name]'
+      filename: '[name].[contenthash].js'
     },
     plugins: [
       new LicenseWebpackPlugin({
