@@ -11,6 +11,7 @@
 }
 
 #meal-planner .meal {
+  margin-top: 2px;
   background-color: white;
   border-color: silver;
   border-style: solid;
