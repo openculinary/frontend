@@ -69,7 +69,7 @@ function recipeElement(recipe: Recipe, meal?: Meal) {
   item.append(title);
 
   const container = $('<div />', {
-    'class': 'recipe',
+    'class': 'meal',
     'style': 'clear: both',
     'data-id': recipe.id,
     'data-meal-id': meal && meal.id
