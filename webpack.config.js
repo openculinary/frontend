@@ -12,6 +12,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = (_, env) => {
   const html2canvas = env && env.mode === 'production' ? 'html2canvas.min.js' : 'html2canvas.js';
   return {
+    devtool: "source-map",
     entry: {
       'app': path.resolve(__dirname, 'src/app/main.ts'),
       'diagnostics': path.resolve(__dirname, 'src/diagnostics/main.js'),
