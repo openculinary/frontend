@@ -6,6 +6,7 @@ const { SubresourceIntegrityPlugin } = require('webpack-subresource-integrity');
 const LicenseWebpackPlugin = require('license-webpack-plugin').LicenseWebpackPlugin;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 
@@ -123,7 +124,10 @@ module.exports = (_, env) => {
       ]
     },
     optimization: {
-      minimize: false,
+      minimizer: [
+        '...',
+        new CssMinimizerPlugin()
+      ],
       realContentHash: true
     }
 }};
