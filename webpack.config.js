@@ -6,12 +6,14 @@ const { SubresourceIntegrityPlugin } = require('webpack-subresource-integrity');
 const LicenseWebpackPlugin = require('license-webpack-plugin').LicenseWebpackPlugin;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 
 module.exports = (_, env) => {
   const html2canvas = env && env.mode === 'production' ? 'html2canvas.min.js' : 'html2canvas.js';
   return {
+    devtool: "source-map",
     entry: {
       'app': path.resolve(__dirname, 'src/app/main.ts'),
       'diagnostics': path.resolve(__dirname, 'src/diagnostics/main.js'),
@@ -122,7 +124,11 @@ module.exports = (_, env) => {
       ]
     },
     optimization: {
-      minimize: false,
+      minimize: true,
+      minimizer: [
+        '...',
+        new CssMinimizerPlugin()
+      ],
       realContentHash: true
     }
 }};
