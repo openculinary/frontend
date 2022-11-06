@@ -124,6 +124,7 @@ module.exports = (_, env) => {
       ]
     },
     optimization: {
+      minimize: true,
       minimizer: [
         '...',
         new CssMinimizerPlugin()
