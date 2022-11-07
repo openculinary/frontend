@@ -27,7 +27,7 @@ Make sure to follow the RecipeRadar [infrastructure](https://www.github.com/open
 To install development tools and run linting and tests locally, execute the following commands:
 
 ```sh
-$ npm clean-install --also=dev
+$ yarn install
 $ make lint tests
 ```
 
@@ -47,5 +47,5 @@ If you have configured and run `haproxy` per the [infrastructure](https://www.gi
 To gather the latest internationalization (i18n) resource strings from the application, execute the following commands:
 
 ```sh
-$ npx i18next-scanner
+$ yarn run i18next-scanner
 ```
