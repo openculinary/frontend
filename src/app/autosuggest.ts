@@ -1,6 +1,8 @@
 import * as $ from 'jquery';
 import select2 from 'select2';
 
+export {};
+
 function bindEquipmentInput(element: string, label: string, placeholder: string) : void {
   select2 && new select2($(element), {
     ajax: {

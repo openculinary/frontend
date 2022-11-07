@@ -11,6 +11,8 @@ import { removeMeal } from '../models/meals';
 import { removeRecipe } from '../models/recipes';
 import { updateRecipeState } from './components/recipe-list';
 
+export {};
+
 function defaultDate() {
   let date = undefined;
   try {

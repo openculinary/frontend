@@ -17,6 +17,8 @@ window.jQuery = $;
 import { sankeyTop } from '../../../node_modules/d3-sankey/src';
 import * as data from './about-diagram.json';
 
+export {};
+
 let diagramRendered = false;
 $('#about-modal').on('shown.bs.modal', function() {
   if (!diagramRendered) {
