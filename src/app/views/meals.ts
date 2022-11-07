@@ -15,7 +15,7 @@ export {};
 function defaultDate() {
   let date = undefined;
   try {
-    date = getState()['start-date']
+    return DateTime.fromISO(getState()['start-date']);
   } catch (e) {} /* eslint-disable-line no-empty */
   if (!date) date = $('#meal-planner table tr[data-date]').data('date');
   return DateTime.now().setLocale(resolvedLocale()).startOf('day');
