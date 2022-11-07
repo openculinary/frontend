@@ -155,12 +155,15 @@ function getDomainStates() : void {
 }
 
 function domainFacetsHandler(data) : void {
+  const domainLimit = 10;
   const domainStates = getDomainStates();
   const domainFacets = $('#search .domain-facets').empty();
-  $.each(data.facets.domains, function() {
+
+  const domains = $.makeArray(data.facets.domains);
+  $.each(domains.slice(0, domainLimit), function() {
     domainFacets.append(renderDomainFacet(this, domainStates[this.key]));
   });
-  domainFacets.toggleClass('collapse', $.isEmptyObject(data.facets.domains) || data.facets.domains.length > 10);
+  domainFacets.toggleClass('collapse', 0 === domains.length || domains.length > domainLimit);
 }
 
 function createSortPrompt() : void {
