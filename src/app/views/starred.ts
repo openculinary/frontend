@@ -5,6 +5,8 @@ import { db } from '../database';
 import { localize } from '../i18n';
 import { initTable } from './components/recipe-list';
 
+export {};
+
 function renderStarred() {
   db.starred.toCollection().keys(keys => {
     const promises = keys.map((key: string) => getRecipeById(key));
