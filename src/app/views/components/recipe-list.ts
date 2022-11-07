@@ -1,12 +1,11 @@
-import * as dayjs from 'dayjs';
-import * as duration from 'dayjs/plugin/duration';
+import { Duration } from 'luxon';
 import * as $ from 'jquery';
 import 'tablesaw/dist/stackonly/tablesaw.stackonly.jquery.js';
 
 import { getRecipe } from '../../common';
 import { renderQuantity } from '../../conversion';
 import { Recipe, Starred, db } from '../../database';
-import { i18nAttr, localize } from '../../i18n';
+import { i18nAttr, localize, resolvedLocale } from '../../i18n';
 import { renderIngredientHTML } from '../../recipeml';
 import { getState, pushState, renderStateHash } from '../../state';
 import { addRecipe, scaleRecipe } from '../../models/recipes';
@@ -20,8 +19,6 @@ export {
     scrollToResults,
     updateRecipeState,
 };
-
-dayjs.extend(duration);
 
 function attributionFormatter(recipe: Recipe) : JQuery {
   const container = $('<div />', {'class': 'attribution'});
@@ -66,7 +63,7 @@ function thumbnailFormatter(recipe) : JQuery {
 }
 
 function sidebarFormatter(recipe) : JQuery {
-  const duration = dayjs.duration(recipe.time, 'minutes');
+  const duration = Duration.fromObject({minutes: recipe.time}, {locale: resolvedLocale()});
 
   const sidebar = $('<td />', {'class': 'sidebar align-top'});
 

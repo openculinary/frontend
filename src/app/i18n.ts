@@ -5,7 +5,7 @@ import i18next from 'i18next';
 import HTTP from 'i18next-http-backend';
 import BrowserLanguage from 'i18next-browser-languagedetector';
 
-export { i18nAttr, localize };
+export { i18nAttr, localize, resolvedLocale };
 
 function i18nAttr(key: string) : string {
     return `[html]${key}`;
@@ -20,6 +20,10 @@ function localize(selector?: string) : void {
     return;
   }
   $(selector).localize();
+}
+
+function resolvedLocale() : string {
+  return i18next.resolvedLanguage;
 }
 
 i18next && i18next.use(BrowserLanguage).use(HTTP).init({
