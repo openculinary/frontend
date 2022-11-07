@@ -20,6 +20,10 @@ module.exports = (_, env) => {
       'sw': path.resolve(__dirname, 'src/sw/loader.js')
     },
     resolve: {
+      alias: {
+        assert: false,
+        mocha: false,
+      },
       extensions: ['.js', '.ts']
     },
     output: {

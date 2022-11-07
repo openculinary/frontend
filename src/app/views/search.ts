@@ -1,4 +1,6 @@
 import * as $ from 'jquery';
+import * as assert from 'assert';
+import * as mocha from 'mocha';
 import 'bootstrap-table';
 import { debounce } from 'debounce';
 
@@ -165,6 +167,28 @@ function domainFacetsHandler(data) : void {
   });
   domainFacets.toggleClass('collapse', 0 === domains.length || domains.length > domainLimit);
 }
+
+mocha.describe('domain faceting', function() {
+
+  it('should not render missing domain facets', function() {
+    const dataWithoutDomains = {facets: {}}
+
+    domainFacetsHandler(dataWithoutDomains);
+
+    const domainInputs = $('#search .domain-facets input').length;
+    assert.equal(0, domainInputs);
+  });
+
+  it('should render up to maximum of ten domains', function() {
+    const dataWithManyDomains = {facets: {domains: Array(20).fill('example.com')}}
+
+    domainFacetsHandler(dataWithManyDomains);
+
+    const domainInputs = $('#search .domain-facets input').length;
+    assert.equal(10, domainInputs);
+  });
+
+});
 
 function createSortPrompt() : void {
   const sortOptions = [
