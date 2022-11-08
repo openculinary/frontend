@@ -128,6 +128,7 @@ module.exports = (_, env) => {
       minimizer: [
         new CssMinimizerPlugin()
       ],
+      concatenateModules: false,
       realContentHash: true,
       sideEffects: true,
       usedExports: true
