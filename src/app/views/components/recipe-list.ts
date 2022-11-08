@@ -81,7 +81,7 @@ function sidebarFormatter(recipe) : JQuery {
   sidebar.append($('<span />').append(servingsInput));
   sidebar.append($('<br />'));
   sidebar.append($('<span />', {'html': '<strong>Time</strong>', 'class': 'field'}));
-  sidebar.append($('<span />', {'text': duration.shiftTo('hours', 'minutes').toHuman()}));
+  sidebar.append($('<span />', {'text': duration.shiftTo('minutes').toHuman()}));
   sidebar.append($('<br />'));
 
   if (recipe.nutrition) {
