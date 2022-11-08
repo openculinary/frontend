@@ -109,7 +109,6 @@ function sidebarFormatter(recipe) : JQuery {
     sidebar.append($('<span />', {'class': 'field'}).append($('<strong />', {'data-i18n': `[html]dietary-properties:${property}`})));
     sidebar.append($('<span />').append($('<img />', {
       'class': `dietary-property ${property.split('_').join('-')}`,
-      'style': `-webkit-mask: url(images/symbols/${property}.svg)`,
       'data-i18n': `[title]dietary-properties:${property}`,
     })));
     sidebar.append($('<br />'));
