@@ -1,4 +1,4 @@
-.PHONY: build-dev build deploy image image-create webpack image-finalize lint tests
+.PHONY: build-dev build deploy image image-create webpack license-check image-finalize lint tests
 
 SERVICE=$(shell basename $(shell git rev-parse --show-toplevel))
 REGISTRY=registry.openculinary.org
@@ -18,7 +18,7 @@ deploy:
 	kubectl apply -f k8s
 	kubectl set image deployments -l app=${SERVICE} ${SERVICE}=${IMAGE_NAME}:${IMAGE_TAG}
 
-image: image-create webpack image-finalize
+image: image-create webpack license-check image-finalize
 
 image-create:
 	$(eval container=$(shell buildah from docker.io/library/nginx:alpine))
@@ -28,6 +28,11 @@ image-create:
 webpack:
 	(test -f public/reciperadar.webmanifest && rm -rf public) || true
 	yarnpkg run webpack --mode ${MODE}
+
+license-check:
+	$(eval licenses=$(shell jq --raw-output ".dependencies | keys | .[]" "package.json" | grep --file - --line-regexp "public/licenses.txt" | wc --lines))
+	$(eval packages=$(shell jq --raw-output ".dependencies | keys | .[]" "package.json" | wc --lines))
+	@if [ "${licenses}" -ne "${packages}" ]; then echo "error: only ${licenses} of ${packages} top-level dependencies found in licenses.txt"; fi;
 
 image-finalize:
 	buildah copy $(container) 'public' '/usr/share/nginx/html'
