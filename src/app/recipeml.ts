@@ -55,7 +55,7 @@ mocha.describe('html rendering', function() {
       }
     }
   }
-  
+
   function directionHelper(markup) : Direction {
     return {
       recipe_id: null,

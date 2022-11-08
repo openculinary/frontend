@@ -31,7 +31,7 @@ mocha.describe('quantity aggregation', function() {
     {quantity: {units: 'kg', magnitude: 1}, recipe_id: null, product_id: null, product: null, index: 0, markup: null},
     {quantity: {units: 'kg', magnitude: 3}, recipe_id: null, product_id: null, product: null, index: 0, markup: null},
   ];
-  
+
   const mixedIngredients: Ingredient[] = [
     {quantity: {units: 'tablespoon', magnitude: 1}, recipe_id: null, product_id: null, product: null, index: 0, markup: null},
     {quantity: {units: 'teaspoon', magnitude: 1}, recipe_id: null, product_id: null, product: null, index: 0, markup: null},
