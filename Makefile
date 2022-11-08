@@ -32,7 +32,7 @@ webpack:
 license-check:
 	$(eval licenses=$(shell jq --raw-output ".dependencies | keys | .[]" "package.json" | grep --file - --line-regexp "public/licenses.txt" | wc --lines))
 	$(eval packages=$(shell jq --raw-output ".dependencies | keys | .[]" "package.json" | wc --lines))
-	@if [ "${licenses}" -ne "${packages}" ]; then echo "error: only ${licenses} of ${packages} top-level dependencies found in licenses.txt"; fi;
+	@if [ "${licenses}" -ne "${packages}" ]; then echo "error: only ${licenses} of ${packages} top-level dependencies found in licenses.txt"; exit 1; fi;
 
 image-finalize:
 	buildah copy $(container) 'public' '/usr/share/nginx/html'
