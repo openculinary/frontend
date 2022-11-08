@@ -5,8 +5,6 @@ const { InjectManifest } = require('workbox-webpack-plugin');
 const { SubresourceIntegrityPlugin } = require('webpack-subresource-integrity');
 const LicenseWebpackPlugin = require('license-webpack-plugin').LicenseWebpackPlugin;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 
@@ -76,9 +74,6 @@ module.exports = (_, env) => {
           toType: 'dir'
         }
       ]}),
-      new MiniCssExtractPlugin({
-        filename: '[name].[contenthash].css'
-      }),
       new InjectManifest({
         dontCacheBustURLsMatching: /.*/,
         swSrc: path.resolve(__dirname, 'src/sw/sw.js')
@@ -102,10 +97,6 @@ module.exports = (_, env) => {
     module: {
       rules: [
         {
-          test: /\.css$/,
-          use: [MiniCssExtractPlugin.loader, 'css-loader']
-        },
-        {
           test: /\.po$/,
           use: [
             {
@@ -123,11 +114,11 @@ module.exports = (_, env) => {
         },
       ]
     },
+    experiments: {
+      css: true,
+    },
     optimization: {
       minimize: true,
-      minimizer: [
-        new CssMinimizerPlugin()
-      ],
       concatenateModules: false,  // module concatenation, enabled by default for production builds, can potentially confuse license-webpack-plugin
       realContentHash: true,
       sideEffects: true,
