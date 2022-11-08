@@ -1,4 +1,6 @@
+import * as assert from 'assert';
 import * as bootstrap from 'bootstrap';
+import * as mocha from 'mocha';
 import * as $ from 'jquery';
 
 import { renderRecipe, renderSearch } from './views/search';
@@ -21,6 +23,18 @@ function pushState(state: Record<string, string>, hash: string) : void {
   if (window.location.hash === hash) return;
   history.pushState(state, '', hash);
 }
+
+mocha.describe('state navigation', function() {
+
+  xit('does not add duplicate entries', function () {
+    assert.equal(1, window.history.length);
+    pushState({}, '#example');
+    window.history.go();
+    pushState({}, '#example');
+    assert.equal(2, window.history.length);
+  });
+
+})
 
 function renderStateHash(state: Record<string, string>) : string {
     let stateHash = decodeURIComponent($.param(state));

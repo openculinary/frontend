@@ -43,4 +43,4 @@ lint:
 	yarnpkg run eslint src
 
 tests:
-	yarnpkg run mocha --mode ${MODE} --require setup.mjs --require ts-node/register 'src/**/*.spec.ts' 'src/**/search.ts'
+	yarnpkg run mocha --mode ${MODE} --require setup.mjs --require ts-node/register 'src/app/{conversion,recipeml,state}.ts' 'src/app/views/shopping-list.ts'

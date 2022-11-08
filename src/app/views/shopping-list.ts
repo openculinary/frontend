@@ -1,3 +1,5 @@
+import * as assert from 'assert';
+import * as mocha from 'mocha';
 import * as $ from 'jquery';
 import select2 from 'select2';
 
@@ -21,6 +23,34 @@ function aggregateQuantities(ingredients: Ingredient[]) : Record<string, number>
   });
   return quantities;
 }
+
+mocha.describe('quantity aggregation', function() {
+
+  const kgIngredients: Ingredient[] = [
+    {quantity: {units: 'kg', magnitude: 2}, recipe_id: null, product_id: null, product: null, index: 0, markup: null},
+    {quantity: {units: 'kg', magnitude: 1}, recipe_id: null, product_id: null, product: null, index: 0, markup: null},
+    {quantity: {units: 'kg', magnitude: 3}, recipe_id: null, product_id: null, product: null, index: 0, markup: null},
+  ];
+  
+  const mixedIngredients: Ingredient[] = [
+    {quantity: {units: 'tablespoon', magnitude: 1}, recipe_id: null, product_id: null, product: null, index: 0, markup: null},
+    {quantity: {units: 'teaspoon', magnitude: 1}, recipe_id: null, product_id: null, product: null, index: 0, markup: null},
+    {quantity: {units: 'teaspoon', magnitude: 2}, recipe_id: null, product_id: null, product: null, index: 0, markup: null},
+  ]
+
+  after(function() {
+    db.close();
+  });
+
+  it('should sum quantities of same unit', function() {
+    assert.deepEqual(aggregateQuantities(kgIngredients), {'kg': 6});
+  });
+
+  it('should sum quantities across mixed units', function() {
+    assert.deepEqual(aggregateQuantities(mixedIngredients), {'tablespoon': 1, 'teaspoon': 3});
+  });
+
+});
 
 function renderProduct(product, ingredients) {
   const quantities = aggregateQuantities(ingredients);
