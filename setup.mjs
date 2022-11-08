@@ -1,5 +1,5 @@
 import { JSDOM } from 'jsdom';
-const dom = await JSDOM.fromFile('public/index.html');
+const dom = await JSDOM.fromFile('src/index.html');
 
 global.Element = dom.window.Element;
 global.document = dom.window.document;
