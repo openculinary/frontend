@@ -1,11 +1,10 @@
-import * as dayjs from 'dayjs';
 import * as $ from 'jquery';
+import { DateTime } from 'luxon';
 import { Sortable } from 'sortablejs';
-import i18next from 'i18next';
 
 import { getMealId, getRecipe } from '../common';
 import { Recipe, Meal, db } from '../database';
-import { i18nAttr, localize } from '../i18n';
+import { i18nAttr, localize, resolvedLocale } from '../i18n';
 import { getState, pushState, renderStateHash } from '../state';
 import { removeMeal } from '../models/meals';
 import { removeRecipe } from '../models/recipes';
@@ -14,12 +13,12 @@ import { updateRecipeState } from './components/recipe-list';
 export {};
 
 function defaultDate() {
-  let date = undefined;
-  try {
-    date = getState()['start-date']
-  } catch (e) {} /* eslint-disable-line no-empty */
-  if (!date) date = $('#meal-planner table tr[data-date]').data('date');
-  return dayjs(date).locale(i18next.language).startOf('day');
+  const locale = resolvedLocale();
+  const queryDate = getState()['start-date'];
+  if (queryDate) return DateTime.fromISO(queryDate, {locale});
+  const tableDate = $('#meal-planner table tr[data-date]').data('date');
+  if (tableDate) return DateTime.fromISO(tableDate, {locale});
+  return DateTime.now().reconfigure({locale}).startOf('day');
 }
 
 function updateHints() {
@@ -103,7 +102,7 @@ function pushSchedulerNavigation() {
 
 function schedulerNavigationHyperlink(target, targetDate) {
   const arrow = target == 'forward' ? '&#x21d2;' : '&#x21d0';
-  const date = targetDate.format('YYYY-MM-DD');
+  const date = targetDate.toISODate();
   return $('<a />', {
     'class': target,
     'click': pushSchedulerNavigation,
@@ -115,26 +114,25 @@ function schedulerNavigationHyperlink(target, targetDate) {
 
 function renderMeals() {
   let idxDate = defaultDate();
-  const prevDate = idxDate.add(-1, 'week');
-  const nextDate = defaultDate().add(1, 'week');
-  const todaysDate = dayjs().locale(i18next.language).startOf('day');
+  const prevDate = idxDate.plus({weeks: -1});
+  const nextDate = defaultDate().plus({weeks: 1});
+  const todaysDate = DateTime.now().setLocale(resolvedLocale()).startOf('day');
 
   const schedulerNavigation = $('#meal-planner div.scheduler-navigation').empty();
   schedulerNavigation.append(schedulerNavigationHyperlink('backward', prevDate));
   schedulerNavigation.append(schedulerNavigationHyperlink('forward', nextDate));
 
   const scheduler = $('#meal-planner table').empty();
-  for (; idxDate < nextDate; idxDate = idxDate.add(1, 'day')) {
-    const date = idxDate.format('YYYY-MM-DD');
-    const day = idxDate.format('dddd');
-    const dayIsToday = idxDate.isSame(todaysDate);
+  for (; idxDate < nextDate; idxDate = idxDate.plus({days: 1})) {
+    const date = idxDate.toISODate();
+    const dayIsToday = idxDate.equals(todaysDate);
 
     const row = $('<tr />', {
       'data-date': date,
-      'class': `weekday-${idxDate.day()}` + (dayIsToday ? ' today': '')
+      'class': `weekday-${idxDate.weekday}` + (dayIsToday ? ' today': '')
     });
     const header = $('<th />', {
-      'html': `<div class="day">${day}</div><div class="date">${date}</div>`
+      'html': `<div class="day">${idxDate.weekdayLong}</div><div class="date">${date}</div>`
     });
     const cell = $('<td />');
 
