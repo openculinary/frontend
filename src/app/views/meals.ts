@@ -13,12 +13,12 @@ import { updateRecipeState } from './components/recipe-list';
 export {};
 
 function defaultDate() {
-  let date = undefined;
-  try {
-    return DateTime.fromISO(getState()['start-date']);
-  } catch (e) {} /* eslint-disable-line no-empty */
-  if (!date) date = $('#meal-planner table tr[data-date]').data('date');
-  return DateTime.now().setLocale(resolvedLocale()).startOf('day');
+  const locale = resolvedLocale();
+  const queryDate = getState()['start-date'];
+  if (queryDate) return DateTime.fromISO(queryDate, {locale});
+  const tableDate = $('#meal-planner table tr[data-date]').data('date');
+  if (tableDate) return DateTime.fromISO(tableDate, {locale});
+  return DateTime.now().reconfigure({locale}).startOf('day');
 }
 
 function updateHints() {
