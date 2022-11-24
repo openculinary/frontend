@@ -78,7 +78,10 @@ module.exports = (_, env) => {
         dontCacheBustURLsMatching: /.*/,
         swSrc: path.resolve(__dirname, 'src/sw/sw.js')
       }),
-      new SubresourceIntegrityPlugin({enabled: true}),
+      new SubresourceIntegrityPlugin({
+        enabled: true,
+        hashFuncNames: ['sha512'],
+      }),
       new HtmlWebpackPlugin({
         excludeChunks: ['diagnostics', 'locales'],
         filename: 'index.html',
