@@ -1049,9 +1049,9 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@openculinary/i18next-gettext-loader@git+https://github.com/openculinary/i18next-gettext-loader.git#3ce6fefec3dff5b6e4c3ee8eb9741ad59ccdb672#comment=no-yarn-1.22-git-integrity":
-  version "1.0.4-beta.0"
-  resolved "git+https://github.com/openculinary/i18next-gettext-loader.git#3ce6fefec3dff5b6e4c3ee8eb9741ad59ccdb672"
+"@openculinary/i18next-gettext-loader@git+https://github.com/openculinary/i18next-gettext-loader.git#c35aa18214acd2b8d2ad36f4c567aa338372d853#comment=no-yarn-1.22-git-integrity":
+  version "1.0.3"
+  resolved "git+https://github.com/openculinary/i18next-gettext-loader.git#c35aa18214acd2b8d2ad36f4c567aa338372d853"
   dependencies:
     i18next-conv "^12.1.1"
 
