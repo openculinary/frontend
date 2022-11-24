@@ -31,7 +31,7 @@
     "workbox-strategies": "^6.5.4"
   },
   "devDependencies": {
-    "@openculinary/i18next-gettext-loader": "git+https://github.com/openculinary/i18next-gettext-loader.git#3ce6fefec3dff5b6e4c3ee8eb9741ad59ccdb672#comment=no-yarn-1.22-git-integrity",
+    "@openculinary/i18next-gettext-loader": "git+https://github.com/openculinary/i18next-gettext-loader.git#c35aa18214acd2b8d2ad36f4c567aa338372d853#comment=no-yarn-1.22-git-integrity",
     "@types/mocha": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "@typescript-eslint/parser": "^5.43.0",
