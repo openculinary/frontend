@@ -32,7 +32,6 @@
   },
   "devDependencies": {
     "@openculinary/i18next-gettext-loader": "git+https://github.com/openculinary/i18next-gettext-loader.git#c35aa18214acd2b8d2ad36f4c567aa338372d853",
-    "@types/mocha": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "@typescript-eslint/parser": "^5.43.0",
     "copy-webpack-plugin": "^10.2.4",

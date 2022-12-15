@@ -1,6 +1,6 @@
 import * as $ from 'jquery';
 import * as assert from 'assert';
-import * as mocha from 'mocha';
+import { describe, it } from 'mocha';
 import 'bootstrap-table';
 import { debounce } from 'debounce';
 
@@ -168,7 +168,7 @@ function domainFacetsHandler(data) : void {
   domainFacets.toggleClass('collapse', 0 === domains.length || domains.length > domainLimit);
 }
 
-mocha.describe('domain faceting', function() {
+describe('domain faceting', function() {
 
   it('should not render missing domain facets', function() {
     const dataWithoutDomains = {facets: {}}

@@ -1049,7 +1049,7 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@openculinary/i18next-gettext-loader@git+https://github.com/openculinary/i18next-gettext-loader.git#c35aa18214acd2b8d2ad36f4c567aa338372d853#comment=no-yarn-1.22-git-integrity":
+"@openculinary/i18next-gettext-loader@git+https://github.com/openculinary/i18next-gettext-loader.git#c35aa18214acd2b8d2ad36f4c567aa338372d853":
   version "1.0.3"
   resolved "git+https://github.com/openculinary/i18next-gettext-loader.git#c35aa18214acd2b8d2ad36f4c567aa338372d853"
   dependencies:
@@ -1177,11 +1177,6 @@
   version "7.0.11"
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.11.tgz#d421b6c527a3037f7c84433fd2c4229e016863d3"
   integrity sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==
-
-"@types/mocha@^10.0.0":
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/@types/mocha/-/mocha-10.0.0.tgz#3d9018c575f0e3f7386c1de80ee66cc21fbb7a52"
-  integrity sha512-rADY+HtTOA52l9VZWtgQfn4p+UDVM2eDVkMZT1I6syp0YKxW2F9v+0pbRZLsvskhQv/vMb6ZfCay81GHbz5SHg==
 
 "@types/node@*":
   version "18.11.8"

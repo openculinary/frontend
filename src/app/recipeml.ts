@@ -1,5 +1,5 @@
 import * as assert from 'assert';
-import * as mocha from 'mocha';
+import { describe, it } from 'mocha';
 import * as $ from 'jquery';
 
 import { Ingredient, Direction } from './database';
@@ -34,7 +34,7 @@ function renderDirectionHTML(direction: Direction) : HTMLElement {
     return container.html();
 }
 
-mocha.describe('html rendering', function() {
+describe('html rendering', function() {
 
   function ingredientHelper(markup, magnitude = null, units = null, state = null) : Ingredient {
     return {

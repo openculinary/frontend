@@ -1,5 +1,6 @@
 import * as assert from 'assert';
 import * as mocha from 'mocha';
+import { after, describe, it } from 'mocha';
 import * as $ from 'jquery';
 import select2 from 'select2';
 
@@ -24,7 +25,7 @@ function aggregateQuantities(ingredients: Ingredient[]) : Record<string, number>
   return quantities;
 }
 
-mocha.describe('quantity aggregation', function() {
+describe('quantity aggregation', function() {
 
   const kgIngredients: Ingredient[] = [
     {quantity: {units: 'kg', magnitude: 2}, recipe_id: null, product_id: null, product: null, index: 0, markup: null},

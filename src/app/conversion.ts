@@ -1,6 +1,6 @@
 import * as assert from 'assert';
 import * as convert from 'convert-units';
-import * as mocha from 'mocha';
+import { describe, it } from 'mocha';
 import Fraction from 'fraction.js';
 
 import { Quantity } from './database';
@@ -120,7 +120,7 @@ function renderQuantityHelper(quantity, fractions = true) {
   return `${rendered.magnitude || ''} ${rendered.units || ''}`.trim();
 }
 
-mocha.describe('unit conversion', function() {
+describe('unit conversion', function() {
 
   describe('liquids', function() {
 

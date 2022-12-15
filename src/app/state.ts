@@ -1,6 +1,6 @@
 import * as assert from 'assert';
 import * as bootstrap from 'bootstrap';
-import * as mocha from 'mocha';
+import { describe, it, xit } from 'mocha';
 import * as $ from 'jquery';
 
 import { renderRecipe, renderSearch } from './views/search';
@@ -24,7 +24,7 @@ function pushState(state: Record<string, string>, hash: string) : void {
   history.pushState(state, '', hash);
 }
 
-mocha.describe('state navigation', function() {
+describe('state navigation', function() {
 
   xit('does not add duplicate entries', function () {
     assert.equal(1, window.history.length);
