@@ -1,5 +1,4 @@
 import * as assert from 'assert';
-import * as mocha from 'mocha';
 import { after, describe, it } from 'mocha';
 import * as $ from 'jquery';
 import select2 from 'select2';

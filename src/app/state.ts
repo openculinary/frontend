@@ -1,6 +1,6 @@
 import * as assert from 'assert';
 import * as bootstrap from 'bootstrap';
-import { describe, it, xit } from 'mocha';
+import { describe, xit } from 'mocha';
 import * as $ from 'jquery';
 
 import { renderRecipe, renderSearch } from './views/search';
