@@ -1,5 +1,5 @@
 import * as assert from 'assert';
-import { describe, it, xit } from 'mocha';
+import { describe, xit } from 'mocha';
 
 import { pushState } from './state';
 
