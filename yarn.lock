@@ -2222,9 +2222,10 @@ d3-random@3:
   resolved "https://registry.yarnpkg.com/d3-random/-/d3-random-3.0.1.tgz#d4926378d333d9c0bfd1e6fa0194d30aebaa20f4"
   integrity sha512-FXMe9GfxTxqd5D6jFsQ+DJ8BJS4E/fT5mqqdjovykEB2oFbTMDVdg1MGFxfQW+FBOGoB++k8swBrgwSHT1cUXQ==
 
-"d3-sankey@git+https://github.com/jayaddison/d3-sankey.git#4139e71e15ba146f1ca66bef27177c1ac8cbdb66":
+d3-sankey@^0.12.3:
   version "0.12.3"
-  resolved "git+https://github.com/jayaddison/d3-sankey.git#4139e71e15ba146f1ca66bef27177c1ac8cbdb66"
+  resolved "https://registry.yarnpkg.com/d3-sankey/-/d3-sankey-0.12.3.tgz#b3c268627bd72e5d80336e8de6acbfec9d15d01d"
+  integrity sha512-nQhsBRmM19Ax5xEIPLMY9ZmJ/cDvd1BG3UVvt5h3WRxKg5zGRbvnteTyWAbzeSvlh3tW7ZEmq4VwR5mB3tutmQ==
   dependencies:
     d3-array "1 - 2"
     d3-shape "^1.2.0"
