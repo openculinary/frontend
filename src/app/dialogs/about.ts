@@ -27,6 +27,8 @@ $('#about-modal').on('shown.bs.modal', function() {
   }
 });
 
+// Based on: https://github.com/LonnyGomes/sankey-diagram-poc/
+// In turn derived from https://github.com/holtzy/D3-graph-gallery/
 function renderDiagram() {
   const container = $('#about-modal div.modal-body');
   const margin = { top: 5, right: 5, bottom: 5, left: 5 };
