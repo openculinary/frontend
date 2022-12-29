@@ -9,7 +9,7 @@
     "bootstrap-table": "^1.21.2",
     "convert-units": "^2.3.4",
     "d3": "^7.7.0",
-    "d3-sankey": "git+https://github.com/jayaddison/d3-sankey.git#4139e71e15ba146f1ca66bef27177c1ac8cbdb66",
+    "d3-sankey": "^0.12.3",
     "debounce": "^1.2.1",
     "dexie": "3.2.2",
     "dexie-observable": "^3.0.0-beta.11",
