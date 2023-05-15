@@ -20,7 +20,7 @@ export {
     updateRecipeState,
 };
 
-function attributionFormatter(recipe: Recipe) : $ {
+function attributionFormatter(recipe: Recipe) : JQuery {
   const container = $('<div />', {'class': 'attribution'});
 
   const title = $('<a />', {
@@ -49,7 +49,7 @@ function starFormatter() {
   return $('<div />', {'class': 'star', 'html': '&#x269d;'});
 }
 
-function thumbnailFormatter(recipe) : $ {
+function thumbnailFormatter(recipe) : JQuery {
   const container = $('<td />', {'class': 'thumbnail align-top'});
   const link = $('<a />', {'href': recipe.dst});
   const img = $('<img />', {
@@ -62,7 +62,7 @@ function thumbnailFormatter(recipe) : $ {
   return container;
 }
 
-function sidebarFormatter(recipe) : $ {
+function sidebarFormatter(recipe) : JQuery {
   const duration = Duration.fromObject({minutes: recipe.time}, {locale: resolvedLocale()});
 
   const sidebar = $('<td />', {'class': 'sidebar align-top'});

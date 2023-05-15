@@ -1,3 +1,5 @@
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-table/dist/bootstrap-table.css';
 import 'select2/dist/css/select2.css';
 import 'tablesaw/dist/stackonly/tablesaw.stackonly.css';
 
@@ -18,10 +20,6 @@ import './views/components/recipe-list.css';
 import './main.css';
 
 import './database';
-
-import 'bootstrap-table';
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-table/dist/bootstrap-table.css';
 
 import { recipeFormatter, rowAttributes } from './views/components/recipe-list';
 export { recipeFormatter, rowAttributes };
