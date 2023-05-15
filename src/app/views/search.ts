@@ -1,4 +1,5 @@
 import * as $ from 'jquery';
+import 'bootstrap-table';
 import { debounce } from 'debounce';
 
 import '../autosuggest';
@@ -73,7 +74,7 @@ function renderSearch() : void {
   });
 }
 
-function renderRefinement(refinement: string) : $ {
+function renderRefinement(refinement: string) : JQuery {
   if (refinement == 'empty_query') {
     return $('<div />', {
       'data-i18n': i18nAttr('search:refinement-empty-query')
@@ -103,7 +104,7 @@ function updateStateDomains() : void {
     debouncedSearchTrigger();
 }
 
-function renderDomainFacet(domain: Record<string, string>, state?: boolean) : $ {
+function renderDomainFacet(domain: Record<string, string>, state?: boolean) : JQuery {
   const domainState = state === undefined ? true : state;
   const chip = $('<label />', {'class': 'badge bg-light rounded-pill text-dark'});
   const checkbox = $('<input />', {'type': 'checkbox', 'checked': domainState, 'value': domain.key});
