@@ -41,13 +41,13 @@ function recipeElement(recipe: Recipe, meal?: Meal) {
     'data-role': 'remove'
   });
   const title = $('<span />', {
-    'class': 'tag badge badge-info',
+    'class': 'title',
     'text': recipe.title
   });
   title.append(cloneRemove);
 
   const servings = $('<span />', {
-    'class': 'tag badge servings',
+    'class': 'servings',
     'text': recipe.servings
   });
 
@@ -70,7 +70,7 @@ function recipeElement(recipe: Recipe, meal?: Meal) {
   item.append(title);
 
   const container = $('<div />', {
-    'class': 'recipe',
+    'class': 'recipe meal',
     'style': 'clear: both',
     'data-id': recipe.id,
     'data-meal-id': meal && meal.id

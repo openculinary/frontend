@@ -62,23 +62,6 @@ span.select2-dropdown--above {
   z-index: 2000;
 }
 
-span.tag.badge {
-  color: black;
-  font-size: 13px;
-}
-span.tag.badge span[data-role="remove"]::after {
-  color: red;
-  content: '\00D7';
-}
-
-span.tag.badge-info {
-  background-color: #b0ffb0;
-}
-
-span.tag.servings {
-  background-color: #b0b0ff;
-}
-
 footer {
   background-color: whitesmoke;
 }
