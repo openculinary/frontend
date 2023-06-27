@@ -10,9 +10,17 @@
   padding: 4px;
 }
 
-#meal-planner .recipe {
+#meal-planner .meal {
+  margin-top: 2px;
+  background-color: white;
+  border-color: silver;
+  border-style: solid;
+  border-radius: 4px;
+  border-width: 1px;
+  padding: 4px;
   font-size: 13px;
   user-select: none;
+  width: fit-content;
 }
 
 #meal-planner a {
@@ -20,21 +28,21 @@
   text-decoration: inherit;
 }
 
-#meal-planner .recipe a.link {
+#meal-planner .meal a.link {
   color: red;
   cursor: pointer;
   font-weight: bold;
   text-decoration: none;
   margin-right: 0.5em;
 }
-#meal-planner .recipe a.remove {
+#meal-planner .meal a.remove {
   color: red;
   cursor: pointer;
   font-weight: bold;
   text-decoration: none;
   margin-right: 0.5em;
 }
-#meal-planner .scheduler .recipe a.remove {
+#meal-planner .scheduler .meal a.remove {
   visibility: hidden;
   width: 0;
   margin: 0;
@@ -43,16 +51,23 @@
   visibility: hidden;
 }
 
-#meal-planner .recipe span[data-role="remove"]::after {
+#meal-planner .meal .servings {
+  background-color: #b0b0ff;
+  border-radius: 4px;
+  padding: 4px;
+  font-weight: bold;
+}
+
+#meal-planner .meal span[data-role="remove"]::after {
   color: red;
   content: '\00D7';
 }
-#meal-planner .recipe span[data-role="remove"] {
+#meal-planner .meal span[data-role="remove"] {
   visibility: hidden;
   vertical-align: middle;
   font-weight: bold;
 }
-#meal-planner .scheduler .recipe span[data-role="remove"] {
+#meal-planner .scheduler .meal span[data-role="remove"] {
   visibility: visible;
   padding-left: 12px;
 }
