@@ -49,3 +49,13 @@ To gather the latest internationalization (i18n) resource strings from the appli
 ```sh
 $ yarn run i18next-scanner
 ```
+
+## Integrity
+
+To calculate a base64-encoded SHA512 digest of the `index.html` file for integrity-check purposes, build the application (by running `make`), and then run the following command:
+
+```sh
+$ cat public/index.html | openssl dgst -sha512 -binary | base64 --wrap 0
+```
+
+This should produce a single line of output containing eighty-eight ASCII characters, and this should match the DNS B text record found for the application's deployment domain.
