@@ -236,9 +236,7 @@ function bindPostBody(selector: string) : void {
     $(this).find('button.add-recipe').each((_, button) => {
       $(button).on('click', () => { getRecipe(button).then(addRecipe).then(updateRecipeState); });
     });
-    if (data) {
-      $(this).parents('div.recipe-list').show();
-    }
+    $(this).parents('div.recipe-list').show();
 
     // Localize search result elements
     localize(selector);
