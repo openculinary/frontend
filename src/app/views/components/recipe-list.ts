@@ -26,6 +26,7 @@ function attributionFormatter(recipe: Recipe) : $ {
   const title = $('<a />', {
     'class': 'title',
     'href': recipe.dst,
+    'ping': `/api/redirect/recipe/${recipe.id}`,
     'text': recipe.title,
   });
 
@@ -51,7 +52,10 @@ function starFormatter() {
 
 function thumbnailFormatter(recipe) : $ {
   const container = $('<td />', {'class': 'thumbnail align-top'});
-  const link = $('<a />', {'href': recipe.dst});
+  const link = $('<a />', {
+    'href': recipe.dst,
+    'ping': `/api/redirect/recipe/${recipe.id}`,
+  });
   const img = $('<img />', {
     'class': 'thumbnail',
     'src': recipe.image_url,
