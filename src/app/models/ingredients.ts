@@ -16,7 +16,7 @@ function addStandaloneIngredient(product: Product) : void {
 }
 
 function removeStandaloneIngredient(product: Product) : void {
-  db.ingredients
+  void db.ingredients
     .where("[recipe_id+product_id+index]")
     .between(
       ['', product.id, db.minKey()],

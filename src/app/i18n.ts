@@ -26,7 +26,7 @@ function resolvedLocale() : string {
   return i18next.resolvedLanguage;
 }
 
-i18next && i18next.use(BrowserLanguage).use(HTTP).init({
+i18next && void i18next.use(BrowserLanguage).use(HTTP).init({
   ns: [
     'categories',
     'dietary-properties',

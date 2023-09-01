@@ -4,12 +4,12 @@ export { addProduct };
 
 function addProduct(ingredient: Ingredient, recipeId: string, index: number) : void {
   const product = ingredient.product;
-  db.transaction('rw', db.products, db.ingredients, () => {
-    db.products.put({
+  void db.transaction('rw', db.products, db.ingredients, () => {
+    void db.products.put({
       id: product.id,
       ...product
     });
-    db.ingredients.add({
+    void db.ingredients.add({
       recipe_id: recipeId,
       product_id: product.id,
       index: index,

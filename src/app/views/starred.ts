@@ -8,9 +8,9 @@ import { initTable } from './components/recipe-list';
 export {};
 
 function renderStarred() {
-  db.starred.toCollection().keys(keys => {
+  void db.starred.toCollection().keys(keys => {
     const promises = keys.map((key: string) => getRecipeById(key));
-    Promise.all(promises).then(recipes => {
+    void Promise.all(promises).then(recipes => {
       const recipeList = $('#starred-recipes table[data-row-attributes]');
       recipeList.bootstrapTable('load', recipes);
       recipeList.bootstrapTable('refreshOptions', {
