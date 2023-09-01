@@ -12,6 +12,7 @@
     "ignorePatterns": [
         "src/diagnostics/*.js",
         "src/feedback/*.js",
+        "src/sw/loader.js",
         "src/sw/sw.js"
     ],
     "parser": "@typescript-eslint/parser",
