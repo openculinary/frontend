@@ -48,9 +48,9 @@ function getProductId(el) {
 
 function toggleProductState() {
   const productId: string = getProductId(this);
-  db.basket.get(productId, item => {
-    if (item) db.basket.delete(productId);
-    else db.basket.put({product_id: productId, magnitude: null, units: null});
+  void db.basket.get(productId, item => {
+    if (item) void db.basket.delete(productId);
+    else void db.basket.put({product_id: productId, magnitude: null, units: null});
   });
 }
 
@@ -60,7 +60,7 @@ function productElement(product, ingredients) {
     'name': 'products[]',
     'value': product.id
   });
-  db.basket.get(product.id, item => {
+  void db.basket.get(product.id, item => {
     checkbox.attr('checked', !!item);
   });
   const label = $('<label />', {
@@ -88,7 +88,7 @@ function productElement(product, ingredients) {
 
 function populateNotifications() {
   const requiredProducts: Set<string> = new Set();
-  db.ingredients.each(ingredient => {
+  void db.ingredients.each(ingredient => {
     requiredProducts.add(ingredient.product_id);
   }).then(() => {
     const total: number = requiredProducts.size;
@@ -100,7 +100,7 @@ function populateNotifications() {
     // then remove this workaround
     $('header span.notification.shopping-list').css({'display': 'inline'});
 
-    db.basket.count(found => {
+    void db.basket.count(found => {
       $('header span.notification.shopping-list').text(found + '/' + total);
     });
   });
@@ -110,14 +110,14 @@ async function getProductsByCategory(servingsByRecipe) {
   const ingredientsByProduct: Map<string, Ingredient[]> = new Map();
   const productsByCategory: Map<string, Map<string, Product>> = new Map();
   await db.transaction('r', db.ingredients, db.products, () => {
-    db.ingredients.each(ingredient => {
+    void db.ingredients.each(ingredient => {
       const servings = servingsByRecipe[ingredient.recipe_id];
       if (ingredient.quantity && ingredient.quantity.magnitude && servings.scheduled) {
         ingredient.quantity.magnitude *= servings.scheduled;
         ingredient.quantity.magnitude /= servings.recipe;
       }
 
-      db.products.get(ingredient.product_id, product => {
+      void db.products.get(ingredient.product_id, product => {
         if (!product) return;
         if (!ingredientsByProduct.has(product.id)) ingredientsByProduct.set(product.id, []);
         if (!productsByCategory.has(product.category)) productsByCategory.set(product.category, new Map());
@@ -135,10 +135,10 @@ async function getProductsByCategory(servingsByRecipe) {
 async function getServingsByRecipe() : Promise<Record<string, Record<string, number>>> {
   const servingsByRecipe: Record<string, Record<string, number>> = Object.create(null);
   await db.transaction('r', db.recipes, db.meals, () => {
-    db.recipes.each(recipe => {
+    void db.recipes.each(recipe => {
       servingsByRecipe[recipe.id] = {recipe: recipe.servings, scheduled: 0};
     });
-    db.meals.each(meal => {
+    void db.meals.each(meal => {
       servingsByRecipe[meal.recipe_id].scheduled += meal.servings;
     });
   });
@@ -146,8 +146,8 @@ async function getServingsByRecipe() : Promise<Record<string, Record<string, num
 }
 
 function renderShoppingList() {
-  getServingsByRecipe().then(servingsByRecipe => {
-    getProductsByCategory(servingsByRecipe).then(results => {
+  void getServingsByRecipe().then(servingsByRecipe => {
+    void getProductsByCategory(servingsByRecipe).then(results => {
       const shoppingList = $('#shopping-list .products').empty();
       const sortedCategories: string[] = Array.from(results.productsByCategory.keys()).sort();
       $.each(sortedCategories, (_, category: string) => {
@@ -188,7 +188,7 @@ function bindShoppingListInput(element, placeholder) {
     $(this).val(null).trigger('change');
 
     const product: Product = event.params.data.product;
-    db.ingredients
+    void db.ingredients
       .where("product_id")
       .equals(product.id)
       .count(count => { if (count === 0) addStandaloneIngredient(product); });

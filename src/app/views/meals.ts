@@ -22,7 +22,7 @@ function defaultDate() {
 }
 
 function updateHints() {
-  db.recipes.count(count => {
+  void db.recipes.count(count => {
     const hints: string[] = [];
     if (count) {
         hints.push($('<p />', {'data-i18n': i18nAttr('meal-planner:hint-drag')}));
@@ -56,7 +56,7 @@ function recipeElement(recipe: Recipe, meal?: Meal) {
     'style': 'float: right; margin-left: 8px; margin-top: 3px;',
     'html': '&#x1f5d1',
   });
-  remove.on('click', () => { getRecipe(remove).then(removeRecipe).then(updateRecipeState) });
+  remove.on('click', () => { void getRecipe(remove).then(removeRecipe).then(updateRecipeState) });
 
   // TODO: only include 'servings' parameter when the value overrides the recipe default
   // This may require some data model refactoring
@@ -84,7 +84,7 @@ function recipeElement(recipe: Recipe, meal?: Meal) {
 
 function renderRecipes() {
   const container = $('#meal-planner .recipes').empty();
-  db.recipes.each(recipe => {
+  void db.recipes.each(recipe => {
     container.append(recipeElement(recipe));
   });
 
@@ -141,9 +141,9 @@ function renderMeals() {
     scheduler.append(row);
   }
 
-  db.transaction('r', db.meals, db.recipes, () => {
-    db.meals.each(meal => {
-      db.recipes.get(meal.recipe_id, recipe => {
+  void db.transaction('r', db.meals, db.recipes, () => {
+    void db.meals.each(meal => {
+      void db.recipes.get(meal.recipe_id, recipe => {
         const cell = $(`#meal-planner table tr[data-date="${meal.datetime}"] td`);
         cell.append(recipeElement(recipe, meal));
       });
@@ -168,7 +168,7 @@ function dragMeal(evt) {
   elements.forEach(function (element) {
     const recipeRemove = $(element).find('a.remove');
     recipeRemove.off('click');
-    recipeRemove.on('click', () => { getRecipe(recipeRemove).then(removeRecipe).then(updateRecipeState) });
+    recipeRemove.on('click', () => { void getRecipe(recipeRemove).then(removeRecipe).then(updateRecipeState) });
 
     const mealRemove = $(element).find('span[data-role="remove"]');
     mealRemove.off('click');
@@ -177,13 +177,13 @@ function dragMeal(evt) {
 }
 
 function scheduleMeal(evt) {
-  getRecipe(evt.item).then(recipe => {
+  void getRecipe(evt.item).then(recipe => {
     const toRow = $(evt.to).parents('tr');
     if (!toRow.length) return;
     const date = toRow.data('date');
     // TODO: Can we avoid duplicate work across getRecipe and getMealId calls here?
-    getMealId(evt.item).then(mealId => {
-      db.meals.put({
+    void getMealId(evt.item).then(mealId => {
+      void db.meals.put({
         id: mealId,
         recipe_id: recipe.id,
         datetime: date,
@@ -196,7 +196,7 @@ function scheduleMeal(evt) {
 }
 
 function populateNotifications() {
-  db.recipes.count(count => {
+  void db.recipes.count(count => {
     const empty: boolean = count === 0;
     $('header span.notification.meal-planner').toggle(!empty);
     if (empty) return;
@@ -205,7 +205,7 @@ function populateNotifications() {
     // then remove this workaround
     $('header span.notification.meal-planner').css({'display': 'inline'});
 
-    db.meals.count(total => {
+    void db.meals.count(total => {
       $('header span.notification.meal-planner').text(total);
     });
   });

@@ -7,7 +7,7 @@ export { addRecipe, removeRecipe, scaleRecipe };
 
 async function addRecipe(recipe: Recipe) : Promise<string> {
   return db.transaction('rw', db.recipes, db.products, db.ingredients, () => {
-    db.recipes.add(recipe).then(() => {
+    void db.recipes.add(recipe).then(() => {
       $.each(recipe.ingredients, (index, ingredient) => {
         addProduct(ingredient, recipe.id, index);
       });
@@ -17,13 +17,13 @@ async function addRecipe(recipe: Recipe) : Promise<string> {
 
 async function removeRecipe(recipe: Recipe) : Promise<string> {
   return db.transaction('rw', db.recipes, db.meals, db.ingredients, () => {
-    db.recipes
+    void db.recipes
       .delete(recipe.id);
-    db.meals
+    void db.meals
       .where("recipe_id")
       .equals(recipe.id)
       .delete();
-    db.ingredients
+    void db.ingredients
       .where("recipe_id")
       .equals(recipe.id)
       .delete();
