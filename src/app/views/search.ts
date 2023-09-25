@@ -35,7 +35,7 @@ $('#search form button').on('click', pushSearch);
 
 function renderRecipe() : void {
   const state = getState();
-  getRecipeById(state.id).then(recipe => {
+  void getRecipeById(state.id).then(recipe => {
     scaleRecipe(recipe, Number(state.servings) || recipe.servings);
     const recipeList = $('#search table[data-row-attributes]');
     const searchResults = [recipe];

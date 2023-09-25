@@ -26,6 +26,7 @@ function attributionFormatter(recipe: Recipe) : $ {
   const title = $('<a />', {
     'class': 'title',
     'href': recipe.dst,
+    'ping': `/api/redirect/recipe/${recipe.id}`,
     'text': recipe.title,
   });
 
@@ -51,7 +52,10 @@ function starFormatter() {
 
 function thumbnailFormatter(recipe) : $ {
   const container = $('<td />', {'class': 'thumbnail align-top'});
-  const link = $('<a />', {'href': recipe.dst});
+  const link = $('<a />', {
+    'href': recipe.dst,
+    'ping': `/api/redirect/recipe/${recipe.id}`,
+  });
   const img = $('<img />', {
     'class': 'thumbnail',
     'src': recipe.image_url,
@@ -189,7 +193,7 @@ function bindPageChange(selector: string) : void {
 }
 
 function updateRecipeState(recipeId: string) : void {
-  db.recipes.get(recipeId, (recipe?: Recipe) => {
+  void db.recipes.get(recipeId, (recipe?: Recipe) => {
     const isInRecipes = !!recipe;
 
     const addButton = $(`div.recipe-list .recipe[data-id="${recipeId}"] button.add-recipe`);
@@ -210,7 +214,7 @@ function updateServings(recipe: Recipe) : void {
 }
 
 function updateStarState(selector: string, recipeId: string) : void {
-  db.starred.get(recipeId, (starred?: Starred) => {
+  void db.starred.get(recipeId, (starred?: Starred) => {
     const isStarred = !!starred;
 
     const star = $(`${selector} div.recipe-list .recipe[data-id="${recipeId}"] .star`);
@@ -218,7 +222,7 @@ function updateStarState(selector: string, recipeId: string) : void {
     star.off('click');
     star.on('click', () => {
       const toggleStarred = isStarred ? unstarRecipe : starRecipe;
-      getRecipe(star).then(toggleStarred).then(recipeId => { updateStarState(selector, recipeId) });
+      void getRecipe(star).then(toggleStarred).then(recipeId => { updateStarState(selector, recipeId) });
     });
   });
 }
@@ -231,10 +235,10 @@ function bindPostBody(selector: string) : void {
     });
 
     $(this).find('input.servings').each((_, input) => {
-      $(input).on('change', () => { getRecipe(input).then(updateServings); });
+      $(input).on('change', () => { void getRecipe(input).then(updateServings); });
     });
     $(this).find('button.add-recipe').each((_, button) => {
-      $(button).on('click', () => { getRecipe(button).then(addRecipe).then(updateRecipeState); });
+      $(button).on('click', () => { void getRecipe(button).then(addRecipe).then(updateRecipeState); });
     });
     if (data && data.length) {
       $(this).parents('div.recipe-list').show();
