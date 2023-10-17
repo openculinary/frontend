@@ -23,6 +23,11 @@ function bindEquipmentInput(element: string, label: string, placeholder: string)
 
   // TODO: Revisit once https://github.com/select2/select2/issues/3744 is handled
   $(element).next('.select2').find('input[type=search]').attr('aria-label', label);
+
+  // TODO: https://github.com/openculinary/frontend/issues/239 - report upstream?
+  $(element).on('select2:unselect', function(evt) {
+    evt.params.data.element.remove();
+  });
 }
 
 function bindIngredientInput(element: string, label: string, placeholder: string) : void {
@@ -45,6 +50,11 @@ function bindIngredientInput(element: string, label: string, placeholder: string
 
   // TODO: Revisit once https://github.com/select2/select2/issues/3744 is handled
   $(element).next('.select2').find('input[type=search]').attr('aria-label', label);
+
+  // TODO: https://github.com/openculinary/frontend/issues/239 - report upstream?
+  $(element).on('select2:unselect', function(evt) {
+    evt.params.data.element.remove();
+  });
 }
 
 $(function() {
