@@ -74,7 +74,7 @@ $(function() {
       if (suggestionsOpen) return;
 
       selectElement.select2('close');
-      $('#search form button').trigger('click');
+      $('#search form button[type=submit]').trigger('click');
     }
   });
 
