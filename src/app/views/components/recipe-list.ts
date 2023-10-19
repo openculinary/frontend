@@ -258,8 +258,4 @@ function bindLoadEvent(selector: string, callback: (data) => void) : void {
 function initTable(selector: string) : void {
   bindPageChange(selector);
   bindPostBody(selector);
-
-  $(`${selector} table[data-row-attributes]`).bootstrapTable('refreshOptions', {
-    formatNoMatches: function() { return ''; }
-  });
 }
