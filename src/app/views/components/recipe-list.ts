@@ -240,7 +240,7 @@ function bindPostBody(selector: string) : void {
     $(this).find('button.add-recipe').each((_, button) => {
       $(button).on('click', () => { void getRecipe(button).then(addRecipe).then(updateRecipeState); });
     });
-    if (data) {
+    if (data && location.hash) {
       $(this).parents('div.recipe-list').show();
     }
 
