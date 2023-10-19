@@ -64,8 +64,7 @@ function renderSearch() : void {
   if (state.domains) params['domains'] = state.domains.split(',');
 
   let query = $.param(params);
-  if (query.length) query += "&";
-  query += dietaryProperties.join("&");
+  if (dietaryProperties.length) query += "&" + dietaryProperties.join("&");
 
   $('#search table[data-row-attributes]').bootstrapTable('refresh', {
     url: '/api/recipes/search?' + query,
