@@ -3,8 +3,8 @@ import { describe, it } from 'mocha';
 
 import { renderQuantity } from './conversion';
 
-function fraction(nominator, denominator) {
-  return `<sup>${nominator}</sup>&frasl;<sub>${denominator}</sub>`;
+function fraction(numerator, denominator) {
+  return `<sup>${numerator}</sup>&frasl;<sub>${denominator}</sub>`;
 }
 
 function renderQuantityHelper(quantity, fractions = true) {
