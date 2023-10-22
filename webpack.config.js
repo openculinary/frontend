@@ -125,9 +125,6 @@ module.exports = (_, env) => {
       concatenateModules: false,  // module concatenation, enabled by default for production builds, can potentially confuse license-webpack-plugin
       realContentHash: true,
       sideEffects: true,
-      splitChunks: {
-        chunks: 'all'
-      },
       usedExports: true
     }
 }};
