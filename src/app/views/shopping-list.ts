@@ -200,6 +200,7 @@ $(function() {
 
   db.on('changes', changes => { changes.find(c => c.table === 'meals') && renderShoppingList() });
   db.on('changes', changes => { changes.find(c => c.table === 'ingredients') && renderShoppingList() });
+  db.on('changes', changes => { changes.find(c => c.table === 'basket') && populateNotifications() });
 
   renderShoppingList();
 })

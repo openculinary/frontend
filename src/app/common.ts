@@ -4,9 +4,9 @@ import { Recipe, db } from './database';
 
 export { getMealId, getRecipe, getRecipeById };
 
-function getMealId(el: HTMLElement) : Promise<string> {
+async function getMealId(el: HTMLElement) : Promise<string> {
   const target = $(el).hasClass('recipe') ? $(el) : $(el).parents('.recipe');
-  return target.data('meal-id');
+  return await target.data('meal-id');
 }
 
 async function getRecipeById(recipeId: string) : Promise<Recipe> {
