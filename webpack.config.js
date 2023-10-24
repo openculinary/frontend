@@ -61,11 +61,6 @@ module.exports = (_, env) => {
           toType: 'file'
         },
         {
-          from: `node_modules/html2canvas/dist/${html2canvas}`,
-          to: 'html2canvas.js',
-          toType: 'file'
-        },
-        {
           from: `static/images/icons/${env && env.mode || 'development'}/`,
           to: 'images/icons/',
           toType: 'dir'
