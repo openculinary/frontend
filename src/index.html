@@ -364,7 +364,7 @@
         </div>
       </div>
     </footer>
-<% for (index in htmlWebpackPlugin.files.js) { let integrity = htmlWebpackPlugin.files.jsIntegrity[index], src = htmlWebpackPlugin.files.js[index]; %>
+<% for (index in htmlWebpackPlugin.files.js.filter(filename => !filename.match(/^html2canvas\./))) { let integrity = htmlWebpackPlugin.files.jsIntegrity[index], src = htmlWebpackPlugin.files.js[index]; %>
     <script integrity="<%= integrity %>" crossorigin src="<%= src %>" type="text/javascript" <%- src.match(/^app\./) ? "" : "async" %>></script><% } %>
   </body>
 </html>
