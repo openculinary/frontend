@@ -222,4 +222,6 @@ $(function() {
   bindLoadEvent('#search', domainFacetsHandler);
   bindLoadEvent('#search', addSorting);
   bindLoadEvent('#search', () => scrollToResults('#search', 50));
+
+  $('#search form').on('submit', () => false);
 });
