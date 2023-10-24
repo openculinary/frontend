@@ -16,6 +16,7 @@ module.exports = (_, env) => {
       'app': path.resolve(__dirname, 'src/app/main.ts'),
       'diagnostics': path.resolve(__dirname, 'src/diagnostics/main.js'),
       'feedback': path.resolve(__dirname, 'src/feedback/loader.js'),
+      'html2canvas': path.resolve(__dirname, `node_modules/html2canvas/dist/${html2canvas}`),
       'locales': glob.sync('./i18n/locales/translations/*/*.po'),
       'sw': path.resolve(__dirname, 'src/sw/loader.js')
     },
@@ -25,7 +26,10 @@ module.exports = (_, env) => {
     output: {
       crossOriginLoading: 'anonymous',
       path: path.resolve(__dirname, 'public'),
-      filename: '[name].[contenthash].js',
+      filename: (entry) => {
+        if (entry.chunk.name === 'html2canvas') return 'html2canvas.js';
+        return '[name].[contenthash].js';
+      },
       libraryTarget: 'var',
       library: '[name]'
     },
