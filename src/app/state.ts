@@ -124,5 +124,5 @@ $(function() {
   });
 
   window.onpopstate = loadState;
-  loadState();
+  setTimeout(loadState, 0);
 });

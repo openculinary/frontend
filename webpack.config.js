@@ -16,6 +16,7 @@ module.exports = (_, env) => {
       'app': path.resolve(__dirname, 'src/app/main.ts'),
       'diagnostics': path.resolve(__dirname, 'src/diagnostics/main.js'),
       'feedback': path.resolve(__dirname, 'src/feedback/loader.js'),
+      'html2canvas': path.resolve(__dirname, `node_modules/html2canvas/dist/${html2canvas}`),
       'locales': glob.sync('./i18n/locales/translations/*/*.po'),
       'sw': path.resolve(__dirname, 'src/sw/loader.js')
     },
@@ -29,7 +30,10 @@ module.exports = (_, env) => {
     output: {
       crossOriginLoading: 'anonymous',
       path: path.resolve(__dirname, 'public'),
-      filename: '[name].[contenthash].js',
+      filename: (entry) => {
+        if (entry.chunk.name === 'html2canvas') return 'html2canvas.js';
+        return '[name].[contenthash].js';
+      },
       libraryTarget: 'var',
       library: '[name]'
     },
@@ -40,10 +44,6 @@ module.exports = (_, env) => {
             name: 'RecipeML',
             directory: path.join(__dirname, 'src', 'RecipeML')
           },
-          {
-            name: 'html2canvas',
-            directory: path.join(__dirname, 'node_modules', 'html2canvas')
-          }
         ],
         handleMissingLicenseText: (package) => { throw Error(`Could not determine license for ${package}`) },
         licenseTypeOverrides: {
@@ -58,11 +58,6 @@ module.exports = (_, env) => {
         {
           from: 'LICENSE',
           to: 'LICENSE',
-          toType: 'file'
-        },
-        {
-          from: `node_modules/html2canvas/dist/${html2canvas}`,
-          to: 'html2canvas.js',
           toType: 'file'
         },
         {
