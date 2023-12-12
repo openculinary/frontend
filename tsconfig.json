@@ -3,7 +3,7 @@
     "isolatedModules": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "target": "es6"
+    "target": "es2016"
   },
   "include": [
     "src/**/*.ts"
