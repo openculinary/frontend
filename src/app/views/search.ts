@@ -1,5 +1,5 @@
 import * as $ from 'jquery';
-import { debounce } from 'debounce';
+import * as debounce from 'debounce';
 
 import '../autosuggest';
 import { getRecipeById } from '../common';
