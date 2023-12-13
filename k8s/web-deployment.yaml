@@ -24,16 +24,16 @@ spec:
         securityContext:
           readOnlyRootFilesystem: true
         volumeMounts:
-          - mountPath: /var/run
-            name: var-run
-          - mountPath: /var/cache/nginx
-            name: var-cache-nginx
+        - mountPath: /var/run
+          name: var-run
+        - mountPath: /var/cache/nginx
+          name: var-cache-nginx
       volumes:
-        - name: var-run
-          emptyDir:
-            medium: "Memory"
-            sizeLimit: "4Mi"
-        - name: var-cache-nginx
-          emptyDir:
-            medium: "Memory"
-            sizeLimit: "128Mi"
+      - name: var-run
+        emptyDir:
+          medium: "Memory"
+          sizeLimit: "4Mi"
+      - name: var-cache-nginx
+        emptyDir:
+          medium: "Memory"
+          sizeLimit: "128Mi"
