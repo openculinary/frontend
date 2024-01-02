@@ -1,4 +1,5 @@
 *.swp
+.yarn
 node_modules
 public
 static/.well-known
