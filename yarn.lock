@@ -529,6 +529,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@serwist/window@npm:^8.4.4":
+  version: 8.4.4
+  resolution: "@serwist/window@npm:8.4.4"
+  dependencies:
+    "@serwist/core": "npm:8.4.4"
+    "@types/trusted-types": "npm:2.0.7"
+  checksum: 6f243daeb73b35da5b66e4a143b16d3a407767bea0362635bc87f054e6b16845860d4b2ee2403d055ce72241a3990a32ce1f3b870a5c183d3a00c598b30fd25a
+  languageName: node
+  linkType: hard
+
 "@tsconfig/node10@npm:^1.0.7":
   version: 1.0.9
   resolution: "@tsconfig/node10@npm:1.0.9"
@@ -630,6 +640,13 @@ __metadata:
   version: 7.5.0
   resolution: "@types/semver@npm:7.5.0"
   checksum: ca4ba4642b5972b6e88e73c5bc02bbaceb8d76bce71748d86e3e95042d4e5a44603113a1dcd2cb9b73ad6f91f6e4ab73185eb41bbfc9c73b11f0ed3db3b7443a
+  languageName: node
+  linkType: hard
+
+"@types/trusted-types@npm:2.0.7":
+  version: 2.0.7
+  resolution: "@types/trusted-types@npm:2.0.7"
+  checksum: 4c4855f10de7c6c135e0d32ce462419d8abbbc33713b31d294596c0cc34ae1fa6112a2f9da729c8f7a20707782b0d69da3b1f8df6645b0366d08825ca1522e0c
   languageName: node
   linkType: hard
 
@@ -2838,6 +2855,7 @@ __metadata:
     "@serwist/routing": "npm:^8.4.4"
     "@serwist/strategies": "npm:^8.4.4"
     "@serwist/webpack-plugin": "npm:^8.4.4"
+    "@serwist/window": "npm:^8.4.4"
     "@typescript-eslint/eslint-plugin": "npm:^6.14.0"
     "@typescript-eslint/parser": "npm:^6.14.0"
     bootstrap: "npm:^5.3.2"
