@@ -1,6 +1,6 @@
-import { precacheAndRoute } from 'workbox-precaching';
-import { registerRoute } from 'workbox-routing';
-import { NetworkFirst } from 'workbox-strategies';
+import { precacheAndRoute } from '@serwist/precaching';
+import { registerRoute } from '@serwist/routing';
+import { NetworkFirst } from '@serwist/strategies';
 
 addEventListener('message', (event) => {
   const skipWaitingTypes = {'skipWaiting': null, 'SKIP_WAITING': null};
@@ -27,4 +27,4 @@ function searchHandler(event) {
 registerRoute(new RegExp('/api/recipes/search'), searchHandler);
 registerRoute(new RegExp('/(#.*)?'), new NetworkFirst());
 
-precacheAndRoute(self.__WB_MANIFEST);
+precacheAndRoute(self.__SW_MANIFEST);
