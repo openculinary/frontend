@@ -1,7 +1,7 @@
 const path = require('path');
 const glob = require('glob');
 
-const { InjectManifest } = require('@serwist/webpack-plugin');
+const { InjectManifest } = require('workbox-webpack-plugin');
 const { SubresourceIntegrityPlugin } = require('webpack-subresource-integrity');
 const LicenseWebpackPlugin = require('license-webpack-plugin').LicenseWebpackPlugin;
 const CopyWebpackPlugin = require('copy-webpack-plugin');

@@ -1,6 +1,6 @@
 import * as $ from 'jquery';
 
-import { Workbox } from '@serwist/window';
+import { Workbox } from 'workbox-window';
 
 $(function() {
   if ('serviceWorker' in navigator) {
