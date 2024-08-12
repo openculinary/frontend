@@ -1793,10 +1793,10 @@ boolbase@^1.0.0:
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==
 
-bootstrap-table@^1.22.2:
-  version "1.23.2"
-  resolved "https://registry.yarnpkg.com/bootstrap-table/-/bootstrap-table-1.23.2.tgz#78603dc267b89689f3ed19f1bd6dfb3e1fdd6ff4"
-  integrity sha512-1IFiWFZzbKlleXgYEHdwHkX6rxlQMEx2N1tA8rJK/j08pI+NjIGnxFeXUL26yQLQ0U135eis/BX3OV1+anY25g==
+bootstrap-table@1.22.2:
+  version "1.22.2"
+  resolved "https://registry.yarnpkg.com/bootstrap-table/-/bootstrap-table-1.22.2.tgz#20b3381fc01e2b28ee5167b6980d27db6ba48aaf"
+  integrity sha512-ZjZGcEXm/N7N/wAykmANWKKV+U+7AxgoNuBwWLrKbvAGT8XXS2f0OCiFmuMwpkqg7pDbF+ff9bEf/lOAlxcF1w==
 
 bootstrap@^5.3.2:
   version "5.3.3"
