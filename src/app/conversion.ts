@@ -88,7 +88,7 @@ function renderQuantity(quantity: Quantity, fractions = true) : Record<string, n
   let fromQuantity;
   try {
     fromQuantity = convert(quantity.magnitude).from(quantity.units);
-  } catch (e) {
+  } catch {
     return {
       'magnitude': renderMagnitude(quantity.units, quantity.magnitude, fractions),
       'units': quantity.units
