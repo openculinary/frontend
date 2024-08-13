@@ -15,15 +15,15 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="description" content="RecipeRadar Diagnostics" />
     <meta name="theme-color" content="#07f" />
     <meta name="viewport" content="width=device-width, initial-scale=1" /><% for (index in htmlWebpackPlugin.files.css) { let integrity = htmlWebpackPlugin.files.cssIntegrity[index], href = htmlWebpackPlugin.files.css[index]; %>
-    <link integrity="<%= integrity %>" crossorigin href="<%= href %>" rel="preload" as="style">
-    <link integrity="<%= integrity %>" crossorigin href="<%= href %>" rel="stylesheet"><% } %>
+    <link integrity="<%= integrity %>" crossorigin="anonymous" href="<%= href %>" rel="preload" as="style" />
+    <link integrity="<%= integrity %>" crossorigin="anonymous" href="<%= href %>" rel="stylesheet" /><% } %>
     <title>RecipeRadar Diagnostics</title>
   </head>
   <body>
@@ -38,6 +38,6 @@
       </div>
     </footer>
 <% for (index in htmlWebpackPlugin.files.js) { let integrity = htmlWebpackPlugin.files.jsIntegrity[index], src = htmlWebpackPlugin.files.js[index]; %>
-    <script integrity="<%= integrity %>" crossorigin src="<%= src %>" type="text/javascript"></script><% } %>
+    <script integrity="<%= integrity %>" crossorigin="anonymous" src="<%= src %>" type="text/javascript"></script><% } %>
   </body>
 </html>
