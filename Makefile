@@ -27,7 +27,7 @@ image-create:
 
 webpack:
 	(test -f public/reciperadar.webmanifest && rm -rf public) || true
-	yarnpkg run webpack --mode ${MODE}
+	npx webpack --mode ${MODE}
 
 license-check:
 	$(eval licenses=$(shell jq --raw-output ".dependencies | keys | .[]" "package.json" | grep --file - --line-regexp "public/licenses.txt" | wc --lines))
@@ -40,7 +40,7 @@ image-finalize:
 	buildah commit --quiet --rm --squash $(container) ${IMAGE_NAME}:${IMAGE_TAG}
 
 lint:
-	yarnpkg run eslint src
+	npx eslint src
 
 tests:
-	yarnpkg run mocha --mode ${MODE} --require setup.mjs --require ts-node/register 'src/**/*.spec.ts'
+	npx mocha --mode ${MODE} --require setup.mjs --require ts-node/register 'src/**/*.spec.ts'
