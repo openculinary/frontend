@@ -47,7 +47,7 @@ If you have configured and run `haproxy` per the [infrastructure](https://www.gi
 To gather the latest internationalization (i18n) resource strings from the application, execute the following commands:
 
 ```sh
-$ npx run i18next-scanner
+$ npx i18next-scanner
 ```
 
 ## Integrity
