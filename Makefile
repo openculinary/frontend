@@ -37,7 +37,7 @@ license-check:
 image-finalize:
 	buildah copy $(container) 'public' '/usr/share/nginx/html'
 	buildah config --cmd '/usr/sbin/nginx -g "daemon off;"' --port 80 $(container)
-	buildah commit --quiet --rm --squash $(container) ${IMAGE_NAME}:${IMAGE_TAG}
+	buildah commit --omit-timestamp --quiet --rm --squash $(container) ${IMAGE_NAME}:${IMAGE_TAG}
 
 lint:
 	npx eslint src
