@@ -19,7 +19,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta http-equiv="Content-Security-Policy" content="base-uri 'none'; default-src 'self'; img-src 'self' data:; media-src 'none'; object-src 'none'; script-src 'self' <% for (index in htmlWebpackPlugin.files.js) { %>'<%= htmlWebpackPlugin.files.jsIntegrity[index] %>' <% } %>; style-src 'self' 'unsafe-inline';" />
+    <meta http-equiv="Content-Security-Policy" content="base-uri 'none'; default-src 'self'; form-action 'self'; img-src 'self' data:; media-src 'none'; object-src 'none'; script-src 'self' <% for (index in htmlWebpackPlugin.files.js) { %>'<%= htmlWebpackPlugin.files.jsIntegrity[index] %>' <% } %>; style-src 'self' 'unsafe-inline';" />
     <meta name="description" content="RecipeRadar - search recipes by ingredients" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="robots" content="noml" />
