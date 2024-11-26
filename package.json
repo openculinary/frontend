@@ -6,7 +6,7 @@
   "dependencies": {
     "@popperjs/core": "2.11.8",
     "bootstrap": "5.3.3",
-    "bootstrap-table": "1.22.6",
+    "bootstrap-table": "1.23.5",
     "convert-units": "2.3.4",
     "d3": "7.9.0",
     "d3-sankey": "0.12.3",
@@ -45,7 +45,7 @@
     "mocha": "10.7.3",
     "ts-loader": "9.5.1",
     "ts-node": "10.9.2",
-    "typescript": "5.5.4",
+    "typescript": "5.6.3",
     "typescript-eslint": "8.9.0",
     "webpack": "5.95.0",
     "webpack-cli": "5.1.4",
