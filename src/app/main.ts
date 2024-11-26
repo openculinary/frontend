@@ -23,5 +23,5 @@ import 'bootstrap-table';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-table/dist/bootstrap-table.css';
 
-import { recipeFormatter, rowAttributes } from './views/components/recipe-list';
-export { recipeFormatter, rowAttributes };
+import { recipeFormatter, rowAttributes, rowStyle } from './views/components/recipe-list';
+export { recipeFormatter, rowAttributes, rowStyle };

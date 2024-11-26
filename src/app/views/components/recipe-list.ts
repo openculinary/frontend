@@ -16,6 +16,7 @@ export {
     bindLoadEvent,
     recipeFormatter,
     rowAttributes,
+    rowStyle,
     scrollToResults,
     updateRecipeState,
 };
@@ -165,10 +166,11 @@ function recipeFormatter(value: HTMLElement, recipe: Recipe) : HTMLElement {
 }
 
 function rowAttributes(row: HTMLElement) : Record<string, string> {
-  return {
-    'class': 'recipe',
-    'data-id': row.id
-  }
+  return {'data-id': row.id};
+}
+
+function rowStyle() : Record<string, string> {
+  return {'classes': 'recipe'};
 }
 
 function scrollToResults(selector: string, delay?: number) : void {
