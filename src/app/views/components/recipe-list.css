@@ -43,10 +43,6 @@ div.recipe-list td {
   border: none;
 }
 
-div.recipe-list td.thumbnail {
-  width: 200px;
-}
-
 div.recipe-list td.sidebar {
   width: 200px;
 }
@@ -73,16 +69,6 @@ div.recipe-list .star {
 
 div.recipe-list .recipe table {
   clear: both;
-}
-
-div.recipe-list .thumbnail {
-  width: 240px;
-}
-
-div.recipe-list .thumbnail img {
-  margin-left: 16px;
-  margin-bottom: 16px;
-  max-width: 192px;
 }
 
 div.recipe-list .sidebar div.heading {

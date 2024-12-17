@@ -51,22 +51,6 @@ function starFormatter() {
   return $('<div />', {'class': 'star', 'html': '&#x269d;'});
 }
 
-function thumbnailFormatter(recipe) : $ {
-  const container = $('<td />', {'class': 'thumbnail align-top'});
-  const link = $('<a />', {
-    'href': recipe.dst,
-    'ping': `/api/redirect/recipe/${recipe.id}`,
-  });
-  const img = $('<img />', {
-    'class': 'thumbnail',
-    'src': recipe.image_url,
-    'alt': recipe.title,
-  });
-  link.append(img);
-  container.append(link);
-  return container;
-}
-
 function sidebarFormatter(recipe) : $ {
   const duration = Duration.fromObject({minutes: recipe.time}, {locale: resolvedLocale()});
 
@@ -143,7 +127,6 @@ function recipeFormatter(value: HTMLElement, recipe: Recipe) : HTMLElement {
   const star = starFormatter();
 
   const row = $('<tr />');
-  row.append(thumbnailFormatter(recipe));
   row.append(contentFormatter(recipe));
   row.append(sidebarFormatter(recipe));
 
