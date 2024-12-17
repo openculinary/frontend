@@ -131,6 +131,7 @@ div.recipe-list .sidebar span {
 }
 
 div.recipe-list .content .ingredients {
+  margin-top: 1rem;
   margin-left: 1rem;
   display: grid;
   grid-row-gap: 0.25em;
