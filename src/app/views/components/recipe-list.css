@@ -98,13 +98,6 @@ div.recipe-list .nutrition span {
   padding-bottom: 0.3rem;
 }
 
-div.recipe-list .sidebar div.heading {
-  width: 100%;
-  text-align: center;
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
-}
-
 div.recipe-list .sidebar span.field {
   width: 90px;
   text-align: right;
