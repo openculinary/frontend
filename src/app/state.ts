@@ -78,7 +78,6 @@ function loadState() : void {
 
   loadTags('#include', state.include);
   loadTags('#exclude', state.exclude);
-  loadTags('#equipment', state.equipment);
   loadDietaryProperties(state);
 
   $('body > div.container[id]').each(function() {

@@ -12,7 +12,7 @@ export { renderRecipe, renderSearch };
 
 function pushSearch() : void {
   const state = {'search': null, 'action': 'search'};
-  ['#include', '#exclude', '#equipment'].forEach(function (element) {
+  ['#include', '#exclude'].forEach(function (element) {
     const fragment = element.replace('#', '');
     const data = $(element).val();
     if (data.length > 0) {
@@ -51,12 +51,10 @@ function renderRecipe() : void {
 function renderSearch() : void {
   const ingredientsToInclude = $('#include').val();
   const ingredientsToExclude = $('#exclude').val();
-  const equipmentToInclude = $('#equipment').val();
   const dietaryProperties = $('#search span.dietary-properties + ul :checkbox:checked').map((_, property) => property.id).toArray();
 
   const params = {
     ingredients: ingredientsToInclude.concat(ingredientsToExclude.map(name => `-${name}`)),
-    equipment: equipmentToInclude,
   };
 
   const state = getState();
