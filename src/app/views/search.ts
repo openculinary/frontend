@@ -85,7 +85,7 @@ function renderRefinement(refinement: string) : $ {
   }
   if (refinement == 'equipment_search_unavailable') {
     return $('<div />', {
-      'data-i18n': i18nAttr('search:equipment-search-unavailable')
+      'data-i18n': i18nAttr('search:refinement-equipment-search-unavailable')
     });
   }
 }
