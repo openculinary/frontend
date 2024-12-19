@@ -83,6 +83,11 @@ function renderRefinement(refinement: string) : $ {
       'data-i18n': i18nAttr('search:refinement-partial-results')
     });
   }
+  if (refinement == 'equipment_search_unavailable') {
+    return $('<div />', {
+      'data-i18n': i18nAttr('search:refinement-equipment-search-unavailable')
+    });
+  }
 }
 
 function triggerSearch() : void {
