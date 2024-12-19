@@ -24,12 +24,6 @@ export interface Product {
     state: string,
 }
 
-export interface Direction {
-   recipe_id: string,
-   index: number,
-   markup: string,
-}
-
 export interface Recipe {
     id: string,
 
@@ -66,7 +60,6 @@ export interface Stock {
 class Database extends Dexie {
     ingredients: Dexie.Table<Ingredient, [string, string, number]>;  // recipe_id, product_id, index
     products: Dexie.Table<Product, string>;
-    directions: Dexie.Table<Direction, [string, number]>;  // recipe_id, index
     recipes: Dexie.Table<Recipe, string>;
     starred: Dexie.Table<Starred, string>;
     meals: Dexie.Table<Meal, string>;
@@ -75,10 +68,9 @@ class Database extends Dexie {
     constructor() {
       super('RecipeRadar');
 
-      this.version(20200702).stores({
+      this.version(20241219).stores({
         ingredients: '[recipe_id+product_id+index], recipe_id, product_id',
         products: 'id',
-        directions: '[recipe_id+index]',
         recipes: 'id',
         starred: 'recipe_id',
         meals: '$$id, recipe_id',

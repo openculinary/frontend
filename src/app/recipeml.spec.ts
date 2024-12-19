@@ -1,8 +1,8 @@
 import * as assert from 'assert';
 import { describe, it } from 'mocha';
 
-import { Direction, Ingredient } from './database';
-import { renderIngredientHTML, renderDirectionHTML } from './recipeml';
+import { Ingredient } from './database';
+import { renderIngredientHTML } from './recipeml';
 
 function ingredientHelper(markup, magnitude = null, units = null, state = null) : Ingredient {
   return {
@@ -21,14 +21,6 @@ function ingredientHelper(markup, magnitude = null, units = null, state = null) 
       magnitude: magnitude,
       units: units
     }
-  }
-}
-
-function directionHelper(markup) : Direction {
-  return {
-    recipe_id: null,
-    index: 0,
-    markup: markup
   }
 }
 
@@ -90,26 +82,6 @@ describe('html rendering', function() {
 
     const ingredient = ingredientHelper(recipeML, null, null, 'available');
     const rendered = renderIngredientHTML(ingredient);
-
-    assert.equal(expected, rendered);
-  });
-
-  it('renders simple direction', function() {
-    const recipeML = 'place the <mark class="equipment vessel">casserole dish</mark> in the <mark class="equipment appliance">oven</mark>';
-    const expected = '<li class="direction">place the <span class="equipment">casserole dish</span> in the <span class="equipment">oven</span></li>';
-
-    const direction = directionHelper(recipeML);
-    const rendered = renderDirectionHTML(direction);
-
-    assert.equal(expected, rendered);
-  });
-
-  it('renders directions with actions and equipment', function() {
-    const recipeML = '<mark class="action">heat</mark> the <mark class="equipment appliance">oven</mark> to 200 F';
-    const expected = '<li class="direction"><span class="action">heat</span> the <span class="equipment">oven</span> to 200 F</li>';
-
-    const direction = directionHelper(recipeML);
-    const rendered = renderDirectionHTML(direction);
 
     assert.equal(expected, rendered);
   });
