@@ -51,20 +51,22 @@ function starFormatter() {
   return $('<div />', {'class': 'star', 'html': '&#x269d;'});
 }
 
-function thumbnailFormatter(recipe) : $ {
-  const container = $('<td />', {'class': 'thumbnail align-top'});
-  const link = $('<a />', {
-    'href': recipe.dst,
-    'ping': `/api/redirect/recipe/${recipe.id}`,
-  });
-  const img = $('<img />', {
-    'class': 'thumbnail',
-    'src': recipe.image_url,
-    'alt': recipe.title,
-  });
-  link.append(img);
-  container.append(link);
-  return container;
+function nutritionFormatter(recipe) : $ {
+  const nutrition = $('<td />', {'class': 'nutrition align-top'});
+  if (recipe.nutrition) {
+    nutrition.append($('<div />', {'html': '<strong>Nutrition (per serving)</strong>', 'class': 'heading'}));
+
+    const nutritionFields = ['energy', 'fat', 'carbohydrates', 'fibre', 'protein'];
+    nutritionFields.forEach(field => {
+      if (!recipe.nutrition[field].magnitude) return;
+      const fieldTitle = field.charAt(0).toUpperCase() + field.slice(1);
+      nutrition.append($('<span />', {'html': `<strong>${fieldTitle}</strong>`, 'class': 'field'}));
+      const quantity = renderQuantity(recipe.nutrition[field], false);
+      nutrition.append($('<span />', {'html': `${quantity.magnitude || ''} ${quantity.units || ''}`.trim()}));
+      nutrition.append($('<br />'));
+    });
+  }
+  return nutrition;
 }
 
 function sidebarFormatter(recipe) : $ {
@@ -88,20 +90,6 @@ function sidebarFormatter(recipe) : $ {
   sidebar.append($('<span />', {'html': '<strong>Time</strong>', 'class': 'field'}));
   sidebar.append($('<span />', {'text': duration.shiftTo('minutes').toHuman()}));
   sidebar.append($('<br />'));
-
-  if (recipe.nutrition) {
-    sidebar.append($('<div />', {'html': '<strong>Nutrition (per serving)</strong>', 'class': 'heading'}));
-
-    const nutritionFields = ['energy', 'fat', 'carbohydrates', 'fibre', 'protein'];
-    nutritionFields.forEach(field => {
-      if (!recipe.nutrition[field].magnitude) return;
-      const fieldTitle = field.charAt(0).toUpperCase() + field.slice(1);
-      sidebar.append($('<span />', {'html': `<strong>${fieldTitle}</strong>`, 'class': 'field'}));
-      const quantity = renderQuantity(recipe.nutrition[field], false);
-      sidebar.append($('<span />', {'html': `${quantity.magnitude || ''} ${quantity.units || ''}`.trim()}));
-      sidebar.append($('<br />'));
-    });
-  }
 
   const properties = [
     'is_dairy_free',
@@ -143,7 +131,7 @@ function recipeFormatter(value: HTMLElement, recipe: Recipe) : HTMLElement {
   const star = starFormatter();
 
   const row = $('<tr />');
-  row.append(thumbnailFormatter(recipe));
+  row.append(nutritionFormatter(recipe));
   row.append(contentFormatter(recipe));
   row.append(sidebarFormatter(recipe));
 

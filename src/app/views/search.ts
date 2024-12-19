@@ -81,6 +81,11 @@ function renderRefinement(refinement: string) : $ {
       'data-i18n': i18nAttr('search:refinement-partial-results')
     });
   }
+  if (refinement == 'equipment_search_unavailable') {
+    return $('<div />', {
+      'data-i18n': i18nAttr('search:refinement-equipment-search-unavailable')
+    });
+  }
 }
 
 function triggerSearch() : void {
@@ -104,12 +109,10 @@ function renderDomainFacet(domain: Record<string, string>, state?: boolean) : $ 
   const domainState = state === undefined ? true : state;
   const chip = $('<label />', {'class': 'badge bg-light rounded-pill text-dark'});
   const checkbox = $('<input />', {'type': 'checkbox', 'checked': domainState, 'value': domain.key});
-  const icon = $('<img />', {'src': 'images/domains/' + domain.key + '.ico', 'alt':''});
 
   checkbox.on('change', updateStateDomains);
 
   chip.append(checkbox);
-  chip.append(icon);
   chip.append(document.createTextNode(domain.key));
   return chip;
 }
