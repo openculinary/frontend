@@ -20,7 +20,6 @@
 
 #search .include + span { color: #70f070; }
 #search .exclude + span { color: #f07070; }
-#search .equipment + span { color: #7070f0; }
 
 #search .dietary-properties ~ ul {
   list-style-type: none;

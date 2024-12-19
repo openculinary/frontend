@@ -3,33 +3,6 @@ import select2 from 'select2';
 
 export {};
 
-function bindEquipmentInput(element: string, label: string, placeholder: string) : void {
-  select2 && new select2($(element), {
-    ajax: {
-      url: '/api/autosuggest/equipment',
-      data: params => ({pre: params.term}),
-      processResults: data => ({
-        results: data.map(item => ({
-          id: item.equipment,
-          text: item.equipment,
-          product: item
-        }))
-      })
-    },
-    minimumInputLength: 3,
-    placeholder: placeholder,
-    selectOnClose: true
-  });
-
-  // TODO: Revisit once https://github.com/select2/select2/issues/3744 is handled
-  $(element).next('.select2').find('input[type=search]').attr('aria-label', label);
-
-  // TODO: https://github.com/openculinary/frontend/issues/239 - report upstream?
-  $(element).on('select2:unselect', function(evt) {
-    evt.params.data.element.remove();
-  });
-}
-
 function bindIngredientInput(element: string, label: string, placeholder: string) : void {
   select2 && new select2($(element), {
     ajax: {
@@ -60,7 +33,6 @@ function bindIngredientInput(element: string, label: string, placeholder: string
 $(function() {
   bindIngredientInput('#include', 'Ingredients to include', 'e.g. tomatoes');
   bindIngredientInput('#exclude', 'Ingredients to exclude', 'e.g. mushrooms');
-  bindEquipmentInput('#equipment', 'Kitchen equipment to use', 'e.g. slow cooker');
 
   $(document).on('keyup', '.select2-search__field', function (event) {
     if (event.which == 13) {
