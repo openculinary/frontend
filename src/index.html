@@ -419,7 +419,7 @@
         </div>
       </div>
     </footer>
-<% for (index in htmlWebpackPlugin.files.js.filter(filename => !filename.match(/^html2canvas\./))) { let integrity = htmlWebpackPlugin.files.jsIntegrity[index], src = htmlWebpackPlugin.files.js[index]; %>
+<% for (index in htmlWebpackPlugin.files.js) { if (htmlWebpackPlugin.files.js[index].match(/^html2canvas\./)) continue; let integrity = htmlWebpackPlugin.files.jsIntegrity[index], src = htmlWebpackPlugin.files.js[index]; %>
     <script integrity="<%= integrity %>" crossorigin="anonymous" src="<%= src %>"<% if (!src.match(/^app\./)) { %> async="async"<% } %>></script><% } %>
   </body>
 </html>
