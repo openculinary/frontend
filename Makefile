@@ -22,6 +22,11 @@ image: image-create webpack license-check image-finalize
 
 image-create:
 	$(eval container=$(shell buildah from docker.io/library/nginx:alpine))
+	# RFC9239, May 2022: 'text/javascript' replaces 'application/javascript'
+	# https://www.rfc-editor.org/rfc/rfc9239#section-6
+	# NOTE: There is a feature request in nginx for this to become the default
+	# https://trac.nginx.org/nginx/ticket/1407
+	buildah run $(container) -- sed --expression 's#application/javascript#text/javascript#' --in-place /etc/nginx/mime.types
 	buildah copy $(container) 'etc/nginx/conf.d' '/etc/nginx/conf.d'
 	buildah run --network none $(container) -- rm -rf '/usr/share/nginx/html' --
 
