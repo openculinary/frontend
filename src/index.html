@@ -26,7 +26,6 @@
     <meta name="theme-color" content="#07f" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link integrity="sha512-FDnIW0ygZgEOjSEQgsAo9VNe/KByD7Yzhdwz5RECl6rZTln7kuqud7Gbv/GbHk7XJCJwsoaPhKuGJqgaBbryIA==" crossorigin="anonymous" href="favicon.ico" rel="icon" />
-    <link integrity="sha512-bpsv02K8unlZ5Jt31OE4AP3FI+iZ5SDc+X+TdSelMisSOQ4LGuK69ues7bdDSm/rg+HclETFbr4YgfaaGnUYXQ== sha512-sTDwuYToHqfJ8q7CfCfPMEhFHK68AQeyKEAU2HyCG5imOvcIpkVa74BWWEbKw4jYwfy6rhfE0zuSV8VVdVkvPQ==" crossorigin="anonymous" href="images/icons/manifest-icon-192.png" rel="apple-touch-icon" />
     <link integrity="sha512-W8/inL90S6RVwBzihB437BKwHzSMwpdSuuUJL0anjCO+RI0O6pAbBtFUobtsRiruSi57cInHSwts9ySQrbnBIA==" crossorigin="anonymous" href="reciperadar.webmanifest" rel="manifest" /><% for (index in htmlWebpackPlugin.files.css) { let integrity = htmlWebpackPlugin.files.cssIntegrity[index], href = htmlWebpackPlugin.files.css[index]; %>
     <link integrity="<%= integrity %>" crossorigin="anonymous" href="<%= href %>" rel="stylesheet" /><% } %>
     <title>RecipeRadar - search recipes by ingredients</title>
