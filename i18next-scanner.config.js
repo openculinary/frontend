@@ -1,4 +1,4 @@
-const { i18nextToPot } = require('i18next-conv');
+const i18nextConv = import('i18next-conv');
 const Vinyl = require('vinyl');
 
 module.exports = {
@@ -42,12 +42,12 @@ module.exports = {
           ctxSeparator: this.parser.options.contextSeparator,
           ignorePlurals: !this.parser.options.plural,
         }
-        i18nextToPot(lng, json, options).then(buffer => {
+        i18nextConv.then(i18nextConv => i18nextConv.i18nextToPot(lng, json, options).then(buffer => {
           this.push(new Vinyl({
             path: path,
             contents: Buffer.from(buffer.toString() + '\n')
           }));
-        });
+        }));
       });
     });
   }
