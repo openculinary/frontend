@@ -18,7 +18,7 @@ function manualLicenseInfo(package) {
       'spdx': 'BSD-2-Clause',
       'detail': 'SEE LICENSE IN https://github.com/kornelski/slip/blob/91c24e460dbadb9e0dc40daf93fd01928bfac94d/package.json#L18'
     }
-  }[package] || {'spdx': '', 'detail': package};
+  }[package];
 }
 
 
