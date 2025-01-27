@@ -3,9 +3,28 @@ const glob = require('glob');
 
 const { InjectManifest } = require('workbox-webpack-plugin');
 const { SubresourceIntegrityPlugin } = require('webpack-subresource-integrity');
-const LicenseWebpackPlugin = require('license-webpack-plugin').LicenseWebpackPlugin;
+const LicensePlugin = require('webpack-license-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+
+function manualLicenseInfo(package) {
+  return {
+    'jsondiffpatch': {
+      'spdx': 'MIT',
+      'detail': 'SEE LICENSE IN https://github.com/benjamine/jsondiffpatch/blob/a8cde4c666a8a25d09d8f216c7f19397f2e1b569/package.json#L81'
+    },
+    'slipjs': {
+      'spdx': 'BSD-2-Clause',
+      'detail': 'SEE LICENSE IN https://github.com/kornelski/slip/blob/91c24e460dbadb9e0dc40daf93fd01928bfac94d/package.json#L18'
+    }
+  }[package];
+}
+
+
+function licensesAsText(packages) {
+  return packages.sort(package => package.name.toLower).map(package => `${package.name}\n${package.license}\n${package.licenseText || manualLicenseInfo(package.name)['detail']}`).join('\n\n');
+}
 
 
 module.exports = (_, env) => {
@@ -34,20 +53,16 @@ module.exports = (_, env) => {
       library: '[name]'
     },
     plugins: [
-      new LicenseWebpackPlugin({
-        additionalModules: [
-          {
-            name: 'RecipeML',
-            directory: path.join(__dirname, 'src', 'RecipeML')
-          },
+      new LicensePlugin({
+        additionalFiles: {'licenses.txt': licensesAsText},
+        includePackages: () => [
+          path.resolve(__dirname, 'src/feedback'),
+          path.resolve(__dirname, 'src/RecipeML')
         ],
-        handleMissingLicenseText: (package) => { throw Error(`Could not determine license for ${package}`) },
-        licenseTypeOverrides: {
-          'jsondiffpatch': 'SEE LICENSE IN https://github.com/benjamine/jsondiffpatch/blob/a8cde4c666a8a25d09d8f216c7f19397f2e1b569/package.json#L81',
-          'slipjs': 'SEE LICENSE IN https://github.com/kornelski/slip/blob/91c24e460dbadb9e0dc40daf93fd01928bfac94d/package.json#L18'
+        licenseOverrides: {
+          'jsondiffpatch': manualLicenseInfo('jsondiffpatch')['spdx'],
+          'slipjs': manualLicenseInfo('slipjs')['spdx']
         },
-        outputFilename: 'licenses.txt',
-        perChunkOutput: false
       }),
       new CopyWebpackPlugin({patterns: [
         {
@@ -116,7 +131,6 @@ module.exports = (_, env) => {
     },
     optimization: {
       minimize: true,
-      concatenateModules: false,  // module concatenation, enabled by default for production builds, can potentially confuse license-webpack-plugin
       realContentHash: true,
       sideEffects: true,
       usedExports: true

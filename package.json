@@ -41,7 +41,7 @@
     "i18next-conv": "^15.1.1",
     "i18next-scanner": "4.6.0",
     "jsdom": "25.0.1",
-    "license-webpack-plugin": "4.0.2",
+    "webpack-license-plugin": "4.5.0",
     "mocha": "10.8.2",
     "ts-loader": "9.5.1",
     "ts-node": "10.9.2",
