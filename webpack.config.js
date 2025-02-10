@@ -36,7 +36,7 @@ module.exports = (_, env) => {
       'diagnostics': path.resolve(__dirname, 'src/diagnostics/main.js'),
       'feedback': path.resolve(__dirname, 'src/feedback/loader.js'),
       'html2canvas': path.resolve(__dirname, `node_modules/html2canvas/dist/${html2canvas}`),
-      'locales': glob.sync('./i18n/locales/translations/*/*.po'),
+      'locales': glob.sync('./i18n/locales/translations/*/*.po', {dotRelative: true}),
       'sw': path.resolve(__dirname, 'src/sw/loader.js')
     },
     resolve: {
