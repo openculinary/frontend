@@ -51,6 +51,17 @@ function starFormatter() {
   return $('<div />', {'class': 'star', 'html': '&#x269d;'});
 }
 
+function reportProblemFormatter() {
+  const container = $('<a />');
+  container.append($('<div />', {'class': 'report-problem', 'html': '&#x26a0;'}));
+  container.append($('<div />', {'class': 'lh-lg', 'data-i18n': i18nAttr('search:result-report-problem')}));
+
+  container.on('click', () => {
+    console.log("TODO: open problem report dialog");
+  });
+  return container;
+}
+
 function nutritionFormatter(recipe) : $ {
   const nutrition = $('<td />', {'class': 'nutrition align-top'});
   if (recipe.nutrition) {
@@ -141,9 +152,12 @@ function recipeFormatter(value: HTMLElement, recipe: Recipe) : HTMLElement {
   });
   table.append(row);
 
+  const reportProblem = reportProblemFormatter();
+
   container.append(attribution);
   container.append(star);
   container.append(table);
+  container.append(reportProblem);
 
   container.append($('<button />', {
     'class': 'add btn btn-outline-primary add-recipe float-right',
