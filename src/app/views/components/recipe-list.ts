@@ -52,9 +52,9 @@ function starFormatter() {
 }
 
 function reportProblemFormatter() {
-  const container = $('<a />');
-  container.append($('<div />', {'class': 'report-problem', 'html': '&#x26a0;'}));
-  container.append($('<div />', {'class': 'lh-lg', 'data-i18n': i18nAttr('search:result-report-problem')}));
+  const container = $('<a />', {'class': 'report-problem'});
+  container.append($('<div />', {'class': 'icon', 'html': '&#x26a0;'}));
+  container.append($('<div />', {'data-i18n': i18nAttr('search:result-report-problem')}));
 
   container.on('click', () => {
     console.log("TODO: open problem report dialog");
