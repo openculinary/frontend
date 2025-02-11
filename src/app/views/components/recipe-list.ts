@@ -55,10 +55,6 @@ function reportProblemFormatter() {
   const container = $('<a />', {'class': 'report-problem'});
   container.append($('<div />', {'class': 'icon', 'html': '&#x26a0;'}));
   container.append($('<div />', {'data-i18n': i18nAttr('search:result-report-problem')}));
-
-  container.on('click', () => {
-    console.log("TODO: open problem report dialog");
-  });
   return container;
 }
 
@@ -240,6 +236,9 @@ function bindPostBody(selector: string) : void {
 
     $(this).find('input.servings').each((_, input) => {
       $(input).on('change', () => { void getRecipe(input).then(updateServings); });
+    });
+    $(this).find('a.report-problem').each((_, hyperlink) => {
+      $(hyperlink).on('click', () => { console.log("TODO: open problem report dialog"); });
     });
     $(this).find('button.add-recipe').each((_, button) => {
       $(button).on('click', () => { void getRecipe(button).then(addRecipe).then(updateRecipeState); });
