@@ -59,9 +59,9 @@ function reportProblemFormatter() {
     'data-i18n': i18nAttr('search:result-report-problem')
   });
   const dropdownList = $('<ul />', {'class': 'dropdown-menu'});
-  dropdownList.append($('<li />').append($('<a />', {'class': 'dropdown-item', 'text': 'Please exclude my recipe(s)'})));
-  dropdownList.append($('<li />').append($('<a />', {'class': 'dropdown-item', 'text': 'Link contains unsafe content'})));
-  dropdownList.append($('<li />').append($('<a />', {'class': 'dropdown-item', 'text': 'Offer a correction'})));
+  dropdownList.append($('<li />').append($('<a />', {'class': 'dropdown-item', 'href': '#removal-request', 'text': 'Please exclude my recipe(s)'})));
+  dropdownList.append($('<li />').append($('<a />', {'class': 'dropdown-item', 'href': '#unsafe-content', 'text': 'Link contains unsafe content'})));
+  dropdownList.append($('<li />').append($('<a />', {'class': 'dropdown-item', 'href': '#correction', 'text': 'Offer a correction'})));
 
   const container = $('<div />', {'class': 'report-problem'});
   container.append(reportButton);
@@ -253,7 +253,7 @@ function bindPostBody(selector: string) : void {
         const reportForm = new bootstrap.Modal('#problem-report-modal');
         reportForm.show();
 
-        const tab = new bootstrap.Tab('#problem-report-modal a[href="#removal-request"]');
+        const tab = new bootstrap.Tab(`#problem-report-modal a[href="${hyperlink.attributes.href.value}"]`);
         tab.show();
       });
     });
