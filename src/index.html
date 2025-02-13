@@ -418,20 +418,26 @@
         <div class="tab-pane" id="removal-request" role="tabpanel">
           <form class="card">
             <!-- allow at-least-one of: email address, content re-use policy URL, noindex annotation -->
+            <input id="report_type" type="hidden" value="removal_request" />
             <input id="content-owner-email" type="text" />
             <input id="content-reuse-policy" type="text" />
             <input id="content-noindex-directive" type="checkbox" />
+            <button class="btn btn-primary" type="submit"></button>
           </form>
         </div>
         <div class="tab-pane" id="unsafe-content" role="tabpanel">
           <form class="card">
+            <input id="report_type" type="hidden" value="unsafe_content" />
+            <button class="btn btn-primary" type="submit"></button>
           </form>
         </div>
         <div class="tab-pane" id="correction" role="tabpanel">
           <form class="card">
             <!-- require: description of expected-content as compared to found-content -->
+            <input id="report_type" type="hidden" value="correction" />
             <input id="content-expected" type="text" />
             <input id="content-found" type="text" />
+            <button class="btn btn-primary" type="submit"></button>
           </form>
         </div>
       </div>
