@@ -164,12 +164,12 @@ function recipeFormatter(value: HTMLElement, recipe: Recipe) : HTMLElement {
   container.append(attribution);
   container.append(star);
   container.append(table);
-  container.append(reportProblem);
 
   container.append($('<button />', {
     'class': 'add btn btn-outline-primary add-recipe float-right',
     'data-i18n': i18nAttr('search:result-add-recipe')
   }));
+  container.append(reportProblem);
 
   return container.html();
 }
