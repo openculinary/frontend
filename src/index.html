@@ -400,6 +400,26 @@
       </div>
     </div>
 
+    <div id="problem-report-modal" class="modal" role="dialog">
+      <div class="modal-header">
+        <ul class="nav nav-pills" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" href="#removal-request" data-bs-toggle="tab" role="tab">Removal Request</a>
+          </li>
+        </ul>
+      </div>
+      <div class="modal-body tab-content">
+        <div class="tab-pane" id="removal-request" role="tabpanel">
+          <form class="card">
+            <!-- allow at-least-one of: email address, content re-use policy URL, noindex annotation -->
+            <input id="content-owner-email" type="text" />
+            <input id="content-reuse-policy" type="text" />
+            <input id="content-noindex-directive" type="checkbox" />
+          </form>
+        </div>
+      </div>
+    </div>
+
     <footer>
       <div class="container">
         <div class="row justify-content-evenly">
