@@ -406,6 +406,12 @@
           <li class="nav-item">
             <a class="nav-link active" href="#removal-request" data-bs-toggle="tab" role="tab">Removal Request</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#unsafe-content" data-bs-toggle="tab" role="tab">Unsafe Content</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#correction" data-bs-toggle="tab" role="tab">Correction</a>
+          </li>
         </ul>
       </div>
       <div class="modal-body tab-content">
@@ -415,6 +421,17 @@
             <input id="content-owner-email" type="text" />
             <input id="content-reuse-policy" type="text" />
             <input id="content-noindex-directive" type="checkbox" />
+          </form>
+        </div>
+        <div class="tab-pane" id="unsafe-content" role="tabpanel">
+          <form class="card">
+          </form>
+        </div>
+        <div class="tab-pane" id="correction" role="tabpanel">
+          <form class="card">
+            <!-- require: description of expected-content as compared to found-content -->
+            <input id="content-expected" type="text" />
+            <input id="content-found" type="text" />
           </form>
         </div>
       </div>
