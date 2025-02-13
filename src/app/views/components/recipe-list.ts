@@ -53,9 +53,19 @@ function starFormatter() {
 }
 
 function reportProblemFormatter() {
-  const container = $('<a />', {'class': 'report-problem'});
-  container.append($('<div />', {'class': 'icon', 'html': '&#x26a0;'}));
-  container.append($('<div />', {'data-i18n': i18nAttr('search:result-report-problem')}));
+  const reportButton = $('<button />', {
+    'class': 'btn btn-outline-danger dropdown-toggle',
+    'data-bs-toggle': 'dropdown',
+    'data-i18n': i18nAttr('search:result-report-problem')
+  });
+  const dropdownList = $('<ul />', {'class': 'dropdown-menu'});
+  dropdownList.append($('<li />').append($('<a />', {'class': 'dropdown-item', 'text': 'Please exclude my recipe(s)'})));
+  dropdownList.append($('<li />').append($('<a />', {'class': 'dropdown-item', 'text': 'Link contains unsafe content'})));
+  dropdownList.append($('<li />').append($('<a />', {'class': 'dropdown-item', 'text': 'Offer a correction'})));
+
+  const container = $('<div />', {'class': 'report-problem'});
+  container.append(reportButton);
+  container.append(dropdownList);
   return container;
 }
 
@@ -238,7 +248,7 @@ function bindPostBody(selector: string) : void {
     $(this).find('input.servings').each((_, input) => {
       $(input).on('change', () => { void getRecipe(input).then(updateServings); });
     });
-    $(this).find('a.report-problem').each((_, hyperlink) => {
+    $(this).find('div.report-problem ul.dropdown-menu a').each((_, hyperlink) => {
       $(hyperlink).on('click', () => {
         const reportForm = new bootstrap.Modal('#problem-report-modal');
         reportForm.show();
