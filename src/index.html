@@ -401,44 +401,48 @@
     </div>
 
     <div id="problem-report-modal" class="modal" role="dialog">
-      <div class="modal-header">
-        <ul class="nav nav-pills" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link active" href="#removal-request" data-bs-toggle="tab" role="tab">Removal Request</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#unsafe-content" data-bs-toggle="tab" role="tab">Unsafe Content</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#correction" data-bs-toggle="tab" role="tab">Correction</a>
-          </li>
-        </ul>
-      </div>
-      <div class="modal-body tab-content">
-        <div class="tab-pane" id="removal-request" role="tabpanel">
-          <form class="card">
-            <!-- allow at-least-one of: email address, content re-use policy URL, noindex annotation -->
-            <input id="report_type" type="hidden" value="removal_request" />
-            <input id="content-owner-email" type="text" />
-            <input id="content-reuse-policy" type="text" />
-            <input id="content-noindex-directive" type="checkbox" />
-            <button class="btn btn-primary" type="submit"></button>
-          </form>
-        </div>
-        <div class="tab-pane" id="unsafe-content" role="tabpanel">
-          <form class="card">
-            <input id="report_type" type="hidden" value="unsafe_content" />
-            <button class="btn btn-primary" type="submit"></button>
-          </form>
-        </div>
-        <div class="tab-pane" id="correction" role="tabpanel">
-          <form class="card">
-            <!-- require: description of expected-content as compared to found-content -->
-            <input id="report_type" type="hidden" value="correction" />
-            <input id="content-expected" type="text" />
-            <input id="content-found" type="text" />
-            <button class="btn btn-primary" type="submit"></button>
-          </form>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <ul class="nav nav-pills" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" href="#removal-request" data-bs-toggle="tab" role="tab">Removal Request</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#unsafe-content" data-bs-toggle="tab" role="tab">Unsafe Content</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#correction" data-bs-toggle="tab" role="tab">Correction</a>
+              </li>
+            </ul>
+          </div>
+          <div class="modal-body tab-content">
+            <div class="tab-pane" id="removal-request" role="tabpanel">
+              <form class="card">
+                <!-- allow at-least-one of: email address, content re-use policy URL, noindex annotation -->
+                <input id="report_type" type="hidden" value="removal_request" />
+                <input id="content-owner-email" type="text" />
+                <input id="content-reuse-policy" type="text" />
+                <input id="content-noindex-directive" type="checkbox" />
+                <button class="btn btn-primary" type="submit"></button>
+              </form>
+            </div>
+            <div class="tab-pane" id="unsafe-content" role="tabpanel">
+              <form class="card">
+                <input id="report_type" type="hidden" value="unsafe_content" />
+                <button class="btn btn-primary" type="submit"></button>
+              </form>
+            </div>
+            <div class="tab-pane" id="correction" role="tabpanel">
+              <form class="card">
+                <!-- require: description of expected-content as compared to found-content -->
+                <input id="report_type" type="hidden" value="correction" />
+                <input id="content-expected" type="text" />
+                <input id="content-found" type="text" />
+                <button class="btn btn-primary" type="submit"></button>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>
