@@ -77,11 +77,6 @@ div.recipe-list .report-problem {
   line-height: 1rem;
 }
 
-div.recipe-list .report-problem .icon {
-  color: red;
-  font-weight: bold;
-}
-
 div.recipe-list .recipe table {
   clear: both;
 }
