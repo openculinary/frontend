@@ -1,3 +1,4 @@
+import * as bootstrap from 'bootstrap';
 import { Duration } from 'luxon';
 import * as $ from 'jquery';
 import 'tablesaw/dist/stackonly/tablesaw.stackonly.jquery.js';
@@ -238,7 +239,13 @@ function bindPostBody(selector: string) : void {
       $(input).on('change', () => { void getRecipe(input).then(updateServings); });
     });
     $(this).find('a.report-problem').each((_, hyperlink) => {
-      $(hyperlink).on('click', () => { console.log("TODO: open problem report dialog"); });
+      $(hyperlink).on('click', () => {
+        const reportForm = new bootstrap.Modal('#problem-report-modal');
+        reportForm.show();
+
+        const tab = new bootstrap.Tab('#problem-report-modal a[href="#removal-request"]');
+        tab.show();
+      });
     });
     $(this).find('button.add-recipe').each((_, button) => {
       $(button).on('click', () => { void getRecipe(button).then(addRecipe).then(updateRecipeState); });
