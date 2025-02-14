@@ -59,9 +59,9 @@ function reportProblemFormatter() {
     'data-i18n': i18nAttr('search:result-report-problem')
   });
   const dropdownList = $('<ul />', {'class': 'dropdown-menu'});
-  dropdownList.append($('<li />').append($('<a />', {'class': 'dropdown-item', 'href': '#removal-request', 'text': 'Please exclude my recipe(s)'})));
-  dropdownList.append($('<li />').append($('<a />', {'class': 'dropdown-item', 'href': '#unsafe-content', 'text': 'Link contains unsafe content'})));
-  dropdownList.append($('<li />').append($('<a />', {'class': 'dropdown-item', 'href': '#correction', 'text': 'Offer a correction'})));
+  dropdownList.append($('<li />').append($('<a />', {'class': 'dropdown-item', 'href': '#removal-request', 'data-i18n': i18nAttr('problem-reports:menu-text-removal-request')})));
+  dropdownList.append($('<li />').append($('<a />', {'class': 'dropdown-item', 'href': '#unsafe-content', 'data-i18n': i18nAttr('problem-reports:menu-text-unsafe-content')})));
+  dropdownList.append($('<li />').append($('<a />', {'class': 'dropdown-item', 'href': '#correction', 'data-i18n': i18nAttr('problem-reports:menu-text-correction')})));
 
   const container = $('<div />', {'class': 'report-problem'});
   container.append(reportButton);
