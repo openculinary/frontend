@@ -406,13 +406,13 @@
           <div class="modal-header">
             <ul class="nav nav-pills" role="tablist">
               <li class="nav-item">
-                <a class="nav-link active" href="#removal-request" data-bs-toggle="tab" role="tab">Removal Request</a>
+                <a class="nav-link active" href="#removal-request" data-bs-toggle="tab" role="tab" data-i18n="problem-reports:nav-text-removal-request"></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#unsafe-content" data-bs-toggle="tab" role="tab">Unsafe Content</a>
+                <a class="nav-link" href="#unsafe-content" data-bs-toggle="tab" role="tab" data-i18n="problem-reports:nav-text-unsafe-content-notification"></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#correction" data-bs-toggle="tab" role="tab">Correction</a>
+                <a class="nav-link" href="#correction" data-bs-toggle="tab" role="tab" data-i18n="problem-reports:nav-text-correction"></a>
               </li>
             </ul>
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -425,22 +425,22 @@
                 <input id="content-owner-email" type="text" placeholder="email@recipes.test" />
                 <input id="content-reuse-policy" type="text" placeholder="https://recipes.test/content-reuse-policy.html" />
                 <input id="content-noindex-directive" type="checkbox" />
-                <button class="btn btn-primary" type="submit">Send request</button>
+                <button class="btn btn-primary" type="submit" data-i18n="problem-reports:submit-removal-request"></button>
               </form>
             </div>
             <div class="tab-pane" id="unsafe-content" role="tabpanel">
               <form class="card">
                 <input id="report_type" type="hidden" value="unsafe_content" />
-                <button class="btn btn-primary" type="submit">Send notification</button>
+                <button class="btn btn-primary" type="submit" data-i18n="problem-reports:submit-unsafe-content-notification"></button>
               </form>
             </div>
             <div class="tab-pane" id="correction" role="tabpanel">
               <form class="card">
                 <!-- require: description of expected-content as compared to found-content -->
                 <input id="report_type" type="hidden" value="correction" />
-                <input id="content-expected" type="text" placeholder="Expected: three medium onions" />
-                <input id="content-found" type="text" placeholder="Found: one small onion" />
-                <button class="btn btn-primary" type="submit">Send correction</button>
+                <input id="content-expected" type="text" data-i18n="[placeholder]problem-reports:placeholder-correction-expected-content" />
+                <input id="content-found" type="text" data-i18n="[placeholder]problem-reports:placeholder-correction-found-content" />
+                <button class="btn btn-primary" type="submit" data-i18n="problem-reports:submit-correction"></button>
               </form>
             </div>
           </div>
