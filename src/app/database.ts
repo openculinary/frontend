@@ -32,7 +32,6 @@ export interface Recipe {
     author: string,
     author_url: string,
     title: string,
-    image_url: string,
     time: number,
     servings: number,
     rating: number,
@@ -68,7 +67,7 @@ class Database extends Dexie {
     constructor() {
       super('RecipeRadar');
 
-      this.version(20241219).stores({
+      this.version(20250214).stores({
         ingredients: '[recipe_id+product_id+index], recipe_id, product_id',
         products: 'id',
         recipes: 'id',
