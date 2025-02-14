@@ -34,6 +34,7 @@ i18next && void i18next.use(BrowserLanguage).use(HTTP).init({
     'footer',
     'meal-planner',
     'navigation',
+    'problem-reports',
     'search',
     'shopping-list',
     'starred-recipes',
