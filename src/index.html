@@ -419,27 +419,30 @@
           </div>
           <div class="modal-body tab-content">
             <div class="tab-pane active" id="removal-request" role="tabpanel">
-              <form class="card">
+              <form class="card" method="POST" action="/api/recipes/report">
                 <!-- allow at-least-one of: email address, content re-use policy URL, noindex annotation -->
-                <input id="report_type" type="hidden" value="removal_request" />
-                <input id="content-owner-email" type="text" placeholder="email@recipes.test" />
-                <input id="content-reuse-policy" type="text" placeholder="https://recipes.test/content-reuse-policy.html" />
-                <input id="content-noindex-directive" type="checkbox" />
+                <input name="recipe_id" type="hidden" />
+                <input name="report_type" type="hidden" value="removal_request" />
+                <input name="content-owner-email" type="text" placeholder="email@recipes.test" />
+                <input name="content-reuse-policy" type="text" placeholder="https://recipes.test/content-reuse-policy.html" />
+                <input name="content-noindex-directive" type="checkbox" />
                 <button class="btn btn-primary" type="submit" data-i18n="problem-reports:submit-removal-request"></button>
               </form>
             </div>
             <div class="tab-pane" id="unsafe-content" role="tabpanel">
-              <form class="card">
-                <input id="report_type" type="hidden" value="unsafe_content" />
+              <form class="card" method="POST" action="/api/recipes/report">
+                <input name="recipe_id" type="hidden" />
+                <input name="report_type" type="hidden" value="unsafe_content" />
                 <button class="btn btn-primary" type="submit" data-i18n="problem-reports:submit-unsafe-content-notification"></button>
               </form>
             </div>
             <div class="tab-pane" id="correction" role="tabpanel">
-              <form class="card">
+              <form class="card" method="POST" action="/api/recipes/report">
                 <!-- require: description of expected-content as compared to found-content -->
-                <input id="report_type" type="hidden" value="correction" />
-                <input id="content-expected" type="text" data-i18n="[placeholder]problem-reports:placeholder-correction-expected-content" />
-                <input id="content-found" type="text" data-i18n="[placeholder]problem-reports:placeholder-correction-found-content" />
+                <input name="recipe_id" type="hidden" />
+                <input name="report_type" type="hidden" value="correction" />
+                <input name="content-expected" type="text" data-i18n="[placeholder]problem-reports:placeholder-correction-expected-content" />
+                <input name="content-found" type="text" data-i18n="[placeholder]problem-reports:placeholder-correction-found-content" />
                 <button class="btn btn-primary" type="submit" data-i18n="problem-reports:submit-correction"></button>
               </form>
             </div>

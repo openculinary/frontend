@@ -250,11 +250,15 @@ function bindPostBody(selector: string) : void {
     });
     $(this).find('div.report-problem ul.dropdown-menu a').each((_, hyperlink) => {
       $(hyperlink).on('click', () => {
-        const reportForm = new bootstrap.Modal('#problem-report-modal');
-        reportForm.show();
+        const recipeId = getRecipe(hyperlink).then(recipe => {
+          $('#problem-report-modal input[name="recipe_id"]').val(recipe.id);
 
-        const tab = new bootstrap.Tab(`#problem-report-modal a[href="${hyperlink.attributes.href.value}"]`);
-        tab.show();
+          const reportForm = new bootstrap.Modal('#problem-report-modal');
+          reportForm.show();
+
+          const tab = new bootstrap.Tab(`#problem-report-modal a[href="${hyperlink.attributes.href.value}"]`);
+          tab.show();
+        });
       });
     });
     $(this).find('button.add-recipe').each((_, button) => {
