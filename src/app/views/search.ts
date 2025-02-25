@@ -1,3 +1,4 @@
+import * as bootstrap from 'bootstrap';
 import * as $ from 'jquery';
 import * as debounce from 'debounce';
 
@@ -32,7 +33,32 @@ function pushSearch() : void {
 $('#search form button').on('click', pushSearch);
 
 function sendProblemReport() : boolean {
-  $.post("/api/recipes/report", $(this).serialize());
+  $.post("/api/recipes/report", $(this).serialize())
+    .always(() => {
+      $('#problem-report-modal').modal('toggle');
+    })
+    .done(() => {
+      const modal = $('#problem-report-status-modal');
+      const title = modal.find('.modal-title').empty();
+      const body = modal.find('.modal-body').empty();
+      title.append($('<h5 />', {'data-i18n': i18nAttr('problem-reports:report-status-success-title')}));
+      body.append($('<p />', {'data-i18n': i18nAttr('problem-reports:report-status-success-message')}));
+      modal.localize();
+
+      const statusModal = new bootstrap.Modal('#problem-report-status-modal');
+      statusModal.show();
+    })
+    .fail(() => {
+      const modal = $('#problem-report-status-modal');
+      const title = modal.find('.modal-title').empty();
+      const body = modal.find('.modal-body').empty();
+      title.append($('<h5 />', {'data-i18n': i18nAttr('problem-reports:report-status-failure-title')}));
+      body.append($('<p />', {'data-i18n': i18nAttr('problem-reports:report-status-failure-message')}));
+      modal.localize();
+
+      const statusModal = new bootstrap.Modal('#problem-report-status-modal');
+      statusModal.show();
+    });
   return false;
 }
 
