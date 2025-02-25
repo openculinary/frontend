@@ -423,15 +423,15 @@
                 <!-- allow at-least-one of: email address, content re-use policy URL, noindex annotation -->
                 <input name="recipe_id" type="hidden" />
                 <input name="report_type" type="hidden" value="removal_request" />
-                <div class="form-floating">
+                <div class="mb-3 form-floating">
                   <input class="form-control" id="content-owner-email" name="content-owner-email" type="email" placeholder="email@recipes.test" />
                   <label for="content-owner-email" data-i18n="problem-reports:content-owner-email-label"></label>
                 </div>
-                <div class="form-floating">
+                <div class="mb-3 form-floating">
                   <input class="form-control" id="content-reuse-policy" name="content-reuse-policy" type="url" placeholder="https://recipes.test/content-reuse-policy.html" />
                   <label for="content-reuse-policy" data-i18n="problem-reports:content-reuse-policy-label"></label>
                 </div>
-                <div class="form-check">
+                <div class="mb-3 form-check">
                   <input class="form-check-input" id="content-noindex-directive" name="content-noindex-directive" type="checkbox" />
                   <label for="content-noindex-directive" data-i18n="problem-reports:content-noindex-directive-label"></label>
                 </div>
@@ -450,11 +450,11 @@
                 <!-- require: description of expected-content as compared to found-content -->
                 <input name="recipe_id" type="hidden" />
                 <input name="report_type" type="hidden" value="correction" />
-                <div class="form-floating">
+                <div class="mb-3 form-floating">
                   <input class="form-control" id="content-expected" name="content-expected" type="text" data-i18n="[placeholder]problem-reports:placeholder-correction-expected-content" />
                   <label for="content-expected" data-i18n="problem-reports:content-expected-label"></label>
                 </div>
-                <div class="form-floating">
+                <div class="mb-3 form-floating">
                   <input class="form-control" id="content-found" name="content-found" type="text" data-i18n="[placeholder]problem-reports:placeholder-correction-found-content" />
                   <label for="content-found" data-i18n="problem-reports:content-found-label"></label>
                 </div>
