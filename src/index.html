@@ -422,7 +422,7 @@
               <form>
                 <!-- allow at-least-one of: email address, content re-use policy URL, noindex annotation -->
                 <input name="recipe_id" type="hidden" required="required" />
-                <input name="report_type" type="hidden" value="removal_request" />
+                <input name="report_type" type="hidden" value="removal-request" />
                 <div class="mb-3 form-floating">
                   <input class="form-control" id="content-owner-email" name="content-owner-email" type="email" placeholder="email@recipes.test" />
                   <label for="content-owner-email" data-i18n="problem-reports:content-owner-email-label"></label>
@@ -441,7 +441,7 @@
             <div class="tab-pane" id="unsafe-content" role="tabpanel">
               <form>
                 <input name="recipe_id" type="hidden" required="required" />
-                <input name="report_type" type="hidden" value="unsafe_content" />
+                <input name="report_type" type="hidden" value="unsafe-content" />
                 <button class="btn btn-primary" type="submit" data-i18n="problem-reports:submit-unsafe-content-notification"></button>
               </form>
             </div>
