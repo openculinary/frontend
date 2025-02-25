@@ -423,9 +423,12 @@
                 <!-- allow at-least-one of: email address, content re-use policy URL, noindex annotation -->
                 <input name="recipe_id" type="hidden" />
                 <input name="report_type" type="hidden" value="removal_request" />
-                <input name="content-owner-email" type="text" placeholder="email@recipes.test" />
-                <input name="content-reuse-policy" type="text" placeholder="https://recipes.test/content-reuse-policy.html" />
-                <input name="content-noindex-directive" type="checkbox" />
+                <label for="content-owner-email" data-i18n="problem-reports:content-owner-email-label"></label>
+                <input id="content-owner-email" name="content-owner-email" type="text" placeholder="email@recipes.test" />
+                <label for="content-reuse-policy" data-i18n="problem-reports:content-reuse-policy-label"></label>
+                <input id="content-reuse-policy" name="content-reuse-policy" type="text" placeholder="https://recipes.test/content-reuse-policy.html" />
+                <label for="content-noindex-directive" data-i18n="problem-reports:content-noindex-directive-label"></label>
+                <input id="content-noindex-directive" name="content-noindex-directive" type="checkbox" />
                 <button class="btn btn-primary" type="submit" data-i18n="problem-reports:submit-removal-request"></button>
               </form>
             </div>
@@ -441,8 +444,10 @@
                 <!-- require: description of expected-content as compared to found-content -->
                 <input name="recipe_id" type="hidden" />
                 <input name="report_type" type="hidden" value="correction" />
-                <input name="content-expected" type="text" data-i18n="[placeholder]problem-reports:placeholder-correction-expected-content" />
-                <input name="content-found" type="text" data-i18n="[placeholder]problem-reports:placeholder-correction-found-content" />
+                <label for="content-expected" data-i18n="problem-reports:content-expected-label"></label>
+                <input id="content-expected" name="content-expected" type="text" data-i18n="[placeholder]problem-reports:placeholder-correction-expected-content" />
+                <label for="content-found" data-i18n="problem-reports:content-found-label"></label>
+                <input id="content-found" name="content-found" type="text" data-i18n="[placeholder]problem-reports:placeholder-correction-found-content" />
                 <button class="btn btn-primary" type="submit" data-i18n="problem-reports:submit-correction"></button>
               </form>
             </div>
