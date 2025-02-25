@@ -419,7 +419,7 @@
           </div>
           <div class="modal-body tab-content">
             <div class="tab-pane active" id="removal-request" role="tabpanel">
-              <form class="card" method="POST" action="/api/recipes/report">
+              <form method="POST" action="/api/recipes/report">
                 <!-- allow at-least-one of: email address, content re-use policy URL, noindex annotation -->
                 <input name="recipe_id" type="hidden" />
                 <input name="report_type" type="hidden" value="removal_request" />
@@ -439,14 +439,14 @@
               </form>
             </div>
             <div class="tab-pane" id="unsafe-content" role="tabpanel">
-              <form class="card" method="POST" action="/api/recipes/report">
+              <form method="POST" action="/api/recipes/report">
                 <input name="recipe_id" type="hidden" />
                 <input name="report_type" type="hidden" value="unsafe_content" />
                 <button class="btn btn-primary" type="submit" data-i18n="problem-reports:submit-unsafe-content-notification"></button>
               </form>
             </div>
             <div class="tab-pane" id="correction" role="tabpanel">
-              <form class="card" method="POST" action="/api/recipes/report">
+              <form method="POST" action="/api/recipes/report">
                 <!-- require: description of expected-content as compared to found-content -->
                 <input name="recipe_id" type="hidden" />
                 <input name="report_type" type="hidden" value="correction" />
