@@ -31,6 +31,11 @@ function pushSearch() : void {
 }
 $('#search form button').on('click', pushSearch);
 
+function sendProblemReport() : void {
+  $.post("/api/recipes/report", $(this).parent('form').serialize());
+}
+$('#problem-report-modal form button').on('click', sendProblemReport);
+
 function renderRecipe() : void {
   const state = getState();
   void getRecipeById(state.id).then(recipe => {
@@ -225,4 +230,5 @@ $(function() {
   bindLoadEvent('#search', () => scrollToResults('#search', 50));
 
   $('#search form').on('submit', () => false);
+  $('#problem-report-modal form').on('submit', () => false);
 });
