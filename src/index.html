@@ -421,7 +421,7 @@
             <div class="tab-pane active" id="removal-request" role="tabpanel">
               <form method="POST" action="/api/recipes/report">
                 <!-- allow at-least-one of: email address, content re-use policy URL, noindex annotation -->
-                <input name="recipe_id" type="hidden" />
+                <input name="recipe_id" type="hidden" required="required" />
                 <input name="report_type" type="hidden" value="removal_request" />
                 <div class="mb-3 form-floating">
                   <input class="form-control" id="content-owner-email" name="content-owner-email" type="email" placeholder="email@recipes.test" />
@@ -440,7 +440,7 @@
             </div>
             <div class="tab-pane" id="unsafe-content" role="tabpanel">
               <form method="POST" action="/api/recipes/report">
-                <input name="recipe_id" type="hidden" />
+                <input name="recipe_id" type="hidden" required="required" />
                 <input name="report_type" type="hidden" value="unsafe_content" />
                 <button class="btn btn-primary" type="submit" data-i18n="problem-reports:submit-unsafe-content-notification"></button>
               </form>
@@ -448,14 +448,14 @@
             <div class="tab-pane" id="correction" role="tabpanel">
               <form method="POST" action="/api/recipes/report">
                 <!-- require: description of expected-content as compared to found-content -->
-                <input name="recipe_id" type="hidden" />
+                <input name="recipe_id" type="hidden" required="required" />
                 <input name="report_type" type="hidden" value="correction" />
                 <div class="mb-3 form-floating">
-                  <input class="form-control" id="content-expected" name="content-expected" type="text" data-i18n="[placeholder]problem-reports:placeholder-correction-expected-content" />
+                  <input class="form-control" id="content-expected" name="content-expected" type="text" data-i18n="[placeholder]problem-reports:placeholder-correction-expected-content" required="required" />
                   <label for="content-expected" data-i18n="problem-reports:content-expected-label"></label>
                 </div>
                 <div class="mb-3 form-floating">
-                  <input class="form-control" id="content-found" name="content-found" type="text" data-i18n="[placeholder]problem-reports:placeholder-correction-found-content" />
+                  <input class="form-control" id="content-found" name="content-found" type="text" data-i18n="[placeholder]problem-reports:placeholder-correction-found-content" required="required" />
                   <label for="content-found" data-i18n="problem-reports:content-found-label"></label>
                 </div>
                 <button class="btn btn-primary" type="submit" data-i18n="problem-reports:submit-correction"></button>
