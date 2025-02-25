@@ -23,7 +23,6 @@
          "domain" : "example-two.test",
          "dst" : "https://example-two.test/example-recipe/",
          "id" : "not-a-genuine-recipe-id",
-         "image_url" : "images/recipes/not-a-genuine-recipe-id.png",
          "ingredients" : [
             {
                "markup" : "<amt><qty>20</qty><unit>g</unit></amt> <ingredient>spaghetti</ingredient>",
