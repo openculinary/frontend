@@ -421,8 +421,8 @@
             <div class="tab-pane active" id="removal-request" role="tabpanel">
               <form>
                 <!-- allow at-least-one of: email address, content re-use policy URL, noindex annotation -->
-                <input name="recipe_id" type="hidden" required="required" />
-                <input name="report_type" type="hidden" value="removal-request" />
+                <input name="recipe-id" type="hidden" required="required" />
+                <input name="report-type" type="hidden" value="removal-request" />
                 <div class="mb-3 form-floating">
                   <input class="form-control" id="content-owner-email" name="content-owner-email" type="email" placeholder="email@recipes.test" />
                   <label for="content-owner-email" data-i18n="problem-reports:content-owner-email-label"></label>
@@ -440,16 +440,16 @@
             </div>
             <div class="tab-pane" id="unsafe-content" role="tabpanel">
               <form>
-                <input name="recipe_id" type="hidden" required="required" />
-                <input name="report_type" type="hidden" value="unsafe-content" />
+                <input name="recipe-id" type="hidden" required="required" />
+                <input name="report-type" type="hidden" value="unsafe-content" />
                 <button class="btn btn-primary" type="submit" data-i18n="problem-reports:submit-unsafe-content-notification"></button>
               </form>
             </div>
             <div class="tab-pane" id="correction" role="tabpanel">
               <form>
                 <!-- require: description of expected-content as compared to found-content -->
-                <input name="recipe_id" type="hidden" required="required" />
-                <input name="report_type" type="hidden" value="correction" />
+                <input name="recipe-id" type="hidden" required="required" />
+                <input name="report-type" type="hidden" value="correction" />
                 <div class="mb-3 form-floating">
                   <input class="form-control" id="content-expected" name="content-expected" type="text" data-i18n="[placeholder]problem-reports:placeholder-correction-expected-content" required="required" />
                   <label for="content-expected" data-i18n="problem-reports:content-expected-label"></label>
