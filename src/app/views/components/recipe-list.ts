@@ -251,7 +251,7 @@ function bindPostBody(selector: string) : void {
     $(this).find('div.report-problem ul.dropdown-menu a').each((_, hyperlink) => {
       $(hyperlink).on('click', () => {
         void getRecipe(hyperlink).then(recipe => {
-          $('#problem-report-modal input[name="recipe_id"]').val(recipe.id);
+          $('#problem-report-modal input[name="recipe-id"]').val(recipe.id);
 
           const reportForm = new bootstrap.Modal('#problem-report-modal');
           reportForm.show();
