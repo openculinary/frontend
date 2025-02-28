@@ -1,0 +1,54 @@
+{
+   "authority" : "api",
+   "facets" : {
+      "domains" : [
+         {
+            "count" : 10,
+            "key" : "example-one.test"
+         },
+         {
+            "count" : 5,
+            "key" : "example-two.test"
+         }
+      ]
+   },
+   "refinements" : [
+      "empty_query"
+   ],
+   "results" : [
+      {
+         "author" : "Test Author",
+         "author_url" : null,
+         "directions" : [],
+         "domain" : "example-two.test",
+         "dst" : "https://example-two.test/example-recipe/",
+         "id" : "not-a-genuine-recipe-id",
+         "ingredients" : [
+            {
+               "markup" : "<amt><qty>20</qty><unit>g</unit></amt> <ingredient>spaghetti</ingredient>",
+               "product" : {
+                  "category" : null,
+                  "id" : "spaghetti",
+                  "name" : "spaghetti",
+                  "plural" : "spaghetti",
+                  "singular" : "spaghetti",
+                  "state" : "required"
+               },
+               "quantity" : {
+                  "magnitude" : 20,
+                  "units" : "g"
+               }
+            }
+         ],
+         "is_dairy_free" : false,
+         "is_gluten_free" : false,
+         "is_vegan" : false,
+         "is_vegetarian" : true,
+         "rating" : 4.5,
+         "servings" : 2,
+         "time" : 15,
+         "title" : "Spaghetti"
+      }
+   ],
+   "total" : 1
+}

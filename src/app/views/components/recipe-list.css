@@ -71,6 +71,10 @@ div.recipe-list .star {
   font-size: 1rem;
 }
 
+div.recipe-list .report-problem {
+  float: left;
+}
+
 div.recipe-list .recipe table {
   clear: both;
 }

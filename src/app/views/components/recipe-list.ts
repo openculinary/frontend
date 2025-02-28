@@ -1,3 +1,4 @@
+import * as bootstrap from 'bootstrap';
 import { Duration } from 'luxon';
 import * as $ from 'jquery';
 import 'tablesaw/dist/stackonly/tablesaw.stackonly.jquery.js';
@@ -49,6 +50,23 @@ function attributionFormatter(recipe: Recipe) : $ {
 
 function starFormatter() {
   return $('<div />', {'class': 'star', 'html': '&#x269d;'});
+}
+
+function reportProblemFormatter() {
+  const reportButton = $('<button />', {
+    'class': 'btn btn-outline-danger dropdown-toggle',
+    'data-bs-toggle': 'dropdown',
+    'data-i18n': i18nAttr('search:result-report-problem')
+  });
+  const dropdownList = $('<ul />', {'class': 'dropdown-menu'});
+  dropdownList.append($('<li />').append($('<a />', {'class': 'dropdown-item', 'href': '#removal-request', 'data-i18n': i18nAttr('problem-reports:menu-text-removal-request')})));
+  dropdownList.append($('<li />').append($('<a />', {'class': 'dropdown-item', 'href': '#unsafe-content', 'data-i18n': i18nAttr('problem-reports:menu-text-unsafe-content')})));
+  dropdownList.append($('<li />').append($('<a />', {'class': 'dropdown-item', 'href': '#correction', 'data-i18n': i18nAttr('problem-reports:menu-text-correction')})));
+
+  const container = $('<div />', {'class': 'report-problem'});
+  container.append(reportButton);
+  container.append(dropdownList);
+  return container;
 }
 
 function nutritionFormatter(recipe) : $ {
@@ -141,6 +159,8 @@ function recipeFormatter(value: HTMLElement, recipe: Recipe) : HTMLElement {
   });
   table.append(row);
 
+  const reportProblem = reportProblemFormatter();
+
   container.append(attribution);
   container.append(star);
   container.append(table);
@@ -149,6 +169,7 @@ function recipeFormatter(value: HTMLElement, recipe: Recipe) : HTMLElement {
     'class': 'add btn btn-outline-primary add-recipe float-right',
     'data-i18n': i18nAttr('search:result-add-recipe')
   }));
+  container.append(reportProblem);
 
   return container.html();
 }
@@ -226,6 +247,19 @@ function bindPostBody(selector: string) : void {
 
     $(this).find('input.servings').each((_, input) => {
       $(input).on('change', () => { void getRecipe(input).then(updateServings); });
+    });
+    $(this).find('div.report-problem ul.dropdown-menu a').each((_, hyperlink) => {
+      $(hyperlink).on('click', () => {
+        void getRecipe(hyperlink).then(recipe => {
+          $('#problem-report-modal input[name="recipe-id"]').val(recipe.id);
+
+          const reportForm = new bootstrap.Modal('#problem-report-modal');
+          reportForm.show();
+
+          const tab = new bootstrap.Tab(`#problem-report-modal a[href="${hyperlink.attributes.href.value}"]`);
+          tab.show();
+        });
+      });
     });
     $(this).find('button.add-recipe').each((_, button) => {
       $(button).on('click', () => { void getRecipe(button).then(addRecipe).then(updateRecipeState); });
