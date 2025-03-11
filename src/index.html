@@ -226,6 +226,9 @@
                 <a class="nav-link" href="#about-privacy" data-bs-toggle="tab" role="tab">Privacy</a>
               </li>
               <li class="nav-item">
+                <a class="nav-link" href="#about-safety" data-bs-toggle="tab" role="tab">Safety</a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link" href="#about-credits" data-bs-toggle="tab" role="tab">Credits</a>
               </li>
               <li class="nav-item">
@@ -316,6 +319,15 @@
                 <div>SK9 5AF</div>
               </address>
               <p>The helpline number for the ICO is <a href="tel:+443031231113">(GB) 0303 123 1113</a> and their website is <a href="https://ico.org.uk/">https://ico.org.uk/</a>.</p>
+            </div>
+            <div class="tab-pane" id="about-safety" role="tabpanel">
+              <h3>Safety on RecipeRadar</h3>
+              <p>RecipeRadar is a recipe search engine and meal planner, built using HTML, JavaScript and Python.</p>
+              <p>The search results you can find using RecipeRadar are gathered from a variety of recipe websites around the World Wide Web, but we did not write the recipes ourselves, and we have not followed many of the recipes ourselves to test them.</p>
+              <p>Before a recipe from the web can be added into the search engine, our software reads each ingredient line (for example, '5 ripe tomatoes') and tries to find a named ingredient in the text.  The ingredient names that can be found are managed by our team, and currently there are about three thousand (~3,000) of them.  A recipe can only be included in the search engine if the software finds an ingredient name for every ingredient line.</p>
+              <p>To find the ingredient lines, RecipeRadar uses a Python software library called recipe-scrapers.  Unless recipe-scrapers can understand and find ingredient lines in a webpage, it cannot be included in RecipeRadar.</p>
+              <p>Each search result includes a hyperlink to the webpage where the recipe was found, and a button to report any problems with it.</p>
+              <p>Please let us know if you find any search results on RecipeRadar that seem wrong, or if the hyperlink no longer opens the expected recipe, and we will do what we can to remove or improve the result.</p>
             </div>
             <div class="tab-pane" id="about-credits" role="tabpanel">
               <h3>Contributions</h3>
@@ -483,6 +495,7 @@
           <div class="col-md-2 text-center"><a href="#about-vision">Our goals</a></div>
           <div class="col-md-2 text-center"><a href="https://blog.reciperadar.com/">Blog</a></div>
           <div class="col-md-2 text-center"><a href="#about-privacy">Privacy</a></div>
+          <div class="col-md-2 text-center"><a href="#about-safety">Safety</a></div>
           <div class="col-md-2 text-center"><a href="#about-credits">Credits</a></div>
         </div>
         <hr />
