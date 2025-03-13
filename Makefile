@@ -22,13 +22,7 @@ image: image-create webpack license-check image-finalize
 
 image-create:
 	$(eval container=$(shell buildah from docker.io/library/nginx:alpine))
-	# RFC9239, May 2022: 'text/javascript' replaces 'application/javascript'
-	# https://www.rfc-editor.org/rfc/rfc9239#section-6
-	# NOTE: There is a feature request in nginx for this to become the default
-	# https://trac.nginx.org/nginx/ticket/1407
-	buildah run $(container) -- sed --expression 's#application/javascript#text/javascript#' --in-place /etc/nginx/mime.types
-	buildah copy $(container) 'etc/nginx/conf.d' '/etc/nginx/conf.d'
-	buildah run --network none $(container) -- rm -rf '/usr/share/nginx/html' --
+	buildah copy $(container) 'etc/nginx' '/etc/nginx'
 
 webpack:
 	(test -f public/reciperadar.webmanifest && rm -rf public) || true
@@ -43,7 +37,7 @@ license-check:
 	@if [ "${references}" -ne "${checksums}" ]; then echo "error: expected ${references} licenses.txt checksums in index.html but found ${checksums}"; exit 1; fi;
 
 image-finalize:
-	buildah copy $(container) 'public' '/usr/share/nginx/html'
+	buildah copy $(container) 'public' '/usr/share/nginx/html/reciperadar'
 	buildah config --cmd '/usr/sbin/nginx -g "daemon off;"' --port 80 $(container)
 	buildah commit --omit-timestamp --quiet --rm --squash $(container) ${IMAGE_NAME}:${IMAGE_TAG}
 

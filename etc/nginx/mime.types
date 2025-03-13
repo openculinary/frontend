@@ -1,0 +1,15 @@
+types {
+    application/json json;
+    image/png        png;
+    image/x-icon     ico;
+    text/css         css;
+    text/html        html;
+    text/plain       txt;
+    text/xml         xml;
+
+# RFC9239, May 2022: 'text/javascript' replaces 'application/javascript'
+# https://www.rfc-editor.org/rfc/rfc9239#section-6
+# NOTE: There is a feature request in nginx for this to become the default
+# https://trac.nginx.org/nginx/ticket/1407
+    text/javascript  js;
+}
