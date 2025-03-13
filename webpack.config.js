@@ -71,15 +71,7 @@ module.exports = (_, env) => {
           toType: 'file'
         },
         {
-          from: `static/images/icons/${env && env.mode || 'development'}/`,
-          to: 'images/icons/',
-          toType: 'dir'
-        },
-        {
           from: 'static',
-          globOptions: {
-            ignore: ['**/images/icons/**']
-          },
           toType: 'dir'
         }
       ]}),
