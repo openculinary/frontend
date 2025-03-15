@@ -25,15 +25,15 @@ function _(s) {
 
 // Define default messages
 var default_message_strings = {
-  label: "Feedback",
-  header: "Send your Feedback",
+  label: "Feedback and Complaints",
+  header: "Send your Feedback or Complaint",
   nextLabel: "Continue",
   reviewLabel: "Review",
   sendLabel: "Send",
   closeLabel: "Close",
-  messageSuccess: "Your feedback was sent successfully.",
-  messageError: "There was an error sending your feedback to our server.",
-  formDescription: "Please write your feedback message below, and then click 'Continue' when you're ready",
+  messageSuccess: "Your message was sent successfully.",
+  messageError: "There was an error sending your message to our server.",
+  formDescription: "Please write your message below, and then click 'Continue' when you're ready",
   highlightDescription: "Click to highlight any parts of the screen related to your message",
   highlight: "Highlight",
   issue: "Issue"
