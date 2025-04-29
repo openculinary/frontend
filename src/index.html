@@ -509,5 +509,8 @@
     </footer>
 <% for (index in htmlWebpackPlugin.files.js) { if (htmlWebpackPlugin.files.js[index].match(/^html2canvas\./)) continue; let integrity = htmlWebpackPlugin.files.jsIntegrity[index], src = htmlWebpackPlugin.files.js[index]; %>
     <script integrity="<%= integrity %>" crossorigin="anonymous" src="<%= src %>"<% if (!src.match(/^app\./)) { %> async="async"<% } %>></script><% } %>
+    <!--
+    <script integrity="sha512" crossorigin="anonymous" src="sw.js"></script>
+    -->
   </body>
 </html>
