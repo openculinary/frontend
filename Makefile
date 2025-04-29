@@ -37,6 +37,7 @@ license-check:
 	@if [ "${references}" -ne "${checksums}" ]; then echo "error: expected ${references} licenses.txt checksums in index.html but found ${checksums}"; exit 1; fi;
 
 image-finalize:
+	sed --expression 's#integrity="sha512"#integrity="sha512-$(shell openssl dgst -sha512 -binary "public/sw.js" | base64 --wrap 0)"#' --in-place 'public/index.html'
 	buildah copy $(container) 'public' '/usr/share/nginx/html/reciperadar'
 	buildah config --cmd '/usr/sbin/nginx -g "daemon off;"' --port 80 $(container)
 	buildah commit --omit-timestamp --quiet --rm --squash $(container) ${IMAGE_NAME}:${IMAGE_TAG}
