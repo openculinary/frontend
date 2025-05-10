@@ -77,7 +77,10 @@ module.exports = (_, env) => {
       ]}),
       new InjectManifest({
         dontCacheBustURLsMatching: /.*/,
-        exclude: [/^api\//],
+        exclude: [
+          /^\.well-known\//,
+          /^api\//,
+        ],
         swSrc: path.resolve(__dirname, 'src/sw/sw.js')
       }),
       new SubresourceIntegrityPlugin({
