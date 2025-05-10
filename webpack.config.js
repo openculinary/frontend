@@ -80,6 +80,7 @@ module.exports = (_, env) => {
         exclude: [
           /^\.well-known\//,
           /^api\//,
+          /^locales\//,
         ],
         swSrc: path.resolve(__dirname, 'src/sw/sw.js')
       }),
