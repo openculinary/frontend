@@ -79,8 +79,10 @@ module.exports = (_, env) => {
         dontCacheBustURLsMatching: /.*/,
         exclude: [
           /^\.well-known\//,
+          /^ads.txt$/,
           /^api\//,
           /^locales\//,
+          /^robots.txt$/,
         ],
         swSrc: path.resolve(__dirname, 'src/sw/sw.js')
       }),
