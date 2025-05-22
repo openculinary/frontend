@@ -18,8 +18,8 @@
   clear: both;
 }
 
-#search .include + span { color: #70f070; }
-#search .exclude + span { color: #f07070; }
+#search .include + div span { color: #70f070; }
+#search .exclude + div span { color: #f07070; }
 
 #search .dietary-properties ~ ul {
   list-style-type: none;
