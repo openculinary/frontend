@@ -49,6 +49,7 @@ module.exports = (_, env) => {
         if (entry.chunk.name === 'html2canvas') return 'html2canvas.js';
         return '[name].[contenthash].js';
       },
+      cssFilename: '[name].[contenthash].css',
       libraryTarget: 'var',
       library: '[name]'
     },
