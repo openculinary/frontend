@@ -7,7 +7,6 @@ function bindIngredientInput(element: string, label: string, placeholder: string
   select2 && new select2($(element), {
     ajax: {
       url: '/api/autosuggest/ingredients',
-      dataType: 'json',
       data: params => ({pre: params.term}),
       processResults: data => ({
         results: data.map(item => ({
