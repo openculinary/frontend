@@ -20,7 +20,7 @@ The following resources are useful guides for designing ingredient and recipe re
 
 ## Install dependencies
 
-Make sure to follow the RecipeRadar [infrastructure](https://www.github.com/openculinary/infrastructure) setup to ensure all cluster dependencies are available in your environment.
+Make sure to follow the RecipeRadar [infrastructure](https://codeberg.org/openculinary/infrastructure) setup to ensure all cluster dependencies are available in your environment.
 
 ## Development
 
@@ -40,7 +40,7 @@ $ make
 $ make deploy
 ```
 
-If you have configured and run `haproxy` per the [infrastructure](https://www.github.com/openculinary/infrastructure) setup instructions, you should be able to run the application by navigating to `http://localhost` in a web browser.
+If you have configured and run `haproxy` per the [infrastructure](https://codeberg.org/openculinary/infrastructure) setup instructions, you should be able to run the application by navigating to `http://localhost` in a web browser.
 
 ## Internationalization
 
